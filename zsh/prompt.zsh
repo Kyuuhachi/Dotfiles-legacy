@@ -31,23 +31,25 @@ prompt_dir() {
 }
 
 prompt_git() {
-	if $(git rev-parse --is-inside-work-tree >/dev/null 2>&1); then
-		prompt_segment $([[ -n $(git status --porcelain) ]] && echo yellow || echo green) black
+	{
+		if git rev-parse --is-inside-work-tree >/dev/null; then
+			prompt_segment $([[ -n $(git status --porcelain) ]] && echo yellow || echo green) black
 
-		if git symbolic-ref HEAD >/dev/null 2>&1; then
-			echo -n " $(git symbolic-ref HEAD | sed s:refs/heads/::)"
-		else
-			echo -n "➦ $(git rev-parse --short HEAD)"
-		fi
+			if git symbolic-ref HEAD >/dev/null; then
+				echo -n " $(git symbolic-ref HEAD | sed s:refs/heads/::)"
+			else
+				echo -n "➦ $(git rev-parse --short HEAD)"
+			fi
 
-		local AHEAD=$(git log --oneline @{u}.. | wc -l)
-		local BEHIND=$(git log --oneline ..@{u} | wc -l)
-		if [[ $AHEAD -gt 0 || $BEHIND -gt 0 ]]; then
-			echo -n " "
-			[[ $AHEAD -gt 0 ]] && echo -n "↑$AHEAD"
-			[[ $BEHIND -gt 0 ]] && echo -n "↓$BEHIND"
+			local AHEAD=$(git log --oneline @{u}.. | wc -l)
+			local BEHIND=$(git log --oneline ..@{u} | wc -l)
+			if [[ $AHEAD -gt 0 || $BEHIND -gt 0 ]]; then
+				echo -n " "
+				[[ $AHEAD -gt 0 ]] && echo -n "↑$AHEAD"
+				[[ $BEHIND -gt 0 ]] && echo -n "↓$BEHIND"
+			fi
 		fi
-	fi
+	} 2> /dev/null
 }
 
 build_prompt() {
