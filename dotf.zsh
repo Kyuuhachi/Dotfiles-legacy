@@ -34,7 +34,7 @@ apply() {
 	func $(abspath $1) $(abspath $2)
 }
 
-apply ~/.zshrc zshrc
+apply ~/.zshrc zsh/zshrc
 apply ~/.i3blocks.conf i3blocks.conf
 apply ~/.i3/config i3config.conf
 apply ~/.config/nvim nvim
