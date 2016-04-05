@@ -34,7 +34,7 @@ optirun $({
 	echo -Dhttps.protocols=TLSv1,TLSv1.1,TLSv1.2
 	echo -Dsun.java2d.noddraw=true
 	echo -Duser.home=/home/caagr98
-	echo -cp $(dirname $0)/jagexappletviewer.jar
+	echo -cp ~/jagexappletviewer.jar
 	echo -Dcom.jagex.config=http://www.runescape.com/k=3/l=0/jav_config.ws
 	echo jagexappletviewer
 	echo foo
