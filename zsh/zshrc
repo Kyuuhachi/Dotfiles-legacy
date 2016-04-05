@@ -65,7 +65,7 @@ mvn() {
 #{{{2 ls
 ls() {
 	if [[ -t 1 ]]; then
-		=ls -F -x --color --group-directories-first $@
+		=ls -F -x --color $@
 	else
 		=ls -F $@
 	fi
