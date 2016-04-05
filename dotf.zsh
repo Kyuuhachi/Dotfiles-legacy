@@ -1,4 +1,4 @@
-#!/usr/bin/zsh
+#!/bin/zsh
 cd $(dirname $0)
 
 case $1 in #$1: real location, $2: ~/dot/ location

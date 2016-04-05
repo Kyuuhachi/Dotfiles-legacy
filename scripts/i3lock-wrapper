@@ -1,12 +1,10 @@
-#!/bin/bash
-set -e
-
+#!/bin/zsh
 file1=$(mktemp --tmpdir i3lock-wrapper-XXXXXXXXXX.png)
 file2=$(mktemp --tmpdir i3lock-wrapper-XXXXXXXXXX.png)
 
-scrot -z -d0 "$file1"
-convert "$file1" -blur 0x3 "$file2"
-rm "$file1"
-i3lock -i "$file2" $@
+scrot -z -d0 $file1
+convert $file1 -blur 0x3 $file2
+rm $file1
+i3lock -i $file2 $@
 
-trap "rm '$file2'" EXIT
+trap "rm $file2" EXIT

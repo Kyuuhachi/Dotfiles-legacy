@@ -1,3 +1,4 @@
+#!/bin/zsh
 #{{{1 History
 setopt histignorealldups sharehistory
 HISTSIZE=1000

@@ -1,3 +1,4 @@
+#!/bin/zsh
 CURRENT_BG=''
 prompt_segment() {
 	local bg fg
