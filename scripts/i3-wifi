@@ -1,0 +1,10 @@
+#!/bin/zsh
+[[ $BLOCK_BUTTON == 1 ]] && nm-connection-editor & # This doesn't seem to be the program I want.
+
+read type name < <(nm-tool | sed -r "/]/{s/- Device: (.+)  \[(.+)] -+/\1 \2/;p};d")
+extIp=`dig +short myip.opendns.com @resolver1.opendns.com`
+
+out="$name ($extIp)"
+echo $out
+echo $out
+echo ""

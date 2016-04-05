@@ -1,0 +1,43 @@
+#!/bin/zsh
+
+_checklid() {
+	dbus-send --system --print-reply-raw    \
+		--dest="org.freedesktop.UPower"     \
+		/org/freedesktop/UPower             \
+		org.freedesktop.DBus.Properties.Get \
+		string:org.freedesktop.UPower       \
+		string:LidIsClosed                  \
+	| grep "boolean true" > /dev/null && echo 1 || echo 0
+}
+_suspend() {
+	dbus-send --system --print-reply-raw \
+		--dest="org.freedesktop.UPower"  \
+		/org/freedesktop/UPower          \
+		org.freedesktop.UPower.Suspend
+}
+
+_trap10() {
+	if [[ $ignore == 0 ]]; then
+		ignore=15
+		notify-send "Ignoring next lid close"
+	else
+		ignore=0
+		notify-send "Not ignoring next lid close"
+	fi
+}
+trap _trap10 10
+
+prev_closed=0
+ignore=0
+
+while true; do
+	sleep 1
+
+	local closed=$(_checklid)
+	if [[ $closed == 1 && $prev_closed == 0 ]]; then 
+		[[ $ignore == 0 ]] && _suspend
+		ignore=0
+	fi
+	[[ $ignore != 0 ]] && (( ignore-- ))
+	prev_closed=$closed
+done
