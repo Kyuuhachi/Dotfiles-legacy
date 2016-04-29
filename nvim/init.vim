@@ -43,3 +43,4 @@ nnoremap gV `[v`]
 nnoremap <C-L> :nohl<CR><C-L>
 
 autocmd FileType java setlocal formatexpr=eclim#java#src#Format(v:lnum,v:lnum+v:count-1)
+autocmd FileType python set expandtab< tabstop< softtabstop< shiftwidth<
