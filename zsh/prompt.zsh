@@ -14,13 +14,28 @@ prompt_segment() {
 }
 
 prompt_status() {
+	prompt_segment black default
+
+	#Zsh nesting depth
+	local d=0
+	local pid=$PPID
+	local exe=$(readlink -f $SHELL)
+	local cmd
+	while true; do
+		cmd=$(readlink -f /proc/$pid/exe)
+		[[ "$cmd" == "$exe" ]] || break
+		((d++))
+		pid=$(ps -o ppid h $pid | sed -r "s/^\s+//;s/\s+$//")
+	done
+	printf %${d}s ""
+
+	#Various status symbols
 	local symbols
 	symbols=()
 	[[ $RETVAL -ne 0 ]] && symbols+="%{%F{red}%}✘"
 	[[ $UID -eq 0 ]] && symbols+="%{%F{yellow}%}⚡"
 	[[ $(jobs -l | wc -l) -gt 0 ]] && symbols+="%{%F{cyan}%}⚙"
-
-	prompt_segment black default "$symbols"
+	echo -n "$symbols"
 }
 
 prompt_context() {
