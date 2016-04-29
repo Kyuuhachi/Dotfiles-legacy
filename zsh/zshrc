@@ -1,4 +1,5 @@
 #!/bin/zsh
+# vim: foldmethod=marker
 #{{{1 History
 setopt histignorealldups sharehistory
 HISTSIZE=1000
@@ -10,34 +11,16 @@ autoload -Uz compinit && compinit
 autoload -Uz colors && colors
 autoload -U zmv
 
-trim() {
-	awk '
-	{
-		len = 0
-		out = ""
-		for(i = 1; i <= length($0) && len < '$1'; i++) {
-			ch = substr($0, i, 1)
-			if(ch == "\x1b") {
-				end = index(substr($0, i), "m")
-				if(end > 0) {
-					out = out substr($0, i, end)
-					i += end - 1
-				}
-			} else {
-				out = out ch
-				len++
-			}
-		}
-		print out
-	}
-	'
-}
+setopt extendedglob interactivecomments
 
-#{{{1 Variables
-win=/media/caagr98/OSDisk/Users/admusr
-: ~win
-s=car0b1nius@muncher.se
+nowrap() {
+	echoti rmam
+	cat
+	echoti smam
+}
 alias su="sudo $SHELL"
+
+s=car0b1nius@muncher.se
 
 #{{{1 CNF
 command_not_found_handler() {
@@ -68,7 +51,7 @@ ls() {
 	if [[ -t 1 ]]; then
 		=ls -F -x --color $@
 	else
-		=ls -F $@
+		=ls $@
 	fi
 }
 #{{{1 Ctrl-Z
@@ -89,54 +72,44 @@ ZSH_HIGHLIGHT_STYLES[path]='fg=cyan'
 ZSH_HIGHLIGHT_STYLES[single-hyphen-option]='fg=blue'
 ZSH_HIGHLIGHT_STYLES[double-hyphen-option]='fg=blue'
 
-#{{{1 Complete (I have no idea what this stuff means)
+ZSH_HIGHLIGHT_MAXLENGTH=300
+
+#{{{1 Completion
 source ~/dot/zsh/zsh-completions/zsh-completions.plugin.zsh
-unsetopt menu_complete   # do not autoselect the first completion entry
+unsetopt menu_complete
 unsetopt flowcontrol
-setopt auto_menu         # show completion menu on succesive tab press
+setopt auto_menu
 setopt complete_in_word
 setopt always_to_end
 WORDCHARS=''
 zmodload -i zsh/complist
 eval "$(dircolors -b)"
 
-#{{{2
-zstyle ':completion:*' auto-description 'specify: %d'
-zstyle ':completion:*' completer _expand _complete _correct _approximate
+expand-or-complete-with-dots() {
+	print -Pn "%{%F{red}......%f%}" | nowrap
+
+	zle expand-or-complete
+	zle redisplay
+}
+zle -N expand-or-complete-with-dots
+bindkey "^I" expand-or-complete-with-dots
+
+#{{{2 zstyle stuff
 zstyle ':completion:*' format 'Completing %d'
-zstyle ':completion:*' group-name ''
-zstyle ':completion:*' menu select=2
-zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' list-colors ''
 zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
-zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=* l:|=*'
-zstyle ':completion:*' menu select=long
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z-_}={A-Za-z_-}' 'r:|.=*'
 zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
 zstyle ':completion:*' use-compctl false
 zstyle ':completion:*' verbose true
-
-zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
-zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
-
-zstyle ':completion:*' matcher-list 'm:{A-Za-z}={a-zA-Z}'
-
-#{{{2
-zstyle ':completion:*' matcher-list 'm:{a-zA-Z-_}={A-Za-z_-}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
-# zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
-
-zstyle ':completion:*' list-colors ''
 zstyle ':completion:*:*:*:*:*' menu select
-zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
-zstyle ':completion:*:*:*:*:processes' command "ps -u $USER -o pid,user,comm -w -w"
-
-# disable named-directories autocompletion
+zstyle ':completion:*:*:*:*:processes' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
+zstyle ':completion:*:*:*:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:cd:*' tag-order local-directories directory-stack path-directories
-
-# Use caching so that commands like apt and dpkg complete are useable
-zstyle ':completion::complete:*' use-cache 1
+zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion::complete:*' cache-path $ZSH_CACHE_DIR
+zstyle ':completion::complete:*' use-cache 1
 
-# Don't complete uninteresting users
 zstyle ':completion:*:*:*:users' ignored-patterns \
 	adm amanda apache at avahi avahi-autoipd beaglidx bin cacti canna \
 	clamav daemon dbus distcache dnsmasq dovecot fax ftp games gdm \
@@ -146,21 +119,7 @@ zstyle ':completion:*:*:*:users' ignored-patterns \
 	operator pcap polkitd postfix postgres privoxy pulse pvm quagga radvd \
 	rpc rpcuser rpm rtkit scard shutdown squid sshd statd svn sync tftp \
 	usbmux uucp vcsa wwwrun xfs '_*'
-
-# ... unless we really want to.
 zstyle '*' single-ignored show
-
-expand-or-complete-with-dots() {
-	# toggle line-wrapping off and back on again
-	[[ -n "$terminfo[rmam]" && -n "$terminfo[smam]" ]] && echoti rmam
-	print -Pn "%{%F{red}......%f%}"
-	[[ -n "$terminfo[rmam]" && -n "$terminfo[smam]" ]] && echoti smam
-
-	zle expand-or-complete
-	zle redisplay
-}
-zle -N expand-or-complete-with-dots
-bindkey "^I" expand-or-complete-with-dots
 
 #{{{1 Prompt
 source ~/dot/zsh/prompt.zsh
