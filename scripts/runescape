@@ -13,29 +13,9 @@ i3-msg append_layout =(echo '{
 	"percent": 0.17,
 	"name": "RuneScape",
 	"swallows": [{
-		"class": "^jagexappletviewer$",
+		"class": "^Runescape$",
 		"title": "^RuneScape$"
 	}]
 }')
 
-optirun $({
-	echo java
-	echo -XX:+AggressiveOpts
-	echo -XX:+DisableExplicitGC
-	echo -XX:+TieredCompilation
-	echo -XX:+UnlockExperimentalVMOptions
-	echo -XX:+UseAdaptiveGCBoundary
-	echo -XX:+UseCompressedOops
-	echo -XX:+UseParallelGC
-	echo -XX:ReservedCodeCacheSize=256m
-	echo -XX:SurvivorRatio=16
-	echo -Xmx512m
-	echo -Xss2m
-	echo -Dhttps.protocols=TLSv1,TLSv1.1,TLSv1.2
-	echo -Dsun.java2d.noddraw=true
-	echo -Duser.home=/home/caagr98
-	echo -cp ~/jagexappletviewer.jar
-	echo -Dcom.jagex.config=http://www.runescape.com/k=3/l=0/jav_config.ws
-	echo jagexappletviewer
-	echo foo
-} | tr '\n' ' ')
+optirun runescape-launcher
