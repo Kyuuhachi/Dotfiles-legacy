@@ -34,13 +34,23 @@ set nowrap
 set shell=zsh
 
 let g:airline_powerline_fonts = 1
-let g:SuperTabDefaultCompletionType="<c-x><c-u>"
 let g:SuperTabNoCompleteAfter=['^', '\t']
 set completeopt+=longest
+
+let g:c_gnu = 1
 
 vnoremap . :norm.<CR>
 nnoremap gV `[v`]
 nnoremap <C-L> :nohl<CR><C-L>
 
+nmap gS :call <SID>SynStack()<CR>
+function! <SID>SynStack()
+  if !exists("*synstack")
+    return
+  endif
+  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+endfunc
+
 autocmd FileType java setlocal formatexpr=eclim#java#src#Format(v:lnum,v:lnum+v:count-1)
+autocmd FileType java let l:SuperTabDefaultCompletionType="<c-x><c-u>"
 autocmd FileType python set expandtab< tabstop< softtabstop< shiftwidth<

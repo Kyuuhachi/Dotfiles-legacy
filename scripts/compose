@@ -1,0 +1,18 @@
+#!/usr/bin/env python3
+import os, sys
+import dmenu #dmenu
+import Xlib, Xlib.display, Xlib.XK as XK #python3-xlib
+
+keys = []
+chars = {}
+with open(sys.argv[1], "rt") as file:
+	for line in file:
+		k, v = line.split(' ', 2)
+		keys.append(k)
+		chars[k] = v.encode("ascii").decode("unicode_escape")
+
+code = dmenu.Dmenu().show(keys)
+
+if code in chars:
+	os.system("xdotool type '%s'" % chars[code])
+	print(chars[code])

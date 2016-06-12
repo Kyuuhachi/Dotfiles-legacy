@@ -28,7 +28,7 @@ def hist(urls):
 	urls = list(cleanUrls(urls))
 	with sqlite3.connect(getProfilePath() + "/places.sqlite") as sql:
 		cur = sql.cursor()
-		query = "SELECT url FROM moz_places WHERE url IN (%s)" % ",".join("?" for a in urls)
+		query = "SELECT url FROM moz_places WHERE url IN ({})".format(",".join("?" for a in range(len(urls))))
 		cur.execute(query, urls)
 		rows = cur.fetchall()
 		hist = [row[0] for row in rows]
@@ -53,10 +53,15 @@ class Feed(util.Timer, i3py.Segment):
 		regex = re.compile(self.match)
 		for e in parser.entries:
 			if regex.match(e.title):
-				self.entries.append(e.link)
+				link = e.link
+				if hasattr(e, "feedburner_origlink"):
+					link = e.feedburner_origlink
+				self.entries.append(link)
 
-		if hasattr(parser.feed, "link"): self.mainPage = parser.feed.link
-		else: self.mainPage = self.url
+		if hasattr(parser.feed, "link"):
+			self.mainPage = parser.feed.link
+		else:
+			self.mainPage = self.url
 
 	def check(self):
 		visited = hist(self.entries)
@@ -69,16 +74,23 @@ class Feed(util.Timer, i3py.Segment):
 			self.output = None
 			self.link = None
 		else:
-			if self.seq: i += 1
-			if i >= len(visited): self.link = self.mainPage
-			else: self.link = visited[i][0]
+			if self.seq:
+				i += 1
+			if i >= len(visited):
+				self.link = self.mainPage
+			else:
+				self.link = visited[i][0]
 
 	def getOutput(self):
 		self.check()
 		return self.name if self.link else None
 
 	def click(self, button):
+		import webbrowser
 		self.check()
-		if button == 1 and self.link:
-			import webbrowser
+		if button == 1 and self.link: #Left
 			webbrowser.open(self.link)
+		if button == 2 and self.mainPage: #Mid
+			webbrowser.open(self.mainPage)
+		if button == 3 and self.url: #Right
+			webbrowser.open(self.url)

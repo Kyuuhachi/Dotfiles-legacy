@@ -1,0 +1,8 @@
+#!/bin/sh
+synclient HorizEdgeScroll=1 HorizTwoFingerScroll=0 BottomEdge=4600
+synclient VertEdgeScroll=1 VertTwoFingerScroll=0 RightEdge=4700
+synclient EmulateMidButtonTime=0 VertTwoFingerScroll=false HorizTwoFingerScroll=false
+synclient ClickFinger1=1 ClickFinger2=3 ClickFinger3=2
+synclient TapButton1=0 TapButton2=0 TapButton3=0
+synclient ClickPad=1
+xmodmap -e "keycode 66 = Multi_key" -e "clear Lock"

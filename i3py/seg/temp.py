@@ -7,6 +7,6 @@ class Temp(i3py.Segment):
 		with open(self.file, "r") as f:
 			temp = float(f.read().strip()) / 1000
 		out = {}
-		out["full_text"] = "%d°C" % round(temp)
+		out["full_text"] = "{}°C".format(round(temp))
 		if temp >= 90: out["urgent"] = True
 		return out

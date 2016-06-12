@@ -24,16 +24,17 @@ class Battery(i3py.Segment):
 			charging = battery["status"] == "Charging"
 			symbol = "↑" if charging else "↓"
 
-			cons = battery["power_now"] / 10**6
-			remaining = battery["energy_now"]
-			if charging: remaining = battery["energy_full"] - remaining
-			remaining = remaining / battery["power_now"] * 60**2
-			remainingTime = time.strftime("%H:%M", time.gmtime(remaining))
+			consumption = battery["power_now"] / 10**6
 
-			text = "⚡ %.0f%% %s%.2fW (%s)" % (percent, symbol, cons, remainingTime)
+			if charging:
+				remaining = battery["energy_full"] - battery["energy_now"]
+			else:
+				remaining = battery["energy_now"]
+			remainingTime = time.strftime("%H:%M", time.gmtime(remaining / battery["power_now"] * 60**2))
+
 			out = {}
-			out["full_text"] = text
+			out["full_text"] = "⚡ {:.0f}% {}{:.2f}W ({})".format(percent, symbol, consumption, remainingTime)
 			if percent < 10: out["urgent"] = True
 			return out
 		else:
-			return "⚡ %.0f%%" % percent
+			return "⚡ {:.0f}%".format(percent)

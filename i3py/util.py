@@ -8,7 +8,7 @@ class Timer:
 
 	def __init__(self, interval=None, target=None, name=None):
 		if interval: self.interval = interval
-		if target: self._target = target
+		if target: self.run = target
 		if name: self.name = name
 
 	def start(self):
@@ -25,9 +25,8 @@ class Timer:
 		pass
 
 	def _run(self):
-		if not self._target: self._target = self.run
 		while True:
-			self._target()
+			self.run()
 			self._event.wait()
 			self._event.clear()
 
@@ -35,6 +34,41 @@ class Timer:
 		while True:
 			time.sleep(self.interval)
 			self.interrupt()
+	
+	def isAlive(self):
+		return self._thread.isAlive()
+
+class Timeout:
+	interval = 1
+	_target = None
+	name = None
+	_cancel = False
+	_running = False
+
+	def __init__(self, interval=None, target=None, name=None):
+		if interval: self.interval = interval
+		if target: self.run = target
+		if name: self.name = name
+
+	def start(self):
+		self._thread = threading.Thread(target=self._run, name=str(self.name) + "-event")
+		self._event = threading.Event()
+		self._thread.start()
+
+	def interrupt(self): #TODO add some way to actually cancel it
+		self._event.set()
+
+	def run(self):
+		pass
+
+	def _run(self):
+		self._running = True
+		self._event.wait(self.interval)
+		self._running = False
+		self.run()
+
+	def isAlive(self):
+		return self._running
 
 def group(data, count=2, default=None):
 	it = iter(data)
@@ -44,7 +78,7 @@ def group(data, count=2, default=None):
 			try:
 				out[n] = next(it)
 			except StopIteration:
-				if n != 0: yield tuple(out)
+				if out: yield tuple(out)
 				raise
 		yield tuple(out)
 
@@ -61,7 +95,7 @@ def braillegraph(data, fill=False):
 	def topFunc(x):
 		n = fillFunc(x);
 		return n & ~(n >> 1)
-	func = fillFunc if fill else topFunc
+	func = [topFunc, fillFunc][fill]
 
 	return "".join([
 		braille(a | b << 4)

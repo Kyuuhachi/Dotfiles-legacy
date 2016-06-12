@@ -342,7 +342,7 @@ class LibPulse:
 					if args and hasattr(args[0], "contents") and isinstance(args[0].contents, PA_CONTEXT):
 						err.append(self.strerror(self.context_errno(args[0])))
 					else:
-						err.append('Return value check failed: % (%)' % (ret_type, res))
+						err.append("Return value check failed: {} ({})".format(ret_type, res))
 					raise self.CallError(*err)
 			return res
 

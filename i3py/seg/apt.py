@@ -13,9 +13,9 @@ class Apt(util.Timer, i3py.Segment):
 
 	def getOutput(self):
 		if self.updates == 0: return None
-		return "Updates: %d" % self.updates
+		return "Updates: {}".format(self.updates)
 	
 	def click(self, button):
 		if button == 1:
-			subprocess.Popen(["mate-terminal", "-x", "sudo", "aptitude"])
+			subprocess.Popen(["mate-terminal", "-x", "sudo", "aptitude", "upgrade"])
 			self.updates = 0

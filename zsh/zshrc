@@ -1,7 +1,7 @@
 #!/bin/zsh
 # vim: foldmethod=marker
 #{{{1 History
-setopt histignorealldups sharehistory
+setopt histignorealldups
 HISTSIZE=1000
 SAVEHIST=1000
 HISTFILE=~/.zsh_history
@@ -19,8 +19,11 @@ nowrap() {
 	echoti smam
 }
 alias su="sudo $SHELL"
+alias o=xdg-open
 
 s=car0b1nius@muncher.se
+win=/mnt/windows/Users/admusr
+: ~win
 
 #{{{1 CNF
 command_not_found_handler() {
