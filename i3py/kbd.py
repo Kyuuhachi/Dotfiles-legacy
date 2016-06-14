@@ -12,8 +12,9 @@ import i3py.util
 class Kbd:
 	sel = None
 	def start(self):
-		i3py.ipc("kbd", i3py.util.OtherThread(self.run))
-
+		i3py.ipc("kbd", self.run)
+	
+	@i3py.util.OtherThread
 	def run(self):
 		disp = Display()
 		root = disp.screen().root

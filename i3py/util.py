@@ -1,5 +1,6 @@
 import threading
 import time
+import functools
 
 class Timer:
 	interval = 1
@@ -68,18 +69,11 @@ class Timeout:
 	def isAlive(self):
 		return self._running
 
-class OtherThread:
-	name = None
-
-	def __init__(self, target=None, name=None):
-		if target: self.run = target
-		if name: self.name = name
-
-	def run(self, *args):
-		pass
-
-	def __call__(self, *args):
-		threading.Thread(target=self.run, name=str(self.name) + "-event", args=args).start()
+def OtherThread(func):
+	@functools.wraps(func)
+	def wrap(*args, **kwargs):
+		threading.Thread(target=func, name=func.__name__+"-thread", args=args, kwargs=kwargs).start()
+	return wrap
 
 def group(data, count=2, default=None):
 	it = iter(data)

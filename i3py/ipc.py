@@ -14,8 +14,9 @@ class Ipc:
 		except OSError:
 			if os.path.exists(self.server_address):
 				raise
-		i3py.util.OtherThread(self.run)()
+		self.run()
 
+	@i3py.util.OtherThread
 	def run(self):
 		sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
 		sock.bind(self.server_address)
@@ -24,7 +25,6 @@ class Ipc:
 			connection, client_address = sock.accept()
 			try:
 				f = connection.makefile()
-				print(dir(f))
 				for line in f:
 					split = line.split()
 					if split[0] in self.handlers:
