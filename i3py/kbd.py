@@ -11,10 +11,10 @@ import i3py.util
 
 class Kbd:
 	sel = None
-	def __init__(self):
-		signal.signal(signal.SIGUSR1, i3py.util.OtherThread(self.run))
+	def start(self):
+		i3py.ipc("kbd", i3py.util.OtherThread(self.run))
 
-	def run(self, a, b):
+	def run(self):
 		disp = Display()
 		root = disp.screen().root
 		for n in range(0, 10):
@@ -23,7 +23,7 @@ class Kbd:
 			time.sleep(0.01)
 
 		self.sel = self.last()
-		i3py.update(None)
+		i3py.update()
 
 		while 1:
 			evt = root.display.next_event()
@@ -50,10 +50,10 @@ class Kbd:
 				if sym == XK.XK_Down or char in ['s', 'j']:
 					self.sel.click(5)
 
-				i3py.update(None)
+				i3py.update()
 
 		self.sel = None
-		i3py.update(None)
+		i3py.update()
 
 		request.UngrabKeyboard(display=root.display, time=X.CurrentTime)
 		disp.flush()

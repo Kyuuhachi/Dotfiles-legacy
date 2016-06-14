@@ -1,12 +1,8 @@
-#!/usr/bin/env python3
 import sys
 import subprocess
 from collections import namedtuple
-if __name__ == "__main__":
-	from pulse import *
-else:
-	from i3py.seg.pulse import *
-	import i3py
+from i3py.seg.pulse import *
+import i3py
 
 def Pulse(name, callback, threaded=True): #Pretends to be a class, since C doesn't know what a class is
 	def nogarb(func):
@@ -79,52 +75,33 @@ def Pulse(name, callback, threaded=True): #Pretends to be a class, since C doesn
 
 	return namedtuple("Pulse", "start stop nogarb")(start, stop, nogarb)
 
-if __name__ == "__main__":
-	class CLI:
-		def __init__(self, op):
-			self.op = op
-			self.pulse = Pulse("i3py-cli", self, threaded=False)
-			self.pulse.start()
+class Volume(i3py.Segment):
+	def start(self):
+		self.pulse = Pulse("i3py", self)
+		self.pulse.start()
+		i3py.ipc("mute", lambda: self.click(0))
+		i3py.ipc("inc", lambda: self.click(4))
+		i3py.ipc("dec", lambda: self.click(5))
 
-		def setSink(self, sink):
-			if self.op == "mute": subprocess.Popen(['pactl', 'set-sink-mute', sink, "toggle"])
-			if self.op == "inc":  subprocess.Popen(['pactl', 'set-sink-volume', sink, "--", "+5%"])
-			if self.op == "dec":  subprocess.Popen(['pactl', 'set-sink-volume', sink, "--", "-5%"])
-			self.pulse.stop()
-			exit(0) #For some reason, pa_mainloop_quit causes a segfault
+	sink = None
+	volume = 0
+	mute = 0
 
-		def sinkInfo(self, sink_info):
-			pass
+	def setSink(self, sink):
+		self.sink = sink
 
-	if len(sys.argv) != 2:
-		print("Bad command")
-		exit(1)
-	CLI(sys.argv[1])
-else:
-	class Volume(i3py.Segment):
-		def start(self):
-			self.pulse = Pulse("i3py", self)
-			self.pulse.start()
+	def sinkInfo(self, sink_info):
+		self.volume = sink_info.volume.values[0]
+		self.mute = sink_info.mute
+		i3py.update(self)
 
-		sink = None
-		volume = 0
-		mute = 0
+	def getOutput(self):
+		text = "♪ {}%".format(round(100 * self.volume / 0x10000))
+		color = "#7F7F7F" if self.mute else None
+		return (text, color)
 
-		def setSink(self, sink):
-			self.sink = sink
-
-		def sinkInfo(self, sink_info):
-			self.volume = sink_info.volume.values[0]
-			self.mute = sink_info.mute
-			i3py.update(self)
-
-		def getOutput(self):
-			text = "♪ {}%".format(round(100 * self.volume / 0x10000))
-			color = "#7F7F7F" if self.mute else None
-			return (text, color)
-
-		def click(self, button):
-			if button == 1: subprocess.Popen(['pactl', 'set-sink-mute', self.sink, "toggle"])
-			if button == 3: subprocess.Popen(['pavucontrol'])
-			if button == 4: subprocess.Popen(['pactl', 'set-sink-volume', self.sink, "--", "+5%"])
-			if button == 5: subprocess.Popen(['pactl', 'set-sink-volume', self.sink, "--", "-5%"])
+	def click(self, button):
+		if button == 1: subprocess.Popen(['pactl', 'set-sink-mute', self.sink, "toggle"])
+		if button == 3: subprocess.Popen(['pavucontrol'])
+		if button == 4: subprocess.Popen(['pactl', 'set-sink-volume', self.sink, "--", "+5%"])
+		if button == 5: subprocess.Popen(['pactl', 'set-sink-volume', self.sink, "--", "-5%"])

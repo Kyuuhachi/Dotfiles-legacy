@@ -1,6 +1,7 @@
 import json, os, sys, threading, logging
 import i3py.util
 from i3py.kbd import Kbd
+from i3py.ipc import Ipc
 
 class _InputHandler(threading.Thread):
 	def run(self):
@@ -21,6 +22,7 @@ class _InputHandler(threading.Thread):
 class _OutputHandler(util.Timer):
 	def start(self):
 		super().start()
+		self.print('{"version":1,"click_events":true}\n[\n[]')
 
 	def _update(self, seg):
 		def convert(seg):
@@ -47,13 +49,12 @@ class _OutputHandler(util.Timer):
 			import traceback
 			print(traceback.format_exc())
 
-	def update(self, seg):
-		if seg:
-			self._update(seg)
+	def update(self, *seg):
+		for s in seg:
+			self._update(s)
 		self.printStatus()
 
 	def run(self):
-		self.print('{"version":1,"click_events":true}\n[\n[]')
 		for seg in i3py._segments:
 			self._update(seg)
 		self.printStatus()
@@ -63,8 +64,8 @@ class _OutputHandler(util.Timer):
 		for seg in i3py._segments:
 			if seg._out:
 				out = dict(seg._out)
-				if i3py.kbd.sel != None:
-					if i3py.kbd.sel == seg:
+				if i3py._kbd.sel != None:
+					if i3py._kbd.sel == seg:
 						out["border"] = "#FF0000"
 					elif type(seg).click != Segment.click:
 						out["border"] = "#7F0000"
@@ -83,9 +84,11 @@ _out = _OutputHandler()
 _segments = []
 _map = {}
 _proto = {}
+_kbd = Kbd()
+_ipc = Ipc()
 
-def update(seg):
-	i3py._out.update(seg)
+def update(*seg):
+	i3py._out.update(*seg)
 
 def add(seg):
 	i3py._segments.append(seg)
@@ -94,8 +97,12 @@ def add(seg):
 def proto(val):
 	_proto.update(val)
 
+def ipc(command, handler):
+	i3py._ipc.register(command, handler)
+
 def start():
-	i3py.kbd = Kbd()
+	i3py._kbd.start()
+	i3py._ipc.start()
 	i3py._in.start()
 	i3py._out.start()
 	for seg in i3py._segments:
