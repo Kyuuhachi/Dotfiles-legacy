@@ -7,10 +7,11 @@ import signal
 import time
 
 import i3py
+import i3py.util
 
 class Kbd:
 	def __init__(self, out):
-		signal.signal(signal.SIGUSR1, self.run)
+		signal.signal(signal.SIGUSR1, i3py.util.OtherThread(self.run))
 		self.out = out
 		self.sel = None
 

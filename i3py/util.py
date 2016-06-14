@@ -3,7 +3,6 @@ import time
 
 class Timer:
 	interval = 1
-	_target = None
 	name = None
 
 	def __init__(self, interval=None, target=None, name=None):
@@ -26,9 +25,9 @@ class Timer:
 
 	def _run(self):
 		while True:
+			self._event.clear()
 			self.run()
 			self._event.wait()
-			self._event.clear()
 
 	def _sig(self):
 		while True:
@@ -40,7 +39,6 @@ class Timer:
 
 class Timeout:
 	interval = 1
-	_target = None
 	name = None
 	_cancel = False
 	_running = False
@@ -69,6 +67,19 @@ class Timeout:
 
 	def isAlive(self):
 		return self._running
+
+class OtherThread:
+	name = None
+
+	def __init__(self, target=None, name=None):
+		if target: self.run = target
+		if name: self.name = name
+
+	def run(self, *args):
+		pass
+
+	def __call__(self, *args):
+		threading.Thread(target=self.run, name=str(self.name) + "-event", args=args).start()
 
 def group(data, count=2, default=None):
 	it = iter(data)
