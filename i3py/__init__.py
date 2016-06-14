@@ -2,16 +2,12 @@ import json, os, sys, threading, logging
 import i3py.util
 from i3py.kbd import Kbd
 
-class _InputHandler:
-	def start(self):
-		self.thread = threading.Thread(target=self.run)
-		self.thread.start()
-
+class _InputHandler(threading.Thread):
 	def run(self):
 		sys.stdin.readline()
 		for cmd in self.read():
 			try:
-				seg = i3py._segments[int(cmd["instance"])]
+				seg = i3py._map[int(cmd["instance"])]
 				seg.click(cmd["button"])
 				i3py.update(seg)
 			except Exception as e:
@@ -22,15 +18,11 @@ class _InputHandler:
 		for line in sys.stdin:
 			yield json.loads(line.strip(","))
 
-class _OutputHandler:
-	timer = None
-	out = None
-
+class _OutputHandler(util.Timer):
 	def start(self):
+		super().start()
 		self.kbd = Kbd(self)
 		self.print('{"version":1,"click_events":true}\n[\n[]')
-		self.timer = util.Timer(1, self.run, name="i3py-out-timer")
-		self.timer.start()
 
 	def _update(self, seg):
 		def convert(seg):
@@ -90,6 +82,7 @@ sys.stdout = os.fdopen(os.dup(sys.stderr.fileno()), "w", 1) #No buffering; I wan
 _in = _InputHandler()
 _out = _OutputHandler()
 _segments = []
+_map = {}
 _proto = {}
 
 def update(seg):
@@ -97,6 +90,7 @@ def update(seg):
 
 def add(seg):
 	i3py._segments.append(seg)
+	i3py._map[id(seg)] = seg
 
 def proto(val):
 	_proto.update(val)
