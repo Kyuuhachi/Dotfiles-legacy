@@ -27,12 +27,10 @@ class _OutputHandler:
 	out = None
 
 	def start(self):
-		self.out = {}
+		self.kbd = Kbd(self)
 		self.print('{"version":1,"click_events":true}\n[\n[]')
 		self.timer = util.Timer(1, self.run, name="i3py-out-timer")
 		self.timer.start()
-
-		self.kbd = Kbd(self)
 
 	def _update(self, seg):
 		def convert(seg):
@@ -54,14 +52,14 @@ class _OutputHandler:
 				return None
 
 		try:
-			self.out[id(seg)] = convert(seg)
+			seg._out = convert(seg)
 		except Exception:
 			import traceback
 			print(traceback.format_exc())
 
 	def update(self, seg):
-		if not self.out: return
-		if seg: self._update(seg)
+		if seg:
+			self._update(seg)
 		self.printStatus()
 
 	def run(self):
@@ -72,8 +70,8 @@ class _OutputHandler:
 	def printStatus(self):
 		list = []
 		for seg in i3py._segments:
-			if self.out[id(seg)]:
-				out = dict(self.out[id(seg)])
+			if seg._out:
+				out = dict(seg._out)
 				if self.kbd.sel != None:
 					if self.kbd.sel == seg:
 						out["border"] = "#FF0000"
@@ -85,20 +83,6 @@ class _OutputHandler:
 	def print(self, *args):
 		print(*args, file=i3py._stdout)
 		i3py._stdout.flush()
-
-	def find(self, list):
-		for seg in list[1:]:
-			if self.out[id(seg)] != None and type(seg).click != Segment.click:
-				return seg
-		return list[0]
-	def prev(self, sel):
-		return self.find(i3py._segments[i3py._segments.index(sel)::1])
-	def next(self, sel):
-		return self.find(i3py._segments[i3py._segments.index(sel)::-1])
-	def first(self):
-		return self.find([None] + i3py._segments[::-1])
-	def last(self):
-		return self.find([None] + i3py._segments[::1])
 
 _stdout = sys.stdout
 sys.stdout = os.fdopen(os.dup(sys.stderr.fileno()), "w", 1) #No buffering; I want to be able to tail -f it
@@ -118,12 +102,13 @@ def proto(val):
 	_proto.update(val)
 
 def start():
-	for seg in i3py._segments:
-		seg.start() #For timers and such
 	i3py._in.start()
 	i3py._out.start()
+	for seg in i3py._segments:
+		seg.start() #For timers and such
 
 class Segment:
+	_out = None
 	def start(self):
 		pass
 	def getOutput(self):

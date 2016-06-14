@@ -6,6 +6,8 @@ from Xlib.protocol import request
 import signal
 import time
 
+import i3py
+
 class Kbd:
 	def __init__(self, out):
 		signal.signal(signal.SIGUSR1, self.run)
@@ -13,15 +15,15 @@ class Kbd:
 		self.sel = None
 
 	def run(self, a, b):
-		self.sel = self.out.last()
-		self.out.update(None)
-
 		disp = Display()
 		root = disp.screen().root
 		for n in range(0, 10):
 			if root.grab_keyboard(False, X.GrabModeAsync, X.GrabModeAsync, X.CurrentTime) == 0:
 				break
 			time.sleep(0.01)
+
+		self.sel = self.last()
+		self.out.update(None)
 
 		while 1:
 			evt = root.display.next_event()
@@ -32,15 +34,15 @@ class Kbd:
 					break
 
 				if sym == XK.XK_Left or char in ['a', 'h']:
-					self.sel = self.out.prev(self.sel)
+					self.sel = self.prev(self.sel)
 				if sym == XK.XK_Right or char in ['d', 'l']:
-					self.sel = self.out.next(self.sel)
+					self.sel = self.next(self.sel)
 				if sym == XK.XK_Home:
-					self.sel = self.out.first()
+					self.sel = self.first()
 				if sym == XK.XK_End:
-					self.sel = self.out.last()
+					self.sel = self.last()
 
-				if char == ' ':
+				if sym == XK.XK_Return or char in [' ']:
 					self.sel.click(1)
 					break
 				if sym == XK.XK_Up or char in ['w', 'k']:
@@ -49,8 +51,23 @@ class Kbd:
 					self.sel.click(5)
 
 				self.out.update(None)
-		request.UngrabKeyboard(display=root.display, time=X.CurrentTime)
-		disp.flush()
 
 		self.sel = None
 		self.out.update(None)
+
+		request.UngrabKeyboard(display=root.display, time=X.CurrentTime)
+		disp.flush()
+
+	def find(self, list):
+		for seg in list[1:]:
+			if seg._out != None and type(seg).click != i3py.Segment.click:
+				return seg
+		return list[0]
+	def prev(self, sel):
+		return self.find(i3py._segments[i3py._segments.index(sel)::1])
+	def next(self, sel):
+		return self.find(i3py._segments[i3py._segments.index(sel)::-1])
+	def first(self):
+		return self.find([None] + i3py._segments[::-1])
+	def last(self):
+		return self.find([None] + i3py._segments[::1])
