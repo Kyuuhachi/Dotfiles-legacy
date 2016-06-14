@@ -21,8 +21,6 @@ class _InputHandler(threading.Thread):
 class _OutputHandler(util.Timer):
 	def start(self):
 		super().start()
-		self.kbd = Kbd(self)
-		self.print('{"version":1,"click_events":true}\n[\n[]')
 
 	def _update(self, seg):
 		def convert(seg):
@@ -55,6 +53,7 @@ class _OutputHandler(util.Timer):
 		self.printStatus()
 
 	def run(self):
+		self.print('{"version":1,"click_events":true}\n[\n[]')
 		for seg in i3py._segments:
 			self._update(seg)
 		self.printStatus()
@@ -64,8 +63,8 @@ class _OutputHandler(util.Timer):
 		for seg in i3py._segments:
 			if seg._out:
 				out = dict(seg._out)
-				if self.kbd.sel != None:
-					if self.kbd.sel == seg:
+				if i3py.kbd.sel != None:
+					if i3py.kbd.sel == seg:
 						out["border"] = "#FF0000"
 					elif type(seg).click != Segment.click:
 						out["border"] = "#7F0000"
@@ -96,6 +95,7 @@ def proto(val):
 	_proto.update(val)
 
 def start():
+	i3py.kbd = Kbd()
 	i3py._in.start()
 	i3py._out.start()
 	for seg in i3py._segments:
