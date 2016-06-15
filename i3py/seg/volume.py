@@ -79,7 +79,7 @@ class Volume(i3py.Segment):
 	def start(self):
 		self.pulse = Pulse("i3py", self)
 		self.pulse.start()
-		i3py.ipc("mute", lambda: self.click(0))
+		i3py.ipc("mute", lambda: self.click(1))
 		i3py.ipc("inc", lambda: self.click(4))
 		i3py.ipc("dec", lambda: self.click(5))
 
