@@ -6,3 +6,4 @@ synclient ClickFinger1=1 ClickFinger2=3 ClickFinger3=2
 synclient TapButton1=0 TapButton2=0 TapButton3=0
 synclient ClickPad=1
 xmodmap -e "keycode 66 = Multi_key" -e "clear Lock"
+xmodmap -e "keycode 21 = grave acute equal plus plusminus notsign"
