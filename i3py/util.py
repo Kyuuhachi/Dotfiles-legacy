@@ -83,7 +83,7 @@ def group(data, count=2, default=None):
 			try:
 				out[n] = next(it)
 			except StopIteration:
-				if out: yield tuple(out)
+				if n: yield tuple(out)
 				raise
 		yield tuple(out)
 
