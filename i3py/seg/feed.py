@@ -41,7 +41,7 @@ class Feed(util.Timer, i3py.Segment):
 	entries = []
 	mainPage = None
 
-	def __init__(self, name, url, seq=True, match=""):
+	def __init__(self, name, url, seq=True, match=lambda e: True):
 		self.name = name
 		self.url = url
 		self.seq = seq
@@ -50,13 +50,11 @@ class Feed(util.Timer, i3py.Segment):
 	def run(self):
 		parser = feedparser.parse(self.url)
 		self.entries = []
-		regex = re.compile(self.match)
 		for e in parser.entries:
-			if regex.match(e.title):
-				link = e.link
-				if hasattr(e, "feedburner_origlink"):
-					link = e.feedburner_origlink
-				self.entries.append(link)
+			if hasattr(e, "feedburner_origlink"):
+				e.link = e.feedburner_origlink
+			if self.match(e):
+				self.entries.append(e.link)
 
 		if hasattr(parser.feed, "link"):
 			self.mainPage = parser.feed.link

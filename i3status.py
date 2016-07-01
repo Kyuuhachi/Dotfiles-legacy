@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+
+from urllib.parse import urlparse
 from i3py import add, start
 from i3py.seg.clock import Clock
 from i3py.seg.apt import Apt
@@ -25,12 +27,12 @@ add(Feed("MSPA", "http://mspaintadventures.com/rss/rss.xml"))
 add(Feed("PXS", "http://paradoxspace.com/rss.atom"))
 add(Feed("xkcd", "http://xkcd.com/rss.xml", seq=False))
 add(Feed("what-if", "http://what-if.xkcd.com/feed.atom", seq=False))
-add(Feed("Error'd", "http://syndication.thedailywtf.com/TheDailyWtf", seq=False, match=r"^Error'd:"))
-add(Feed("Gaia", "http://www.sandraandwoo.com/gaia/feed/", match=r"^(?!Webcomic review:)"))
-add(Feed("SaW", "http://www.sandraandwoo.com/feed/", seq=False, match=r"^(?!Webcomic review:)"))
+add(Feed("Error'd", "http://syndication.thedailywtf.com/TheDailyWtf", seq=False, match=lambda e: e.title.startswith("Error'd:")))
+add(Feed("Gaia", "http://www.sandraandwoo.com/gaia/feed/", match=lambda e: hasattr(e, "feedburner_origlink")))
+add(Feed("SaW", "http://www.sandraandwoo.com/feed/", seq=False, match=lambda e: hasattr(e, "feedburner_origlink")))
 add(Feed("PR", "http://www.praguerace.com/rss.php"))
-add(Feed("EGS", "http://www.egscomics.com/rss.php", match=r"^El Goonish Shive - (?!EGS:NP|Sketchbook)"))
-add(Feed("EGS-NP", "http://www.egscomics.com/rss.php", match=r"^El Goonish Shive - EGS:NP - "))
+add(Feed("EGS", "http://www.egscomics.com/rss.php", match=lambda e: urlparse(e.link).path == "/index.php"))
+add(Feed("EGS-NP", "http://www.egscomics.com/rss.php", match=lambda e: urlparse(e.link).path == "/egsnp.php"))
 add(Feed("GC", "http://www.gunnerkrigg.com/rss.xml"))
 add(Feed("PN", "http://www.paranatural.net/rss.php"))
 add(Feed("CQ", "http://cucumber.gigidigi.com/feed/"))
@@ -39,7 +41,7 @@ add(Feed("AD", "http://feeds.feedburner.com/AvasDemon?format=xml"))
 add(Feed("PQ", "http://www.prequeladventure.com/feed/"))
 add(Feed("BC", "http://www.bigcrystals.net/feed/"))
 add(Feed("BtC", "http://www.beyondthecanopy.com/feed/"))
-add(Feed("MT", "http://megatokyo.com/rss/megatokyo.xml", match="^Comic"))
+add(Feed("MT", "http://megatokyo.com/rss/megatokyo.xml", match=lambda e: e.title.startswith("Comic")))
 add(Feed("OotS", "http://www.giantitp.com/comics/oots.rss"))
 
 add(Totem())
