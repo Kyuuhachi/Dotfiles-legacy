@@ -18,6 +18,13 @@ nowrap() {
 	cat
 	echoti smam
 }
+mkcd() {
+	mkdir $1
+	cd $1
+}
+umv() {
+	mv $2 $1
+}
 alias su="sudo $SHELL"
 alias o=xdg-open
 
