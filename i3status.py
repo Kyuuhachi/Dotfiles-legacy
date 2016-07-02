@@ -22,6 +22,7 @@ add(CpuGraph())
 add(Volume())
 
 from i3py.seg.feed import Feed
+from i3py.seg.feed import FFNFeed
 
 add(Feed("MSPA", "http://mspaintadventures.com/rss/rss.xml"))
 add(Feed("PXS", "http://paradoxspace.com/rss.atom"))
@@ -43,6 +44,9 @@ add(Feed("BC", "http://www.bigcrystals.net/feed/"))
 add(Feed("BtC", "http://www.beyondthecanopy.com/feed/"))
 add(Feed("MT", "http://megatokyo.com/rss/megatokyo.xml", match=lambda e: e.title.startswith("Comic")))
 add(Feed("OotS", "http://www.giantitp.com/comics/oots.rss"))
+
+add(FFNFeed("HPPK", 10870770))
+add(FFNFeed("HP20", 8096183))
 
 add(Totem())
 

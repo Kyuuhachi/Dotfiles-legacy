@@ -92,3 +92,20 @@ class Feed(util.Timer, i3py.Segment):
 			webbrowser.open(self.mainPage)
 		if button == 3 and self.url: #Right
 			webbrowser.open(self.url)
+
+import lxml.html
+from urllib.request import urlopen
+class FFNFeed(Feed):
+	def __init__(self, name, id, seq=True):
+		self.name = name
+		self.id = id
+		self.seq = seq
+		self.url = "https://www.fanfiction.net/s/{}".format(id)
+		self.mainPage = self.url
+
+	def run(self):
+		tree = lxml.html.parse(urlopen(self.url))
+		chap_select = tree.xpath("//select[@id='chap_select']")[0]
+		name = chap_select.get("onchange").split()[-1][2:-2]
+		self.entries = ["{}/{}/{}".format(self.url, opt.get("value"), name) for opt in chap_select.xpath("./option")[::-1]]
+
