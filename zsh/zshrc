@@ -38,7 +38,8 @@ command_not_found_handler() {
 	exit 127
 }
 
-#{{{1 Color
+#{{{1 Color and formatting
+alias git="git --no-pager"
 #{{{2 Man
 export LESS_TERMCAP_mb=$(printf "$fg[red]")
 export LESS_TERMCAP_md=$(printf "$fg[blue]")
