@@ -28,25 +28,30 @@ add(Feed("MSPA", "http://mspaintadventures.com/rss/rss.xml"))
 add(Feed("PXS", "http://paradoxspace.com/rss.atom"))
 add(Feed("xkcd", "http://xkcd.com/rss.xml", seq=False))
 add(Feed("what-if", "http://what-if.xkcd.com/feed.atom", seq=False))
-add(Feed("Error'd", "http://syndication.thedailywtf.com/TheDailyWtf", seq=False, match=lambda e: e.title.startswith("Error'd:")))
-add(Feed("Gaia", "http://www.sandraandwoo.com/gaia/feed/", match=lambda e: hasattr(e, "feedburner_origlink")))
-add(Feed("SaW", "http://www.sandraandwoo.com/feed/", seq=False, match=lambda e: hasattr(e, "feedburner_origlink")))
-add(Feed("PR", "http://www.praguerace.com/rss.php"))
+add(Feed("Error'd", "http://syndication.thedailywtf.com/TheDailyWtf", seq=False, match=lambda e: e.category == "Error'd"))
+add(Feed("Gaia", "http://www.sandraandwoo.com/gaia/feed/", match=lambda e: e.category == "Comic"))
+add(Feed("SaW", "http://www.sandraandwoo.com/feed/", seq=False, match=lambda e: e.category == "Comic"))
 add(Feed("EGS", "http://www.egscomics.com/rss.php", match=lambda e: urlparse(e.link).path == "/index.php"))
 add(Feed("EGS-NP", "http://www.egscomics.com/rss.php", match=lambda e: urlparse(e.link).path == "/egsnp.php"))
 add(Feed("GC", "http://www.gunnerkrigg.com/rss.xml"))
-add(Feed("PN", "http://www.paranatural.net/rss.php"))
 add(Feed("CQ", "http://cucumber.gigidigi.com/feed/"))
 add(Feed("SD", "http://www.sdamned.com/feed/"))
 add(Feed("AD", "http://feeds.feedburner.com/AvasDemon?format=xml"))
 add(Feed("PQ", "http://www.prequeladventure.com/feed/"))
-add(Feed("BC", "http://www.bigcrystals.net/feed/"))
 add(Feed("BtC", "http://www.beyondthecanopy.com/feed/"))
-add(Feed("MT", "http://megatokyo.com/rss/megatokyo.xml", match=lambda e: e.title.startswith("Comic")))
 add(Feed("OotS", "http://www.giantitp.com/comics/oots.rss"))
 
-add(FFNFeed("HPPK", 10870770))
-add(FFNFeed("HP20", 8096183))
+add(FFNFeed("HPPK", 10870770)) #HP+Poke
+add(FFNFeed("HP20", 8096183)) #HP+DnD
+add(FFNFeed("FtA", 9173821)) #HP+Poke
+add(FFNFeed("WoD", 10604571)) #HP+Poke
+add(FFNFeed("MO", 10552390)) #HP+SAO
+add(FFNFeed("MKO", 11815818)) #HP+SAO
+add(FFNFeed("FDD", 8679666)) #SAO
+add(FFNFeed("AEA", 11146312)) #HP+Poke
+add(FFNFeed("SA", 9236537)) #SAO+Poke
+add(FFNFeed("ISDSC", 10613753)) #HP+Poke
+add(FFNFeed("HPNFP", 2636963)) #HP
 
 add(Totem())
 
