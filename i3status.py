@@ -41,6 +41,7 @@ add(Feed("PQ", "http://www.prequeladventure.com/feed/"))
 add(Feed("BtC", "http://www.beyondthecanopy.com/feed/"))
 add(Feed("OotS", "http://www.giantitp.com/comics/oots.rss"))
 
+#TODO add actual names
 add(FFNFeed("HPPK", 10870770)) #HP+Poke
 add(FFNFeed("HP20", 8096183)) #HP+DnD
 add(FFNFeed("FtA", 9173821)) #HP+Poke
@@ -52,6 +53,7 @@ add(FFNFeed("AEA", 11146312)) #HP+Poke
 add(FFNFeed("SA", 9236537)) #SAO+Poke
 add(FFNFeed("ISDSC", 10613753)) #HP+Poke
 add(FFNFeed("HPNFP", 2636963)) #HP
+add(FFNFeed("HPJI", 8914586)) #HP
 
 add(Totem())
 
