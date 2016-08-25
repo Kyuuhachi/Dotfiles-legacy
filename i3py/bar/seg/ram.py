@@ -1,7 +1,7 @@
-import i3py
+import i3py.bar
 from psutil import virtual_memory
 
-class Ram(i3py.Segment):
+class Ram(i3py.bar.Segment):
 	def getOutput(self):
 		mem = virtual_memory()
 		out = {}

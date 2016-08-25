@@ -8,11 +8,12 @@ import time
 
 import i3py
 import i3py.util
+import i3py.ipc
 
 class Kbd:
 	sel = None
 	def start(self):
-		i3py.ipc("kbd", self.run)
+		i3py.ipc.register("kbd", self.run)
 	
 	@i3py.util.OtherThread
 	def run(self):

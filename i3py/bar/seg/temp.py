@@ -1,6 +1,6 @@
-import i3py
+import i3py.bar
 
-class Temp(i3py.Segment):
+class Temp(i3py.bar.Segment):
 	file = "/sys/class/thermal/thermal_zone0/temp"
 
 	def getOutput(self):

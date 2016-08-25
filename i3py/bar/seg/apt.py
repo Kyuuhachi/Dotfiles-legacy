@@ -1,9 +1,9 @@
-import i3py
-from i3py import util
+import i3py.bar
+import i3py.util
 import subprocess
 import sys
 
-class Apt(util.Timer, i3py.Segment):
+class Apt(i3py.util.Timer, i3py.bar.Segment):
 	interval = 300
 
 	updates = 0

@@ -1,8 +1,9 @@
 import sys
 import subprocess
 from collections import namedtuple
-from i3py.seg.pulse import *
-import i3py
+from i3py.bar.seg.pulse import *
+import i3py.bar
+import i3py.ipc
 
 def Pulse(name, callback, threaded=True): #Pretends to be a class, since C doesn't know what a class is
 	def nogarb(func):
@@ -75,13 +76,13 @@ def Pulse(name, callback, threaded=True): #Pretends to be a class, since C doesn
 
 	return namedtuple("Pulse", "start stop nogarb")(start, stop, nogarb)
 
-class Volume(i3py.Segment):
+class Volume(i3py.bar.Segment):
 	def start(self):
 		self.pulse = Pulse("i3py", self)
 		self.pulse.start()
-		i3py.ipc("mute", lambda: self.click(1))
-		i3py.ipc("inc", lambda: self.click(4))
-		i3py.ipc("dec", lambda: self.click(5))
+		i3py.ipc.register("mute", lambda: self.click(1))
+		i3py.ipc.register("inc", lambda: self.click(4))
+		i3py.ipc.register("dec", lambda: self.click(5))
 
 	sink = None
 	volume = 0
@@ -93,7 +94,7 @@ class Volume(i3py.Segment):
 	def sinkInfo(self, sink_info):
 		self.volume = sink_info.volume.values[0]
 		self.mute = sink_info.mute
-		i3py.update(self)
+		i3py.bar.update(self)
 
 	def getOutput(self):
 		text = "♪ {}%".format(round(100 * self.volume / 0x10000))

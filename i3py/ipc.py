@@ -2,36 +2,33 @@ import os
 import socket
 import i3py.util
 
-class Ipc:
-	server_address = '/tmp/i3py'
+_server_address = '/tmp/i3py'
+_handlers = {}
 
-	def __init__(self):
-		self.handlers = {}
-	
-	def start(self):
+def start():
+	try:
+		os.unlink(_server_address)
+	except OSError:
+		if os.path.exists(_server_address):
+			raise
+	_run()
+
+@i3py.util.OtherThread
+def _run():
+	sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+	sock.bind(_server_address)
+	sock.listen(1)
+	while True:
+		connection, client_address = sock.accept()
 		try:
-			os.unlink(self.server_address)
-		except OSError:
-			if os.path.exists(self.server_address):
-				raise
-		self.run()
+			f = connection.makefile()
+			for line in f:
+				split = line.split()
+				if split[0] in _handlers:
+					_handlers[split[0]](*split[1:])
+		finally:
+			connection.shutdown(socket.SHUT_RDWR)
+			connection.close()
 
-	@i3py.util.OtherThread
-	def run(self):
-		sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
-		sock.bind(self.server_address)
-		sock.listen(1)
-		while True:
-			connection, client_address = sock.accept()
-			try:
-				f = connection.makefile()
-				for line in f:
-					split = line.split()
-					if split[0] in self.handlers:
-						self.handlers[split[0]](*split[1:])
-			finally:
-				connection.shutdown(socket.SHUT_RDWR)
-				connection.close()
-
-	def register(self, command, handler):
-		self.handlers[command] = handler
+def register(command, handler):
+	_handlers[command] = handler

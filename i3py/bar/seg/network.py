@@ -1,7 +1,7 @@
-import i3py
+import i3py.bar
 import basiciw
 
-class Network(i3py.Segment):
+class Network(i3py.bar.Segment):
 	name = "wlan0"
 
 	def getOutput(self):

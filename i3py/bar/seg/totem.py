@@ -1,5 +1,5 @@
-import i3py
-from i3py import util
+import i3py.bar
+import i3py.util
 import dbus
 import os.path
 import urllib.parse
@@ -11,7 +11,7 @@ TOTEM_OBJECT = "/org/mpris/MediaPlayer2"
 TOTEM_IFACE = "org.mpris.MediaPlayer2.Player"
 def getBus():
 	return dbus.SessionBus().get_object(TOTEM_BUS, TOTEM_OBJECT)
-class Totem(i3py.Segment):
+class Totem(i3py.bar.Segment):
 	timer = threading.Thread()
 	def getOutput(self):
 		try:
@@ -41,7 +41,7 @@ class Totem(i3py.Segment):
 		if self.timer.isAlive():
 			self.timer.interrupt()
 		else:
-			self.timer = util.Timeout(1, lambda: i3py.update(self))
+			self.timer = i3py.util.Timeout(1, lambda: i3py.bar.update(self))
 			self.timer.start()
 
 	def click(self, button):

@@ -1,61 +1,64 @@
 #!/usr/bin/env python3
 
 from urllib.parse import urlparse
-from i3py import add, start
-from i3py.seg.clock import Clock
-from i3py.seg.apt import Apt
-from i3py.seg.temp import Temp
-from i3py.seg.battery import Battery
-from i3py.seg.ram import Ram
-from i3py.seg.network import Network
-from i3py.seg.cpugraph import CpuGraph
-from i3py.seg.volume import Volume
-from i3py.seg.totem import Totem
+import i3py.bar
+import i3py.ipc
+from i3py.bar import add, start
 
-add(Clock())
-add(Apt())
-add(Temp())
-add(Battery())
-add(Network())
-add(Ram())
-add(CpuGraph())
-add(Volume())
+from i3py.bar.seg.clock import Clock
+from i3py.bar.seg.apt import Apt
+from i3py.bar.seg.temp import Temp
+from i3py.bar.seg.battery import Battery
+from i3py.bar.seg.ram import Ram
+from i3py.bar.seg.network import Network
+from i3py.bar.seg.cpugraph import CpuGraph
+from i3py.bar.seg.volume import Volume
+from i3py.bar.seg.totem import Totem
+from i3py.bar.seg.feed import Feed
+from i3py.bar.seg.feed import FFNFeed
 
-from i3py.seg.feed import Feed
-from i3py.seg.feed import FFNFeed
+i3py.bar.add(Clock())
+i3py.bar.add(Apt())
+i3py.bar.add(Temp())
+i3py.bar.add(Battery())
+i3py.bar.add(Network())
+i3py.bar.add(Ram())
+i3py.bar.add(CpuGraph())
+i3py.bar.add(Volume())
 
-add(Feed("MSPA", "http://mspaintadventures.com/rss/rss.xml"))
-add(Feed("PXS", "http://paradoxspace.com/rss.atom"))
-add(Feed("xkcd", "http://xkcd.com/rss.xml", seq=False))
-add(Feed("what-if", "http://what-if.xkcd.com/feed.atom", seq=False))
-add(Feed("Error'd", "http://syndication.thedailywtf.com/TheDailyWtf", seq=False, match=lambda e: e.category == "Error'd"))
-add(Feed("Gaia", "http://www.sandraandwoo.com/gaia/feed/", match=lambda e: e.category == "Comic"))
-add(Feed("SaW", "http://www.sandraandwoo.com/feed/", seq=False, match=lambda e: e.category == "Comic"))
-add(Feed("EGS", "http://www.egscomics.com/rss.php", match=lambda e: urlparse(e.link).path == "/index.php"))
-add(Feed("EGS-NP", "http://www.egscomics.com/rss.php", match=lambda e: urlparse(e.link).path == "/egsnp.php"))
-add(Feed("GC", "http://www.gunnerkrigg.com/rss.xml"))
-add(Feed("CQ", "http://cucumber.gigidigi.com/feed/"))
-add(Feed("SD", "http://www.sdamned.com/feed/"))
-add(Feed("AD", "http://feeds.feedburner.com/AvasDemon?format=xml"))
-add(Feed("PQ", "http://www.prequeladventure.com/feed/"))
-add(Feed("BtC", "http://www.beyondthecanopy.com/feed/"))
-add(Feed("OotS", "http://www.giantitp.com/comics/oots.rss"))
+i3py.bar.add(Feed("MSPA", "http://mspaintadventures.com/rss/rss.xml"))
+i3py.bar.add(Feed("PXS", "http://paradoxspace.com/rss.atom"))
+i3py.bar.add(Feed("xkcd", "http://xkcd.com/rss.xml", seq=False))
+i3py.bar.add(Feed("what-if", "http://what-if.xkcd.com/feed.atom", seq=False))
+i3py.bar.add(Feed("Error'd", "http://syndication.thedailywtf.com/TheDailyWtf", seq=False, match=lambda e: e.category == "Error'd"))
+i3py.bar.add(Feed("Gaia", "http://www.sandraandwoo.com/gaia/feed/", match=lambda e: e.category == "Comic"))
+i3py.bar.add(Feed("SaW", "http://www.sandraandwoo.com/feed/", seq=False, match=lambda e: e.category == "Comic"))
+i3py.bar.add(Feed("EGS", "http://www.egscomics.com/rss.php", match=lambda e: urlparse(e.link).path == "/index.php"))
+i3py.bar.add(Feed("EGS-NP", "http://www.egscomics.com/rss.php", match=lambda e: urlparse(e.link).path == "/egsnp.php"))
+i3py.bar.add(Feed("GC", "http://www.gunnerkrigg.com/rss.xml"))
+i3py.bar.add(Feed("CQ", "http://cucumber.gigidigi.com/feed/"))
+i3py.bar.add(Feed("SD", "http://www.sdamned.com/feed/"))
+i3py.bar.add(Feed("AD", "http://feeds.feedburner.com/AvasDemon?format=xml"))
+i3py.bar.add(Feed("PQ", "http://www.prequeladventure.com/feed/"))
+i3py.bar.add(Feed("BtC", "http://www.beyondthecanopy.com/feed/"))
+i3py.bar.add(Feed("OotS", "http://www.giantitp.com/comics/oots.rss"))
 
 #TODO add actual names
-add(FFNFeed("HPPK", 10870770)) #HP+Poke
-add(FFNFeed("HP20", 8096183)) #HP+DnD
-add(FFNFeed("FtA", 9173821)) #HP+Poke
-add(FFNFeed("WoD", 10604571)) #HP+Poke
-add(FFNFeed("MO", 10552390)) #HP+SAO
-add(FFNFeed("MKO", 11815818)) #HP+SAO
-add(FFNFeed("FDD", 8679666)) #SAO
-add(FFNFeed("AEA", 11146312)) #HP+Poke
-add(FFNFeed("SA", 9236537)) #SAO+Poke
-add(FFNFeed("ISDSC", 10613753)) #HP+Poke
-add(FFNFeed("HPNFP", 2636963)) #HP
-add(FFNFeed("HPJI", 8914586)) #HP, Harry Potter: Junior Inquisitor
-add(FFNFeed("CLV", 8730465)) #HP, C'est La Vie
+i3py.bar.add(FFNFeed("HPPK", 10870770)) #HP+Poke
+i3py.bar.add(FFNFeed("HP20", 8096183)) #HP+DnD
+i3py.bar.add(FFNFeed("FtA", 9173821)) #HP+Poke
+i3py.bar.add(FFNFeed("WoD", 10604571)) #HP+Poke
+i3py.bar.add(FFNFeed("MO", 10552390)) #HP+SAO
+i3py.bar.add(FFNFeed("MKO", 11815818)) #HP+SAO
+i3py.bar.add(FFNFeed("FDD", 8679666)) #SAO
+i3py.bar.add(FFNFeed("AEA", 11146312)) #HP+Poke
+i3py.bar.add(FFNFeed("SA", 9236537)) #SAO+Poke
+i3py.bar.add(FFNFeed("ISDSC", 10613753)) #HP+Poke
+i3py.bar.add(FFNFeed("HPNFP", 2636963)) #HP
+i3py.bar.add(FFNFeed("HPJI", 8914586)) #HP, Harry Potter: Junior Inquisitor
+i3py.bar.add(FFNFeed("CLV", 8730465)) #HP, C'est La Vie
 
-add(Totem())
+i3py.bar.add(Totem())
 
-start()
+i3py.bar.start()
+i3py.ipc.start()

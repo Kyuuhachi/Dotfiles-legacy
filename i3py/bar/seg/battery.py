@@ -1,9 +1,9 @@
-import i3py
+import i3py.bar
 import configparser
 from types import SimpleNamespace
 import time
 
-class Battery(i3py.Segment):
+class Battery(i3py.bar.Segment):
 	file = "/sys/class/power_supply/BAT0/uevent"
 
 	def getOutput(self):

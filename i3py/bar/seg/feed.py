@@ -1,5 +1,5 @@
-from i3py import util
-import i3py
+import i3py.bar
+import i3py.util
 
 import os.path
 import configparser
@@ -34,7 +34,7 @@ def hist(urls):
 		hist = [row[0] for row in rows]
 		return [(url, url in hist) for url in urls]
 
-class Feed(util.Timer, i3py.Segment):
+class Feed(i3py.util.Timer, i3py.bar.Segment):
 	interval = 3600
 
 	link = None

@@ -1,16 +1,15 @@
 import json, os, sys, threading, logging
 import i3py.util
-from i3py.kbd import Kbd
-from i3py.ipc import Ipc
+from i3py.bar.kbd import Kbd
 
 class _InputHandler(threading.Thread):
 	def run(self):
 		sys.stdin.readline()
 		for cmd in self.read():
 			try:
-				seg = i3py._map[int(cmd["instance"])]
+				seg = _map[int(cmd["instance"])]
 				seg.click(cmd["button"])
-				i3py.update(seg)
+				update(seg)
 			except Exception as e:
 				import traceback
 				print(traceback.format_exc())
@@ -19,7 +18,7 @@ class _InputHandler(threading.Thread):
 		for line in sys.stdin:
 			yield json.loads(line.strip(","))
 
-class _OutputHandler(util.Timer):
+class _OutputHandler(i3py.util.Timer):
 	def start(self):
 		super().start()
 		self.print('{"version":1,"click_events":true}\n[\n[]')
@@ -28,7 +27,7 @@ class _OutputHandler(util.Timer):
 		def convert(seg):
 			segOut = seg.getOutput()
 
-			val = i3py._proto.copy()
+			val = _proto.copy()
 			val["instance"] = str(id(seg))
 			if type(segOut) == str:
 				val["full_text"] = segOut
@@ -55,17 +54,17 @@ class _OutputHandler(util.Timer):
 		self.printStatus()
 
 	def run(self):
-		for seg in i3py._segments:
+		for seg in _segments:
 			self._update(seg)
 		self.printStatus()
 
 	def printStatus(self):
 		list = []
-		for seg in i3py._segments:
+		for seg in _segments:
 			if seg._out:
 				out = dict(seg._out)
-				if i3py._kbd.sel != None:
-					if i3py._kbd.sel == seg:
+				if _kbd.sel != None:
+					if _kbd.sel == seg:
 						out["border"] = "#FF0000"
 					elif type(seg).click != Segment.click:
 						out["border"] = "#7F0000"
@@ -73,8 +72,8 @@ class _OutputHandler(util.Timer):
 		self.print("," + json.dumps(list))
 
 	def print(self, *args):
-		print(*args, file=i3py._stdout)
-		i3py._stdout.flush()
+		print(*args, file=_stdout)
+		_stdout.flush()
 
 _stdout = sys.stdout
 sys.stdout = os.fdopen(os.dup(sys.stderr.fileno()), "w", 1) #No buffering; I want to be able to tail -f it
@@ -85,27 +84,22 @@ _segments = []
 _map = {}
 _proto = {}
 _kbd = Kbd()
-_ipc = Ipc()
 
 def update(*seg):
-	i3py._out.update(*seg)
+	_out.update(*seg)
 
 def add(seg):
-	i3py._segments.append(seg)
-	i3py._map[id(seg)] = seg
+	_segments.append(seg)
+	_map[id(seg)] = seg
 
 def proto(val):
 	_proto.update(val)
 
-def ipc(command, handler):
-	i3py._ipc.register(command, handler)
-
 def start():
-	i3py._kbd.start()
-	i3py._ipc.start()
-	i3py._in.start()
-	i3py._out.start()
-	for seg in i3py._segments:
+	_kbd.start()
+	_in.start()
+	_out.start()
+	for seg in _segments:
 		seg.start() #For timers and such
 
 class Segment:
