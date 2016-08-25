@@ -53,7 +53,8 @@ add(FFNFeed("AEA", 11146312)) #HP+Poke
 add(FFNFeed("SA", 9236537)) #SAO+Poke
 add(FFNFeed("ISDSC", 10613753)) #HP+Poke
 add(FFNFeed("HPNFP", 2636963)) #HP
-add(FFNFeed("HPJI", 8914586)) #HP
+add(FFNFeed("HPJI", 8914586)) #HP, Harry Potter: Junior Inquisitor
+add(FFNFeed("CLV", 8730465)) #HP, C'est La Vie
 
 add(Totem())
 
