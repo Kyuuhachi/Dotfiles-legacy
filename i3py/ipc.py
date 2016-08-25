@@ -32,3 +32,5 @@ def _run():
 
 def register(command, handler):
 	_handlers[command] = handler
+
+start()

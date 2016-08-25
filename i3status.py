@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
+# vim: foldmethod=marker
 
 from urllib.parse import urlparse
-import i3py.bar
-import i3py.ipc
-from i3py.bar import add, start
+import os, sys
 
+import subprocess
+# {{{ Bar
+import i3py.bar
 from i3py.bar.seg.clock import Clock
 from i3py.bar.seg.apt import Apt
 from i3py.bar.seg.temp import Temp
@@ -61,4 +63,67 @@ i3py.bar.add(FFNFeed("CLV", 8730465)) #HP, C'est La Vie
 i3py.bar.add(Totem())
 
 i3py.bar.start()
-i3py.ipc.start()
+# }}}
+# {{{ Keybind
+import i3py.keybind
+from i3py.keybind import i3, run, mode
+keys = {
+	None: {
+		"XF86_MonBrightnessUp":   run("xbacklight -inc 20 -time 0"),
+		"XF86_MonBrightnessDown": run("xbacklight -dec 20 -time 0"),
+		"XF86_AudioMute":         run("echo mute | nc -U /tmp/i3py"),
+		"XF86_AudioRaiseVolume":  run("echo inc  | nc -U /tmp/i3py"),
+		"XF86_AudioLowerVolume":  run("echo dec  | nc -U /tmp/i3py"),
+
+		"w-Print":   run("scrot    '%Y-%m-%d_%H-%M-%S.png' -e 'mv $f ~/Screenshots'"),
+		"w-s-Print": run("scrot -u '%Y-%m-%d_%H-%M-%S.png' -e 'mv $f ~/Screenshots'"),
+
+		"w-Return": run("i3-sensible-terminal"),
+		"w-d": run("dmenu_run"),
+		"w-u": run("compose ~/dot/htmlent.txt"),
+
+		"w-c": i3("reload"),
+		"w-s-c": i3("restart"),
+		"w-z": i3py.reload,
+		"c-a-BackSpace": i3("exit"),
+
+		"w-x": i3("kill"),
+		"w-s-x": i3("focus parent;" * 10 + "kill"),
+
+		"w-f": i3("fullscreen"),
+		"w-a": i3("focus parent"),
+		"w-s-a": i3("focus child"),
+		"w-space": i3("focus mode_toggle"),
+		"w-s-space": i3("floating toggle"),
+
+		"w-r": mode("resize"),
+	},
+	"resize": {
+		"<name>": "Resize",
+		"w-s": i3("layout splith"),
+		"w-v": i3("layout splitv"),
+		"w-s-s": i3("layout stacking"),
+		"w-s-t": i3("layout tabbed"),
+
+		"h": i3("resize shrink width  10 px"),
+		"j": i3("resize grow   height 10 px"),
+		"k": i3("resize shrink height 10 px"),
+		"l": i3("resize grow   width  10 px"),
+
+		"s-h": i3("resize shrink width  1 px"),
+		"s-j": i3("resize grow   height 1 px"),
+		"s-k": i3("resize shrink height 1 px"),
+		"s-l": i3("resize grow   width  1 px"),
+
+		"Escape": mode(None)
+	}
+}
+for n in range(1, 11):
+	keys[None]["w-%d" % (n%10)] = i3("workspace %d" % n)
+	keys[None]["w-s-%d" % (n%10)] = i3("move container to workspace %d; workspace %d" % (n, n))
+for k, d in zip("hjkl", ["left", "down", "up", "right"]):
+	keys[None]["w-%s" % k] = i3("focus %s" % d)
+	keys[None]["w-s-%s" % k] = i3("move %s" % d)
+del i3, run, mode
+i3py.keybind.start(keys)
+# }}}
