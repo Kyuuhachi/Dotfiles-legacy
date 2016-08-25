@@ -16,10 +16,10 @@ class i3:
 	def __init__(self, cmd): self.cmd = cmd
 	def __repr__(self): return "i3(%s)" % repr(self.cmd)
 	def __call__(self): _i3.command(self.cmd)
-class run:
-	def __init__(self, cmd): self.cmd = cmd
-	def __repr__(self): return "run(%s)" % repr(self.cmd)
-	def __call__(self): subprocess.Popen(self.cmd, shell=True)
+
+def run(cmd):
+	return i3("exec --no-startup-id " + cmd)
+
 class mode:
 	def __init__(self, id): self.id = id
 	def __repr__(self): return "mode(%s)" % repr(self.id)
