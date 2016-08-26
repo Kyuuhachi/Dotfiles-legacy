@@ -93,4 +93,4 @@ def _run():
 	while True:
 		evt = display.next_event()
 		if evt.type == X.KeyPress:
-			_callbacks[evt.detail, evt.state]()
+			_callbacks[evt.detail, evt.state & 0xFF]()
