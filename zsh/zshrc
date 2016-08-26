@@ -25,8 +25,14 @@ mkcd() {
 umv() {
 	mv $2 $1
 }
+loccd() {
+	cd "$(=locate --basename $1 | ${2:-head} -n 1)"
+}
+
 alias su="sudo $SHELL"
 alias o=xdg-open
+alias locate="locate --basename"
+alias git="git --no-pager"
 
 s=car0b1nius@muncher.se
 win=/mnt/windows/Users/admusr
@@ -39,7 +45,6 @@ command_not_found_handler() {
 }
 
 #{{{1 Color and formatting
-alias git="git --no-pager"
 #{{{2 Man
 export LESS_TERMCAP_mb=$(printf "$fg[red]")
 export LESS_TERMCAP_md=$(printf "$fg[blue]")
