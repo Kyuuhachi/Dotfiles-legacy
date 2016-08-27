@@ -1,3 +1,4 @@
+import Xlib.threaded
 from Xlib.display import Display
 import i3ipc
 import os
@@ -22,8 +23,5 @@ def reload():
 	python = sys.executable
 	os.execl(python, python, *sys.argv)
 
-@i3py.util.OtherThread
-def _start():
-	i3.subscriptions = 0xFF
-	i3.main()
-_start()
+i3.subscriptions = 0xFF
+i3py.util.OtherThread(i3.main)()

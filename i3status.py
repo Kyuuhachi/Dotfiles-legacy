@@ -143,7 +143,9 @@ def change_workspace(name):
 	root = screen.root
 
 	if name not in backgrounds:
-		backgrounds[name] = gen_bg(screen, name)
+		pixmap = screen.root.create_pixmap(screen.width_in_pixels, screen.height_in_pixels, screen.root_depth)
+		gen_bg(pixmap, name)
+		backgrounds[name] = pixmap
 
 	root.change_property(display.get_atom("_XROOTPMAP_ID"), Xatom.PIXMAP, 32, [backgrounds[name].id])
 	root.change_property(display.get_atom("ESETROOT_PMAP_ID"), Xatom.PIXMAP, 32, [backgrounds[name].id])
@@ -151,8 +153,9 @@ def change_workspace(name):
 	root.clear_area(0, 0, screen.width_in_pixels, screen.height_in_pixels)
 	display.sync()
 
-def gen_bg(screen, name):
-	w, h = screen.width_in_pixels, screen.height_in_pixels
+def gen_bg(pixmap, name):
+	geom = pixmap.get_geometry()
+	w, h = geom.width, geom.height
 
 	rand.seed(int.from_bytes(hashlib.md5(name.encode("utf-8")).digest(), "big"))
 	# md5 is supposed to be used as a seed, right?
@@ -164,14 +167,13 @@ def gen_bg(screen, name):
 
 	def randcolor(rand, hue):
 		h = hue + rand() / 12
-		s = (rand() + .2) / 1.2
-		v = (rand() + .2) / 1.2
+		s = rand() * 0.8 + 0.2
+		v = rand() * 0.8 + 0.2
 		rgb = colorsys.hsv_to_rgb(h, s, v)
 		return int(rgb[0] * 0xFF) << 16 | int(rgb[1] * 0xFF) << 8 | int(rgb[2] * 0xFF)
 
 	hue = rand.random()
-	pixmap = screen.root.create_pixmap(w, h, screen.root_depth)
-	paint = screen.root.create_gc()
+	paint = pixmap.create_gc()
 	for verts in polys:
 		paint.change(foreground=randcolor(rand.random, hue))
 		pixmap.fill_poly(paint, X.Convex, X.CoordModeOrigin, verts)
