@@ -1,5 +1,5 @@
 import Xlib.threaded
-from Xlib.display import Display
+import Xlib.display
 import i3ipc
 import os
 import sys
@@ -16,7 +16,7 @@ i3ipc.BarconfigUpdateEvent = lambda data: data
 i3ipc.BindingEvent = lambda data: data
 i3ipc.Con = lambda data, parent, conn: data
 
-display = Display()
+display = Xlib.display.Display()
 i3 = i3ipc.Connection()
 
 def reload():
