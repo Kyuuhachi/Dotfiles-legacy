@@ -4,6 +4,7 @@ import i3py.util
 import os.path
 import configparser
 from urllib.parse import urlparse, urlunparse
+from urllib.request import urlopen
 import sqlite3
 import feedparser
 import re
@@ -48,7 +49,7 @@ class Feed(i3py.util.Timer, i3py.bar.Segment):
 		self.match = match
 
 	def run(self):
-		parser = feedparser.parse(self.url)
+		parser = feedparser.parse(urlopen(self.url))
 		self.entries = []
 		for e in parser.entries:
 			if hasattr(e, "feedburner_origlink"):
@@ -94,7 +95,6 @@ class Feed(i3py.util.Timer, i3py.bar.Segment):
 			webbrowser.open(self.url)
 
 import lxml.html
-from urllib.request import urlopen
 class FFNFeed(Feed):
 	def __init__(self, name, id, seq=True):
 		self.name = name
