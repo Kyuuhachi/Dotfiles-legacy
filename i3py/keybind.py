@@ -23,13 +23,7 @@ def run(cmd):
 class mode:
 	def __init__(self, id): self.id = id
 	def __repr__(self): return "mode(%s)" % repr(self.id)
-	def __call__(self):
-		if self.id:
-			i3("mode '%s'" % keys[self.id]["<name>"])()
-			_grab_keys(None, self.id)
-		else:
-			i3("mode default")()
-			_grab_keys(None)
+	def __call__(self): _grab_keys(None, self.id)
 
 def _parse_key(k):
 	if k[0] == "<" and k[-1] == ">":
