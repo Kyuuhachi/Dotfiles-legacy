@@ -99,10 +99,10 @@ keys = {
 	},
 	"resize": {
 		"<name>": "Resize",
-		"w-s": i3("layout splith"),
-		"w-v": i3("layout splitv"),
-		"w-s-s": i3("layout stacking"),
-		"w-s-t": i3("layout tabbed"),
+		"s": i3("layout splith"),
+		"s-s": i3("layout tabbed"),
+		"v": i3("layout splitv"),
+		"s-v": i3("layout stacking"),
 
 		"h": i3("resize shrink width  10 px"),
 		"j": i3("resize grow   height 10 px"),
@@ -132,26 +132,33 @@ from scipy.spatial import Voronoi
 import colorsys
 import random
 import hashlib
+from collections import defaultdict
 rand = random.Random()
 
 from Xlib import Xatom, X
 
-backgrounds = {}
-def change_workspace(name):
+backgrounds = defaultdict(lambda: {})
+
+def change_workspace(workspace):
 	display = i3py.display
 	screen = display.screen()
 	root = screen.root
 
+	name = workspace["name"]
+	w, h = screen.width_in_pixels, screen.height_in_pixels
 	if name not in backgrounds:
-		pixmap = screen.root.create_pixmap(screen.width_in_pixels, screen.height_in_pixels, screen.root_depth)
+		pixmap = root.create_pixmap(w, h, screen.root_depth)
 		gen_bg(pixmap, name)
-		backgrounds[name] = pixmap
+		backgrounds[w, h][name] = pixmap
 
-	root.change_property(display.get_atom("_XROOTPMAP_ID"), Xatom.PIXMAP, 32, [backgrounds[name].id])
-	root.change_property(display.get_atom("ESETROOT_PMAP_ID"), Xatom.PIXMAP, 32, [backgrounds[name].id])
-	root.change_attributes(background_pixmap=backgrounds[name].id)
-	root.clear_area(0, 0, screen.width_in_pixels, screen.height_in_pixels)
+	root.change_property(display.get_atom("_XROOTPMAP_ID"), Xatom.PIXMAP, 32, [backgrounds[w, h][name].id])
+	root.change_property(display.get_atom("ESETROOT_PMAP_ID"), Xatom.PIXMAP, 32, [backgrounds[w, h][name].id])
+	root.change_attributes(background_pixmap=backgrounds[w, h][name].id)
+
 	display.sync()
+
+def getPixmap(name, w, h, screen):
+	return backgrounds[w, h][name]
 
 def gen_bg(pixmap, name):
 	geom = pixmap.get_geometry()
@@ -161,7 +168,7 @@ def gen_bg(pixmap, name):
 	# md5 is supposed to be used as a seed, right?
 
 	border = [ (w//2, 0-h), (w//2, h+h), (0-w, h//2), (w+w, h//2) ]
-	points = [(rand.randrange(w), rand.randrange(h)) for _ in range(16)]
+	points = [(rand.random() * w, rand.random() * h) for _ in range(16)]
 	vor = Voronoi(border + points)
 	polys = [[(int(v[0]), int(v[1])) for v in vor.vertices[region]] for region in vor.regions]
 
@@ -182,7 +189,6 @@ def gen_bg(pixmap, name):
 def workspace_event(i3, evt):
 	if evt["change"] != "focus":
 		return
-	change_workspace(evt["current"]["name"])
+	change_workspace(evt["current"])
 i3py.i3.on("workspace", workspace_event)
-change_workspace(next(w for w in i3py.i3.get_workspaces() if w["focused"]).name)
 # }}}
