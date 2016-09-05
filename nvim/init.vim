@@ -24,12 +24,14 @@ set tabstop=4 shiftwidth=4
 set ignorecase smartcase
 set ffs=unix,dos,mac
 set dir=~/.vim-tmp/
-set list listchars=tab:>\ ,trail:+,precedes:<,extends:>
+set list listchars=tab:⟩\ ,trail:+,precedes:<,extends:>
 set number
 set autochdir
 set whichwrap+=h,l
 set scrolloff=7
 set nowrap
+set foldmethod=marker
+
 
 set shell=zsh
 
