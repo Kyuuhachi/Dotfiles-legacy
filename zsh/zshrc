@@ -1,5 +1,4 @@
 #!/bin/zsh
-# vim: foldmethod=marker
 #{{{1 History
 setopt histignorealldups
 HISTSIZE=1000
@@ -53,7 +52,6 @@ export LESS_TERMCAP_so=$(printf "")
 export LESS_TERMCAP_me=$(printf "$reset_color")
 export LESS_TERMCAP_se=$(printf "$reset_color")
 export LESS_TERMCAP_ue=$(printf "$reset_color")
-
 #{{{2 Maven
 mvn() {
 	=mvn $@ | sed \
@@ -61,7 +59,6 @@ mvn() {
 		-e "s/^\[WARNING]/${fg[yellow]}${bold_color}[WARNING]${reset_color}/" \
 		-e "s/^\[ERROR]/${fg[red]}${bold_color}[ERROR]${reset_color}/"
 }
-
 #{{{2 ls
 ls() {
 	if [[ -t 1 ]]; then
@@ -76,7 +73,6 @@ ctrlz() {
 }
 zle -N ctrlz
 bindkey "^Z" ctrlz
-
 #{{{1 Syntax highlight
 source ~/dot/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
@@ -89,7 +85,6 @@ ZSH_HIGHLIGHT_STYLES[single-hyphen-option]='fg=blue'
 ZSH_HIGHLIGHT_STYLES[double-hyphen-option]='fg=blue'
 
 ZSH_HIGHLIGHT_MAXLENGTH=300
-
 #{{{1 Completion
 source ~/dot/zsh/zsh-completions/zsh-completions.plugin.zsh
 unsetopt menu_complete
@@ -109,7 +104,6 @@ expand-or-complete-with-dots() {
 }
 zle -N expand-or-complete-with-dots
 bindkey "^I" expand-or-complete-with-dots
-
 #{{{2 zstyle stuff
 zstyle ':completion:*' format 'Completing %d'
 zstyle ':completion:*' list-colors ''
@@ -136,6 +130,5 @@ zstyle ':completion:*:*:*:users' ignored-patterns \
 	rpc rpcuser rpm rtkit scard shutdown squid sshd statd svn sync tftp \
 	usbmux uucp vcsa wwwrun xfs '_*'
 zstyle '*' single-ignored show
-
 #{{{1 Prompt
 source ~/dot/zsh/prompt.zsh
