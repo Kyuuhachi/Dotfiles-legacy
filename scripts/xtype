@@ -6,11 +6,14 @@ import Xlib.X
 import Xlib.display
 KEYCODE = 255
 
-display = Xlib.display.Display()
 for char in map(ord, " ".join(sys.argv[1:]) or input()):
 	keysym = char | 0x01000000
-	if 0x80 <= char <= 0xFF: #the 0x01000000 trick doesn't work for 80..FF, for whatever reason
-		keysym &= 0xFFFFFF
+	if 0x80 <= char <= 0xFF:
+		keysym = char
+	if chr(char) in "\r\n\t\x1B":
+		keysym = 0xFF00 | char
+	print(repr(chr(char)), hex(keysym))
+	display = Xlib.display.Display()
 	display.change_keyboard_mapping(KEYCODE, [(keysym,)*8])
 	display.xtest_fake_input(Xlib.X.KeyPress, KEYCODE)
 	display.xtest_fake_input(Xlib.X.KeyRelease, KEYCODE)
