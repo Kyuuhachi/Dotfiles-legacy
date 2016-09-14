@@ -58,6 +58,8 @@ i3py.bar.add(FFNFeed("ISDSC", 10613753)) #HP+Poke
 i3py.bar.add(FFNFeed("HPNFP", 2636963)) #HP
 i3py.bar.add(FFNFeed("HPJI", 8914586)) #HP, Harry Potter: Junior Inquisitor
 i3py.bar.add(FFNFeed("CLV", 8730465)) #HP, C'est La Vie
+i3py.bar.add(FFNFeed("EOL", 10972919)) #HP, The Evil Overlord List
+i3py.bar.add(FFNFeed("HP&G", 11950816)) #HP, Harry Potter & the Game
 
 i3py.bar.add(Totem())
 
