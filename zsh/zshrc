@@ -4,7 +4,6 @@ setopt histignorealldups
 HISTSIZE=1000
 SAVEHIST=1000
 HISTFILE=~/.zsh_history
-
 #{{{1 Utils
 autoload -Uz compinit && compinit
 autoload -Uz colors && colors
