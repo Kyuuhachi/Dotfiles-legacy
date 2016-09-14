@@ -1,18 +1,29 @@
 #!/usr/bin/env python3
-import os, sys
-import dmenu #dmenu
-import Xlib, Xlib.display, Xlib.XK as XK #python3-xlib
+import sys
+import re
+import subprocess
+import dmenu
 
 keys = []
 chars = {}
 with open(sys.argv[1], "rt") as file:
 	for line in file:
-		k, v = line.split(' ', 2)
+		v, k, c = line.split(" ", 2)
 		keys.append(k)
-		chars[k] = v.encode("ascii").decode("unicode_escape")
+		chars[k] = chr(int(v, 16))
 
 code = dmenu.Dmenu().show(keys)
 
+numRe = re.compile("#([0-9]+)")
+hexRe = re.compile("#x([0-9a-fA-F]+)")
+
+char = None
 if code in chars:
-	os.system("xdotool type '%s'" % chars[code])
-	print(chars[code])
+	char = chars[code]
+elif hexRe.match(code):
+	char = chr(int(hexRe.match(code).group(1), 16))
+elif numRe.match(code):
+	char = chr(int(numRe.match(code).group(1)))
+
+if char:
+	subprocess.Popen(["xtype", char])

@@ -1,2125 +1,2031 @@
-Aacute \xc1
-aacute \xe1
-Abreve \u0102
-abreve \u0103
-ac \u223e
-acd \u223f
-acE \u223e\u0333
-Acirc \xc2
-acirc \xe2
-acute \xb4
-Acy \u0410
-acy \u0430
-AElig \xc6
-aelig \xe6
-af \u2061
-Afr \U0001d504
-afr \U0001d51e
-Agrave \xc0
-agrave \xe0
-alefsym \u2135
-aleph \u2135
-Alpha \u0391
-alpha \u03b1
-Amacr \u0100
-amacr \u0101
-amalg \u2a3f
-AMP &
-amp &
-And \u2a53
-and \u2227
-andand \u2a55
-andd \u2a5c
-andslope \u2a58
-andv \u2a5a
-ang \u2220
-ange \u29a4
-angle \u2220
-angmsd \u2221
-angmsdaa \u29a8
-angmsdab \u29a9
-angmsdac \u29aa
-angmsdad \u29ab
-angmsdae \u29ac
-angmsdaf \u29ad
-angmsdag \u29ae
-angmsdah \u29af
-angrt \u221f
-angrtvb \u22be
-angrtvbd \u299d
-angsph \u2222
-angst \xc5
-angzarr \u237c
-Aogon \u0104
-aogon \u0105
-Aopf \U0001d538
-aopf \U0001d552
-ap \u2248
-apacir \u2a6f
-apE \u2a70
-ape \u224a
-apid \u224b
-apos '
-ApplyFunction \u2061
-approx \u2248
-approxeq \u224a
-Aring \xc5
-aring \xe5
-Ascr \U0001d49c
-ascr \U0001d4b6
-Assign \u2254
-ast *
-asymp \u2248
-asympeq \u224d
-Atilde \xc3
-atilde \xe3
-Auml \xc4
-auml \xe4
-awconint \u2233
-awint \u2a11
-backcong \u224c
-backepsilon \u03f6
-backprime \u2035
-backsim \u223d
-backsimeq \u22cd
-Backslash \u2216
-Barv \u2ae7
-barvee \u22bd
-Barwed \u2306
-barwed \u2305
-barwedge \u2305
-bbrk \u23b5
-bbrktbrk \u23b6
-bcong \u224c
-Bcy \u0411
-bcy \u0431
-bdquo \u201e
-becaus \u2235
-Because \u2235
-because \u2235
-bemptyv \u29b0
-bepsi \u03f6
-bernou \u212c
-Bernoullis \u212c
-Beta \u0392
-beta \u03b2
-beth \u2136
-between \u226c
-Bfr \U0001d505
-bfr \U0001d51f
-bigcap \u22c2
-bigcirc \u25ef
-bigcup \u22c3
-bigodot \u2a00
-bigoplus \u2a01
-bigotimes \u2a02
-bigsqcup \u2a06
-bigstar \u2605
-bigtriangledown \u25bd
-bigtriangleup \u25b3
-biguplus \u2a04
-bigvee \u22c1
-bigwedge \u22c0
-bkarow \u290d
-blacklozenge \u29eb
-blacksquare \u25aa
-blacktriangle \u25b4
-blacktriangledown \u25be
-blacktriangleleft \u25c2
-blacktriangleright \u25b8
-blank \u2423
-blk12 \u2592
-blk14 \u2591
-blk34 \u2593
-block \u2588
-bne =\u20e5
-bnequiv \u2261\u20e5
-bNot \u2aed
-bnot \u2310
-Bopf \U0001d539
-bopf \U0001d553
-bot \u22a5
-bottom \u22a5
-bowtie \u22c8
-boxbox \u29c9
-boxDL \u2557
-boxDl \u2556
-boxdL \u2555
-boxdl \u2510
-boxDR \u2554
-boxDr \u2553
-boxdR \u2552
-boxdr \u250c
-boxH \u2550
-boxh \u2500
-boxHD \u2566
-boxHd \u2564
-boxhD \u2565
-boxhd \u252c
-boxHU \u2569
-boxHu \u2567
-boxhU \u2568
-boxhu \u2534
-boxminus \u229f
-boxplus \u229e
-boxtimes \u22a0
-boxUL \u255d
-boxUl \u255c
-boxuL \u255b
-boxul \u2518
-boxUR \u255a
-boxUr \u2559
-boxuR \u2558
-boxur \u2514
-boxV \u2551
-boxv \u2502
-boxVH \u256c
-boxVh \u256b
-boxvH \u256a
-boxvh \u253c
-boxVL \u2563
-boxVl \u2562
-boxvL \u2561
-boxvl \u2524
-boxVR \u2560
-boxVr \u255f
-boxvR \u255e
-boxvr \u251c
-bprime \u2035
-Breve \u02d8
-breve \u02d8
-brvbar \xa6
-Bscr \u212c
-bscr \U0001d4b7
-bsemi \u204f
-bsim \u223d
-bsime \u22cd
-bsol \\
-bsolb \u29c5
-bsolhsub \u27c8
-bull \u2022
-bullet \u2022
-bump \u224e
-bumpE \u2aae
-bumpe \u224f
-Bumpeq \u224e
-bumpeq \u224f
-Cacute \u0106
-cacute \u0107
-Cap \u22d2
-cap \u2229
-capand \u2a44
-capbrcup \u2a49
-capcap \u2a4b
-capcup \u2a47
-capdot \u2a40
-CapitalDifferentialD \u2145
-caps \u2229\ufe00
-caret \u2041
-caron \u02c7
-Cayleys \u212d
-ccaps \u2a4d
-Ccaron \u010c
-ccaron \u010d
-Ccedil \xc7
-ccedil \xe7
-Ccirc \u0108
-ccirc \u0109
-Cconint \u2230
-ccups \u2a4c
-ccupssm \u2a50
-Cdot \u010a
-cdot \u010b
-cedil \xb8
-Cedilla \xb8
-cemptyv \u29b2
-cent \xa2
-CenterDot \xb7
-centerdot \xb7
-Cfr \u212d
-cfr \U0001d520
-CHcy \u0427
-chcy \u0447
-check \u2713
-checkmark \u2713
-Chi \u03a7
-chi \u03c7
-cir \u25cb
-circ \u02c6
-circeq \u2257
-circlearrowleft \u21ba
-circlearrowright \u21bb
-circledast \u229b
-circledcirc \u229a
-circleddash \u229d
-CircleDot \u2299
-circledR \xae
-circledS \u24c8
-CircleMinus \u2296
-CirclePlus \u2295
-CircleTimes \u2297
-cirE \u29c3
-cire \u2257
-cirfnint \u2a10
-cirmid \u2aef
-cirscir \u29c2
-ClockwiseContourIntegral \u2232
-CloseCurlyDoubleQuote \u201d
-CloseCurlyQuote \u2019
-clubs \u2663
-clubsuit \u2663
-Colon \u2237
-colon :
-Colone \u2a74
-colone \u2254
-coloneq \u2254
-comma ,
-commat @
-comp \u2201
-compfn \u2218
-complement \u2201
-complexes \u2102
-cong \u2245
-congdot \u2a6d
-Congruent \u2261
-Conint \u222f
-conint \u222e
-ContourIntegral \u222e
-Copf \u2102
-copf \U0001d554
-coprod \u2210
-Coproduct \u2210
-COPY \xa9
-copy \xa9
-copysr \u2117
-CounterClockwiseContourIntegral \u2233
-crarr \u21b5
-Cross \u2a2f
-cross \u2717
-Cscr \U0001d49e
-cscr \U0001d4b8
-csub \u2acf
-csube \u2ad1
-csup \u2ad0
-csupe \u2ad2
-ctdot \u22ef
-cudarrl \u2938
-cudarrr \u2935
-cuepr \u22de
-cuesc \u22df
-cularr \u21b6
-cularrp \u293d
-Cup \u22d3
-cup \u222a
-cupbrcap \u2a48
-CupCap \u224d
-cupcap \u2a46
-cupcup \u2a4a
-cupdot \u228d
-cupor \u2a45
-cups \u222a\ufe00
-curarr \u21b7
-curarrm \u293c
-curlyeqprec \u22de
-curlyeqsucc \u22df
-curlyvee \u22ce
-curlywedge \u22cf
-curren \xa4
-curvearrowleft \u21b6
-curvearrowright \u21b7
-cuvee \u22ce
-cuwed \u22cf
-cwconint \u2232
-cwint \u2231
-cylcty \u232d
-Dagger \u2021
-dagger \u2020
-daleth \u2138
-Darr \u21a1
-dArr \u21d3
-darr \u2193
-dash \u2010
-Dashv \u2ae4
-dashv \u22a3
-dbkarow \u290f
-dblac \u02dd
-Dcaron \u010e
-dcaron \u010f
-Dcy \u0414
-dcy \u0434
-DD \u2145
-dd \u2146
-ddagger \u2021
-ddarr \u21ca
-DDotrahd \u2911
-ddotseq \u2a77
-deg \xb0
-Del \u2207
-Delta \u0394
-delta \u03b4
-demptyv \u29b1
-dfisht \u297f
-Dfr \U0001d507
-dfr \U0001d521
-dHar \u2965
-dharl \u21c3
-dharr \u21c2
-DiacriticalAcute \xb4
-DiacriticalDot \u02d9
-DiacriticalDoubleAcute \u02dd
-DiacriticalGrave `
-DiacriticalTilde \u02dc
-diam \u22c4
-Diamond \u22c4
-diamond \u22c4
-diamondsuit \u2666
-diams \u2666
-die \xa8
-DifferentialD \u2146
-digamma \u03dd
-disin \u22f2
-div \xf7
-divide \xf7
-divideontimes \u22c7
-divonx \u22c7
-DJcy \u0402
-djcy \u0452
-dlcorn \u231e
-dlcrop \u230d
-dollar $
-Dopf \U0001d53b
-dopf \U0001d555
-Dot \xa8
-dot \u02d9
-DotDot \u20dc
-doteq \u2250
-doteqdot \u2251
-DotEqual \u2250
-dotminus \u2238
-dotplus \u2214
-dotsquare \u22a1
-doublebarwedge \u2306
-DoubleContourIntegral \u222f
-DoubleDot \xa8
-DoubleDownArrow \u21d3
-DoubleLeftArrow \u21d0
-DoubleLeftRightArrow \u21d4
-DoubleLeftTee \u2ae4
-DoubleLongLeftArrow \u27f8
-DoubleLongLeftRightArrow \u27fa
-DoubleLongRightArrow \u27f9
-DoubleRightArrow \u21d2
-DoubleRightTee \u22a8
-DoubleUpArrow \u21d1
-DoubleUpDownArrow \u21d5
-DoubleVerticalBar \u2225
-DownArrow \u2193
-Downarrow \u21d3
-downarrow \u2193
-DownArrowBar \u2913
-DownArrowUpArrow \u21f5
-DownBreve \u0311
-downdownarrows \u21ca
-downharpoonleft \u21c3
-downharpoonright \u21c2
-DownLeftRightVector \u2950
-DownLeftTeeVector \u295e
-DownLeftVector \u21bd
-DownLeftVectorBar \u2956
-DownRightTeeVector \u295f
-DownRightVector \u21c1
-DownRightVectorBar \u2957
-DownTee \u22a4
-DownTeeArrow \u21a7
-drbkarow \u2910
-drcorn \u231f
-drcrop \u230c
-Dscr \U0001d49f
-dscr \U0001d4b9
-DScy \u0405
-dscy \u0455
-dsol \u29f6
-Dstrok \u0110
-dstrok \u0111
-dtdot \u22f1
-dtri \u25bf
-dtrif \u25be
-duarr \u21f5
-duhar \u296f
-dwangle \u29a6
-DZcy \u040f
-dzcy \u045f
-dzigrarr \u27ff
-Eacute \xc9
-eacute \xe9
-easter \u2a6e
-Ecaron \u011a
-ecaron \u011b
-ecir \u2256
-Ecirc \xca
-ecirc \xea
-ecolon \u2255
-Ecy \u042d
-ecy \u044d
-eDDot \u2a77
-Edot \u0116
-eDot \u2251
-edot \u0117
-ee \u2147
-efDot \u2252
-Efr \U0001d508
-efr \U0001d522
-eg \u2a9a
-Egrave \xc8
-egrave \xe8
-egs \u2a96
-egsdot \u2a98
-el \u2a99
-Element \u2208
-elinters \u23e7
-ell \u2113
-els \u2a95
-elsdot \u2a97
-Emacr \u0112
-emacr \u0113
-empty \u2205
-emptyset \u2205
-EmptySmallSquare \u25fb
-emptyv \u2205
-EmptyVerySmallSquare \u25ab
-emsp \u2003
-emsp13 \u2004
-emsp14 \u2005
-ENG \u014a
-eng \u014b
-ensp \u2002
-Eogon \u0118
-eogon \u0119
-Eopf \U0001d53c
-eopf \U0001d556
-epar \u22d5
-eparsl \u29e3
-eplus \u2a71
-epsi \u03b5
-Epsilon \u0395
-epsilon \u03b5
-epsiv \u03f5
-eqcirc \u2256
-eqcolon \u2255
-eqsim \u2242
-eqslantgtr \u2a96
-eqslantless \u2a95
-Equal \u2a75
-equals =
-EqualTilde \u2242
-equest \u225f
-Equilibrium \u21cc
-equiv \u2261
-equivDD \u2a78
-eqvparsl \u29e5
-erarr \u2971
-erDot \u2253
-Escr \u2130
-escr \u212f
-esdot \u2250
-Esim \u2a73
-esim \u2242
-Eta \u0397
-eta \u03b7
-ETH \xd0
-eth \xf0
-Euml \xcb
-euml \xeb
-euro \u20ac
-excl !
-exist \u2203
-Exists \u2203
-expectation \u2130
-ExponentialE \u2147
-exponentiale \u2147
-fallingdotseq \u2252
-Fcy \u0424
-fcy \u0444
-female \u2640
-ffilig \ufb03
-fflig \ufb00
-ffllig \ufb04
-Ffr \U0001d509
-ffr \U0001d523
-filig \ufb01
-FilledSmallSquare \u25fc
-FilledVerySmallSquare \u25aa
-fjlig fj
-flat \u266d
-fllig \ufb02
-fltns \u25b1
-fnof \u0192
-Fopf \U0001d53d
-fopf \U0001d557
-ForAll \u2200
-forall \u2200
-fork \u22d4
-forkv \u2ad9
-Fouriertrf \u2131
-fpartint \u2a0d
-frac12 \xbd
-frac13 \u2153
-frac14 \xbc
-frac15 \u2155
-frac16 \u2159
-frac18 \u215b
-frac23 \u2154
-frac25 \u2156
-frac34 \xbe
-frac35 \u2157
-frac38 \u215c
-frac45 \u2158
-frac56 \u215a
-frac58 \u215d
-frac78 \u215e
-frasl \u2044
-frown \u2322
-Fscr \u2131
-fscr \U0001d4bb
-gacute \u01f5
-Gamma \u0393
-gamma \u03b3
-Gammad \u03dc
-gammad \u03dd
-gap \u2a86
-Gbreve \u011e
-gbreve \u011f
-Gcedil \u0122
-Gcirc \u011c
-gcirc \u011d
-Gcy \u0413
-gcy \u0433
-Gdot \u0120
-gdot \u0121
-gE \u2267
-ge \u2265
-gEl \u2a8c
-gel \u22db
-geq \u2265
-geqq \u2267
-geqslant \u2a7e
-ges \u2a7e
-gescc \u2aa9
-gesdot \u2a80
-gesdoto \u2a82
-gesdotol \u2a84
-gesl \u22db\ufe00
-gesles \u2a94
-Gfr \U0001d50a
-gfr \U0001d524
-Gg \u22d9
-gg \u226b
-ggg \u22d9
-gimel \u2137
-GJcy \u0403
-gjcy \u0453
-gl \u2277
-gla \u2aa5
-glE \u2a92
-glj \u2aa4
-gnap \u2a8a
-gnapprox \u2a8a
-gnE \u2269
-gne \u2a88
-gneq \u2a88
-gneqq \u2269
-gnsim \u22e7
-Gopf \U0001d53e
-gopf \U0001d558
-grave `
-GreaterEqual \u2265
-GreaterEqualLess \u22db
-GreaterFullEqual \u2267
-GreaterGreater \u2aa2
-GreaterLess \u2277
-GreaterSlantEqual \u2a7e
-GreaterTilde \u2273
-Gscr \U0001d4a2
-gscr \u210a
-gsim \u2273
-gsime \u2a8e
-gsiml \u2a90
-GT >
-Gt \u226b
-gt >
-gtcc \u2aa7
-gtcir \u2a7a
-gtdot \u22d7
-gtlPar \u2995
-gtquest \u2a7c
-gtrapprox \u2a86
-gtrarr \u2978
-gtrdot \u22d7
-gtreqless \u22db
-gtreqqless \u2a8c
-gtrless \u2277
-gtrsim \u2273
-gvertneqq \u2269\ufe00
-gvnE \u2269\ufe00
-Hacek \u02c7
-hairsp \u200a
-half \xbd
-hamilt \u210b
-HARDcy \u042a
-hardcy \u044a
-hArr \u21d4
-harr \u2194
-harrcir \u2948
-harrw \u21ad
-Hat ^
-hbar \u210f
-Hcirc \u0124
-hcirc \u0125
-hearts \u2665
-heartsuit \u2665
-hellip \u2026
-hercon \u22b9
-Hfr \u210c
-hfr \U0001d525
-HilbertSpace \u210b
-hksearow \u2925
-hkswarow \u2926
-hoarr \u21ff
-homtht \u223b
-hookleftarrow \u21a9
-hookrightarrow \u21aa
-Hopf \u210d
-hopf \U0001d559
-horbar \u2015
-HorizontalLine \u2500
-Hscr \u210b
-hscr \U0001d4bd
-hslash \u210f
-Hstrok \u0126
-hstrok \u0127
-HumpDownHump \u224e
-HumpEqual \u224f
-hybull \u2043
-hyphen \u2010
-Iacute \xcd
-iacute \xed
-ic \u2063
-Icirc \xce
-icirc \xee
-Icy \u0418
-icy \u0438
-Idot \u0130
-IEcy \u0415
-iecy \u0435
-iexcl \xa1
-iff \u21d4
-Ifr \u2111
-ifr \U0001d526
-Igrave \xcc
-igrave \xec
-ii \u2148
-iiiint \u2a0c
-iiint \u222d
-iinfin \u29dc
-iiota \u2129
-IJlig \u0132
-ijlig \u0133
-Im \u2111
-Imacr \u012a
-imacr \u012b
-image \u2111
-ImaginaryI \u2148
-imagline \u2110
-imagpart \u2111
-imath \u0131
-imof \u22b7
-imped \u01b5
-Implies \u21d2
-in \u2208
-incare \u2105
-infin \u221e
-infintie \u29dd
-inodot \u0131
-Int \u222c
-int \u222b
-intcal \u22ba
-integers \u2124
-Integral \u222b
-intercal \u22ba
-Intersection \u22c2
-intlarhk \u2a17
-intprod \u2a3c
-InvisibleComma \u2063
-InvisibleTimes \u2062
-IOcy \u0401
-iocy \u0451
-Iogon \u012e
-iogon \u012f
-Iopf \U0001d540
-iopf \U0001d55a
-Iota \u0399
-iota \u03b9
-iprod \u2a3c
-iquest \xbf
-Iscr \u2110
-iscr \U0001d4be
-isin \u2208
-isindot \u22f5
-isinE \u22f9
-isins \u22f4
-isinsv \u22f3
-isinv \u2208
-it \u2062
-Itilde \u0128
-itilde \u0129
-Iukcy \u0406
-iukcy \u0456
-Iuml \xcf
-iuml \xef
-Jcirc \u0134
-jcirc \u0135
-Jcy \u0419
-jcy \u0439
-Jfr \U0001d50d
-jfr \U0001d527
-jmath \u0237
-Jopf \U0001d541
-jopf \U0001d55b
-Jscr \U0001d4a5
-jscr \U0001d4bf
-Jsercy \u0408
-jsercy \u0458
-Jukcy \u0404
-jukcy \u0454
-Kappa \u039a
-kappa \u03ba
-kappav \u03f0
-Kcedil \u0136
-kcedil \u0137
-Kcy \u041a
-kcy \u043a
-Kfr \U0001d50e
-kfr \U0001d528
-kgreen \u0138
-KHcy \u0425
-khcy \u0445
-KJcy \u040c
-kjcy \u045c
-Kopf \U0001d542
-kopf \U0001d55c
-Kscr \U0001d4a6
-kscr \U0001d4c0
-lAarr \u21da
-Lacute \u0139
-lacute \u013a
-laemptyv \u29b4
-lagran \u2112
-Lambda \u039b
-lambda \u03bb
-Lang \u27ea
-lang \u27e8
-langd \u2991
-langle \u27e8
-lap \u2a85
-Laplacetrf \u2112
-laquo \xab
-Larr \u219e
-lArr \u21d0
-larr \u2190
-larrb \u21e4
-larrbfs \u291f
-larrfs \u291d
-larrhk \u21a9
-larrlp \u21ab
-larrpl \u2939
-larrsim \u2973
-larrtl \u21a2
-lat \u2aab
-lAtail \u291b
-latail \u2919
-late \u2aad
-lates \u2aad\ufe00
-lBarr \u290e
-lbarr \u290c
-lbbrk \u2772
-lbrace {
-lbrack [
-lbrke \u298b
-lbrksld \u298f
-lbrkslu \u298d
-Lcaron \u013d
-lcaron \u013e
-Lcedil \u013b
-lcedil \u013c
-lceil \u2308
-lcub {
-Lcy \u041b
-lcy \u043b
-ldca \u2936
-ldquo \u201c
-ldquor \u201e
-ldrdhar \u2967
-ldrushar \u294b
-ldsh \u21b2
-lE \u2266
-le \u2264
-LeftAngleBracket \u27e8
-LeftArrow \u2190
-Leftarrow \u21d0
-leftarrow \u2190
-LeftArrowBar \u21e4
-LeftArrowRightArrow \u21c6
-leftarrowtail \u21a2
-LeftCeiling \u2308
-LeftDoubleBracket \u27e6
-LeftDownTeeVector \u2961
-LeftDownVector \u21c3
-LeftDownVectorBar \u2959
-LeftFloor \u230a
-leftharpoondown \u21bd
-leftharpoonup \u21bc
-leftleftarrows \u21c7
-LeftRightArrow \u2194
-Leftrightarrow \u21d4
-leftrightarrow \u2194
-leftrightarrows \u21c6
-leftrightharpoons \u21cb
-leftrightsquigarrow \u21ad
-LeftRightVector \u294e
-LeftTee \u22a3
-LeftTeeArrow \u21a4
-LeftTeeVector \u295a
-leftthreetimes \u22cb
-LeftTriangle \u22b2
-LeftTriangleBar \u29cf
-LeftTriangleEqual \u22b4
-LeftUpDownVector \u2951
-LeftUpTeeVector \u2960
-LeftUpVector \u21bf
-LeftUpVectorBar \u2958
-LeftVector \u21bc
-LeftVectorBar \u2952
-lEg \u2a8b
-leg \u22da
-leq \u2264
-leqq \u2266
-leqslant \u2a7d
-les \u2a7d
-lescc \u2aa8
-lesdot \u2a7f
-lesdoto \u2a81
-lesdotor \u2a83
-lesg \u22da\ufe00
-lesges \u2a93
-lessapprox \u2a85
-lessdot \u22d6
-lesseqgtr \u22da
-lesseqqgtr \u2a8b
-LessEqualGreater \u22da
-LessFullEqual \u2266
-LessGreater \u2276
-lessgtr \u2276
-LessLess \u2aa1
-lesssim \u2272
-LessSlantEqual \u2a7d
-LessTilde \u2272
-lfisht \u297c
-lfloor \u230a
-Lfr \U0001d50f
-lfr \U0001d529
-lg \u2276
-lgE \u2a91
-lHar \u2962
-lhard \u21bd
-lharu \u21bc
-lharul \u296a
-lhblk \u2584
-LJcy \u0409
-ljcy \u0459
-Ll \u22d8
-ll \u226a
-llarr \u21c7
-llcorner \u231e
-Lleftarrow \u21da
-llhard \u296b
-lltri \u25fa
-Lmidot \u013f
-lmidot \u0140
-lmoust \u23b0
-lmoustache \u23b0
-lnap \u2a89
-lnapprox \u2a89
-lnE \u2268
-lne \u2a87
-lneq \u2a87
-lneqq \u2268
-lnsim \u22e6
-loang \u27ec
-loarr \u21fd
-lobrk \u27e6
-LongLeftArrow \u27f5
-Longleftarrow \u27f8
-longleftarrow \u27f5
-LongLeftRightArrow \u27f7
-Longleftrightarrow \u27fa
-longleftrightarrow \u27f7
-longmapsto \u27fc
-LongRightArrow \u27f6
-Longrightarrow \u27f9
-longrightarrow \u27f6
-looparrowleft \u21ab
-looparrowright \u21ac
-lopar \u2985
-Lopf \U0001d543
-lopf \U0001d55d
-loplus \u2a2d
-lotimes \u2a34
-lowast \u2217
-lowbar _
-LowerLeftArrow \u2199
-LowerRightArrow \u2198
-loz \u25ca
-lozenge \u25ca
-lozf \u29eb
-lpar (
-lparlt \u2993
-lrarr \u21c6
-lrcorner \u231f
-lrhar \u21cb
-lrhard \u296d
-lrm \u200e
-lrtri \u22bf
-lsaquo \u2039
-Lscr \u2112
-lscr \U0001d4c1
-Lsh \u21b0
-lsh \u21b0
-lsim \u2272
-lsime \u2a8d
-lsimg \u2a8f
-lsqb [
-lsquo \u2018
-lsquor \u201a
-Lstrok \u0141
-lstrok \u0142
-LT <
-Lt \u226a
-lt <
-ltcc \u2aa6
-ltcir \u2a79
-ltdot \u22d6
-lthree \u22cb
-ltimes \u22c9
-ltlarr \u2976
-ltquest \u2a7b
-ltri \u25c3
-ltrie \u22b4
-ltrif \u25c2
-ltrPar \u2996
-lurdshar \u294a
-luruhar \u2966
-lvertneqq \u2268\ufe00
-lvnE \u2268\ufe00
-macr \xaf
-male \u2642
-malt \u2720
-maltese \u2720
-Map \u2905
-map \u21a6
-mapsto \u21a6
-mapstodown \u21a7
-mapstoleft \u21a4
-mapstoup \u21a5
-marker \u25ae
-mcomma \u2a29
-Mcy \u041c
-mcy \u043c
-mdash \u2014
-mDDot \u223a
-measuredangle \u2221
-MediumSpace \u205f
-Mellintrf \u2133
-Mfr \U0001d510
-mfr \U0001d52a
-mho \u2127
-micro \xb5
-mid \u2223
-midast *
-midcir \u2af0
-middot \xb7
-minus \u2212
-minusb \u229f
-minusd \u2238
-minusdu \u2a2a
-MinusPlus \u2213
-mlcp \u2adb
-mldr \u2026
-mnplus \u2213
-models \u22a7
-Mopf \U0001d544
-mopf \U0001d55e
-mp \u2213
-Mscr \u2133
-mscr \U0001d4c2
-mstpos \u223e
-Mu \u039c
-mu \u03bc
-multimap \u22b8
-mumap \u22b8
-nabla \u2207
-Nacute \u0143
-nacute \u0144
-nang \u2220\u20d2
-nap \u2249
-napE \u2a70\u0338
-napid \u224b\u0338
-napos \u0149
-napprox \u2249
-natur \u266e
-natural \u266e
-naturals \u2115
-nbsp \xa0
-nbump \u224e\u0338
-nbumpe \u224f\u0338
-ncap \u2a43
-Ncaron \u0147
-ncaron \u0148
-Ncedil \u0145
-ncedil \u0146
-ncong \u2247
-ncongdot \u2a6d\u0338
-ncup \u2a42
-Ncy \u041d
-ncy \u043d
-ndash \u2013
-ne \u2260
-nearhk \u2924
-neArr \u21d7
-nearr \u2197
-nearrow \u2197
-nedot \u2250\u0338
-NegativeMediumSpace \u200b
-NegativeThickSpace \u200b
-NegativeThinSpace \u200b
-NegativeVeryThinSpace \u200b
-nequiv \u2262
-nesear \u2928
-nesim \u2242\u0338
-NestedGreaterGreater \u226b
-NestedLessLess \u226a
-NewLine \n
-nexist \u2204
-nexists \u2204
-Nfr \U0001d511
-nfr \U0001d52b
-ngE \u2267\u0338
-nge \u2271
-ngeq \u2271
-ngeqq \u2267\u0338
-ngeqslant \u2a7e\u0338
-nges \u2a7e\u0338
-nGg \u22d9\u0338
-ngsim \u2275
-nGt \u226b\u20d2
-ngt \u226f
-ngtr \u226f
-nGtv \u226b\u0338
-nhArr \u21ce
-nharr \u21ae
-nhpar \u2af2
-ni \u220b
-nis \u22fc
-nisd \u22fa
-niv \u220b
-NJcy \u040a
-njcy \u045a
-nlArr \u21cd
-nlarr \u219a
-nldr \u2025
-nlE \u2266\u0338
-nle \u2270
-nLeftarrow \u21cd
-nleftarrow \u219a
-nLeftrightarrow \u21ce
-nleftrightarrow \u21ae
-nleq \u2270
-nleqq \u2266\u0338
-nleqslant \u2a7d\u0338
-nles \u2a7d\u0338
-nless \u226e
-nLl \u22d8\u0338
-nlsim \u2274
-nLt \u226a\u20d2
-nlt \u226e
-nltri \u22ea
-nltrie \u22ec
-nLtv \u226a\u0338
-nmid \u2224
-NoBreak \u2060
-NonBreakingSpace \xa0
-Nopf \u2115
-nopf \U0001d55f
-Not \u2aec
-not \xac
-NotCongruent \u2262
-NotCupCap \u226d
-NotDoubleVerticalBar \u2226
-NotElement \u2209
-NotEqual \u2260
-NotEqualTilde \u2242\u0338
-NotExists \u2204
-NotGreater \u226f
-NotGreaterEqual \u2271
-NotGreaterFullEqual \u2267\u0338
-NotGreaterGreater \u226b\u0338
-NotGreaterLess \u2279
-NotGreaterSlantEqual \u2a7e\u0338
-NotGreaterTilde \u2275
-NotHumpDownHump \u224e\u0338
-NotHumpEqual \u224f\u0338
-notin \u2209
-notindot \u22f5\u0338
-notinE \u22f9\u0338
-notinva \u2209
-notinvb \u22f7
-notinvc \u22f6
-NotLeftTriangle \u22ea
-NotLeftTriangleBar \u29cf\u0338
-NotLeftTriangleEqual \u22ec
-NotLess \u226e
-NotLessEqual \u2270
-NotLessGreater \u2278
-NotLessLess \u226a\u0338
-NotLessSlantEqual \u2a7d\u0338
-NotLessTilde \u2274
-NotNestedGreaterGreater \u2aa2\u0338
-NotNestedLessLess \u2aa1\u0338
-notni \u220c
-notniva \u220c
-notnivb \u22fe
-notnivc \u22fd
-NotPrecedes \u2280
-NotPrecedesEqual \u2aaf\u0338
-NotPrecedesSlantEqual \u22e0
-NotReverseElement \u220c
-NotRightTriangle \u22eb
-NotRightTriangleBar \u29d0\u0338
-NotRightTriangleEqual \u22ed
-NotSquareSubset \u228f\u0338
-NotSquareSubsetEqual \u22e2
-NotSquareSuperset \u2290\u0338
-NotSquareSupersetEqual \u22e3
-NotSubset \u2282\u20d2
-NotSubsetEqual \u2288
-NotSucceeds \u2281
-NotSucceedsEqual \u2ab0\u0338
-NotSucceedsSlantEqual \u22e1
-NotSucceedsTilde \u227f\u0338
-NotSuperset \u2283\u20d2
-NotSupersetEqual \u2289
-NotTilde \u2241
-NotTildeEqual \u2244
-NotTildeFullEqual \u2247
-NotTildeTilde \u2249
-NotVerticalBar \u2224
-npar \u2226
-nparallel \u2226
-nparsl \u2afd\u20e5
-npart \u2202\u0338
-npolint \u2a14
-npr \u2280
-nprcue \u22e0
-npre \u2aaf\u0338
-nprec \u2280
-npreceq \u2aaf\u0338
-nrArr \u21cf
-nrarr \u219b
-nrarrc \u2933\u0338
-nrarrw \u219d\u0338
-nRightarrow \u21cf
-nrightarrow \u219b
-nrtri \u22eb
-nrtrie \u22ed
-nsc \u2281
-nsccue \u22e1
-nsce \u2ab0\u0338
-Nscr \U0001d4a9
-nscr \U0001d4c3
-nshortmid \u2224
-nshortparallel \u2226
-nsim \u2241
-nsime \u2244
-nsimeq \u2244
-nsmid \u2224
-nspar \u2226
-nsqsube \u22e2
-nsqsupe \u22e3
-nsub \u2284
-nsubE \u2ac5\u0338
-nsube \u2288
-nsubset \u2282\u20d2
-nsubseteq \u2288
-nsubseteqq \u2ac5\u0338
-nsucc \u2281
-nsucceq \u2ab0\u0338
-nsup \u2285
-nsupE \u2ac6\u0338
-nsupe \u2289
-nsupset \u2283\u20d2
-nsupseteq \u2289
-nsupseteqq \u2ac6\u0338
-ntgl \u2279
-Ntilde \xd1
-ntilde \xf1
-ntlg \u2278
-ntriangleleft \u22ea
-ntrianglelefteq \u22ec
-ntriangleright \u22eb
-ntrianglerighteq \u22ed
-Nu \u039d
-nu \u03bd
-num #
-numero \u2116
-numsp \u2007
-nvap \u224d\u20d2
-nVDash \u22af
-nVdash \u22ae
-nvDash \u22ad
-nvdash \u22ac
-nvge \u2265\u20d2
-nvgt >\u20d2
-nvHarr \u2904
-nvinfin \u29de
-nvlArr \u2902
-nvle \u2264\u20d2
-nvlt <\u20d2
-nvltrie \u22b4\u20d2
-nvrArr \u2903
-nvrtrie \u22b5\u20d2
-nvsim \u223c\u20d2
-nwarhk \u2923
-nwArr \u21d6
-nwarr \u2196
-nwarrow \u2196
-nwnear \u2927
-Oacute \xd3
-oacute \xf3
-oast \u229b
-ocir \u229a
-Ocirc \xd4
-ocirc \xf4
-Ocy \u041e
-ocy \u043e
-odash \u229d
-Odblac \u0150
-odblac \u0151
-odiv \u2a38
-odot \u2299
-odsold \u29bc
-OElig \u0152
-oelig \u0153
-ofcir \u29bf
-Ofr \U0001d512
-ofr \U0001d52c
-ogon \u02db
-Ograve \xd2
-ograve \xf2
-ogt \u29c1
-ohbar \u29b5
-ohm \u03a9
-oint \u222e
-olarr \u21ba
-olcir \u29be
-olcross \u29bb
-oline \u203e
-olt \u29c0
-Omacr \u014c
-omacr \u014d
-Omega \u03a9
-omega \u03c9
-Omicron \u039f
-omicron \u03bf
-omid \u29b6
-ominus \u2296
-Oopf \U0001d546
-oopf \U0001d560
-opar \u29b7
-OpenCurlyDoubleQuote \u201c
-OpenCurlyQuote \u2018
-operp \u29b9
-oplus \u2295
-Or \u2a54
-or \u2228
-orarr \u21bb
-ord \u2a5d
-order \u2134
-orderof \u2134
-ordf \xaa
-ordm \xba
-origof \u22b6
-oror \u2a56
-orslope \u2a57
-orv \u2a5b
-oS \u24c8
-Oscr \U0001d4aa
-oscr \u2134
-Oslash \xd8
-oslash \xf8
-osol \u2298
-Otilde \xd5
-otilde \xf5
-Otimes \u2a37
-otimes \u2297
-otimesas \u2a36
-Ouml \xd6
-ouml \xf6
-ovbar \u233d
-OverBar \u203e
-OverBrace \u23de
-OverBracket \u23b4
-OverParenthesis \u23dc
-par \u2225
-para \xb6
-parallel \u2225
-parsim \u2af3
-parsl \u2afd
-part \u2202
-PartialD \u2202
-Pcy \u041f
-pcy \u043f
-percnt %
-period .
-permil \u2030
-perp \u22a5
-pertenk \u2031
-Pfr \U0001d513
-pfr \U0001d52d
-Phi \u03a6
-phi \u03c6
-phiv \u03d5
-phmmat \u2133
-phone \u260e
-Pi \u03a0
-pi \u03c0
-pitchfork \u22d4
-piv \u03d6
-planck \u210f
-planckh \u210e
-plankv \u210f
-plus +
-plusacir \u2a23
-plusb \u229e
-pluscir \u2a22
-plusdo \u2214
-plusdu \u2a25
-pluse \u2a72
-PlusMinus \xb1
-plusmn \xb1
-plussim \u2a26
-plustwo \u2a27
-pm \xb1
-Poincareplane \u210c
-pointint \u2a15
-Popf \u2119
-popf \U0001d561
-pound \xa3
-Pr \u2abb
-pr \u227a
-prap \u2ab7
-prcue \u227c
-prE \u2ab3
-pre \u2aaf
-prec \u227a
-precapprox \u2ab7
-preccurlyeq \u227c
-Precedes \u227a
-PrecedesEqual \u2aaf
-PrecedesSlantEqual \u227c
-PrecedesTilde \u227e
-preceq \u2aaf
-precnapprox \u2ab9
-precneqq \u2ab5
-precnsim \u22e8
-precsim \u227e
-Prime \u2033
-prime \u2032
-primes \u2119
-prnap \u2ab9
-prnE \u2ab5
-prnsim \u22e8
-prod \u220f
-Product \u220f
-profalar \u232e
-profline \u2312
-profsurf \u2313
-prop \u221d
-Proportion \u2237
-Proportional \u221d
-propto \u221d
-prsim \u227e
-prurel \u22b0
-Pscr \U0001d4ab
-pscr \U0001d4c5
-Psi \u03a8
-psi \u03c8
-puncsp \u2008
-Qfr \U0001d514
-qfr \U0001d52e
-qint \u2a0c
-Qopf \u211a
-qopf \U0001d562
-qprime \u2057
-Qscr \U0001d4ac
-qscr \U0001d4c6
-quaternions \u210d
-quatint \u2a16
-quest ?
-questeq \u225f
-QUOT "
-quot "
-rAarr \u21db
-race \u223d\u0331
-Racute \u0154
-racute \u0155
-radic \u221a
-raemptyv \u29b3
-Rang \u27eb
-rang \u27e9
-rangd \u2992
-range \u29a5
-rangle \u27e9
-raquo \xbb
-Rarr \u21a0
-rArr \u21d2
-rarr \u2192
-rarrap \u2975
-rarrb \u21e5
-rarrbfs \u2920
-rarrc \u2933
-rarrfs \u291e
-rarrhk \u21aa
-rarrlp \u21ac
-rarrpl \u2945
-rarrsim \u2974
-Rarrtl \u2916
-rarrtl \u21a3
-rarrw \u219d
-rAtail \u291c
-ratail \u291a
-ratio \u2236
-rationals \u211a
-RBarr \u2910
-rBarr \u290f
-rbarr \u290d
-rbbrk \u2773
-rbrace }
-rbrack ]
-rbrke \u298c
-rbrksld \u298e
-rbrkslu \u2990
-Rcaron \u0158
-rcaron \u0159
-Rcedil \u0156
-rcedil \u0157
-rceil \u2309
-rcub }
-Rcy \u0420
-rcy \u0440
-rdca \u2937
-rdldhar \u2969
-rdquo \u201d
-rdquor \u201d
-rdsh \u21b3
-Re \u211c
-real \u211c
-realine \u211b
-realpart \u211c
-reals \u211d
-rect \u25ad
-REG \xae
-reg \xae
-ReverseElement \u220b
-ReverseEquilibrium \u21cb
-ReverseUpEquilibrium \u296f
-rfisht \u297d
-rfloor \u230b
-Rfr \u211c
-rfr \U0001d52f
-rHar \u2964
-rhard \u21c1
-rharu \u21c0
-rharul \u296c
-Rho \u03a1
-rho \u03c1
-rhov \u03f1
-RightAngleBracket \u27e9
-RightArrow \u2192
-Rightarrow \u21d2
-rightarrow \u2192
-RightArrowBar \u21e5
-RightArrowLeftArrow \u21c4
-rightarrowtail \u21a3
-RightCeiling \u2309
-RightDoubleBracket \u27e7
-RightDownTeeVector \u295d
-RightDownVector \u21c2
-RightDownVectorBar \u2955
-RightFloor \u230b
-rightharpoondown \u21c1
-rightharpoonup \u21c0
-rightleftarrows \u21c4
-rightleftharpoons \u21cc
-rightrightarrows \u21c9
-rightsquigarrow \u219d
-RightTee \u22a2
-RightTeeArrow \u21a6
-RightTeeVector \u295b
-rightthreetimes \u22cc
-RightTriangle \u22b3
-RightTriangleBar \u29d0
-RightTriangleEqual \u22b5
-RightUpDownVector \u294f
-RightUpTeeVector \u295c
-RightUpVector \u21be
-RightUpVectorBar \u2954
-RightVector \u21c0
-RightVectorBar \u2953
-ring \u02da
-risingdotseq \u2253
-rlarr \u21c4
-rlhar \u21cc
-rlm \u200f
-rmoust \u23b1
-rmoustache \u23b1
-rnmid \u2aee
-roang \u27ed
-roarr \u21fe
-robrk \u27e7
-ropar \u2986
-Ropf \u211d
-ropf \U0001d563
-roplus \u2a2e
-rotimes \u2a35
-RoundImplies \u2970
-rpar )
-rpargt \u2994
-rppolint \u2a12
-rrarr \u21c9
-Rrightarrow \u21db
-rsaquo \u203a
-Rscr \u211b
-rscr \U0001d4c7
-Rsh \u21b1
-rsh \u21b1
-rsqb ]
-rsquo \u2019
-rsquor \u2019
-rthree \u22cc
-rtimes \u22ca
-rtri \u25b9
-rtrie \u22b5
-rtrif \u25b8
-rtriltri \u29ce
-RuleDelayed \u29f4
-ruluhar \u2968
-rx \u211e
-Sacute \u015a
-sacute \u015b
-sbquo \u201a
-Sc \u2abc
-sc \u227b
-scap \u2ab8
-Scaron \u0160
-scaron \u0161
-sccue \u227d
-scE \u2ab4
-sce \u2ab0
-Scedil \u015e
-scedil \u015f
-Scirc \u015c
-scirc \u015d
-scnap \u2aba
-scnE \u2ab6
-scnsim \u22e9
-scpolint \u2a13
-scsim \u227f
-Scy \u0421
-scy \u0441
-sdot \u22c5
-sdotb \u22a1
-sdote \u2a66
-searhk \u2925
-seArr \u21d8
-searr \u2198
-searrow \u2198
-sect \xa7
-semi ;
-seswar \u2929
-setminus \u2216
-setmn \u2216
-sext \u2736
-Sfr \U0001d516
-sfr \U0001d530
-sfrown \u2322
-sharp \u266f
-SHCHcy \u0429
-shchcy \u0449
-SHcy \u0428
-shcy \u0448
-ShortDownArrow \u2193
-ShortLeftArrow \u2190
-shortmid \u2223
-shortparallel \u2225
-ShortRightArrow \u2192
-ShortUpArrow \u2191
-shy \xad
-Sigma \u03a3
-sigma \u03c3
-sigmaf \u03c2
-sigmav \u03c2
-sim \u223c
-simdot \u2a6a
-sime \u2243
-simeq \u2243
-simg \u2a9e
-simgE \u2aa0
-siml \u2a9d
-simlE \u2a9f
-simne \u2246
-simplus \u2a24
-simrarr \u2972
-slarr \u2190
-SmallCircle \u2218
-smallsetminus \u2216
-smashp \u2a33
-smeparsl \u29e4
-smid \u2223
-smile \u2323
-smt \u2aaa
-smte \u2aac
-smtes \u2aac\ufe00
-SOFTcy \u042c
-softcy \u044c
-sol /
-solb \u29c4
-solbar \u233f
-Sopf \U0001d54a
-sopf \U0001d564
-spades \u2660
-spadesuit \u2660
-spar \u2225
-sqcap \u2293
-sqcaps \u2293\ufe00
-sqcup \u2294
-sqcups \u2294\ufe00
-Sqrt \u221a
-sqsub \u228f
-sqsube \u2291
-sqsubset \u228f
-sqsubseteq \u2291
-sqsup \u2290
-sqsupe \u2292
-sqsupset \u2290
-sqsupseteq \u2292
-squ \u25a1
-Square \u25a1
-square \u25a1
-SquareIntersection \u2293
-SquareSubset \u228f
-SquareSubsetEqual \u2291
-SquareSuperset \u2290
-SquareSupersetEqual \u2292
-SquareUnion \u2294
-squarf \u25aa
-squf \u25aa
-srarr \u2192
-Sscr \U0001d4ae
-sscr \U0001d4c8
-ssetmn \u2216
-ssmile \u2323
-sstarf \u22c6
-Star \u22c6
-star \u2606
-starf \u2605
-straightepsilon \u03f5
-straightphi \u03d5
-strns \xaf
-Sub \u22d0
-sub \u2282
-subdot \u2abd
-subE \u2ac5
-sube \u2286
-subedot \u2ac3
-submult \u2ac1
-subnE \u2acb
-subne \u228a
-subplus \u2abf
-subrarr \u2979
-Subset \u22d0
-subset \u2282
-subseteq \u2286
-subseteqq \u2ac5
-SubsetEqual \u2286
-subsetneq \u228a
-subsetneqq \u2acb
-subsim \u2ac7
-subsub \u2ad5
-subsup \u2ad3
-succ \u227b
-succapprox \u2ab8
-succcurlyeq \u227d
-Succeeds \u227b
-SucceedsEqual \u2ab0
-SucceedsSlantEqual \u227d
-SucceedsTilde \u227f
-succeq \u2ab0
-succnapprox \u2aba
-succneqq \u2ab6
-succnsim \u22e9
-succsim \u227f
-SuchThat \u220b
-Sum \u2211
-sum \u2211
-sung \u266a
-Sup \u22d1
-sup \u2283
-sup1 \xb9
-sup2 \xb2
-sup3 \xb3
-supdot \u2abe
-supdsub \u2ad8
-supE \u2ac6
-supe \u2287
-supedot \u2ac4
-Superset \u2283
-SupersetEqual \u2287
-suphsol \u27c9
-suphsub \u2ad7
-suplarr \u297b
-supmult \u2ac2
-supnE \u2acc
-supne \u228b
-supplus \u2ac0
-Supset \u22d1
-supset \u2283
-supseteq \u2287
-supseteqq \u2ac6
-supsetneq \u228b
-supsetneqq \u2acc
-supsim \u2ac8
-supsub \u2ad4
-supsup \u2ad6
-swarhk \u2926
-swArr \u21d9
-swarr \u2199
-swarrow \u2199
-swnwar \u292a
-szlig \xdf
-Tab \t
-target \u2316
-Tau \u03a4
-tau \u03c4
-tbrk \u23b4
-Tcaron \u0164
-tcaron \u0165
-Tcedil \u0162
-tcedil \u0163
-Tcy \u0422
-tcy \u0442
-tdot \u20db
-telrec \u2315
-Tfr \U0001d517
-tfr \U0001d531
-there4 \u2234
-Therefore \u2234
-therefore \u2234
-Theta \u0398
-theta \u03b8
-thetasym \u03d1
-thetav \u03d1
-thickapprox \u2248
-thicksim \u223c
-ThickSpace \u205f\u200a
-thinsp \u2009
-ThinSpace \u2009
-thkap \u2248
-thksim \u223c
-THORN \xde
-thorn \xfe
-Tilde \u223c
-tilde \u02dc
-TildeEqual \u2243
-TildeFullEqual \u2245
-TildeTilde \u2248
-times \xd7
-timesb \u22a0
-timesbar \u2a31
-timesd \u2a30
-tint \u222d
-toea \u2928
-top \u22a4
-topbot \u2336
-topcir \u2af1
-Topf \U0001d54b
-topf \U0001d565
-topfork \u2ada
-tosa \u2929
-tprime \u2034
-TRADE \u2122
-trade \u2122
-triangle \u25b5
-triangledown \u25bf
-triangleleft \u25c3
-trianglelefteq \u22b4
-triangleq \u225c
-triangleright \u25b9
-trianglerighteq \u22b5
-tridot \u25ec
-trie \u225c
-triminus \u2a3a
-TripleDot \u20db
-triplus \u2a39
-trisb \u29cd
-tritime \u2a3b
-trpezium \u23e2
-Tscr \U0001d4af
-tscr \U0001d4c9
-TScy \u0426
-tscy \u0446
-TSHcy \u040b
-tshcy \u045b
-Tstrok \u0166
-tstrok \u0167
-twixt \u226c
-twoheadleftarrow \u219e
-twoheadrightarrow \u21a0
-Uacute \xda
-uacute \xfa
-Uarr \u219f
-uArr \u21d1
-uarr \u2191
-Uarrocir \u2949
-Ubrcy \u040e
-ubrcy \u045e
-Ubreve \u016c
-ubreve \u016d
-Ucirc \xdb
-ucirc \xfb
-Ucy \u0423
-ucy \u0443
-udarr \u21c5
-Udblac \u0170
-udblac \u0171
-udhar \u296e
-ufisht \u297e
-Ufr \U0001d518
-ufr \U0001d532
-Ugrave \xd9
-ugrave \xf9
-uHar \u2963
-uharl \u21bf
-uharr \u21be
-uhblk \u2580
-ulcorn \u231c
-ulcorner \u231c
-ulcrop \u230f
-ultri \u25f8
-Umacr \u016a
-umacr \u016b
-uml \xa8
-UnderBar _
-UnderBrace \u23df
-UnderBracket \u23b5
-UnderParenthesis \u23dd
-Union \u22c3
-UnionPlus \u228e
-Uogon \u0172
-uogon \u0173
-Uopf \U0001d54c
-uopf \U0001d566
-UpArrow \u2191
-Uparrow \u21d1
-uparrow \u2191
-UpArrowBar \u2912
-UpArrowDownArrow \u21c5
-UpDownArrow \u2195
-Updownarrow \u21d5
-updownarrow \u2195
-UpEquilibrium \u296e
-upharpoonleft \u21bf
-upharpoonright \u21be
-uplus \u228e
-UpperLeftArrow \u2196
-UpperRightArrow \u2197
-Upsi \u03d2
-upsi \u03c5
-upsih \u03d2
-Upsilon \u03a5
-upsilon \u03c5
-UpTee \u22a5
-UpTeeArrow \u21a5
-upuparrows \u21c8
-urcorn \u231d
-urcorner \u231d
-urcrop \u230e
-Uring \u016e
-uring \u016f
-urtri \u25f9
-Uscr \U0001d4b0
-uscr \U0001d4ca
-utdot \u22f0
-Utilde \u0168
-utilde \u0169
-utri \u25b5
-utrif \u25b4
-uuarr \u21c8
-Uuml \xdc
-uuml \xfc
-uwangle \u29a7
-vangrt \u299c
-varepsilon \u03f5
-varkappa \u03f0
-varnothing \u2205
-varphi \u03d5
-varpi \u03d6
-varpropto \u221d
-vArr \u21d5
-varr \u2195
-varrho \u03f1
-varsigma \u03c2
-varsubsetneq \u228a\ufe00
-varsubsetneqq \u2acb\ufe00
-varsupsetneq \u228b\ufe00
-varsupsetneqq \u2acc\ufe00
-vartheta \u03d1
-vartriangleleft \u22b2
-vartriangleright \u22b3
-Vbar \u2aeb
-vBar \u2ae8
-vBarv \u2ae9
-Vcy \u0412
-vcy \u0432
-VDash \u22ab
-Vdash \u22a9
-vDash \u22a8
-vdash \u22a2
-Vdashl \u2ae6
-Vee \u22c1
-vee \u2228
-veebar \u22bb
-veeeq \u225a
-vellip \u22ee
-Verbar \u2016
-verbar |
-Vert \u2016
-vert |
-VerticalBar \u2223
-VerticalLine |
-VerticalSeparator \u2758
-VerticalTilde \u2240
-VeryThinSpace \u200a
-Vfr \U0001d519
-vfr \U0001d533
-vltri \u22b2
-vnsub \u2282\u20d2
-vnsup \u2283\u20d2
-Vopf \U0001d54d
-vopf \U0001d567
-vprop \u221d
-vrtri \u22b3
-Vscr \U0001d4b1
-vscr \U0001d4cb
-vsubnE \u2acb\ufe00
-vsubne \u228a\ufe00
-vsupnE \u2acc\ufe00
-vsupne \u228b\ufe00
-Vvdash \u22aa
-vzigzag \u299a
-Wcirc \u0174
-wcirc \u0175
-wedbar \u2a5f
-Wedge \u22c0
-wedge \u2227
-wedgeq \u2259
-weierp \u2118
-Wfr \U0001d51a
-wfr \U0001d534
-Wopf \U0001d54e
-wopf \U0001d568
-wp \u2118
-wr \u2240
-wreath \u2240
-Wscr \U0001d4b2
-wscr \U0001d4cc
-xcap \u22c2
-xcirc \u25ef
-xcup \u22c3
-xdtri \u25bd
-Xfr \U0001d51b
-xfr \U0001d535
-xhArr \u27fa
-xharr \u27f7
-Xi \u039e
-xi \u03be
-xlArr \u27f8
-xlarr \u27f5
-xmap \u27fc
-xnis \u22fb
-xodot \u2a00
-Xopf \U0001d54f
-xopf \U0001d569
-xoplus \u2a01
-xotime \u2a02
-xrArr \u27f9
-xrarr \u27f6
-Xscr \U0001d4b3
-xscr \U0001d4cd
-xsqcup \u2a06
-xuplus \u2a04
-xutri \u25b3
-xvee \u22c1
-xwedge \u22c0
-Yacute \xdd
-yacute \xfd
-YAcy \u042f
-yacy \u044f
-Ycirc \u0176
-ycirc \u0177
-Ycy \u042b
-ycy \u044b
-yen \xa5
-Yfr \U0001d51c
-yfr \U0001d536
-YIcy \u0407
-yicy \u0457
-Yopf \U0001d550
-yopf \U0001d56a
-Yscr \U0001d4b4
-yscr \U0001d4ce
-YUcy \u042e
-yucy \u044e
-Yuml \u0178
-yuml \xff
-Zacute \u0179
-zacute \u017a
-Zcaron \u017d
-zcaron \u017e
-Zcy \u0417
-zcy \u0437
-Zdot \u017b
-zdot \u017c
-zeetrf \u2128
-ZeroWidthSpace \u200b
-Zeta \u0396
-zeta \u03b6
-Zfr \u2128
-zfr \U0001d537
-ZHcy \u0416
-zhcy \u0436
-zigrarr \u21dd
-Zopf \u2124
-zopf \U0001d56b
-Zscr \U0001d4b5
-zscr \U0001d4cf
-zwj \u200d
-zwnj \u200c
+00000009 Tab # CHARACTER TABULATION
+0000000A NewLine # LINE FEED (LF)
+00000021 excl # EXCLAMATION MARK
+00000022 quot # QUOTATION MARK
+00000022 QUOT # QUOTATION MARK
+00000023 num # NUMBER SIGN
+00000024 dollar # DOLLAR SIGN
+00000025 percnt # PERCENT SIGN
+00000026 amp # AMPERSAND
+00000026 AMP # AMPERSAND
+00000027 apos # APOSTROPHE
+00000028 lpar # LEFT PARENTHESIS
+00000029 rpar # RIGHT PARENTHESIS
+0000002A ast # ASTERISK
+0000002A midast # ASTERISK
+0000002B plus # PLUS SIGN
+0000002C comma # COMMA
+0000002E period # FULL STOP
+0000002F sol # SOLIDUS
+0000003A colon # COLON
+0000003B semi # SEMICOLON
+0000003C lt # LESS-THAN SIGN
+0000003C LT # LESS-THAN SIGN
+0000003D equals # EQUALS SIGN
+0000003E gt # GREATER-THAN SIGN
+0000003E GT # GREATER-THAN SIGN
+0000003F quest # QUESTION MARK
+00000040 commat # COMMERCIAL AT
+0000005B lsqb # LEFT SQUARE BRACKET
+0000005B lbrack # LEFT SQUARE BRACKET
+0000005C bsol # REVERSE SOLIDUS
+0000005D rsqb # RIGHT SQUARE BRACKET
+0000005D rbrack # RIGHT SQUARE BRACKET
+0000005E Hat # CIRCUMFLEX ACCENT
+0000005F lowbar # LOW LINE
+00000060 grave # GRAVE ACCENT
+00000060 DiacriticalGrave # GRAVE ACCENT
+0000007B lcub # LEFT CURLY BRACKET
+0000007B lbrace # LEFT CURLY BRACKET
+0000007C verbar # VERTICAL LINE
+0000007C vert # VERTICAL LINE
+0000007C VerticalLine # VERTICAL LINE
+0000007D rcub # RIGHT CURLY BRACKET
+0000007D rbrace # RIGHT CURLY BRACKET
+000000A0 nbsp # NO-BREAK SPACE
+000000A0 NonBreakingSpace # NO-BREAK SPACE
+000000A1 iexcl # INVERTED EXCLAMATION MARK
+000000A2 cent # CENT SIGN
+000000A3 pound # POUND SIGN
+000000A4 curren # CURRENCY SIGN
+000000A5 yen # YEN SIGN
+000000A6 brvbar # BROKEN BAR
+000000A7 sect # SECTION SIGN
+000000A8 Dot # DIAERESIS
+000000A8 die # DIAERESIS
+000000A8 DoubleDot # DIAERESIS
+000000A8 uml # DIAERESIS
+000000A9 copy # COPYRIGHT SIGN
+000000A9 COPY # COPYRIGHT SIGN
+000000AA ordf # FEMININE ORDINAL INDICATOR
+000000AB laquo # LEFT-POINTING DOUBLE ANGLE QUOTATION MARK
+000000AC not # NOT SIGN
+000000AD shy # SOFT HYPHEN
+000000AE reg # REGISTERED SIGN
+000000AE circledR # REGISTERED SIGN
+000000AE REG # REGISTERED SIGN
+000000AF macr # MACRON
+000000AF OverBar # MACRON
+000000AF strns # MACRON
+000000B0 deg # DEGREE SIGN
+000000B1 plusmn # PLUS-MINUS SIGN
+000000B1 pm # PLUS-MINUS SIGN
+000000B1 PlusMinus # PLUS-MINUS SIGN
+000000B2 sup2 # SUPERSCRIPT TWO
+000000B3 sup3 # SUPERSCRIPT THREE
+000000B4 acute # ACUTE ACCENT
+000000B4 DiacriticalAcute # ACUTE ACCENT
+000000B5 micro # MICRO SIGN
+000000B6 para # PILCROW SIGN
+000000B7 middot # MIDDLE DOT
+000000B7 centerdot # MIDDLE DOT
+000000B7 CenterDot # MIDDLE DOT
+000000B8 cedil # CEDILLA
+000000B8 Cedilla # CEDILLA
+000000B9 sup1 # SUPERSCRIPT ONE
+000000BA ordm # MASCULINE ORDINAL INDICATOR
+000000BB raquo # RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK
+000000BC frac14 # VULGAR FRACTION ONE QUARTER
+000000BD frac12 # VULGAR FRACTION ONE HALF
+000000BD half # VULGAR FRACTION ONE HALF
+000000BE frac34 # VULGAR FRACTION THREE QUARTERS
+000000BF iquest # INVERTED QUESTION MARK
+000000C0 Agrave # LATIN CAPITAL LETTER A WITH GRAVE
+000000C1 Aacute # LATIN CAPITAL LETTER A WITH ACUTE
+000000C2 Acirc # LATIN CAPITAL LETTER A WITH CIRCUMFLEX
+000000C3 Atilde # LATIN CAPITAL LETTER A WITH TILDE
+000000C4 Auml # LATIN CAPITAL LETTER A WITH DIAERESIS
+000000C5 Aring # LATIN CAPITAL LETTER A WITH RING ABOVE
+000000C6 AElig # LATIN CAPITAL LETTER AE
+000000C7 Ccedil # LATIN CAPITAL LETTER C WITH CEDILLA
+000000C8 Egrave # LATIN CAPITAL LETTER E WITH GRAVE
+000000C9 Eacute # LATIN CAPITAL LETTER E WITH ACUTE
+000000CA Ecirc # LATIN CAPITAL LETTER E WITH CIRCUMFLEX
+000000CB Euml # LATIN CAPITAL LETTER E WITH DIAERESIS
+000000CC Igrave # LATIN CAPITAL LETTER I WITH GRAVE
+000000CD Iacute # LATIN CAPITAL LETTER I WITH ACUTE
+000000CE Icirc # LATIN CAPITAL LETTER I WITH CIRCUMFLEX
+000000CF Iuml # LATIN CAPITAL LETTER I WITH DIAERESIS
+000000D0 ETH # LATIN CAPITAL LETTER ETH
+000000D1 Ntilde # LATIN CAPITAL LETTER N WITH TILDE
+000000D2 Ograve # LATIN CAPITAL LETTER O WITH GRAVE
+000000D3 Oacute # LATIN CAPITAL LETTER O WITH ACUTE
+000000D4 Ocirc # LATIN CAPITAL LETTER O WITH CIRCUMFLEX
+000000D5 Otilde # LATIN CAPITAL LETTER O WITH TILDE
+000000D6 Ouml # LATIN CAPITAL LETTER O WITH DIAERESIS
+000000D7 times # MULTIPLICATION SIGN
+000000D8 Oslash # LATIN CAPITAL LETTER O WITH STROKE
+000000D9 Ugrave # LATIN CAPITAL LETTER U WITH GRAVE
+000000DA Uacute # LATIN CAPITAL LETTER U WITH ACUTE
+000000DB Ucirc # LATIN CAPITAL LETTER U WITH CIRCUMFLEX
+000000DC Uuml # LATIN CAPITAL LETTER U WITH DIAERESIS
+000000DD Yacute # LATIN CAPITAL LETTER Y WITH ACUTE
+000000DE THORN # LATIN CAPITAL LETTER THORN
+000000DF szlig # LATIN SMALL LETTER SHARP S
+000000E0 agrave # LATIN SMALL LETTER A WITH GRAVE
+000000E1 aacute # LATIN SMALL LETTER A WITH ACUTE
+000000E2 acirc # LATIN SMALL LETTER A WITH CIRCUMFLEX
+000000E3 atilde # LATIN SMALL LETTER A WITH TILDE
+000000E4 auml # LATIN SMALL LETTER A WITH DIAERESIS
+000000E5 aring # LATIN SMALL LETTER A WITH RING ABOVE
+000000E6 aelig # LATIN SMALL LETTER AE
+000000E7 ccedil # LATIN SMALL LETTER C WITH CEDILLA
+000000E8 egrave # LATIN SMALL LETTER E WITH GRAVE
+000000E9 eacute # LATIN SMALL LETTER E WITH ACUTE
+000000EA ecirc # LATIN SMALL LETTER E WITH CIRCUMFLEX
+000000EB euml # LATIN SMALL LETTER E WITH DIAERESIS
+000000EC igrave # LATIN SMALL LETTER I WITH GRAVE
+000000ED iacute # LATIN SMALL LETTER I WITH ACUTE
+000000EE icirc # LATIN SMALL LETTER I WITH CIRCUMFLEX
+000000EF iuml # LATIN SMALL LETTER I WITH DIAERESIS
+000000F0 eth # LATIN SMALL LETTER ETH
+000000F1 ntilde # LATIN SMALL LETTER N WITH TILDE
+000000F2 ograve # LATIN SMALL LETTER O WITH GRAVE
+000000F3 oacute # LATIN SMALL LETTER O WITH ACUTE
+000000F4 ocirc # LATIN SMALL LETTER O WITH CIRCUMFLEX
+000000F5 otilde # LATIN SMALL LETTER O WITH TILDE
+000000F6 ouml # LATIN SMALL LETTER O WITH DIAERESIS
+000000F7 divide # DIVISION SIGN
+000000F7 div # DIVISION SIGN
+000000F8 oslash # LATIN SMALL LETTER O WITH STROKE
+000000F9 ugrave # LATIN SMALL LETTER U WITH GRAVE
+000000FA uacute # LATIN SMALL LETTER U WITH ACUTE
+000000FB ucirc # LATIN SMALL LETTER U WITH CIRCUMFLEX
+000000FC uuml # LATIN SMALL LETTER U WITH DIAERESIS
+000000FD yacute # LATIN SMALL LETTER Y WITH ACUTE
+000000FE thorn # LATIN SMALL LETTER THORN
+000000FF yuml # LATIN SMALL LETTER Y WITH DIAERESIS
+00000100 Amacr # LATIN CAPITAL LETTER A WITH MACRON
+00000101 amacr # LATIN SMALL LETTER A WITH MACRON
+00000102 Abreve # LATIN CAPITAL LETTER A WITH BREVE
+00000103 abreve # LATIN SMALL LETTER A WITH BREVE
+00000104 Aogon # LATIN CAPITAL LETTER A WITH OGONEK
+00000105 aogon # LATIN SMALL LETTER A WITH OGONEK
+00000106 Cacute # LATIN CAPITAL LETTER C WITH ACUTE
+00000107 cacute # LATIN SMALL LETTER C WITH ACUTE
+00000108 Ccirc # LATIN CAPITAL LETTER C WITH CIRCUMFLEX
+00000109 ccirc # LATIN SMALL LETTER C WITH CIRCUMFLEX
+0000010A Cdot # LATIN CAPITAL LETTER C WITH DOT ABOVE
+0000010B cdot # LATIN SMALL LETTER C WITH DOT ABOVE
+0000010C Ccaron # LATIN CAPITAL LETTER C WITH CARON
+0000010D ccaron # LATIN SMALL LETTER C WITH CARON
+0000010E Dcaron # LATIN CAPITAL LETTER D WITH CARON
+0000010F dcaron # LATIN SMALL LETTER D WITH CARON
+00000110 Dstrok # LATIN CAPITAL LETTER D WITH STROKE
+00000111 dstrok # LATIN SMALL LETTER D WITH STROKE
+00000112 Emacr # LATIN CAPITAL LETTER E WITH MACRON
+00000113 emacr # LATIN SMALL LETTER E WITH MACRON
+00000116 Edot # LATIN CAPITAL LETTER E WITH DOT ABOVE
+00000117 edot # LATIN SMALL LETTER E WITH DOT ABOVE
+00000118 Eogon # LATIN CAPITAL LETTER E WITH OGONEK
+00000119 eogon # LATIN SMALL LETTER E WITH OGONEK
+0000011A Ecaron # LATIN CAPITAL LETTER E WITH CARON
+0000011B ecaron # LATIN SMALL LETTER E WITH CARON
+0000011C Gcirc # LATIN CAPITAL LETTER G WITH CIRCUMFLEX
+0000011D gcirc # LATIN SMALL LETTER G WITH CIRCUMFLEX
+0000011E Gbreve # LATIN CAPITAL LETTER G WITH BREVE
+0000011F gbreve # LATIN SMALL LETTER G WITH BREVE
+00000120 Gdot # LATIN CAPITAL LETTER G WITH DOT ABOVE
+00000121 gdot # LATIN SMALL LETTER G WITH DOT ABOVE
+00000122 Gcedil # LATIN CAPITAL LETTER G WITH CEDILLA
+00000124 Hcirc # LATIN CAPITAL LETTER H WITH CIRCUMFLEX
+00000125 hcirc # LATIN SMALL LETTER H WITH CIRCUMFLEX
+00000126 Hstrok # LATIN CAPITAL LETTER H WITH STROKE
+00000127 hstrok # LATIN SMALL LETTER H WITH STROKE
+00000128 Itilde # LATIN CAPITAL LETTER I WITH TILDE
+00000129 itilde # LATIN SMALL LETTER I WITH TILDE
+0000012A Imacr # LATIN CAPITAL LETTER I WITH MACRON
+0000012B imacr # LATIN SMALL LETTER I WITH MACRON
+0000012E Iogon # LATIN CAPITAL LETTER I WITH OGONEK
+0000012F iogon # LATIN SMALL LETTER I WITH OGONEK
+00000130 Idot # LATIN CAPITAL LETTER I WITH DOT ABOVE
+00000131 imath # LATIN SMALL LETTER DOTLESS I
+00000131 inodot # LATIN SMALL LETTER DOTLESS I
+00000132 IJlig # LATIN CAPITAL LIGATURE IJ
+00000133 ijlig # LATIN SMALL LIGATURE IJ
+00000134 Jcirc # LATIN CAPITAL LETTER J WITH CIRCUMFLEX
+00000135 jcirc # LATIN SMALL LETTER J WITH CIRCUMFLEX
+00000136 Kcedil # LATIN CAPITAL LETTER K WITH CEDILLA
+00000137 kcedil # LATIN SMALL LETTER K WITH CEDILLA
+00000138 kgreen # LATIN SMALL LETTER KRA
+00000139 Lacute # LATIN CAPITAL LETTER L WITH ACUTE
+0000013A lacute # LATIN SMALL LETTER L WITH ACUTE
+0000013B Lcedil # LATIN CAPITAL LETTER L WITH CEDILLA
+0000013C lcedil # LATIN SMALL LETTER L WITH CEDILLA
+0000013D Lcaron # LATIN CAPITAL LETTER L WITH CARON
+0000013E lcaron # LATIN SMALL LETTER L WITH CARON
+0000013F Lmidot # LATIN CAPITAL LETTER L WITH MIDDLE DOT
+00000140 lmidot # LATIN SMALL LETTER L WITH MIDDLE DOT
+00000141 Lstrok # LATIN CAPITAL LETTER L WITH STROKE
+00000142 lstrok # LATIN SMALL LETTER L WITH STROKE
+00000143 Nacute # LATIN CAPITAL LETTER N WITH ACUTE
+00000144 nacute # LATIN SMALL LETTER N WITH ACUTE
+00000145 Ncedil # LATIN CAPITAL LETTER N WITH CEDILLA
+00000146 ncedil # LATIN SMALL LETTER N WITH CEDILLA
+00000147 Ncaron # LATIN CAPITAL LETTER N WITH CARON
+00000148 ncaron # LATIN SMALL LETTER N WITH CARON
+00000149 napos # LATIN SMALL LETTER N PRECEDED BY APOSTROPHE
+0000014A ENG # LATIN CAPITAL LETTER ENG
+0000014B eng # LATIN SMALL LETTER ENG
+0000014C Omacr # LATIN CAPITAL LETTER O WITH MACRON
+0000014D omacr # LATIN SMALL LETTER O WITH MACRON
+00000150 Odblac # LATIN CAPITAL LETTER O WITH DOUBLE ACUTE
+00000151 odblac # LATIN SMALL LETTER O WITH DOUBLE ACUTE
+00000152 OElig # LATIN CAPITAL LIGATURE OE
+00000153 oelig # LATIN SMALL LIGATURE OE
+00000154 Racute # LATIN CAPITAL LETTER R WITH ACUTE
+00000155 racute # LATIN SMALL LETTER R WITH ACUTE
+00000156 Rcedil # LATIN CAPITAL LETTER R WITH CEDILLA
+00000157 rcedil # LATIN SMALL LETTER R WITH CEDILLA
+00000158 Rcaron # LATIN CAPITAL LETTER R WITH CARON
+00000159 rcaron # LATIN SMALL LETTER R WITH CARON
+0000015A Sacute # LATIN CAPITAL LETTER S WITH ACUTE
+0000015B sacute # LATIN SMALL LETTER S WITH ACUTE
+0000015C Scirc # LATIN CAPITAL LETTER S WITH CIRCUMFLEX
+0000015D scirc # LATIN SMALL LETTER S WITH CIRCUMFLEX
+0000015E Scedil # LATIN CAPITAL LETTER S WITH CEDILLA
+0000015F scedil # LATIN SMALL LETTER S WITH CEDILLA
+00000160 Scaron # LATIN CAPITAL LETTER S WITH CARON
+00000161 scaron # LATIN SMALL LETTER S WITH CARON
+00000162 Tcedil # LATIN CAPITAL LETTER T WITH CEDILLA
+00000163 tcedil # LATIN SMALL LETTER T WITH CEDILLA
+00000164 Tcaron # LATIN CAPITAL LETTER T WITH CARON
+00000165 tcaron # LATIN SMALL LETTER T WITH CARON
+00000166 Tstrok # LATIN CAPITAL LETTER T WITH STROKE
+00000167 tstrok # LATIN SMALL LETTER T WITH STROKE
+00000168 Utilde # LATIN CAPITAL LETTER U WITH TILDE
+00000169 utilde # LATIN SMALL LETTER U WITH TILDE
+0000016A Umacr # LATIN CAPITAL LETTER U WITH MACRON
+0000016B umacr # LATIN SMALL LETTER U WITH MACRON
+0000016C Ubreve # LATIN CAPITAL LETTER U WITH BREVE
+0000016D ubreve # LATIN SMALL LETTER U WITH BREVE
+0000016E Uring # LATIN CAPITAL LETTER U WITH RING ABOVE
+0000016F uring # LATIN SMALL LETTER U WITH RING ABOVE
+00000170 Udblac # LATIN CAPITAL LETTER U WITH DOUBLE ACUTE
+00000171 udblac # LATIN SMALL LETTER U WITH DOUBLE ACUTE
+00000172 Uogon # LATIN CAPITAL LETTER U WITH OGONEK
+00000173 uogon # LATIN SMALL LETTER U WITH OGONEK
+00000174 Wcirc # LATIN CAPITAL LETTER W WITH CIRCUMFLEX
+00000175 wcirc # LATIN SMALL LETTER W WITH CIRCUMFLEX
+00000176 Ycirc # LATIN CAPITAL LETTER Y WITH CIRCUMFLEX
+00000177 ycirc # LATIN SMALL LETTER Y WITH CIRCUMFLEX
+00000178 Yuml # LATIN CAPITAL LETTER Y WITH DIAERESIS
+00000179 Zacute # LATIN CAPITAL LETTER Z WITH ACUTE
+0000017A zacute # LATIN SMALL LETTER Z WITH ACUTE
+0000017B Zdot # LATIN CAPITAL LETTER Z WITH DOT ABOVE
+0000017C zdot # LATIN SMALL LETTER Z WITH DOT ABOVE
+0000017D Zcaron # LATIN CAPITAL LETTER Z WITH CARON
+0000017E zcaron # LATIN SMALL LETTER Z WITH CARON
+00000192 fnof # LATIN SMALL LETTER F WITH HOOK
+000001B5 imped # LATIN CAPITAL LETTER Z WITH STROKE
+000001F5 gacute # LATIN SMALL LETTER G WITH ACUTE
+00000237 jmath # LATIN SMALL LETTER DOTLESS J
+000002C6 circ # MODIFIER LETTER CIRCUMFLEX ACCENT
+000002C7 caron # CARON
+000002C7 Hacek # CARON
+000002D8 breve # BREVE
+000002D8 Breve # BREVE
+000002D9 dot # DOT ABOVE
+000002D9 DiacriticalDot # DOT ABOVE
+000002DA ring # RING ABOVE
+000002DB ogon # OGONEK
+000002DC tilde # SMALL TILDE
+000002DC DiacriticalTilde # SMALL TILDE
+000002DD dblac # DOUBLE ACUTE ACCENT
+000002DD DiacriticalDoubleAcute # DOUBLE ACUTE ACCENT
+00000311 DownBreve # COMBINING INVERTED BREVE
+00000332 UnderBar # COMBINING LOW LINE
+00000391 Alpha # GREEK CAPITAL LETTER ALPHA
+00000392 Beta # GREEK CAPITAL LETTER BETA
+00000393 Gamma # GREEK CAPITAL LETTER GAMMA
+00000394 Delta # GREEK CAPITAL LETTER DELTA
+00000395 Epsilon # GREEK CAPITAL LETTER EPSILON
+00000396 Zeta # GREEK CAPITAL LETTER ZETA
+00000397 Eta # GREEK CAPITAL LETTER ETA
+00000398 Theta # GREEK CAPITAL LETTER THETA
+00000399 Iota # GREEK CAPITAL LETTER IOTA
+0000039A Kappa # GREEK CAPITAL LETTER KAPPA
+0000039B Lambda # GREEK CAPITAL LETTER LAMDA
+0000039C Mu # GREEK CAPITAL LETTER MU
+0000039D Nu # GREEK CAPITAL LETTER NU
+0000039E Xi # GREEK CAPITAL LETTER XI
+0000039F Omicron # GREEK CAPITAL LETTER OMICRON
+000003A0 Pi # GREEK CAPITAL LETTER PI
+000003A1 Rho # GREEK CAPITAL LETTER RHO
+000003A3 Sigma # GREEK CAPITAL LETTER SIGMA
+000003A4 Tau # GREEK CAPITAL LETTER TAU
+000003A5 Upsilon # GREEK CAPITAL LETTER UPSILON
+000003A6 Phi # GREEK CAPITAL LETTER PHI
+000003A7 Chi # GREEK CAPITAL LETTER CHI
+000003A8 Psi # GREEK CAPITAL LETTER PSI
+000003A9 Omega # GREEK CAPITAL LETTER OMEGA
+000003B1 alpha # GREEK SMALL LETTER ALPHA
+000003B2 beta # GREEK SMALL LETTER BETA
+000003B3 gamma # GREEK SMALL LETTER GAMMA
+000003B4 delta # GREEK SMALL LETTER DELTA
+000003B5 epsiv # GREEK SMALL LETTER EPSILON
+000003B5 varepsilon # GREEK SMALL LETTER EPSILON
+000003B5 epsilon # GREEK SMALL LETTER EPSILON
+000003B6 zeta # GREEK SMALL LETTER ZETA
+000003B7 eta # GREEK SMALL LETTER ETA
+000003B8 theta # GREEK SMALL LETTER THETA
+000003B9 iota # GREEK SMALL LETTER IOTA
+000003BA kappa # GREEK SMALL LETTER KAPPA
+000003BB lambda # GREEK SMALL LETTER LAMDA
+000003BC mu # GREEK SMALL LETTER MU
+000003BD nu # GREEK SMALL LETTER NU
+000003BE xi # GREEK SMALL LETTER XI
+000003BF omicron # GREEK SMALL LETTER OMICRON
+000003C0 pi # GREEK SMALL LETTER PI
+000003C1 rho # GREEK SMALL LETTER RHO
+000003C2 sigmav # GREEK SMALL LETTER FINAL SIGMA
+000003C2 varsigma # GREEK SMALL LETTER FINAL SIGMA
+000003C2 sigmaf # GREEK SMALL LETTER FINAL SIGMA
+000003C3 sigma # GREEK SMALL LETTER SIGMA
+000003C4 tau # GREEK SMALL LETTER TAU
+000003C5 upsi # GREEK SMALL LETTER UPSILON
+000003C5 upsilon # GREEK SMALL LETTER UPSILON
+000003C6 phi # GREEK SMALL LETTER PHI
+000003C6 phiv # GREEK SMALL LETTER PHI
+000003C6 varphi # GREEK SMALL LETTER PHI
+000003C7 chi # GREEK SMALL LETTER CHI
+000003C8 psi # GREEK SMALL LETTER PSI
+000003C9 omega # GREEK SMALL LETTER OMEGA
+000003D1 thetav # GREEK THETA SYMBOL
+000003D1 vartheta # GREEK THETA SYMBOL
+000003D1 thetasym # GREEK THETA SYMBOL
+000003D2 Upsi # GREEK UPSILON WITH HOOK SYMBOL
+000003D2 upsih # GREEK UPSILON WITH HOOK SYMBOL
+000003D5 straightphi # GREEK PHI SYMBOL
+000003D6 piv # GREEK PI SYMBOL
+000003D6 varpi # GREEK PI SYMBOL
+000003DC Gammad # GREEK LETTER DIGAMMA
+000003DD gammad # GREEK SMALL LETTER DIGAMMA
+000003DD digamma # GREEK SMALL LETTER DIGAMMA
+000003F0 kappav # GREEK KAPPA SYMBOL
+000003F0 varkappa # GREEK KAPPA SYMBOL
+000003F1 rhov # GREEK RHO SYMBOL
+000003F1 varrho # GREEK RHO SYMBOL
+000003F5 epsi # GREEK LUNATE EPSILON SYMBOL
+000003F5 straightepsilon # GREEK LUNATE EPSILON SYMBOL
+000003F6 bepsi # GREEK REVERSED LUNATE EPSILON SYMBOL
+000003F6 backepsilon # GREEK REVERSED LUNATE EPSILON SYMBOL
+00000401 IOcy # CYRILLIC CAPITAL LETTER IO
+00000402 DJcy # CYRILLIC CAPITAL LETTER DJE
+00000403 GJcy # CYRILLIC CAPITAL LETTER GJE
+00000404 Jukcy # CYRILLIC CAPITAL LETTER UKRAINIAN IE
+00000405 DScy # CYRILLIC CAPITAL LETTER DZE
+00000406 Iukcy # CYRILLIC CAPITAL LETTER BYELORUSSIAN-UKRAINIAN I
+00000407 YIcy # CYRILLIC CAPITAL LETTER YI
+00000408 Jsercy # CYRILLIC CAPITAL LETTER JE
+00000409 LJcy # CYRILLIC CAPITAL LETTER LJE
+0000040A NJcy # CYRILLIC CAPITAL LETTER NJE
+0000040B TSHcy # CYRILLIC CAPITAL LETTER TSHE
+0000040C KJcy # CYRILLIC CAPITAL LETTER KJE
+0000040E Ubrcy # CYRILLIC CAPITAL LETTER SHORT U
+0000040F DZcy # CYRILLIC CAPITAL LETTER DZHE
+00000410 Acy # CYRILLIC CAPITAL LETTER A
+00000411 Bcy # CYRILLIC CAPITAL LETTER BE
+00000412 Vcy # CYRILLIC CAPITAL LETTER VE
+00000413 Gcy # CYRILLIC CAPITAL LETTER GHE
+00000414 Dcy # CYRILLIC CAPITAL LETTER DE
+00000415 IEcy # CYRILLIC CAPITAL LETTER IE
+00000416 ZHcy # CYRILLIC CAPITAL LETTER ZHE
+00000417 Zcy # CYRILLIC CAPITAL LETTER ZE
+00000418 Icy # CYRILLIC CAPITAL LETTER I
+00000419 Jcy # CYRILLIC CAPITAL LETTER SHORT I
+0000041A Kcy # CYRILLIC CAPITAL LETTER KA
+0000041B Lcy # CYRILLIC CAPITAL LETTER EL
+0000041C Mcy # CYRILLIC CAPITAL LETTER EM
+0000041D Ncy # CYRILLIC CAPITAL LETTER EN
+0000041E Ocy # CYRILLIC CAPITAL LETTER O
+0000041F Pcy # CYRILLIC CAPITAL LETTER PE
+00000420 Rcy # CYRILLIC CAPITAL LETTER ER
+00000421 Scy # CYRILLIC CAPITAL LETTER ES
+00000422 Tcy # CYRILLIC CAPITAL LETTER TE
+00000423 Ucy # CYRILLIC CAPITAL LETTER U
+00000424 Fcy # CYRILLIC CAPITAL LETTER EF
+00000425 KHcy # CYRILLIC CAPITAL LETTER HA
+00000426 TScy # CYRILLIC CAPITAL LETTER TSE
+00000427 CHcy # CYRILLIC CAPITAL LETTER CHE
+00000428 SHcy # CYRILLIC CAPITAL LETTER SHA
+00000429 SHCHcy # CYRILLIC CAPITAL LETTER SHCHA
+0000042A HARDcy # CYRILLIC CAPITAL LETTER HARD SIGN
+0000042B Ycy # CYRILLIC CAPITAL LETTER YERU
+0000042C SOFTcy # CYRILLIC CAPITAL LETTER SOFT SIGN
+0000042D Ecy # CYRILLIC CAPITAL LETTER E
+0000042E YUcy # CYRILLIC CAPITAL LETTER YU
+0000042F YAcy # CYRILLIC CAPITAL LETTER YA
+00000430 acy # CYRILLIC SMALL LETTER A
+00000431 bcy # CYRILLIC SMALL LETTER BE
+00000432 vcy # CYRILLIC SMALL LETTER VE
+00000433 gcy # CYRILLIC SMALL LETTER GHE
+00000434 dcy # CYRILLIC SMALL LETTER DE
+00000435 iecy # CYRILLIC SMALL LETTER IE
+00000436 zhcy # CYRILLIC SMALL LETTER ZHE
+00000437 zcy # CYRILLIC SMALL LETTER ZE
+00000438 icy # CYRILLIC SMALL LETTER I
+00000439 jcy # CYRILLIC SMALL LETTER SHORT I
+0000043A kcy # CYRILLIC SMALL LETTER KA
+0000043B lcy # CYRILLIC SMALL LETTER EL
+0000043C mcy # CYRILLIC SMALL LETTER EM
+0000043D ncy # CYRILLIC SMALL LETTER EN
+0000043E ocy # CYRILLIC SMALL LETTER O
+0000043F pcy # CYRILLIC SMALL LETTER PE
+00000440 rcy # CYRILLIC SMALL LETTER ER
+00000441 scy # CYRILLIC SMALL LETTER ES
+00000442 tcy # CYRILLIC SMALL LETTER TE
+00000443 ucy # CYRILLIC SMALL LETTER U
+00000444 fcy # CYRILLIC SMALL LETTER EF
+00000445 khcy # CYRILLIC SMALL LETTER HA
+00000446 tscy # CYRILLIC SMALL LETTER TSE
+00000447 chcy # CYRILLIC SMALL LETTER CHE
+00000448 shcy # CYRILLIC SMALL LETTER SHA
+00000449 shchcy # CYRILLIC SMALL LETTER SHCHA
+0000044A hardcy # CYRILLIC SMALL LETTER HARD SIGN
+0000044B ycy # CYRILLIC SMALL LETTER YERU
+0000044C softcy # CYRILLIC SMALL LETTER SOFT SIGN
+0000044D ecy # CYRILLIC SMALL LETTER E
+0000044E yucy # CYRILLIC SMALL LETTER YU
+0000044F yacy # CYRILLIC SMALL LETTER YA
+00000451 iocy # CYRILLIC SMALL LETTER IO
+00000452 djcy # CYRILLIC SMALL LETTER DJE
+00000453 gjcy # CYRILLIC SMALL LETTER GJE
+00000454 jukcy # CYRILLIC SMALL LETTER UKRAINIAN IE
+00000455 dscy # CYRILLIC SMALL LETTER DZE
+00000456 iukcy # CYRILLIC SMALL LETTER BYELORUSSIAN-UKRAINIAN I
+00000457 yicy # CYRILLIC SMALL LETTER YI
+00000458 jsercy # CYRILLIC SMALL LETTER JE
+00000459 ljcy # CYRILLIC SMALL LETTER LJE
+0000045A njcy # CYRILLIC SMALL LETTER NJE
+0000045B tshcy # CYRILLIC SMALL LETTER TSHE
+0000045C kjcy # CYRILLIC SMALL LETTER KJE
+0000045E ubrcy # CYRILLIC SMALL LETTER SHORT U
+0000045F dzcy # CYRILLIC SMALL LETTER DZHE
+00002002 ensp # EN SPACE
+00002003 emsp # EM SPACE
+00002004 emsp13 # THREE-PER-EM SPACE
+00002005 emsp14 # FOUR-PER-EM SPACE
+00002007 numsp # FIGURE SPACE
+00002008 puncsp # PUNCTUATION SPACE
+00002009 thinsp # THIN SPACE
+00002009 ThinSpace # THIN SPACE
+0000200A hairsp # HAIR SPACE
+0000200A VeryThinSpace # HAIR SPACE
+0000200B ZeroWidthSpace # ZERO WIDTH SPACE
+0000200B NegativeVeryThinSpace # ZERO WIDTH SPACE
+0000200B NegativeThinSpace # ZERO WIDTH SPACE
+0000200B NegativeMediumSpace # ZERO WIDTH SPACE
+0000200B NegativeThickSpace # ZERO WIDTH SPACE
+0000200C zwnj # ZERO WIDTH NON-JOINER
+0000200D zwj # ZERO WIDTH JOINER
+0000200E lrm # LEFT-TO-RIGHT MARK
+0000200F rlm # RIGHT-TO-LEFT MARK
+00002010 hyphen # HYPHEN
+00002010 dash # HYPHEN
+00002013 ndash # EN DASH
+00002014 mdash # EM DASH
+00002015 horbar # HORIZONTAL BAR
+00002016 Verbar # DOUBLE VERTICAL LINE
+00002016 Vert # DOUBLE VERTICAL LINE
+00002018 lsquo # LEFT SINGLE QUOTATION MARK
+00002018 OpenCurlyQuote # LEFT SINGLE QUOTATION MARK
+00002019 rsquo # RIGHT SINGLE QUOTATION MARK
+00002019 rsquor # RIGHT SINGLE QUOTATION MARK
+00002019 CloseCurlyQuote # RIGHT SINGLE QUOTATION MARK
+0000201A lsquor # SINGLE LOW-9 QUOTATION MARK
+0000201A sbquo # SINGLE LOW-9 QUOTATION MARK
+0000201C ldquo # LEFT DOUBLE QUOTATION MARK
+0000201C OpenCurlyDoubleQuote # LEFT DOUBLE QUOTATION MARK
+0000201D rdquo # RIGHT DOUBLE QUOTATION MARK
+0000201D rdquor # RIGHT DOUBLE QUOTATION MARK
+0000201D CloseCurlyDoubleQuote # RIGHT DOUBLE QUOTATION MARK
+0000201E ldquor # DOUBLE LOW-9 QUOTATION MARK
+0000201E bdquo # DOUBLE LOW-9 QUOTATION MARK
+00002020 dagger # DAGGER
+00002021 Dagger # DOUBLE DAGGER
+00002021 ddagger # DOUBLE DAGGER
+00002022 bull # BULLET
+00002022 bullet # BULLET
+00002025 nldr # TWO DOT LEADER
+00002026 hellip # HORIZONTAL ELLIPSIS
+00002026 mldr # HORIZONTAL ELLIPSIS
+00002030 permil # PER MILLE SIGN
+00002031 pertenk # PER TEN THOUSAND SIGN
+00002032 prime # PRIME
+00002033 Prime # DOUBLE PRIME
+00002034 tprime # TRIPLE PRIME
+00002035 bprime # REVERSED PRIME
+00002035 backprime # REVERSED PRIME
+00002039 lsaquo # SINGLE LEFT-POINTING ANGLE QUOTATION MARK
+0000203A rsaquo # SINGLE RIGHT-POINTING ANGLE QUOTATION MARK
+0000203E oline # OVERLINE
+00002041 caret # CARET INSERTION POINT
+00002043 hybull # HYPHEN BULLET
+00002044 frasl # FRACTION SLASH
+0000204F bsemi # REVERSED SEMICOLON
+00002057 qprime # QUADRUPLE PRIME
+0000205F MediumSpace # MEDIUM MATHEMATICAL SPACE
+00002060 NoBreak # WORD JOINER
+00002061 ApplyFunction # FUNCTION APPLICATION
+00002061 af # FUNCTION APPLICATION
+00002062 InvisibleTimes # INVISIBLE TIMES
+00002062 it # INVISIBLE TIMES
+00002063 InvisibleComma # INVISIBLE SEPARATOR
+00002063 ic # INVISIBLE SEPARATOR
+000020AC euro # EURO SIGN
+000020DB tdot # COMBINING THREE DOTS ABOVE
+000020DB TripleDot # COMBINING THREE DOTS ABOVE
+000020DC DotDot # COMBINING FOUR DOTS ABOVE
+00002102 Copf # DOUBLE-STRUCK CAPITAL C
+00002102 complexes # DOUBLE-STRUCK CAPITAL C
+00002105 incare # CARE OF
+0000210A gscr # SCRIPT SMALL G
+0000210B hamilt # SCRIPT CAPITAL H
+0000210B HilbertSpace # SCRIPT CAPITAL H
+0000210B Hscr # SCRIPT CAPITAL H
+0000210C Hfr # BLACK-LETTER CAPITAL H
+0000210C Poincareplane # BLACK-LETTER CAPITAL H
+0000210D quaternions # DOUBLE-STRUCK CAPITAL H
+0000210D Hopf # DOUBLE-STRUCK CAPITAL H
+0000210E planckh # PLANCK CONSTANT
+0000210F planck # PLANCK CONSTANT OVER TWO PI
+0000210F hbar # PLANCK CONSTANT OVER TWO PI
+0000210F plankv # PLANCK CONSTANT OVER TWO PI
+0000210F hslash # PLANCK CONSTANT OVER TWO PI
+00002110 Iscr # SCRIPT CAPITAL I
+00002110 imagline # SCRIPT CAPITAL I
+00002111 image # BLACK-LETTER CAPITAL I
+00002111 Im # BLACK-LETTER CAPITAL I
+00002111 imagpart # BLACK-LETTER CAPITAL I
+00002111 Ifr # BLACK-LETTER CAPITAL I
+00002112 Lscr # SCRIPT CAPITAL L
+00002112 lagran # SCRIPT CAPITAL L
+00002112 Laplacetrf # SCRIPT CAPITAL L
+00002113 ell # SCRIPT SMALL L
+00002115 Nopf # DOUBLE-STRUCK CAPITAL N
+00002115 naturals # DOUBLE-STRUCK CAPITAL N
+00002116 numero # NUMERO SIGN
+00002117 copysr # SOUND RECORDING COPYRIGHT
+00002118 weierp # SCRIPT CAPITAL P
+00002118 wp # SCRIPT CAPITAL P
+00002119 Popf # DOUBLE-STRUCK CAPITAL P
+00002119 primes # DOUBLE-STRUCK CAPITAL P
+0000211A rationals # DOUBLE-STRUCK CAPITAL Q
+0000211A Qopf # DOUBLE-STRUCK CAPITAL Q
+0000211B Rscr # SCRIPT CAPITAL R
+0000211B realine # SCRIPT CAPITAL R
+0000211C real # BLACK-LETTER CAPITAL R
+0000211C Re # BLACK-LETTER CAPITAL R
+0000211C realpart # BLACK-LETTER CAPITAL R
+0000211C Rfr # BLACK-LETTER CAPITAL R
+0000211D reals # DOUBLE-STRUCK CAPITAL R
+0000211D Ropf # DOUBLE-STRUCK CAPITAL R
+0000211E rx # PRESCRIPTION TAKE
+00002122 trade # TRADE MARK SIGN
+00002122 TRADE # TRADE MARK SIGN
+00002124 integers # DOUBLE-STRUCK CAPITAL Z
+00002124 Zopf # DOUBLE-STRUCK CAPITAL Z
+00002126 ohm # OHM SIGN
+00002127 mho # INVERTED OHM SIGN
+00002128 Zfr # BLACK-LETTER CAPITAL Z
+00002128 zeetrf # BLACK-LETTER CAPITAL Z
+00002129 iiota # TURNED GREEK SMALL LETTER IOTA
+0000212B angst # ANGSTROM SIGN
+0000212C bernou # SCRIPT CAPITAL B
+0000212C Bernoullis # SCRIPT CAPITAL B
+0000212C Bscr # SCRIPT CAPITAL B
+0000212D Cfr # BLACK-LETTER CAPITAL C
+0000212D Cayleys # BLACK-LETTER CAPITAL C
+0000212F escr # SCRIPT SMALL E
+00002130 Escr # SCRIPT CAPITAL E
+00002130 expectation # SCRIPT CAPITAL E
+00002131 Fscr # SCRIPT CAPITAL F
+00002131 Fouriertrf # SCRIPT CAPITAL F
+00002133 phmmat # SCRIPT CAPITAL M
+00002133 Mellintrf # SCRIPT CAPITAL M
+00002133 Mscr # SCRIPT CAPITAL M
+00002134 order # SCRIPT SMALL O
+00002134 orderof # SCRIPT SMALL O
+00002134 oscr # SCRIPT SMALL O
+00002135 alefsym # ALEF SYMBOL
+00002135 aleph # ALEF SYMBOL
+00002136 beth # BET SYMBOL
+00002137 gimel # GIMEL SYMBOL
+00002138 daleth # DALET SYMBOL
+00002145 CapitalDifferentialD # DOUBLE-STRUCK ITALIC CAPITAL D
+00002145 DD # DOUBLE-STRUCK ITALIC CAPITAL D
+00002146 DifferentialD # DOUBLE-STRUCK ITALIC SMALL D
+00002146 dd # DOUBLE-STRUCK ITALIC SMALL D
+00002147 ExponentialE # DOUBLE-STRUCK ITALIC SMALL E
+00002147 exponentiale # DOUBLE-STRUCK ITALIC SMALL E
+00002147 ee # DOUBLE-STRUCK ITALIC SMALL E
+00002148 ImaginaryI # DOUBLE-STRUCK ITALIC SMALL I
+00002148 ii # DOUBLE-STRUCK ITALIC SMALL I
+00002153 frac13 # VULGAR FRACTION ONE THIRD
+00002154 frac23 # VULGAR FRACTION TWO THIRDS
+00002155 frac15 # VULGAR FRACTION ONE FIFTH
+00002156 frac25 # VULGAR FRACTION TWO FIFTHS
+00002157 frac35 # VULGAR FRACTION THREE FIFTHS
+00002158 frac45 # VULGAR FRACTION FOUR FIFTHS
+00002159 frac16 # VULGAR FRACTION ONE SIXTH
+0000215A frac56 # VULGAR FRACTION FIVE SIXTHS
+0000215B frac18 # VULGAR FRACTION ONE EIGHTH
+0000215C frac38 # VULGAR FRACTION THREE EIGHTHS
+0000215D frac58 # VULGAR FRACTION FIVE EIGHTHS
+0000215E frac78 # VULGAR FRACTION SEVEN EIGHTHS
+00002190 larr # LEFTWARDS ARROW
+00002190 leftarrow # LEFTWARDS ARROW
+00002190 LeftArrow # LEFTWARDS ARROW
+00002190 slarr # LEFTWARDS ARROW
+00002190 ShortLeftArrow # LEFTWARDS ARROW
+00002191 uarr # UPWARDS ARROW
+00002191 uparrow # UPWARDS ARROW
+00002191 UpArrow # UPWARDS ARROW
+00002191 ShortUpArrow # UPWARDS ARROW
+00002192 rarr # RIGHTWARDS ARROW
+00002192 rightarrow # RIGHTWARDS ARROW
+00002192 RightArrow # RIGHTWARDS ARROW
+00002192 srarr # RIGHTWARDS ARROW
+00002192 ShortRightArrow # RIGHTWARDS ARROW
+00002193 darr # DOWNWARDS ARROW
+00002193 downarrow # DOWNWARDS ARROW
+00002193 DownArrow # DOWNWARDS ARROW
+00002193 ShortDownArrow # DOWNWARDS ARROW
+00002194 harr # LEFT RIGHT ARROW
+00002194 leftrightarrow # LEFT RIGHT ARROW
+00002194 LeftRightArrow # LEFT RIGHT ARROW
+00002195 varr # UP DOWN ARROW
+00002195 updownarrow # UP DOWN ARROW
+00002195 UpDownArrow # UP DOWN ARROW
+00002196 nwarr # NORTH WEST ARROW
+00002196 UpperLeftArrow # NORTH WEST ARROW
+00002196 nwarrow # NORTH WEST ARROW
+00002197 nearr # NORTH EAST ARROW
+00002197 UpperRightArrow # NORTH EAST ARROW
+00002197 nearrow # NORTH EAST ARROW
+00002198 searr # SOUTH EAST ARROW
+00002198 searrow # SOUTH EAST ARROW
+00002198 LowerRightArrow # SOUTH EAST ARROW
+00002199 swarr # SOUTH WEST ARROW
+00002199 swarrow # SOUTH WEST ARROW
+00002199 LowerLeftArrow # SOUTH WEST ARROW
+0000219A nlarr # LEFTWARDS ARROW WITH STROKE
+0000219A nleftarrow # LEFTWARDS ARROW WITH STROKE
+0000219B nrarr # RIGHTWARDS ARROW WITH STROKE
+0000219B nrightarrow # RIGHTWARDS ARROW WITH STROKE
+0000219D rarrw # RIGHTWARDS WAVE ARROW
+0000219D rightsquigarrow # RIGHTWARDS WAVE ARROW
+0000219E Larr # LEFTWARDS TWO HEADED ARROW
+0000219E twoheadleftarrow # LEFTWARDS TWO HEADED ARROW
+0000219F Uarr # UPWARDS TWO HEADED ARROW
+000021A0 Rarr # RIGHTWARDS TWO HEADED ARROW
+000021A0 twoheadrightarrow # RIGHTWARDS TWO HEADED ARROW
+000021A1 Darr # DOWNWARDS TWO HEADED ARROW
+000021A2 larrtl # LEFTWARDS ARROW WITH TAIL
+000021A2 leftarrowtail # LEFTWARDS ARROW WITH TAIL
+000021A3 rarrtl # RIGHTWARDS ARROW WITH TAIL
+000021A3 rightarrowtail # RIGHTWARDS ARROW WITH TAIL
+000021A4 LeftTeeArrow # LEFTWARDS ARROW FROM BAR
+000021A4 mapstoleft # LEFTWARDS ARROW FROM BAR
+000021A5 UpTeeArrow # UPWARDS ARROW FROM BAR
+000021A5 mapstoup # UPWARDS ARROW FROM BAR
+000021A6 map # RIGHTWARDS ARROW FROM BAR
+000021A6 RightTeeArrow # RIGHTWARDS ARROW FROM BAR
+000021A6 mapsto # RIGHTWARDS ARROW FROM BAR
+000021A7 DownTeeArrow # DOWNWARDS ARROW FROM BAR
+000021A7 mapstodown # DOWNWARDS ARROW FROM BAR
+000021A9 larrhk # LEFTWARDS ARROW WITH HOOK
+000021A9 hookleftarrow # LEFTWARDS ARROW WITH HOOK
+000021AA rarrhk # RIGHTWARDS ARROW WITH HOOK
+000021AA hookrightarrow # RIGHTWARDS ARROW WITH HOOK
+000021AB larrlp # LEFTWARDS ARROW WITH LOOP
+000021AB looparrowleft # LEFTWARDS ARROW WITH LOOP
+000021AC rarrlp # RIGHTWARDS ARROW WITH LOOP
+000021AC looparrowright # RIGHTWARDS ARROW WITH LOOP
+000021AD harrw # LEFT RIGHT WAVE ARROW
+000021AD leftrightsquigarrow # LEFT RIGHT WAVE ARROW
+000021AE nharr # LEFT RIGHT ARROW WITH STROKE
+000021AE nleftrightarrow # LEFT RIGHT ARROW WITH STROKE
+000021B0 lsh # UPWARDS ARROW WITH TIP LEFTWARDS
+000021B0 Lsh # UPWARDS ARROW WITH TIP LEFTWARDS
+000021B1 rsh # UPWARDS ARROW WITH TIP RIGHTWARDS
+000021B1 Rsh # UPWARDS ARROW WITH TIP RIGHTWARDS
+000021B2 ldsh # DOWNWARDS ARROW WITH TIP LEFTWARDS
+000021B3 rdsh # DOWNWARDS ARROW WITH TIP RIGHTWARDS
+000021B5 crarr # DOWNWARDS ARROW WITH CORNER LEFTWARDS
+000021B6 cularr # ANTICLOCKWISE TOP SEMICIRCLE ARROW
+000021B6 curvearrowleft # ANTICLOCKWISE TOP SEMICIRCLE ARROW
+000021B7 curarr # CLOCKWISE TOP SEMICIRCLE ARROW
+000021B7 curvearrowright # CLOCKWISE TOP SEMICIRCLE ARROW
+000021BA olarr # ANTICLOCKWISE OPEN CIRCLE ARROW
+000021BA circlearrowleft # ANTICLOCKWISE OPEN CIRCLE ARROW
+000021BB orarr # CLOCKWISE OPEN CIRCLE ARROW
+000021BB circlearrowright # CLOCKWISE OPEN CIRCLE ARROW
+000021BC lharu # LEFTWARDS HARPOON WITH BARB UPWARDS
+000021BC LeftVector # LEFTWARDS HARPOON WITH BARB UPWARDS
+000021BC leftharpoonup # LEFTWARDS HARPOON WITH BARB UPWARDS
+000021BD lhard # LEFTWARDS HARPOON WITH BARB DOWNWARDS
+000021BD leftharpoondown # LEFTWARDS HARPOON WITH BARB DOWNWARDS
+000021BD DownLeftVector # LEFTWARDS HARPOON WITH BARB DOWNWARDS
+000021BE uharr # UPWARDS HARPOON WITH BARB RIGHTWARDS
+000021BE upharpoonright # UPWARDS HARPOON WITH BARB RIGHTWARDS
+000021BE RightUpVector # UPWARDS HARPOON WITH BARB RIGHTWARDS
+000021BF uharl # UPWARDS HARPOON WITH BARB LEFTWARDS
+000021BF upharpoonleft # UPWARDS HARPOON WITH BARB LEFTWARDS
+000021BF LeftUpVector # UPWARDS HARPOON WITH BARB LEFTWARDS
+000021C0 rharu # RIGHTWARDS HARPOON WITH BARB UPWARDS
+000021C0 RightVector # RIGHTWARDS HARPOON WITH BARB UPWARDS
+000021C0 rightharpoonup # RIGHTWARDS HARPOON WITH BARB UPWARDS
+000021C1 rhard # RIGHTWARDS HARPOON WITH BARB DOWNWARDS
+000021C1 rightharpoondown # RIGHTWARDS HARPOON WITH BARB DOWNWARDS
+000021C1 DownRightVector # RIGHTWARDS HARPOON WITH BARB DOWNWARDS
+000021C2 dharr # DOWNWARDS HARPOON WITH BARB RIGHTWARDS
+000021C2 RightDownVector # DOWNWARDS HARPOON WITH BARB RIGHTWARDS
+000021C2 downharpoonright # DOWNWARDS HARPOON WITH BARB RIGHTWARDS
+000021C3 dharl # DOWNWARDS HARPOON WITH BARB LEFTWARDS
+000021C3 LeftDownVector # DOWNWARDS HARPOON WITH BARB LEFTWARDS
+000021C3 downharpoonleft # DOWNWARDS HARPOON WITH BARB LEFTWARDS
+000021C4 rlarr # RIGHTWARDS ARROW OVER LEFTWARDS ARROW
+000021C4 rightleftarrows # RIGHTWARDS ARROW OVER LEFTWARDS ARROW
+000021C4 RightArrowLeftArrow # RIGHTWARDS ARROW OVER LEFTWARDS ARROW
+000021C5 udarr # UPWARDS ARROW LEFTWARDS OF DOWNWARDS ARROW
+000021C5 UpArrowDownArrow # UPWARDS ARROW LEFTWARDS OF DOWNWARDS ARROW
+000021C6 lrarr # LEFTWARDS ARROW OVER RIGHTWARDS ARROW
+000021C6 leftrightarrows # LEFTWARDS ARROW OVER RIGHTWARDS ARROW
+000021C6 LeftArrowRightArrow # LEFTWARDS ARROW OVER RIGHTWARDS ARROW
+000021C7 llarr # LEFTWARDS PAIRED ARROWS
+000021C7 leftleftarrows # LEFTWARDS PAIRED ARROWS
+000021C8 uuarr # UPWARDS PAIRED ARROWS
+000021C8 upuparrows # UPWARDS PAIRED ARROWS
+000021C9 rrarr # RIGHTWARDS PAIRED ARROWS
+000021C9 rightrightarrows # RIGHTWARDS PAIRED ARROWS
+000021CA ddarr # DOWNWARDS PAIRED ARROWS
+000021CA downdownarrows # DOWNWARDS PAIRED ARROWS
+000021CB lrhar # LEFTWARDS HARPOON OVER RIGHTWARDS HARPOON
+000021CB ReverseEquilibrium # LEFTWARDS HARPOON OVER RIGHTWARDS HARPOON
+000021CB leftrightharpoons # LEFTWARDS HARPOON OVER RIGHTWARDS HARPOON
+000021CC rlhar # RIGHTWARDS HARPOON OVER LEFTWARDS HARPOON
+000021CC rightleftharpoons # RIGHTWARDS HARPOON OVER LEFTWARDS HARPOON
+000021CC Equilibrium # RIGHTWARDS HARPOON OVER LEFTWARDS HARPOON
+000021CD nlArr # LEFTWARDS DOUBLE ARROW WITH STROKE
+000021CD nLeftarrow # LEFTWARDS DOUBLE ARROW WITH STROKE
+000021CE nhArr # LEFT RIGHT DOUBLE ARROW WITH STROKE
+000021CE nLeftrightarrow # LEFT RIGHT DOUBLE ARROW WITH STROKE
+000021CF nrArr # RIGHTWARDS DOUBLE ARROW WITH STROKE
+000021CF nRightarrow # RIGHTWARDS DOUBLE ARROW WITH STROKE
+000021D0 lArr # LEFTWARDS DOUBLE ARROW
+000021D0 Leftarrow # LEFTWARDS DOUBLE ARROW
+000021D0 DoubleLeftArrow # LEFTWARDS DOUBLE ARROW
+000021D1 uArr # UPWARDS DOUBLE ARROW
+000021D1 Uparrow # UPWARDS DOUBLE ARROW
+000021D1 DoubleUpArrow # UPWARDS DOUBLE ARROW
+000021D2 rArr # RIGHTWARDS DOUBLE ARROW
+000021D2 Rightarrow # RIGHTWARDS DOUBLE ARROW
+000021D2 Implies # RIGHTWARDS DOUBLE ARROW
+000021D2 DoubleRightArrow # RIGHTWARDS DOUBLE ARROW
+000021D3 dArr # DOWNWARDS DOUBLE ARROW
+000021D3 Downarrow # DOWNWARDS DOUBLE ARROW
+000021D3 DoubleDownArrow # DOWNWARDS DOUBLE ARROW
+000021D4 hArr # LEFT RIGHT DOUBLE ARROW
+000021D4 Leftrightarrow # LEFT RIGHT DOUBLE ARROW
+000021D4 DoubleLeftRightArrow # LEFT RIGHT DOUBLE ARROW
+000021D4 iff # LEFT RIGHT DOUBLE ARROW
+000021D5 vArr # UP DOWN DOUBLE ARROW
+000021D5 Updownarrow # UP DOWN DOUBLE ARROW
+000021D5 DoubleUpDownArrow # UP DOWN DOUBLE ARROW
+000021D6 nwArr # NORTH WEST DOUBLE ARROW
+000021D7 neArr # NORTH EAST DOUBLE ARROW
+000021D8 seArr # SOUTH EAST DOUBLE ARROW
+000021D9 swArr # SOUTH WEST DOUBLE ARROW
+000021DA lAarr # LEFTWARDS TRIPLE ARROW
+000021DA Lleftarrow # LEFTWARDS TRIPLE ARROW
+000021DB rAarr # RIGHTWARDS TRIPLE ARROW
+000021DB Rrightarrow # RIGHTWARDS TRIPLE ARROW
+000021DD zigrarr # RIGHTWARDS SQUIGGLE ARROW
+000021E4 larrb # LEFTWARDS ARROW TO BAR
+000021E4 LeftArrowBar # LEFTWARDS ARROW TO BAR
+000021E5 rarrb # RIGHTWARDS ARROW TO BAR
+000021E5 RightArrowBar # RIGHTWARDS ARROW TO BAR
+000021F5 duarr # DOWNWARDS ARROW LEFTWARDS OF UPWARDS ARROW
+000021F5 DownArrowUpArrow # DOWNWARDS ARROW LEFTWARDS OF UPWARDS ARROW
+000021FD loarr # LEFTWARDS OPEN-HEADED ARROW
+000021FE roarr # RIGHTWARDS OPEN-HEADED ARROW
+000021FF hoarr # LEFT RIGHT OPEN-HEADED ARROW
+00002200 forall # FOR ALL
+00002200 ForAll # FOR ALL
+00002201 comp # COMPLEMENT
+00002201 complement # COMPLEMENT
+00002202 part # PARTIAL DIFFERENTIAL
+00002202 PartialD # PARTIAL DIFFERENTIAL
+00002203 exist # THERE EXISTS
+00002203 Exists # THERE EXISTS
+00002204 nexist # THERE DOES NOT EXIST
+00002204 NotExists # THERE DOES NOT EXIST
+00002204 nexists # THERE DOES NOT EXIST
+00002205 empty # EMPTY SET
+00002205 emptyset # EMPTY SET
+00002205 emptyv # EMPTY SET
+00002205 varnothing # EMPTY SET
+00002207 nabla # NABLA
+00002207 Del # NABLA
+00002208 isin # ELEMENT OF
+00002208 isinv # ELEMENT OF
+00002208 Element # ELEMENT OF
+00002208 in # ELEMENT OF
+00002209 notin # NOT AN ELEMENT OF
+00002209 NotElement # NOT AN ELEMENT OF
+00002209 notinva # NOT AN ELEMENT OF
+0000220B niv # CONTAINS AS MEMBER
+0000220B ReverseElement # CONTAINS AS MEMBER
+0000220B ni # CONTAINS AS MEMBER
+0000220B SuchThat # CONTAINS AS MEMBER
+0000220C notni # DOES NOT CONTAIN AS MEMBER
+0000220C notniva # DOES NOT CONTAIN AS MEMBER
+0000220C NotReverseElement # DOES NOT CONTAIN AS MEMBER
+0000220F prod # N-ARY PRODUCT
+0000220F Product # N-ARY PRODUCT
+00002210 coprod # N-ARY COPRODUCT
+00002210 Coproduct # N-ARY COPRODUCT
+00002211 sum # N-ARY SUMMATION
+00002211 Sum # N-ARY SUMMATION
+00002212 minus # MINUS SIGN
+00002213 mnplus # MINUS-OR-PLUS SIGN
+00002213 mp # MINUS-OR-PLUS SIGN
+00002213 MinusPlus # MINUS-OR-PLUS SIGN
+00002214 plusdo # DOT PLUS
+00002214 dotplus # DOT PLUS
+00002216 setmn # SET MINUS
+00002216 setminus # SET MINUS
+00002216 Backslash # SET MINUS
+00002216 ssetmn # SET MINUS
+00002216 smallsetminus # SET MINUS
+00002217 lowast # ASTERISK OPERATOR
+00002218 compfn # RING OPERATOR
+00002218 SmallCircle # RING OPERATOR
+0000221A radic # SQUARE ROOT
+0000221A Sqrt # SQUARE ROOT
+0000221D prop # PROPORTIONAL TO
+0000221D propto # PROPORTIONAL TO
+0000221D Proportional # PROPORTIONAL TO
+0000221D vprop # PROPORTIONAL TO
+0000221D varpropto # PROPORTIONAL TO
+0000221E infin # INFINITY
+0000221F angrt # RIGHT ANGLE
+00002220 ang # ANGLE
+00002220 angle # ANGLE
+00002221 angmsd # MEASURED ANGLE
+00002221 measuredangle # MEASURED ANGLE
+00002222 angsph # SPHERICAL ANGLE
+00002223 mid # DIVIDES
+00002223 VerticalBar # DIVIDES
+00002223 smid # DIVIDES
+00002223 shortmid # DIVIDES
+00002224 nmid # DOES NOT DIVIDE
+00002224 NotVerticalBar # DOES NOT DIVIDE
+00002224 nsmid # DOES NOT DIVIDE
+00002224 nshortmid # DOES NOT DIVIDE
+00002225 par # PARALLEL TO
+00002225 parallel # PARALLEL TO
+00002225 DoubleVerticalBar # PARALLEL TO
+00002225 spar # PARALLEL TO
+00002225 shortparallel # PARALLEL TO
+00002226 npar # NOT PARALLEL TO
+00002226 nparallel # NOT PARALLEL TO
+00002226 NotDoubleVerticalBar # NOT PARALLEL TO
+00002226 nspar # NOT PARALLEL TO
+00002226 nshortparallel # NOT PARALLEL TO
+00002227 and # LOGICAL AND
+00002227 wedge # LOGICAL AND
+00002228 or # LOGICAL OR
+00002228 vee # LOGICAL OR
+00002229 cap # INTERSECTION
+0000222A cup # UNION
+0000222B int # INTEGRAL
+0000222B Integral # INTEGRAL
+0000222C Int # DOUBLE INTEGRAL
+0000222D tint # TRIPLE INTEGRAL
+0000222D iiint # TRIPLE INTEGRAL
+0000222E conint # CONTOUR INTEGRAL
+0000222E oint # CONTOUR INTEGRAL
+0000222E ContourIntegral # CONTOUR INTEGRAL
+0000222F Conint # SURFACE INTEGRAL
+0000222F DoubleContourIntegral # SURFACE INTEGRAL
+00002230 Cconint # VOLUME INTEGRAL
+00002231 cwint # CLOCKWISE INTEGRAL
+00002232 cwconint # CLOCKWISE CONTOUR INTEGRAL
+00002232 ClockwiseContourIntegral # CLOCKWISE CONTOUR INTEGRAL
+00002233 awconint # ANTICLOCKWISE CONTOUR INTEGRAL
+00002233 CounterClockwiseContourIntegral # ANTICLOCKWISE CONTOUR INTEGRAL
+00002234 there4 # THEREFORE
+00002234 therefore # THEREFORE
+00002234 Therefore # THEREFORE
+00002235 becaus # BECAUSE
+00002235 because # BECAUSE
+00002235 Because # BECAUSE
+00002236 ratio # RATIO
+00002237 Colon # PROPORTION
+00002237 Proportion # PROPORTION
+00002238 minusd # DOT MINUS
+00002238 dotminus # DOT MINUS
+0000223A mDDot # GEOMETRIC PROPORTION
+0000223B homtht # HOMOTHETIC
+0000223C sim # TILDE OPERATOR
+0000223C Tilde # TILDE OPERATOR
+0000223C thksim # TILDE OPERATOR
+0000223C thicksim # TILDE OPERATOR
+0000223D bsim # REVERSED TILDE
+0000223D backsim # REVERSED TILDE
+0000223E ac # INVERTED LAZY S
+0000223E mstpos # INVERTED LAZY S
+0000223F acd # SINE WAVE
+00002240 wreath # WREATH PRODUCT
+00002240 VerticalTilde # WREATH PRODUCT
+00002240 wr # WREATH PRODUCT
+00002241 nsim # NOT TILDE
+00002241 NotTilde # NOT TILDE
+00002242 esim # MINUS TILDE
+00002242 EqualTilde # MINUS TILDE
+00002242 eqsim # MINUS TILDE
+00002243 sime # ASYMPTOTICALLY EQUAL TO
+00002243 TildeEqual # ASYMPTOTICALLY EQUAL TO
+00002243 simeq # ASYMPTOTICALLY EQUAL TO
+00002244 nsime # NOT ASYMPTOTICALLY EQUAL TO
+00002244 nsimeq # NOT ASYMPTOTICALLY EQUAL TO
+00002244 NotTildeEqual # NOT ASYMPTOTICALLY EQUAL TO
+00002245 cong # APPROXIMATELY EQUAL TO
+00002245 TildeFullEqual # APPROXIMATELY EQUAL TO
+00002246 simne # APPROXIMATELY BUT NOT ACTUALLY EQUAL TO
+00002247 ncong # NEITHER APPROXIMATELY NOR ACTUALLY EQUAL TO
+00002247 NotTildeFullEqual # NEITHER APPROXIMATELY NOR ACTUALLY EQUAL TO
+00002248 asymp # ALMOST EQUAL TO
+00002248 ap # ALMOST EQUAL TO
+00002248 TildeTilde # ALMOST EQUAL TO
+00002248 approx # ALMOST EQUAL TO
+00002248 thkap # ALMOST EQUAL TO
+00002248 thickapprox # ALMOST EQUAL TO
+00002249 nap # NOT ALMOST EQUAL TO
+00002249 NotTildeTilde # NOT ALMOST EQUAL TO
+00002249 napprox # NOT ALMOST EQUAL TO
+0000224A ape # ALMOST EQUAL OR EQUAL TO
+0000224A approxeq # ALMOST EQUAL OR EQUAL TO
+0000224B apid # TRIPLE TILDE
+0000224C bcong # ALL EQUAL TO
+0000224C backcong # ALL EQUAL TO
+0000224D asympeq # EQUIVALENT TO
+0000224D CupCap # EQUIVALENT TO
+0000224E bump # GEOMETRICALLY EQUIVALENT TO
+0000224E HumpDownHump # GEOMETRICALLY EQUIVALENT TO
+0000224E Bumpeq # GEOMETRICALLY EQUIVALENT TO
+0000224F bumpe # DIFFERENCE BETWEEN
+0000224F HumpEqual # DIFFERENCE BETWEEN
+0000224F bumpeq # DIFFERENCE BETWEEN
+00002250 esdot # APPROACHES THE LIMIT
+00002250 DotEqual # APPROACHES THE LIMIT
+00002250 doteq # APPROACHES THE LIMIT
+00002251 eDot # GEOMETRICALLY EQUAL TO
+00002251 doteqdot # GEOMETRICALLY EQUAL TO
+00002252 efDot # APPROXIMATELY EQUAL TO OR THE IMAGE OF
+00002252 fallingdotseq # APPROXIMATELY EQUAL TO OR THE IMAGE OF
+00002253 erDot # IMAGE OF OR APPROXIMATELY EQUAL TO
+00002253 risingdotseq # IMAGE OF OR APPROXIMATELY EQUAL TO
+00002254 colone # COLON EQUALS
+00002254 coloneq # COLON EQUALS
+00002254 Assign # COLON EQUALS
+00002255 ecolon # EQUALS COLON
+00002255 eqcolon # EQUALS COLON
+00002256 ecir # RING IN EQUAL TO
+00002256 eqcirc # RING IN EQUAL TO
+00002257 cire # RING EQUAL TO
+00002257 circeq # RING EQUAL TO
+00002259 wedgeq # ESTIMATES
+0000225A veeeq # EQUIANGULAR TO
+0000225C trie # DELTA EQUAL TO
+0000225C triangleq # DELTA EQUAL TO
+0000225F equest # QUESTIONED EQUAL TO
+0000225F questeq # QUESTIONED EQUAL TO
+00002260 ne # NOT EQUAL TO
+00002260 NotEqual # NOT EQUAL TO
+00002261 equiv # IDENTICAL TO
+00002261 Congruent # IDENTICAL TO
+00002262 nequiv # NOT IDENTICAL TO
+00002262 NotCongruent # NOT IDENTICAL TO
+00002264 le # LESS-THAN OR EQUAL TO
+00002264 leq # LESS-THAN OR EQUAL TO
+00002265 ge # GREATER-THAN OR EQUAL TO
+00002265 GreaterEqual # GREATER-THAN OR EQUAL TO
+00002265 geq # GREATER-THAN OR EQUAL TO
+00002266 lE # LESS-THAN OVER EQUAL TO
+00002266 LessFullEqual # LESS-THAN OVER EQUAL TO
+00002266 leqq # LESS-THAN OVER EQUAL TO
+00002267 gE # GREATER-THAN OVER EQUAL TO
+00002267 GreaterFullEqual # GREATER-THAN OVER EQUAL TO
+00002267 geqq # GREATER-THAN OVER EQUAL TO
+00002268 lnE # LESS-THAN BUT NOT EQUAL TO
+00002268 lneqq # LESS-THAN BUT NOT EQUAL TO
+00002269 gnE # GREATER-THAN BUT NOT EQUAL TO
+00002269 gneqq # GREATER-THAN BUT NOT EQUAL TO
+0000226A Lt # MUCH LESS-THAN
+0000226A NestedLessLess # MUCH LESS-THAN
+0000226A ll # MUCH LESS-THAN
+0000226B Gt # MUCH GREATER-THAN
+0000226B NestedGreaterGreater # MUCH GREATER-THAN
+0000226B gg # MUCH GREATER-THAN
+0000226C twixt # BETWEEN
+0000226C between # BETWEEN
+0000226D NotCupCap # NOT EQUIVALENT TO
+0000226E nlt # NOT LESS-THAN
+0000226E NotLess # NOT LESS-THAN
+0000226E nless # NOT LESS-THAN
+0000226F ngt # NOT GREATER-THAN
+0000226F NotGreater # NOT GREATER-THAN
+0000226F ngtr # NOT GREATER-THAN
+00002270 nle # NEITHER LESS-THAN NOR EQUAL TO
+00002270 NotLessEqual # NEITHER LESS-THAN NOR EQUAL TO
+00002270 nleq # NEITHER LESS-THAN NOR EQUAL TO
+00002271 nge # NEITHER GREATER-THAN NOR EQUAL TO
+00002271 NotGreaterEqual # NEITHER GREATER-THAN NOR EQUAL TO
+00002271 ngeq # NEITHER GREATER-THAN NOR EQUAL TO
+00002272 lsim # LESS-THAN OR EQUIVALENT TO
+00002272 LessTilde # LESS-THAN OR EQUIVALENT TO
+00002272 lesssim # LESS-THAN OR EQUIVALENT TO
+00002273 gsim # GREATER-THAN OR EQUIVALENT TO
+00002273 gtrsim # GREATER-THAN OR EQUIVALENT TO
+00002273 GreaterTilde # GREATER-THAN OR EQUIVALENT TO
+00002274 nlsim # NEITHER LESS-THAN NOR EQUIVALENT TO
+00002274 NotLessTilde # NEITHER LESS-THAN NOR EQUIVALENT TO
+00002275 ngsim # NEITHER GREATER-THAN NOR EQUIVALENT TO
+00002275 NotGreaterTilde # NEITHER GREATER-THAN NOR EQUIVALENT TO
+00002276 lg # LESS-THAN OR GREATER-THAN
+00002276 lessgtr # LESS-THAN OR GREATER-THAN
+00002276 LessGreater # LESS-THAN OR GREATER-THAN
+00002277 gl # GREATER-THAN OR LESS-THAN
+00002277 gtrless # GREATER-THAN OR LESS-THAN
+00002277 GreaterLess # GREATER-THAN OR LESS-THAN
+00002278 ntlg # NEITHER LESS-THAN NOR GREATER-THAN
+00002278 NotLessGreater # NEITHER LESS-THAN NOR GREATER-THAN
+00002279 ntgl # NEITHER GREATER-THAN NOR LESS-THAN
+00002279 NotGreaterLess # NEITHER GREATER-THAN NOR LESS-THAN
+0000227A pr # PRECEDES
+0000227A Precedes # PRECEDES
+0000227A prec # PRECEDES
+0000227B sc # SUCCEEDS
+0000227B Succeeds # SUCCEEDS
+0000227B succ # SUCCEEDS
+0000227C prcue # PRECEDES OR EQUAL TO
+0000227C PrecedesSlantEqual # PRECEDES OR EQUAL TO
+0000227C preccurlyeq # PRECEDES OR EQUAL TO
+0000227D sccue # SUCCEEDS OR EQUAL TO
+0000227D SucceedsSlantEqual # SUCCEEDS OR EQUAL TO
+0000227D succcurlyeq # SUCCEEDS OR EQUAL TO
+0000227E prsim # PRECEDES OR EQUIVALENT TO
+0000227E precsim # PRECEDES OR EQUIVALENT TO
+0000227E PrecedesTilde # PRECEDES OR EQUIVALENT TO
+0000227F scsim # SUCCEEDS OR EQUIVALENT TO
+0000227F succsim # SUCCEEDS OR EQUIVALENT TO
+0000227F SucceedsTilde # SUCCEEDS OR EQUIVALENT TO
+00002280 npr # DOES NOT PRECEDE
+00002280 nprec # DOES NOT PRECEDE
+00002280 NotPrecedes # DOES NOT PRECEDE
+00002281 nsc # DOES NOT SUCCEED
+00002281 nsucc # DOES NOT SUCCEED
+00002281 NotSucceeds # DOES NOT SUCCEED
+00002282 sub # SUBSET OF
+00002282 subset # SUBSET OF
+00002283 sup # SUPERSET OF
+00002283 supset # SUPERSET OF
+00002283 Superset # SUPERSET OF
+00002284 nsub # NOT A SUBSET OF
+00002285 nsup # NOT A SUPERSET OF
+00002286 sube # SUBSET OF OR EQUAL TO
+00002286 SubsetEqual # SUBSET OF OR EQUAL TO
+00002286 subseteq # SUBSET OF OR EQUAL TO
+00002287 supe # SUPERSET OF OR EQUAL TO
+00002287 supseteq # SUPERSET OF OR EQUAL TO
+00002287 SupersetEqual # SUPERSET OF OR EQUAL TO
+00002288 nsube # NEITHER A SUBSET OF NOR EQUAL TO
+00002288 nsubseteq # NEITHER A SUBSET OF NOR EQUAL TO
+00002288 NotSubsetEqual # NEITHER A SUBSET OF NOR EQUAL TO
+00002289 nsupe # NEITHER A SUPERSET OF NOR EQUAL TO
+00002289 nsupseteq # NEITHER A SUPERSET OF NOR EQUAL TO
+00002289 NotSupersetEqual # NEITHER A SUPERSET OF NOR EQUAL TO
+0000228A subne # SUBSET OF WITH NOT EQUAL TO
+0000228A subsetneq # SUBSET OF WITH NOT EQUAL TO
+0000228B supne # SUPERSET OF WITH NOT EQUAL TO
+0000228B supsetneq # SUPERSET OF WITH NOT EQUAL TO
+0000228D cupdot # MULTISET MULTIPLICATION
+0000228E uplus # MULTISET UNION
+0000228E UnionPlus # MULTISET UNION
+0000228F sqsub # SQUARE IMAGE OF
+0000228F SquareSubset # SQUARE IMAGE OF
+0000228F sqsubset # SQUARE IMAGE OF
+00002290 sqsup # SQUARE ORIGINAL OF
+00002290 SquareSuperset # SQUARE ORIGINAL OF
+00002290 sqsupset # SQUARE ORIGINAL OF
+00002291 sqsube # SQUARE IMAGE OF OR EQUAL TO
+00002291 SquareSubsetEqual # SQUARE IMAGE OF OR EQUAL TO
+00002291 sqsubseteq # SQUARE IMAGE OF OR EQUAL TO
+00002292 sqsupe # SQUARE ORIGINAL OF OR EQUAL TO
+00002292 SquareSupersetEqual # SQUARE ORIGINAL OF OR EQUAL TO
+00002292 sqsupseteq # SQUARE ORIGINAL OF OR EQUAL TO
+00002293 sqcap # SQUARE CAP
+00002293 SquareIntersection # SQUARE CAP
+00002294 sqcup # SQUARE CUP
+00002294 SquareUnion # SQUARE CUP
+00002295 oplus # CIRCLED PLUS
+00002295 CirclePlus # CIRCLED PLUS
+00002296 ominus # CIRCLED MINUS
+00002296 CircleMinus # CIRCLED MINUS
+00002297 otimes # CIRCLED TIMES
+00002297 CircleTimes # CIRCLED TIMES
+00002298 osol # CIRCLED DIVISION SLASH
+00002299 odot # CIRCLED DOT OPERATOR
+00002299 CircleDot # CIRCLED DOT OPERATOR
+0000229A ocir # CIRCLED RING OPERATOR
+0000229A circledcirc # CIRCLED RING OPERATOR
+0000229B oast # CIRCLED ASTERISK OPERATOR
+0000229B circledast # CIRCLED ASTERISK OPERATOR
+0000229D odash # CIRCLED DASH
+0000229D circleddash # CIRCLED DASH
+0000229E plusb # SQUARED PLUS
+0000229E boxplus # SQUARED PLUS
+0000229F minusb # SQUARED MINUS
+0000229F boxminus # SQUARED MINUS
+000022A0 timesb # SQUARED TIMES
+000022A0 boxtimes # SQUARED TIMES
+000022A1 sdotb # SQUARED DOT OPERATOR
+000022A1 dotsquare # SQUARED DOT OPERATOR
+000022A2 vdash # RIGHT TACK
+000022A2 RightTee # RIGHT TACK
+000022A3 dashv # LEFT TACK
+000022A3 LeftTee # LEFT TACK
+000022A4 top # DOWN TACK
+000022A4 DownTee # DOWN TACK
+000022A5 bottom # UP TACK
+000022A5 bot # UP TACK
+000022A5 perp # UP TACK
+000022A5 UpTee # UP TACK
+000022A7 models # MODELS
+000022A8 vDash # TRUE
+000022A8 DoubleRightTee # TRUE
+000022A9 Vdash # FORCES
+000022AA Vvdash # TRIPLE VERTICAL BAR RIGHT TURNSTILE
+000022AB VDash # DOUBLE VERTICAL BAR DOUBLE RIGHT TURNSTILE
+000022AC nvdash # DOES NOT PROVE
+000022AD nvDash # NOT TRUE
+000022AE nVdash # DOES NOT FORCE
+000022AF nVDash # NEGATED DOUBLE VERTICAL BAR DOUBLE RIGHT TURNSTILE
+000022B0 prurel # PRECEDES UNDER RELATION
+000022B2 vltri # NORMAL SUBGROUP OF
+000022B2 vartriangleleft # NORMAL SUBGROUP OF
+000022B2 LeftTriangle # NORMAL SUBGROUP OF
+000022B3 vrtri # CONTAINS AS NORMAL SUBGROUP
+000022B3 vartriangleright # CONTAINS AS NORMAL SUBGROUP
+000022B3 RightTriangle # CONTAINS AS NORMAL SUBGROUP
+000022B4 ltrie # NORMAL SUBGROUP OF OR EQUAL TO
+000022B4 trianglelefteq # NORMAL SUBGROUP OF OR EQUAL TO
+000022B4 LeftTriangleEqual # NORMAL SUBGROUP OF OR EQUAL TO
+000022B5 rtrie # CONTAINS AS NORMAL SUBGROUP OR EQUAL TO
+000022B5 trianglerighteq # CONTAINS AS NORMAL SUBGROUP OR EQUAL TO
+000022B5 RightTriangleEqual # CONTAINS AS NORMAL SUBGROUP OR EQUAL TO
+000022B6 origof # ORIGINAL OF
+000022B7 imof # IMAGE OF
+000022B8 mumap # MULTIMAP
+000022B8 multimap # MULTIMAP
+000022B9 hercon # HERMITIAN CONJUGATE MATRIX
+000022BA intcal # INTERCALATE
+000022BA intercal # INTERCALATE
+000022BB veebar # XOR
+000022BD barvee # NOR
+000022BE angrtvb # RIGHT ANGLE WITH ARC
+000022BF lrtri # RIGHT TRIANGLE
+000022C0 xwedge # N-ARY LOGICAL AND
+000022C0 Wedge # N-ARY LOGICAL AND
+000022C0 bigwedge # N-ARY LOGICAL AND
+000022C1 xvee # N-ARY LOGICAL OR
+000022C1 Vee # N-ARY LOGICAL OR
+000022C1 bigvee # N-ARY LOGICAL OR
+000022C2 xcap # N-ARY INTERSECTION
+000022C2 Intersection # N-ARY INTERSECTION
+000022C2 bigcap # N-ARY INTERSECTION
+000022C3 xcup # N-ARY UNION
+000022C3 Union # N-ARY UNION
+000022C3 bigcup # N-ARY UNION
+000022C4 diam # DIAMOND OPERATOR
+000022C4 diamond # DIAMOND OPERATOR
+000022C4 Diamond # DIAMOND OPERATOR
+000022C5 sdot # DOT OPERATOR
+000022C6 sstarf # STAR OPERATOR
+000022C6 Star # STAR OPERATOR
+000022C7 divonx # DIVISION TIMES
+000022C7 divideontimes # DIVISION TIMES
+000022C8 bowtie # BOWTIE
+000022C9 ltimes # LEFT NORMAL FACTOR SEMIDIRECT PRODUCT
+000022CA rtimes # RIGHT NORMAL FACTOR SEMIDIRECT PRODUCT
+000022CB lthree # LEFT SEMIDIRECT PRODUCT
+000022CB leftthreetimes # LEFT SEMIDIRECT PRODUCT
+000022CC rthree # RIGHT SEMIDIRECT PRODUCT
+000022CC rightthreetimes # RIGHT SEMIDIRECT PRODUCT
+000022CD bsime # REVERSED TILDE EQUALS
+000022CD backsimeq # REVERSED TILDE EQUALS
+000022CE cuvee # CURLY LOGICAL OR
+000022CE curlyvee # CURLY LOGICAL OR
+000022CF cuwed # CURLY LOGICAL AND
+000022CF curlywedge # CURLY LOGICAL AND
+000022D0 Sub # DOUBLE SUBSET
+000022D0 Subset # DOUBLE SUBSET
+000022D1 Sup # DOUBLE SUPERSET
+000022D1 Supset # DOUBLE SUPERSET
+000022D2 Cap # DOUBLE INTERSECTION
+000022D3 Cup # DOUBLE UNION
+000022D4 fork # PITCHFORK
+000022D4 pitchfork # PITCHFORK
+000022D5 epar # EQUAL AND PARALLEL TO
+000022D6 ltdot # LESS-THAN WITH DOT
+000022D6 lessdot # LESS-THAN WITH DOT
+000022D7 gtdot # GREATER-THAN WITH DOT
+000022D7 gtrdot # GREATER-THAN WITH DOT
+000022D8 Ll # VERY MUCH LESS-THAN
+000022D9 Gg # VERY MUCH GREATER-THAN
+000022D9 ggg # VERY MUCH GREATER-THAN
+000022DA leg # LESS-THAN EQUAL TO OR GREATER-THAN
+000022DA LessEqualGreater # LESS-THAN EQUAL TO OR GREATER-THAN
+000022DA lesseqgtr # LESS-THAN EQUAL TO OR GREATER-THAN
+000022DB gel # GREATER-THAN EQUAL TO OR LESS-THAN
+000022DB gtreqless # GREATER-THAN EQUAL TO OR LESS-THAN
+000022DB GreaterEqualLess # GREATER-THAN EQUAL TO OR LESS-THAN
+000022DE cuepr # EQUAL TO OR PRECEDES
+000022DE curlyeqprec # EQUAL TO OR PRECEDES
+000022DF cuesc # EQUAL TO OR SUCCEEDS
+000022DF curlyeqsucc # EQUAL TO OR SUCCEEDS
+000022E0 nprcue # DOES NOT PRECEDE OR EQUAL
+000022E0 NotPrecedesSlantEqual # DOES NOT PRECEDE OR EQUAL
+000022E1 nsccue # DOES NOT SUCCEED OR EQUAL
+000022E1 NotSucceedsSlantEqual # DOES NOT SUCCEED OR EQUAL
+000022E2 nsqsube # NOT SQUARE IMAGE OF OR EQUAL TO
+000022E2 NotSquareSubsetEqual # NOT SQUARE IMAGE OF OR EQUAL TO
+000022E3 nsqsupe # NOT SQUARE ORIGINAL OF OR EQUAL TO
+000022E3 NotSquareSupersetEqual # NOT SQUARE ORIGINAL OF OR EQUAL TO
+000022E6 lnsim # LESS-THAN BUT NOT EQUIVALENT TO
+000022E7 gnsim # GREATER-THAN BUT NOT EQUIVALENT TO
+000022E8 prnsim # PRECEDES BUT NOT EQUIVALENT TO
+000022E8 precnsim # PRECEDES BUT NOT EQUIVALENT TO
+000022E9 scnsim # SUCCEEDS BUT NOT EQUIVALENT TO
+000022E9 succnsim # SUCCEEDS BUT NOT EQUIVALENT TO
+000022EA nltri # NOT NORMAL SUBGROUP OF
+000022EA ntriangleleft # NOT NORMAL SUBGROUP OF
+000022EA NotLeftTriangle # NOT NORMAL SUBGROUP OF
+000022EB nrtri # DOES NOT CONTAIN AS NORMAL SUBGROUP
+000022EB ntriangleright # DOES NOT CONTAIN AS NORMAL SUBGROUP
+000022EB NotRightTriangle # DOES NOT CONTAIN AS NORMAL SUBGROUP
+000022EC nltrie # NOT NORMAL SUBGROUP OF OR EQUAL TO
+000022EC ntrianglelefteq # NOT NORMAL SUBGROUP OF OR EQUAL TO
+000022EC NotLeftTriangleEqual # NOT NORMAL SUBGROUP OF OR EQUAL TO
+000022ED nrtrie # DOES NOT CONTAIN AS NORMAL SUBGROUP OR EQUAL
+000022ED ntrianglerighteq # DOES NOT CONTAIN AS NORMAL SUBGROUP OR EQUAL
+000022ED NotRightTriangleEqual # DOES NOT CONTAIN AS NORMAL SUBGROUP OR EQUAL
+000022EE vellip # VERTICAL ELLIPSIS
+000022EF ctdot # MIDLINE HORIZONTAL ELLIPSIS
+000022F0 utdot # UP RIGHT DIAGONAL ELLIPSIS
+000022F1 dtdot # DOWN RIGHT DIAGONAL ELLIPSIS
+000022F2 disin # ELEMENT OF WITH LONG HORIZONTAL STROKE
+000022F3 isinsv # ELEMENT OF WITH VERTICAL BAR AT END OF HORIZONTAL STROKE
+000022F4 isins # SMALL ELEMENT OF WITH VERTICAL BAR AT END OF HORIZONTAL STROKE
+000022F5 isindot # ELEMENT OF WITH DOT ABOVE
+000022F6 notinvc # ELEMENT OF WITH OVERBAR
+000022F7 notinvb # SMALL ELEMENT OF WITH OVERBAR
+000022F9 isinE # ELEMENT OF WITH TWO HORIZONTAL STROKES
+000022FA nisd # CONTAINS WITH LONG HORIZONTAL STROKE
+000022FB xnis # CONTAINS WITH VERTICAL BAR AT END OF HORIZONTAL STROKE
+000022FC nis # SMALL CONTAINS WITH VERTICAL BAR AT END OF HORIZONTAL STROKE
+000022FD notnivc # CONTAINS WITH OVERBAR
+000022FE notnivb # SMALL CONTAINS WITH OVERBAR
+00002305 barwed # PROJECTIVE
+00002305 barwedge # PROJECTIVE
+00002306 Barwed # PERSPECTIVE
+00002306 doublebarwedge # PERSPECTIVE
+00002308 lceil # LEFT CEILING
+00002308 LeftCeiling # LEFT CEILING
+00002309 rceil # RIGHT CEILING
+00002309 RightCeiling # RIGHT CEILING
+0000230A lfloor # LEFT FLOOR
+0000230A LeftFloor # LEFT FLOOR
+0000230B rfloor # RIGHT FLOOR
+0000230B RightFloor # RIGHT FLOOR
+0000230C drcrop # BOTTOM RIGHT CROP
+0000230D dlcrop # BOTTOM LEFT CROP
+0000230E urcrop # TOP RIGHT CROP
+0000230F ulcrop # TOP LEFT CROP
+00002310 bnot # REVERSED NOT SIGN
+00002312 profline # ARC
+00002313 profsurf # SEGMENT
+00002315 telrec # TELEPHONE RECORDER
+00002316 target # POSITION INDICATOR
+0000231C ulcorn # TOP LEFT CORNER
+0000231C ulcorner # TOP LEFT CORNER
+0000231D urcorn # TOP RIGHT CORNER
+0000231D urcorner # TOP RIGHT CORNER
+0000231E dlcorn # BOTTOM LEFT CORNER
+0000231E llcorner # BOTTOM LEFT CORNER
+0000231F drcorn # BOTTOM RIGHT CORNER
+0000231F lrcorner # BOTTOM RIGHT CORNER
+00002322 frown # FROWN
+00002322 sfrown # FROWN
+00002323 smile # SMILE
+00002323 ssmile # SMILE
+0000232D cylcty # CYLINDRICITY
+0000232E profalar # ALL AROUND-PROFILE
+00002336 topbot # APL FUNCTIONAL SYMBOL I-BEAM
+0000233D ovbar # APL FUNCTIONAL SYMBOL CIRCLE STILE
+0000233F solbar # APL FUNCTIONAL SYMBOL SLASH BAR
+0000237C angzarr # RIGHT ANGLE WITH DOWNWARDS ZIGZAG ARROW
+000023B0 lmoust # UPPER LEFT OR LOWER RIGHT CURLY BRACKET SECTION
+000023B0 lmoustache # UPPER LEFT OR LOWER RIGHT CURLY BRACKET SECTION
+000023B1 rmoust # UPPER RIGHT OR LOWER LEFT CURLY BRACKET SECTION
+000023B1 rmoustache # UPPER RIGHT OR LOWER LEFT CURLY BRACKET SECTION
+000023B4 tbrk # TOP SQUARE BRACKET
+000023B4 OverBracket # TOP SQUARE BRACKET
+000023B5 bbrk # BOTTOM SQUARE BRACKET
+000023B5 UnderBracket # BOTTOM SQUARE BRACKET
+000023B6 bbrktbrk # BOTTOM SQUARE BRACKET OVER TOP SQUARE BRACKET
+000023DC OverParenthesis # TOP PARENTHESIS
+000023DD UnderParenthesis # BOTTOM PARENTHESIS
+000023DE OverBrace # TOP CURLY BRACKET
+000023DF UnderBrace # BOTTOM CURLY BRACKET
+000023E2 trpezium # WHITE TRAPEZIUM
+000023E7 elinters # ELECTRICAL INTERSECTION
+00002423 blank # OPEN BOX
+000024C8 oS # CIRCLED LATIN CAPITAL LETTER S
+000024C8 circledS # CIRCLED LATIN CAPITAL LETTER S
+00002500 boxh # BOX DRAWINGS LIGHT HORIZONTAL
+00002500 HorizontalLine # BOX DRAWINGS LIGHT HORIZONTAL
+00002502 boxv # BOX DRAWINGS LIGHT VERTICAL
+0000250C boxdr # BOX DRAWINGS LIGHT DOWN AND RIGHT
+00002510 boxdl # BOX DRAWINGS LIGHT DOWN AND LEFT
+00002514 boxur # BOX DRAWINGS LIGHT UP AND RIGHT
+00002518 boxul # BOX DRAWINGS LIGHT UP AND LEFT
+0000251C boxvr # BOX DRAWINGS LIGHT VERTICAL AND RIGHT
+00002524 boxvl # BOX DRAWINGS LIGHT VERTICAL AND LEFT
+0000252C boxhd # BOX DRAWINGS LIGHT DOWN AND HORIZONTAL
+00002534 boxhu # BOX DRAWINGS LIGHT UP AND HORIZONTAL
+0000253C boxvh # BOX DRAWINGS LIGHT VERTICAL AND HORIZONTAL
+00002550 boxH # BOX DRAWINGS DOUBLE HORIZONTAL
+00002551 boxV # BOX DRAWINGS DOUBLE VERTICAL
+00002552 boxdR # BOX DRAWINGS DOWN SINGLE AND RIGHT DOUBLE
+00002553 boxDr # BOX DRAWINGS DOWN DOUBLE AND RIGHT SINGLE
+00002554 boxDR # BOX DRAWINGS DOUBLE DOWN AND RIGHT
+00002555 boxdL # BOX DRAWINGS DOWN SINGLE AND LEFT DOUBLE
+00002556 boxDl # BOX DRAWINGS DOWN DOUBLE AND LEFT SINGLE
+00002557 boxDL # BOX DRAWINGS DOUBLE DOWN AND LEFT
+00002558 boxuR # BOX DRAWINGS UP SINGLE AND RIGHT DOUBLE
+00002559 boxUr # BOX DRAWINGS UP DOUBLE AND RIGHT SINGLE
+0000255A boxUR # BOX DRAWINGS DOUBLE UP AND RIGHT
+0000255B boxuL # BOX DRAWINGS UP SINGLE AND LEFT DOUBLE
+0000255C boxUl # BOX DRAWINGS UP DOUBLE AND LEFT SINGLE
+0000255D boxUL # BOX DRAWINGS DOUBLE UP AND LEFT
+0000255E boxvR # BOX DRAWINGS VERTICAL SINGLE AND RIGHT DOUBLE
+0000255F boxVr # BOX DRAWINGS VERTICAL DOUBLE AND RIGHT SINGLE
+00002560 boxVR # BOX DRAWINGS DOUBLE VERTICAL AND RIGHT
+00002561 boxvL # BOX DRAWINGS VERTICAL SINGLE AND LEFT DOUBLE
+00002562 boxVl # BOX DRAWINGS VERTICAL DOUBLE AND LEFT SINGLE
+00002563 boxVL # BOX DRAWINGS DOUBLE VERTICAL AND LEFT
+00002564 boxHd # BOX DRAWINGS DOWN SINGLE AND HORIZONTAL DOUBLE
+00002565 boxhD # BOX DRAWINGS DOWN DOUBLE AND HORIZONTAL SINGLE
+00002566 boxHD # BOX DRAWINGS DOUBLE DOWN AND HORIZONTAL
+00002567 boxHu # BOX DRAWINGS UP SINGLE AND HORIZONTAL DOUBLE
+00002568 boxhU # BOX DRAWINGS UP DOUBLE AND HORIZONTAL SINGLE
+00002569 boxHU # BOX DRAWINGS DOUBLE UP AND HORIZONTAL
+0000256A boxvH # BOX DRAWINGS VERTICAL SINGLE AND HORIZONTAL DOUBLE
+0000256B boxVh # BOX DRAWINGS VERTICAL DOUBLE AND HORIZONTAL SINGLE
+0000256C boxVH # BOX DRAWINGS DOUBLE VERTICAL AND HORIZONTAL
+00002580 uhblk # UPPER HALF BLOCK
+00002584 lhblk # LOWER HALF BLOCK
+00002588 block # FULL BLOCK
+00002591 blk14 # LIGHT SHADE
+00002592 blk12 # MEDIUM SHADE
+00002593 blk34 # DARK SHADE
+000025A1 squ # WHITE SQUARE
+000025A1 square # WHITE SQUARE
+000025A1 Square # WHITE SQUARE
+000025AA squf # BLACK SMALL SQUARE
+000025AA squarf # BLACK SMALL SQUARE
+000025AA blacksquare # BLACK SMALL SQUARE
+000025AA FilledVerySmallSquare # BLACK SMALL SQUARE
+000025AB EmptyVerySmallSquare # WHITE SMALL SQUARE
+000025AD rect # WHITE RECTANGLE
+000025AE marker # BLACK VERTICAL RECTANGLE
+000025B1 fltns # WHITE PARALLELOGRAM
+000025B3 xutri # WHITE UP-POINTING TRIANGLE
+000025B3 bigtriangleup # WHITE UP-POINTING TRIANGLE
+000025B4 utrif # BLACK UP-POINTING SMALL TRIANGLE
+000025B4 blacktriangle # BLACK UP-POINTING SMALL TRIANGLE
+000025B5 utri # WHITE UP-POINTING SMALL TRIANGLE
+000025B5 triangle # WHITE UP-POINTING SMALL TRIANGLE
+000025B8 rtrif # BLACK RIGHT-POINTING SMALL TRIANGLE
+000025B8 blacktriangleright # BLACK RIGHT-POINTING SMALL TRIANGLE
+000025B9 rtri # WHITE RIGHT-POINTING SMALL TRIANGLE
+000025B9 triangleright # WHITE RIGHT-POINTING SMALL TRIANGLE
+000025BD xdtri # WHITE DOWN-POINTING TRIANGLE
+000025BD bigtriangledown # WHITE DOWN-POINTING TRIANGLE
+000025BE dtrif # BLACK DOWN-POINTING SMALL TRIANGLE
+000025BE blacktriangledown # BLACK DOWN-POINTING SMALL TRIANGLE
+000025BF dtri # WHITE DOWN-POINTING SMALL TRIANGLE
+000025BF triangledown # WHITE DOWN-POINTING SMALL TRIANGLE
+000025C2 ltrif # BLACK LEFT-POINTING SMALL TRIANGLE
+000025C2 blacktriangleleft # BLACK LEFT-POINTING SMALL TRIANGLE
+000025C3 ltri # WHITE LEFT-POINTING SMALL TRIANGLE
+000025C3 triangleleft # WHITE LEFT-POINTING SMALL TRIANGLE
+000025CA loz # LOZENGE
+000025CA lozenge # LOZENGE
+000025CB cir # WHITE CIRCLE
+000025EC tridot # WHITE UP-POINTING TRIANGLE WITH DOT
+000025EF xcirc # LARGE CIRCLE
+000025EF bigcirc # LARGE CIRCLE
+000025F8 ultri # UPPER LEFT TRIANGLE
+000025F9 urtri # UPPER RIGHT TRIANGLE
+000025FA lltri # LOWER LEFT TRIANGLE
+000025FB EmptySmallSquare # WHITE MEDIUM SQUARE
+000025FC FilledSmallSquare # BLACK MEDIUM SQUARE
+00002605 starf # BLACK STAR
+00002605 bigstar # BLACK STAR
+00002606 star # WHITE STAR
+0000260E phone # BLACK TELEPHONE
+00002640 female # FEMALE SIGN
+00002642 male # MALE SIGN
+00002660 spades # BLACK SPADE SUIT
+00002660 spadesuit # BLACK SPADE SUIT
+00002663 clubs # BLACK CLUB SUIT
+00002663 clubsuit # BLACK CLUB SUIT
+00002665 hearts # BLACK HEART SUIT
+00002665 heartsuit # BLACK HEART SUIT
+00002666 diams # BLACK DIAMOND SUIT
+00002666 diamondsuit # BLACK DIAMOND SUIT
+0000266A sung # EIGHTH NOTE
+0000266D flat # MUSIC FLAT SIGN
+0000266E natur # MUSIC NATURAL SIGN
+0000266E natural # MUSIC NATURAL SIGN
+0000266F sharp # MUSIC SHARP SIGN
+00002713 check # CHECK MARK
+00002713 checkmark # CHECK MARK
+00002717 cross # BALLOT X
+00002720 malt # MALTESE CROSS
+00002720 maltese # MALTESE CROSS
+00002736 sext # SIX POINTED BLACK STAR
+00002758 VerticalSeparator # LIGHT VERTICAL BAR
+00002772 lbbrk # LIGHT LEFT TORTOISE SHELL BRACKET ORNAMENT
+00002773 rbbrk # LIGHT RIGHT TORTOISE SHELL BRACKET ORNAMENT
+000027E6 lobrk # MATHEMATICAL LEFT WHITE SQUARE BRACKET
+000027E6 LeftDoubleBracket # MATHEMATICAL LEFT WHITE SQUARE BRACKET
+000027E7 robrk # MATHEMATICAL RIGHT WHITE SQUARE BRACKET
+000027E7 RightDoubleBracket # MATHEMATICAL RIGHT WHITE SQUARE BRACKET
+000027E8 lang # MATHEMATICAL LEFT ANGLE BRACKET
+000027E8 LeftAngleBracket # MATHEMATICAL LEFT ANGLE BRACKET
+000027E8 langle # MATHEMATICAL LEFT ANGLE BRACKET
+000027E9 rang # MATHEMATICAL RIGHT ANGLE BRACKET
+000027E9 RightAngleBracket # MATHEMATICAL RIGHT ANGLE BRACKET
+000027E9 rangle # MATHEMATICAL RIGHT ANGLE BRACKET
+000027EA Lang # MATHEMATICAL LEFT DOUBLE ANGLE BRACKET
+000027EB Rang # MATHEMATICAL RIGHT DOUBLE ANGLE BRACKET
+000027EC loang # MATHEMATICAL LEFT WHITE TORTOISE SHELL BRACKET
+000027ED roang # MATHEMATICAL RIGHT WHITE TORTOISE SHELL BRACKET
+000027F5 xlarr # LONG LEFTWARDS ARROW
+000027F5 longleftarrow # LONG LEFTWARDS ARROW
+000027F5 LongLeftArrow # LONG LEFTWARDS ARROW
+000027F6 xrarr # LONG RIGHTWARDS ARROW
+000027F6 longrightarrow # LONG RIGHTWARDS ARROW
+000027F6 LongRightArrow # LONG RIGHTWARDS ARROW
+000027F7 xharr # LONG LEFT RIGHT ARROW
+000027F7 longleftrightarrow # LONG LEFT RIGHT ARROW
+000027F7 LongLeftRightArrow # LONG LEFT RIGHT ARROW
+000027F8 xlArr # LONG LEFTWARDS DOUBLE ARROW
+000027F8 Longleftarrow # LONG LEFTWARDS DOUBLE ARROW
+000027F8 DoubleLongLeftArrow # LONG LEFTWARDS DOUBLE ARROW
+000027F9 xrArr # LONG RIGHTWARDS DOUBLE ARROW
+000027F9 Longrightarrow # LONG RIGHTWARDS DOUBLE ARROW
+000027F9 DoubleLongRightArrow # LONG RIGHTWARDS DOUBLE ARROW
+000027FA xhArr # LONG LEFT RIGHT DOUBLE ARROW
+000027FA Longleftrightarrow # LONG LEFT RIGHT DOUBLE ARROW
+000027FA DoubleLongLeftRightArrow # LONG LEFT RIGHT DOUBLE ARROW
+000027FC xmap # LONG RIGHTWARDS ARROW FROM BAR
+000027FC longmapsto # LONG RIGHTWARDS ARROW FROM BAR
+000027FF dzigrarr # LONG RIGHTWARDS SQUIGGLE ARROW
+00002902 nvlArr # LEFTWARDS DOUBLE ARROW WITH VERTICAL STROKE
+00002903 nvrArr # RIGHTWARDS DOUBLE ARROW WITH VERTICAL STROKE
+00002904 nvHarr # LEFT RIGHT DOUBLE ARROW WITH VERTICAL STROKE
+00002905 Map # RIGHTWARDS TWO-HEADED ARROW FROM BAR
+0000290C lbarr # LEFTWARDS DOUBLE DASH ARROW
+0000290D rbarr # RIGHTWARDS DOUBLE DASH ARROW
+0000290D bkarow # RIGHTWARDS DOUBLE DASH ARROW
+0000290E lBarr # LEFTWARDS TRIPLE DASH ARROW
+0000290F rBarr # RIGHTWARDS TRIPLE DASH ARROW
+0000290F dbkarow # RIGHTWARDS TRIPLE DASH ARROW
+00002910 RBarr # RIGHTWARDS TWO-HEADED TRIPLE DASH ARROW
+00002910 drbkarow # RIGHTWARDS TWO-HEADED TRIPLE DASH ARROW
+00002911 DDotrahd # RIGHTWARDS ARROW WITH DOTTED STEM
+00002912 UpArrowBar # UPWARDS ARROW TO BAR
+00002913 DownArrowBar # DOWNWARDS ARROW TO BAR
+00002916 Rarrtl # RIGHTWARDS TWO-HEADED ARROW WITH TAIL
+00002919 latail # LEFTWARDS ARROW-TAIL
+0000291A ratail # RIGHTWARDS ARROW-TAIL
+0000291B lAtail # LEFTWARDS DOUBLE ARROW-TAIL
+0000291C rAtail # RIGHTWARDS DOUBLE ARROW-TAIL
+0000291D larrfs # LEFTWARDS ARROW TO BLACK DIAMOND
+0000291E rarrfs # RIGHTWARDS ARROW TO BLACK DIAMOND
+0000291F larrbfs # LEFTWARDS ARROW FROM BAR TO BLACK DIAMOND
+00002920 rarrbfs # RIGHTWARDS ARROW FROM BAR TO BLACK DIAMOND
+00002923 nwarhk # NORTH WEST ARROW WITH HOOK
+00002924 nearhk # NORTH EAST ARROW WITH HOOK
+00002925 searhk # SOUTH EAST ARROW WITH HOOK
+00002925 hksearow # SOUTH EAST ARROW WITH HOOK
+00002926 swarhk # SOUTH WEST ARROW WITH HOOK
+00002926 hkswarow # SOUTH WEST ARROW WITH HOOK
+00002927 nwnear # NORTH WEST ARROW AND NORTH EAST ARROW
+00002928 nesear # NORTH EAST ARROW AND SOUTH EAST ARROW
+00002928 toea # NORTH EAST ARROW AND SOUTH EAST ARROW
+00002929 seswar # SOUTH EAST ARROW AND SOUTH WEST ARROW
+00002929 tosa # SOUTH EAST ARROW AND SOUTH WEST ARROW
+0000292A swnwar # SOUTH WEST ARROW AND NORTH WEST ARROW
+00002933 rarrc # WAVE ARROW POINTING DIRECTLY RIGHT
+00002935 cudarrr # ARROW POINTING RIGHTWARDS THEN CURVING DOWNWARDS
+00002936 ldca # ARROW POINTING DOWNWARDS THEN CURVING LEFTWARDS
+00002937 rdca # ARROW POINTING DOWNWARDS THEN CURVING RIGHTWARDS
+00002938 cudarrl # RIGHT-SIDE ARC CLOCKWISE ARROW
+00002939 larrpl # LEFT-SIDE ARC ANTICLOCKWISE ARROW
+0000293C curarrm # TOP ARC CLOCKWISE ARROW WITH MINUS
+0000293D cularrp # TOP ARC ANTICLOCKWISE ARROW WITH PLUS
+00002945 rarrpl # RIGHTWARDS ARROW WITH PLUS BELOW
+00002948 harrcir # LEFT RIGHT ARROW THROUGH SMALL CIRCLE
+00002949 Uarrocir # UPWARDS TWO-HEADED ARROW FROM SMALL CIRCLE
+0000294A lurdshar # LEFT BARB UP RIGHT BARB DOWN HARPOON
+0000294B ldrushar # LEFT BARB DOWN RIGHT BARB UP HARPOON
+0000294E LeftRightVector # LEFT BARB UP RIGHT BARB UP HARPOON
+0000294F RightUpDownVector # UP BARB RIGHT DOWN BARB RIGHT HARPOON
+00002950 DownLeftRightVector # LEFT BARB DOWN RIGHT BARB DOWN HARPOON
+00002951 LeftUpDownVector # UP BARB LEFT DOWN BARB LEFT HARPOON
+00002952 LeftVectorBar # LEFTWARDS HARPOON WITH BARB UP TO BAR
+00002953 RightVectorBar # RIGHTWARDS HARPOON WITH BARB UP TO BAR
+00002954 RightUpVectorBar # UPWARDS HARPOON WITH BARB RIGHT TO BAR
+00002955 RightDownVectorBar # DOWNWARDS HARPOON WITH BARB RIGHT TO BAR
+00002956 DownLeftVectorBar # LEFTWARDS HARPOON WITH BARB DOWN TO BAR
+00002957 DownRightVectorBar # RIGHTWARDS HARPOON WITH BARB DOWN TO BAR
+00002958 LeftUpVectorBar # UPWARDS HARPOON WITH BARB LEFT TO BAR
+00002959 LeftDownVectorBar # DOWNWARDS HARPOON WITH BARB LEFT TO BAR
+0000295A LeftTeeVector # LEFTWARDS HARPOON WITH BARB UP FROM BAR
+0000295B RightTeeVector # RIGHTWARDS HARPOON WITH BARB UP FROM BAR
+0000295C RightUpTeeVector # UPWARDS HARPOON WITH BARB RIGHT FROM BAR
+0000295D RightDownTeeVector # DOWNWARDS HARPOON WITH BARB RIGHT FROM BAR
+0000295E DownLeftTeeVector # LEFTWARDS HARPOON WITH BARB DOWN FROM BAR
+0000295F DownRightTeeVector # RIGHTWARDS HARPOON WITH BARB DOWN FROM BAR
+00002960 LeftUpTeeVector # UPWARDS HARPOON WITH BARB LEFT FROM BAR
+00002961 LeftDownTeeVector # DOWNWARDS HARPOON WITH BARB LEFT FROM BAR
+00002962 lHar # LEFTWARDS HARPOON WITH BARB UP ABOVE LEFTWARDS HARPOON WITH BARB DOWN
+00002963 uHar # UPWARDS HARPOON WITH BARB LEFT BESIDE UPWARDS HARPOON WITH BARB RIGHT
+00002964 rHar # RIGHTWARDS HARPOON WITH BARB UP ABOVE RIGHTWARDS HARPOON WITH BARB DOWN
+00002965 dHar # DOWNWARDS HARPOON WITH BARB LEFT BESIDE DOWNWARDS HARPOON WITH BARB RIGHT
+00002966 luruhar # LEFTWARDS HARPOON WITH BARB UP ABOVE RIGHTWARDS HARPOON WITH BARB UP
+00002967 ldrdhar # LEFTWARDS HARPOON WITH BARB DOWN ABOVE RIGHTWARDS HARPOON WITH BARB DOWN
+00002968 ruluhar # RIGHTWARDS HARPOON WITH BARB UP ABOVE LEFTWARDS HARPOON WITH BARB UP
+00002969 rdldhar # RIGHTWARDS HARPOON WITH BARB DOWN ABOVE LEFTWARDS HARPOON WITH BARB DOWN
+0000296A lharul # LEFTWARDS HARPOON WITH BARB UP ABOVE LONG DASH
+0000296B llhard # LEFTWARDS HARPOON WITH BARB DOWN BELOW LONG DASH
+0000296C rharul # RIGHTWARDS HARPOON WITH BARB UP ABOVE LONG DASH
+0000296D lrhard # RIGHTWARDS HARPOON WITH BARB DOWN BELOW LONG DASH
+0000296E udhar # UPWARDS HARPOON WITH BARB LEFT BESIDE DOWNWARDS HARPOON WITH BARB RIGHT
+0000296E UpEquilibrium # UPWARDS HARPOON WITH BARB LEFT BESIDE DOWNWARDS HARPOON WITH BARB RIGHT
+0000296F duhar # DOWNWARDS HARPOON WITH BARB LEFT BESIDE UPWARDS HARPOON WITH BARB RIGHT
+0000296F ReverseUpEquilibrium # DOWNWARDS HARPOON WITH BARB LEFT BESIDE UPWARDS HARPOON WITH BARB RIGHT
+00002970 RoundImplies # RIGHT DOUBLE ARROW WITH ROUNDED HEAD
+00002971 erarr # EQUALS SIGN ABOVE RIGHTWARDS ARROW
+00002972 simrarr # TILDE OPERATOR ABOVE RIGHTWARDS ARROW
+00002973 larrsim # LEFTWARDS ARROW ABOVE TILDE OPERATOR
+00002974 rarrsim # RIGHTWARDS ARROW ABOVE TILDE OPERATOR
+00002975 rarrap # RIGHTWARDS ARROW ABOVE ALMOST EQUAL TO
+00002976 ltlarr # LESS-THAN ABOVE LEFTWARDS ARROW
+00002978 gtrarr # GREATER-THAN ABOVE RIGHTWARDS ARROW
+00002979 subrarr # SUBSET ABOVE RIGHTWARDS ARROW
+0000297B suplarr # SUPERSET ABOVE LEFTWARDS ARROW
+0000297C lfisht # LEFT FISH TAIL
+0000297D rfisht # RIGHT FISH TAIL
+0000297E ufisht # UP FISH TAIL
+0000297F dfisht # DOWN FISH TAIL
+00002985 lopar # LEFT WHITE PARENTHESIS
+00002986 ropar # RIGHT WHITE PARENTHESIS
+0000298B lbrke # LEFT SQUARE BRACKET WITH UNDERBAR
+0000298C rbrke # RIGHT SQUARE BRACKET WITH UNDERBAR
+0000298D lbrkslu # LEFT SQUARE BRACKET WITH TICK IN TOP CORNER
+0000298E rbrksld # RIGHT SQUARE BRACKET WITH TICK IN BOTTOM CORNER
+0000298F lbrksld # LEFT SQUARE BRACKET WITH TICK IN BOTTOM CORNER
+00002990 rbrkslu # RIGHT SQUARE BRACKET WITH TICK IN TOP CORNER
+00002991 langd # LEFT ANGLE BRACKET WITH DOT
+00002992 rangd # RIGHT ANGLE BRACKET WITH DOT
+00002993 lparlt # LEFT ARC LESS-THAN BRACKET
+00002994 rpargt # RIGHT ARC GREATER-THAN BRACKET
+00002995 gtlPar # DOUBLE LEFT ARC GREATER-THAN BRACKET
+00002996 ltrPar # DOUBLE RIGHT ARC LESS-THAN BRACKET
+0000299A vzigzag # VERTICAL ZIGZAG LINE
+0000299C vangrt # RIGHT ANGLE VARIANT WITH SQUARE
+0000299D angrtvbd # MEASURED RIGHT ANGLE WITH DOT
+000029A4 ange # ANGLE WITH UNDERBAR
+000029A5 range # REVERSED ANGLE WITH UNDERBAR
+000029A6 dwangle # OBLIQUE ANGLE OPENING UP
+000029A7 uwangle # OBLIQUE ANGLE OPENING DOWN
+000029A8 angmsdaa # MEASURED ANGLE WITH OPEN ARM ENDING IN ARROW POINTING UP AND RIGHT
+000029A9 angmsdab # MEASURED ANGLE WITH OPEN ARM ENDING IN ARROW POINTING UP AND LEFT
+000029AA angmsdac # MEASURED ANGLE WITH OPEN ARM ENDING IN ARROW POINTING DOWN AND RIGHT
+000029AB angmsdad # MEASURED ANGLE WITH OPEN ARM ENDING IN ARROW POINTING DOWN AND LEFT
+000029AC angmsdae # MEASURED ANGLE WITH OPEN ARM ENDING IN ARROW POINTING RIGHT AND UP
+000029AD angmsdaf # MEASURED ANGLE WITH OPEN ARM ENDING IN ARROW POINTING LEFT AND UP
+000029AE angmsdag # MEASURED ANGLE WITH OPEN ARM ENDING IN ARROW POINTING RIGHT AND DOWN
+000029AF angmsdah # MEASURED ANGLE WITH OPEN ARM ENDING IN ARROW POINTING LEFT AND DOWN
+000029B0 bemptyv # REVERSED EMPTY SET
+000029B1 demptyv # EMPTY SET WITH OVERBAR
+000029B2 cemptyv # EMPTY SET WITH SMALL CIRCLE ABOVE
+000029B3 raemptyv # EMPTY SET WITH RIGHT ARROW ABOVE
+000029B4 laemptyv # EMPTY SET WITH LEFT ARROW ABOVE
+000029B5 ohbar # CIRCLE WITH HORIZONTAL BAR
+000029B6 omid # CIRCLED VERTICAL BAR
+000029B7 opar # CIRCLED PARALLEL
+000029B9 operp # CIRCLED PERPENDICULAR
+000029BB olcross # CIRCLE WITH SUPERIMPOSED X
+000029BC odsold # CIRCLED ANTICLOCKWISE-ROTATED DIVISION SIGN
+000029BE olcir # CIRCLED WHITE BULLET
+000029BF ofcir # CIRCLED BULLET
+000029C0 olt # CIRCLED LESS-THAN
+000029C1 ogt # CIRCLED GREATER-THAN
+000029C2 cirscir # CIRCLE WITH SMALL CIRCLE TO THE RIGHT
+000029C3 cirE # CIRCLE WITH TWO HORIZONTAL STROKES TO THE RIGHT
+000029C4 solb # SQUARED RISING DIAGONAL SLASH
+000029C5 bsolb # SQUARED FALLING DIAGONAL SLASH
+000029C9 boxbox # TWO JOINED SQUARES
+000029CD trisb # TRIANGLE WITH SERIFS AT BOTTOM
+000029CE rtriltri # RIGHT TRIANGLE ABOVE LEFT TRIANGLE
+000029CF LeftTriangleBar # LEFT TRIANGLE BESIDE VERTICAL BAR
+000029D0 RightTriangleBar # VERTICAL BAR BESIDE RIGHT TRIANGLE
+000029DA race # LEFT DOUBLE WIGGLY FENCE
+000029DC iinfin # INCOMPLETE INFINITY
+000029DD infintie # TIE OVER INFINITY
+000029DE nvinfin # INFINITY NEGATED WITH VERTICAL BAR
+000029E3 eparsl # EQUALS SIGN AND SLANTED PARALLEL
+000029E4 smeparsl # EQUALS SIGN AND SLANTED PARALLEL WITH TILDE ABOVE
+000029E5 eqvparsl # IDENTICAL TO AND SLANTED PARALLEL
+000029EB lozf # BLACK LOZENGE
+000029EB blacklozenge # BLACK LOZENGE
+000029F4 RuleDelayed # RULE-DELAYED
+000029F6 dsol # SOLIDUS WITH OVERBAR
+00002A00 xodot # N-ARY CIRCLED DOT OPERATOR
+00002A00 bigodot # N-ARY CIRCLED DOT OPERATOR
+00002A01 xoplus # N-ARY CIRCLED PLUS OPERATOR
+00002A01 bigoplus # N-ARY CIRCLED PLUS OPERATOR
+00002A02 xotime # N-ARY CIRCLED TIMES OPERATOR
+00002A02 bigotimes # N-ARY CIRCLED TIMES OPERATOR
+00002A04 xuplus # N-ARY UNION OPERATOR WITH PLUS
+00002A04 biguplus # N-ARY UNION OPERATOR WITH PLUS
+00002A06 xsqcup # N-ARY SQUARE UNION OPERATOR
+00002A06 bigsqcup # N-ARY SQUARE UNION OPERATOR
+00002A0C qint # QUADRUPLE INTEGRAL OPERATOR
+00002A0C iiiint # QUADRUPLE INTEGRAL OPERATOR
+00002A0D fpartint # FINITE PART INTEGRAL
+00002A10 cirfnint # CIRCULATION FUNCTION
+00002A11 awint # ANTICLOCKWISE INTEGRATION
+00002A12 rppolint # LINE INTEGRATION WITH RECTANGULAR PATH AROUND POLE
+00002A13 scpolint # LINE INTEGRATION WITH SEMICIRCULAR PATH AROUND POLE
+00002A14 npolint # LINE INTEGRATION NOT INCLUDING THE POLE
+00002A15 pointint # INTEGRAL AROUND A POINT OPERATOR
+00002A16 quatint # QUATERNION INTEGRAL OPERATOR
+00002A17 intlarhk # INTEGRAL WITH LEFTWARDS ARROW WITH HOOK
+00002A22 pluscir # PLUS SIGN WITH SMALL CIRCLE ABOVE
+00002A23 plusacir # PLUS SIGN WITH CIRCUMFLEX ACCENT ABOVE
+00002A24 simplus # PLUS SIGN WITH TILDE ABOVE
+00002A25 plusdu # PLUS SIGN WITH DOT BELOW
+00002A26 plussim # PLUS SIGN WITH TILDE BELOW
+00002A27 plustwo # PLUS SIGN WITH SUBSCRIPT TWO
+00002A29 mcomma # MINUS SIGN WITH COMMA ABOVE
+00002A2A minusdu # MINUS SIGN WITH DOT BELOW
+00002A2D loplus # PLUS SIGN IN LEFT HALF CIRCLE
+00002A2E roplus # PLUS SIGN IN RIGHT HALF CIRCLE
+00002A2F Cross # VECTOR OR CROSS PRODUCT
+00002A30 timesd # MULTIPLICATION SIGN WITH DOT ABOVE
+00002A31 timesbar # MULTIPLICATION SIGN WITH UNDERBAR
+00002A33 smashp # SMASH PRODUCT
+00002A34 lotimes # MULTIPLICATION SIGN IN LEFT HALF CIRCLE
+00002A35 rotimes # MULTIPLICATION SIGN IN RIGHT HALF CIRCLE
+00002A36 otimesas # CIRCLED MULTIPLICATION SIGN WITH CIRCUMFLEX ACCENT
+00002A37 Otimes # MULTIPLICATION SIGN IN DOUBLE CIRCLE
+00002A38 odiv # CIRCLED DIVISION SIGN
+00002A39 triplus # PLUS SIGN IN TRIANGLE
+00002A3A triminus # MINUS SIGN IN TRIANGLE
+00002A3B tritime # MULTIPLICATION SIGN IN TRIANGLE
+00002A3C iprod # INTERIOR PRODUCT
+00002A3C intprod # INTERIOR PRODUCT
+00002A3F amalg # AMALGAMATION OR COPRODUCT
+00002A40 capdot # INTERSECTION WITH DOT
+00002A42 ncup # UNION WITH OVERBAR
+00002A43 ncap # INTERSECTION WITH OVERBAR
+00002A44 capand # INTERSECTION WITH LOGICAL AND
+00002A45 cupor # UNION WITH LOGICAL OR
+00002A46 cupcap # UNION ABOVE INTERSECTION
+00002A47 capcup # INTERSECTION ABOVE UNION
+00002A48 cupbrcap # UNION ABOVE BAR ABOVE INTERSECTION
+00002A49 capbrcup # INTERSECTION ABOVE BAR ABOVE UNION
+00002A4A cupcup # UNION BESIDE AND JOINED WITH UNION
+00002A4B capcap # INTERSECTION BESIDE AND JOINED WITH INTERSECTION
+00002A4C ccups # CLOSED UNION WITH SERIFS
+00002A4D ccaps # CLOSED INTERSECTION WITH SERIFS
+00002A50 ccupssm # CLOSED UNION WITH SERIFS AND SMASH PRODUCT
+00002A53 And # DOUBLE LOGICAL AND
+00002A54 Or # DOUBLE LOGICAL OR
+00002A55 andand # TWO INTERSECTING LOGICAL AND
+00002A56 oror # TWO INTERSECTING LOGICAL OR
+00002A57 orslope # SLOPING LARGE OR
+00002A58 andslope # SLOPING LARGE AND
+00002A5A andv # LOGICAL AND WITH MIDDLE STEM
+00002A5B orv # LOGICAL OR WITH MIDDLE STEM
+00002A5C andd # LOGICAL AND WITH HORIZONTAL DASH
+00002A5D ord # LOGICAL OR WITH HORIZONTAL DASH
+00002A5F wedbar # LOGICAL AND WITH UNDERBAR
+00002A66 sdote # EQUALS SIGN WITH DOT BELOW
+00002A6A simdot # TILDE OPERATOR WITH DOT ABOVE
+00002A6D congdot # CONGRUENT WITH DOT ABOVE
+00002A6E easter # EQUALS WITH ASTERISK
+00002A6F apacir # ALMOST EQUAL TO WITH CIRCUMFLEX ACCENT
+00002A70 apE # APPROXIMATELY EQUAL OR EQUAL TO
+00002A71 eplus # EQUALS SIGN ABOVE PLUS SIGN
+00002A72 pluse # PLUS SIGN ABOVE EQUALS SIGN
+00002A73 Esim # EQUALS SIGN ABOVE TILDE OPERATOR
+00002A74 Colone # DOUBLE COLON EQUAL
+00002A75 Equal # TWO CONSECUTIVE EQUALS SIGNS
+00002A77 eDDot # EQUALS SIGN WITH TWO DOTS ABOVE AND TWO DOTS BELOW
+00002A77 ddotseq # EQUALS SIGN WITH TWO DOTS ABOVE AND TWO DOTS BELOW
+00002A78 equivDD # EQUIVALENT WITH FOUR DOTS ABOVE
+00002A79 ltcir # LESS-THAN WITH CIRCLE INSIDE
+00002A7A gtcir # GREATER-THAN WITH CIRCLE INSIDE
+00002A7B ltquest # LESS-THAN WITH QUESTION MARK ABOVE
+00002A7C gtquest # GREATER-THAN WITH QUESTION MARK ABOVE
+00002A7D les # LESS-THAN OR SLANTED EQUAL TO
+00002A7D LessSlantEqual # LESS-THAN OR SLANTED EQUAL TO
+00002A7D leqslant # LESS-THAN OR SLANTED EQUAL TO
+00002A7E ges # GREATER-THAN OR SLANTED EQUAL TO
+00002A7E GreaterSlantEqual # GREATER-THAN OR SLANTED EQUAL TO
+00002A7E geqslant # GREATER-THAN OR SLANTED EQUAL TO
+00002A7F lesdot # LESS-THAN OR SLANTED EQUAL TO WITH DOT INSIDE
+00002A80 gesdot # GREATER-THAN OR SLANTED EQUAL TO WITH DOT INSIDE
+00002A81 lesdoto # LESS-THAN OR SLANTED EQUAL TO WITH DOT ABOVE
+00002A82 gesdoto # GREATER-THAN OR SLANTED EQUAL TO WITH DOT ABOVE
+00002A83 lesdotor # LESS-THAN OR SLANTED EQUAL TO WITH DOT ABOVE RIGHT
+00002A84 gesdotol # GREATER-THAN OR SLANTED EQUAL TO WITH DOT ABOVE LEFT
+00002A85 lap # LESS-THAN OR APPROXIMATE
+00002A85 lessapprox # LESS-THAN OR APPROXIMATE
+00002A86 gap # GREATER-THAN OR APPROXIMATE
+00002A86 gtrapprox # GREATER-THAN OR APPROXIMATE
+00002A87 lne # LESS-THAN AND SINGLE-LINE NOT EQUAL TO
+00002A87 lneq # LESS-THAN AND SINGLE-LINE NOT EQUAL TO
+00002A88 gne # GREATER-THAN AND SINGLE-LINE NOT EQUAL TO
+00002A88 gneq # GREATER-THAN AND SINGLE-LINE NOT EQUAL TO
+00002A89 lnap # LESS-THAN AND NOT APPROXIMATE
+00002A89 lnapprox # LESS-THAN AND NOT APPROXIMATE
+00002A8A gnap # GREATER-THAN AND NOT APPROXIMATE
+00002A8A gnapprox # GREATER-THAN AND NOT APPROXIMATE
+00002A8B lEg # LESS-THAN ABOVE DOUBLE-LINE EQUAL ABOVE GREATER-THAN
+00002A8B lesseqqgtr # LESS-THAN ABOVE DOUBLE-LINE EQUAL ABOVE GREATER-THAN
+00002A8C gEl # GREATER-THAN ABOVE DOUBLE-LINE EQUAL ABOVE LESS-THAN
+00002A8C gtreqqless # GREATER-THAN ABOVE DOUBLE-LINE EQUAL ABOVE LESS-THAN
+00002A8D lsime # LESS-THAN ABOVE SIMILAR OR EQUAL
+00002A8E gsime # GREATER-THAN ABOVE SIMILAR OR EQUAL
+00002A8F lsimg # LESS-THAN ABOVE SIMILAR ABOVE GREATER-THAN
+00002A90 gsiml # GREATER-THAN ABOVE SIMILAR ABOVE LESS-THAN
+00002A91 lgE # LESS-THAN ABOVE GREATER-THAN ABOVE DOUBLE-LINE EQUAL
+00002A92 glE # GREATER-THAN ABOVE LESS-THAN ABOVE DOUBLE-LINE EQUAL
+00002A93 lesges # LESS-THAN ABOVE SLANTED EQUAL ABOVE GREATER-THAN ABOVE SLANTED EQUAL
+00002A94 gesles # GREATER-THAN ABOVE SLANTED EQUAL ABOVE LESS-THAN ABOVE SLANTED EQUAL
+00002A95 els # SLANTED EQUAL TO OR LESS-THAN
+00002A95 eqslantless # SLANTED EQUAL TO OR LESS-THAN
+00002A96 egs # SLANTED EQUAL TO OR GREATER-THAN
+00002A96 eqslantgtr # SLANTED EQUAL TO OR GREATER-THAN
+00002A97 elsdot # SLANTED EQUAL TO OR LESS-THAN WITH DOT INSIDE
+00002A98 egsdot # SLANTED EQUAL TO OR GREATER-THAN WITH DOT INSIDE
+00002A99 el # DOUBLE-LINE EQUAL TO OR LESS-THAN
+00002A9A eg # DOUBLE-LINE EQUAL TO OR GREATER-THAN
+00002A9D siml # SIMILAR OR LESS-THAN
+00002A9E simg # SIMILAR OR GREATER-THAN
+00002A9F simlE # SIMILAR ABOVE LESS-THAN ABOVE EQUALS SIGN
+00002AA0 simgE # SIMILAR ABOVE GREATER-THAN ABOVE EQUALS SIGN
+00002AA1 LessLess # DOUBLE NESTED LESS-THAN
+00002AA2 GreaterGreater # DOUBLE NESTED GREATER-THAN
+00002AA4 glj # GREATER-THAN OVERLAPPING LESS-THAN
+00002AA5 gla # GREATER-THAN BESIDE LESS-THAN
+00002AA6 ltcc # LESS-THAN CLOSED BY CURVE
+00002AA7 gtcc # GREATER-THAN CLOSED BY CURVE
+00002AA8 lescc # LESS-THAN CLOSED BY CURVE ABOVE SLANTED EQUAL
+00002AA9 gescc # GREATER-THAN CLOSED BY CURVE ABOVE SLANTED EQUAL
+00002AAA smt # SMALLER THAN
+00002AAB lat # LARGER THAN
+00002AAC smte # SMALLER THAN OR EQUAL TO
+00002AAD late # LARGER THAN OR EQUAL TO
+00002AAE bumpE # EQUALS SIGN WITH BUMPY ABOVE
+00002AAF pre # PRECEDES ABOVE SINGLE-LINE EQUALS SIGN
+00002AAF preceq # PRECEDES ABOVE SINGLE-LINE EQUALS SIGN
+00002AAF PrecedesEqual # PRECEDES ABOVE SINGLE-LINE EQUALS SIGN
+00002AB0 sce # SUCCEEDS ABOVE SINGLE-LINE EQUALS SIGN
+00002AB0 succeq # SUCCEEDS ABOVE SINGLE-LINE EQUALS SIGN
+00002AB0 SucceedsEqual # SUCCEEDS ABOVE SINGLE-LINE EQUALS SIGN
+00002AB3 prE # PRECEDES ABOVE EQUALS SIGN
+00002AB4 scE # SUCCEEDS ABOVE EQUALS SIGN
+00002AB5 prnE # PRECEDES ABOVE NOT EQUAL TO
+00002AB5 precneqq # PRECEDES ABOVE NOT EQUAL TO
+00002AB6 scnE # SUCCEEDS ABOVE NOT EQUAL TO
+00002AB6 succneqq # SUCCEEDS ABOVE NOT EQUAL TO
+00002AB7 prap # PRECEDES ABOVE ALMOST EQUAL TO
+00002AB7 precapprox # PRECEDES ABOVE ALMOST EQUAL TO
+00002AB8 scap # SUCCEEDS ABOVE ALMOST EQUAL TO
+00002AB8 succapprox # SUCCEEDS ABOVE ALMOST EQUAL TO
+00002AB9 prnap # PRECEDES ABOVE NOT ALMOST EQUAL TO
+00002AB9 precnapprox # PRECEDES ABOVE NOT ALMOST EQUAL TO
+00002ABA scnap # SUCCEEDS ABOVE NOT ALMOST EQUAL TO
+00002ABA succnapprox # SUCCEEDS ABOVE NOT ALMOST EQUAL TO
+00002ABB Pr # DOUBLE PRECEDES
+00002ABC Sc # DOUBLE SUCCEEDS
+00002ABD subdot # SUBSET WITH DOT
+00002ABE supdot # SUPERSET WITH DOT
+00002ABF subplus # SUBSET WITH PLUS SIGN BELOW
+00002AC0 supplus # SUPERSET WITH PLUS SIGN BELOW
+00002AC1 submult # SUBSET WITH MULTIPLICATION SIGN BELOW
+00002AC2 supmult # SUPERSET WITH MULTIPLICATION SIGN BELOW
+00002AC3 subedot # SUBSET OF OR EQUAL TO WITH DOT ABOVE
+00002AC4 supedot # SUPERSET OF OR EQUAL TO WITH DOT ABOVE
+00002AC5 subE # SUBSET OF ABOVE EQUALS SIGN
+00002AC5 subseteqq # SUBSET OF ABOVE EQUALS SIGN
+00002AC6 supE # SUPERSET OF ABOVE EQUALS SIGN
+00002AC6 supseteqq # SUPERSET OF ABOVE EQUALS SIGN
+00002AC7 subsim # SUBSET OF ABOVE TILDE OPERATOR
+00002AC8 supsim # SUPERSET OF ABOVE TILDE OPERATOR
+00002ACB subnE # SUBSET OF ABOVE NOT EQUAL TO
+00002ACB subsetneqq # SUBSET OF ABOVE NOT EQUAL TO
+00002ACC supnE # SUPERSET OF ABOVE NOT EQUAL TO
+00002ACC supsetneqq # SUPERSET OF ABOVE NOT EQUAL TO
+00002ACF csub # CLOSED SUBSET
+00002AD0 csup # CLOSED SUPERSET
+00002AD1 csube # CLOSED SUBSET OR EQUAL TO
+00002AD2 csupe # CLOSED SUPERSET OR EQUAL TO
+00002AD3 subsup # SUBSET ABOVE SUPERSET
+00002AD4 supsub # SUPERSET ABOVE SUBSET
+00002AD5 subsub # SUBSET ABOVE SUBSET
+00002AD6 supsup # SUPERSET ABOVE SUPERSET
+00002AD7 suphsub # SUPERSET BESIDE SUBSET
+00002AD8 supdsub # SUPERSET BESIDE AND JOINED BY DASH WITH SUBSET
+00002AD9 forkv # ELEMENT OF OPENING DOWNWARDS
+00002ADA topfork # PITCHFORK WITH TEE TOP
+00002ADB mlcp # TRANSVERSAL INTERSECTION
+00002AE4 Dashv # VERTICAL BAR DOUBLE LEFT TURNSTILE
+00002AE4 DoubleLeftTee # VERTICAL BAR DOUBLE LEFT TURNSTILE
+00002AE6 Vdashl # LONG DASH FROM LEFT MEMBER OF DOUBLE VERTICAL
+00002AE7 Barv # SHORT DOWN TACK WITH OVERBAR
+00002AE8 vBar # SHORT UP TACK WITH UNDERBAR
+00002AE9 vBarv # SHORT UP TACK ABOVE SHORT DOWN TACK
+00002AEB Vbar # DOUBLE UP TACK
+00002AEC Not # DOUBLE STROKE NOT SIGN
+00002AED bNot # REVERSED DOUBLE STROKE NOT SIGN
+00002AEE rnmid # DOES NOT DIVIDE WITH REVERSED NEGATION SLASH
+00002AEF cirmid # VERTICAL LINE WITH CIRCLE ABOVE
+00002AF0 midcir # VERTICAL LINE WITH CIRCLE BELOW
+00002AF1 topcir # DOWN TACK WITH CIRCLE BELOW
+00002AF2 nhpar # PARALLEL WITH HORIZONTAL STROKE
+00002AF3 parsim # PARALLEL WITH TILDE OPERATOR
+00002AFD parsl # DOUBLE SOLIDUS OPERATOR
+0000FB00 fflig # LATIN SMALL LIGATURE FF
+0000FB01 filig # LATIN SMALL LIGATURE FI
+0000FB02 fllig # LATIN SMALL LIGATURE FL
+0000FB03 ffilig # LATIN SMALL LIGATURE FFI
+0000FB04 ffllig # LATIN SMALL LIGATURE FFL
+0001D49C Ascr # MATHEMATICAL SCRIPT CAPITAL A
+0001D49E Cscr # MATHEMATICAL SCRIPT CAPITAL C
+0001D49F Dscr # MATHEMATICAL SCRIPT CAPITAL D
+0001D4A2 Gscr # MATHEMATICAL SCRIPT CAPITAL G
+0001D4A5 Jscr # MATHEMATICAL SCRIPT CAPITAL J
+0001D4A6 Kscr # MATHEMATICAL SCRIPT CAPITAL K
+0001D4A9 Nscr # MATHEMATICAL SCRIPT CAPITAL N
+0001D4AA Oscr # MATHEMATICAL SCRIPT CAPITAL O
+0001D4AB Pscr # MATHEMATICAL SCRIPT CAPITAL P
+0001D4AC Qscr # MATHEMATICAL SCRIPT CAPITAL Q
+0001D4AE Sscr # MATHEMATICAL SCRIPT CAPITAL S
+0001D4AF Tscr # MATHEMATICAL SCRIPT CAPITAL T
+0001D4B0 Uscr # MATHEMATICAL SCRIPT CAPITAL U
+0001D4B1 Vscr # MATHEMATICAL SCRIPT CAPITAL V
+0001D4B2 Wscr # MATHEMATICAL SCRIPT CAPITAL W
+0001D4B3 Xscr # MATHEMATICAL SCRIPT CAPITAL X
+0001D4B4 Yscr # MATHEMATICAL SCRIPT CAPITAL Y
+0001D4B5 Zscr # MATHEMATICAL SCRIPT CAPITAL Z
+0001D4B6 ascr # MATHEMATICAL SCRIPT SMALL A
+0001D4B7 bscr # MATHEMATICAL SCRIPT SMALL B
+0001D4B8 cscr # MATHEMATICAL SCRIPT SMALL C
+0001D4B9 dscr # MATHEMATICAL SCRIPT SMALL D
+0001D4BB fscr # MATHEMATICAL SCRIPT SMALL F
+0001D4BD hscr # MATHEMATICAL SCRIPT SMALL H
+0001D4BE iscr # MATHEMATICAL SCRIPT SMALL I
+0001D4BF jscr # MATHEMATICAL SCRIPT SMALL J
+0001D4C0 kscr # MATHEMATICAL SCRIPT SMALL K
+0001D4C1 lscr # MATHEMATICAL SCRIPT SMALL L
+0001D4C2 mscr # MATHEMATICAL SCRIPT SMALL M
+0001D4C3 nscr # MATHEMATICAL SCRIPT SMALL N
+0001D4C5 pscr # MATHEMATICAL SCRIPT SMALL P
+0001D4C6 qscr # MATHEMATICAL SCRIPT SMALL Q
+0001D4C7 rscr # MATHEMATICAL SCRIPT SMALL R
+0001D4C8 sscr # MATHEMATICAL SCRIPT SMALL S
+0001D4C9 tscr # MATHEMATICAL SCRIPT SMALL T
+0001D4CA uscr # MATHEMATICAL SCRIPT SMALL U
+0001D4CB vscr # MATHEMATICAL SCRIPT SMALL V
+0001D4CC wscr # MATHEMATICAL SCRIPT SMALL W
+0001D4CD xscr # MATHEMATICAL SCRIPT SMALL X
+0001D4CE yscr # MATHEMATICAL SCRIPT SMALL Y
+0001D4CF zscr # MATHEMATICAL SCRIPT SMALL Z
+0001D504 Afr # MATHEMATICAL FRAKTUR CAPITAL A
+0001D505 Bfr # MATHEMATICAL FRAKTUR CAPITAL B
+0001D507 Dfr # MATHEMATICAL FRAKTUR CAPITAL D
+0001D508 Efr # MATHEMATICAL FRAKTUR CAPITAL E
+0001D509 Ffr # MATHEMATICAL FRAKTUR CAPITAL F
+0001D50A Gfr # MATHEMATICAL FRAKTUR CAPITAL G
+0001D50D Jfr # MATHEMATICAL FRAKTUR CAPITAL J
+0001D50E Kfr # MATHEMATICAL FRAKTUR CAPITAL K
+0001D50F Lfr # MATHEMATICAL FRAKTUR CAPITAL L
+0001D510 Mfr # MATHEMATICAL FRAKTUR CAPITAL M
+0001D511 Nfr # MATHEMATICAL FRAKTUR CAPITAL N
+0001D512 Ofr # MATHEMATICAL FRAKTUR CAPITAL O
+0001D513 Pfr # MATHEMATICAL FRAKTUR CAPITAL P
+0001D514 Qfr # MATHEMATICAL FRAKTUR CAPITAL Q
+0001D516 Sfr # MATHEMATICAL FRAKTUR CAPITAL S
+0001D517 Tfr # MATHEMATICAL FRAKTUR CAPITAL T
+0001D518 Ufr # MATHEMATICAL FRAKTUR CAPITAL U
+0001D519 Vfr # MATHEMATICAL FRAKTUR CAPITAL V
+0001D51A Wfr # MATHEMATICAL FRAKTUR CAPITAL W
+0001D51B Xfr # MATHEMATICAL FRAKTUR CAPITAL X
+0001D51C Yfr # MATHEMATICAL FRAKTUR CAPITAL Y
+0001D51E afr # MATHEMATICAL FRAKTUR SMALL A
+0001D51F bfr # MATHEMATICAL FRAKTUR SMALL B
+0001D520 cfr # MATHEMATICAL FRAKTUR SMALL C
+0001D521 dfr # MATHEMATICAL FRAKTUR SMALL D
+0001D522 efr # MATHEMATICAL FRAKTUR SMALL E
+0001D523 ffr # MATHEMATICAL FRAKTUR SMALL F
+0001D524 gfr # MATHEMATICAL FRAKTUR SMALL G
+0001D525 hfr # MATHEMATICAL FRAKTUR SMALL H
+0001D526 ifr # MATHEMATICAL FRAKTUR SMALL I
+0001D527 jfr # MATHEMATICAL FRAKTUR SMALL J
+0001D528 kfr # MATHEMATICAL FRAKTUR SMALL K
+0001D529 lfr # MATHEMATICAL FRAKTUR SMALL L
+0001D52A mfr # MATHEMATICAL FRAKTUR SMALL M
+0001D52B nfr # MATHEMATICAL FRAKTUR SMALL N
+0001D52C ofr # MATHEMATICAL FRAKTUR SMALL O
+0001D52D pfr # MATHEMATICAL FRAKTUR SMALL P
+0001D52E qfr # MATHEMATICAL FRAKTUR SMALL Q
+0001D52F rfr # MATHEMATICAL FRAKTUR SMALL R
+0001D530 sfr # MATHEMATICAL FRAKTUR SMALL S
+0001D531 tfr # MATHEMATICAL FRAKTUR SMALL T
+0001D532 ufr # MATHEMATICAL FRAKTUR SMALL U
+0001D533 vfr # MATHEMATICAL FRAKTUR SMALL V
+0001D534 wfr # MATHEMATICAL FRAKTUR SMALL W
+0001D535 xfr # MATHEMATICAL FRAKTUR SMALL X
+0001D536 yfr # MATHEMATICAL FRAKTUR SMALL Y
+0001D537 zfr # MATHEMATICAL FRAKTUR SMALL Z
+0001D538 Aopf # MATHEMATICAL DOUBLE-STRUCK CAPITAL A
+0001D539 Bopf # MATHEMATICAL DOUBLE-STRUCK CAPITAL B
+0001D53B Dopf # MATHEMATICAL DOUBLE-STRUCK CAPITAL D
+0001D53C Eopf # MATHEMATICAL DOUBLE-STRUCK CAPITAL E
+0001D53D Fopf # MATHEMATICAL DOUBLE-STRUCK CAPITAL F
+0001D53E Gopf # MATHEMATICAL DOUBLE-STRUCK CAPITAL G
+0001D540 Iopf # MATHEMATICAL DOUBLE-STRUCK CAPITAL I
+0001D541 Jopf # MATHEMATICAL DOUBLE-STRUCK CAPITAL J
+0001D542 Kopf # MATHEMATICAL DOUBLE-STRUCK CAPITAL K
+0001D543 Lopf # MATHEMATICAL DOUBLE-STRUCK CAPITAL L
+0001D544 Mopf # MATHEMATICAL DOUBLE-STRUCK CAPITAL M
+0001D546 Oopf # MATHEMATICAL DOUBLE-STRUCK CAPITAL O
+0001D54A Sopf # MATHEMATICAL DOUBLE-STRUCK CAPITAL S
+0001D54B Topf # MATHEMATICAL DOUBLE-STRUCK CAPITAL T
+0001D54C Uopf # MATHEMATICAL DOUBLE-STRUCK CAPITAL U
+0001D54D Vopf # MATHEMATICAL DOUBLE-STRUCK CAPITAL V
+0001D54E Wopf # MATHEMATICAL DOUBLE-STRUCK CAPITAL W
+0001D54F Xopf # MATHEMATICAL DOUBLE-STRUCK CAPITAL X
+0001D550 Yopf # MATHEMATICAL DOUBLE-STRUCK CAPITAL Y
+0001D552 aopf # MATHEMATICAL DOUBLE-STRUCK SMALL A
+0001D553 bopf # MATHEMATICAL DOUBLE-STRUCK SMALL B
+0001D554 copf # MATHEMATICAL DOUBLE-STRUCK SMALL C
+0001D555 dopf # MATHEMATICAL DOUBLE-STRUCK SMALL D
+0001D556 eopf # MATHEMATICAL DOUBLE-STRUCK SMALL E
+0001D557 fopf # MATHEMATICAL DOUBLE-STRUCK SMALL F
+0001D558 gopf # MATHEMATICAL DOUBLE-STRUCK SMALL G
+0001D559 hopf # MATHEMATICAL DOUBLE-STRUCK SMALL H
+0001D55A iopf # MATHEMATICAL DOUBLE-STRUCK SMALL I
+0001D55B jopf # MATHEMATICAL DOUBLE-STRUCK SMALL J
+0001D55C kopf # MATHEMATICAL DOUBLE-STRUCK SMALL K
+0001D55D lopf # MATHEMATICAL DOUBLE-STRUCK SMALL L
+0001D55E mopf # MATHEMATICAL DOUBLE-STRUCK SMALL M
+0001D55F nopf # MATHEMATICAL DOUBLE-STRUCK SMALL N
+0001D560 oopf # MATHEMATICAL DOUBLE-STRUCK SMALL O
+0001D561 popf # MATHEMATICAL DOUBLE-STRUCK SMALL P
+0001D562 qopf # MATHEMATICAL DOUBLE-STRUCK SMALL Q
+0001D563 ropf # MATHEMATICAL DOUBLE-STRUCK SMALL R
+0001D564 sopf # MATHEMATICAL DOUBLE-STRUCK SMALL S
+0001D565 topf # MATHEMATICAL DOUBLE-STRUCK SMALL T
+0001D566 uopf # MATHEMATICAL DOUBLE-STRUCK SMALL U
+0001D567 vopf # MATHEMATICAL DOUBLE-STRUCK SMALL V
+0001D568 wopf # MATHEMATICAL DOUBLE-STRUCK SMALL W
+0001D569 xopf # MATHEMATICAL DOUBLE-STRUCK SMALL X
+0001D56A yopf # MATHEMATICAL DOUBLE-STRUCK SMALL Y
+0001D56B zopf # MATHEMATICAL DOUBLE-STRUCK SMALL Z
