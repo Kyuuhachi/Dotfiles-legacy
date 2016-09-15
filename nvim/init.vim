@@ -12,6 +12,7 @@ Plugin 'kana/vim-textobj-lastpat'
 Plugin 'kana/vim-textobj-syntax'
 Plugin 'kana/vim-textobj-user'
 Plugin 'Konfekt/FastFold'
+Plugin 'Konfekt/FoldText'
 Plugin 'mh21/errormarker.vim'
 Plugin 'michaeljsmith/vim-indent-object'
 Plugin 'noahfrederick/vim-noctu'
@@ -35,7 +36,6 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'wellle/targets.vim'
 call vundle#end()
 
-set background=dark
 highlight Normal guibg=Black guifg=White
 set guifont=Droid\ Sans\ Mono\ Dotted\ for\ Powerline\ 10
 if has("gui_running")
@@ -48,7 +48,7 @@ set mouse=
 set nocompatible
 syntax on
 filetype indent plugin on
-set encoding=utf-8
+" set encoding=utf-8
 set cursorline
 set autoindent
 set showcmd
