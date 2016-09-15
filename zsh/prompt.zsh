@@ -38,6 +38,20 @@ prompt_status() {
 	echo -n "$symbols"
 }
 
+prompt_vim_mode() {
+	case $CURRENT_KEYMAP in
+		main)
+			prompt_segment yellow black "NORMAL"
+		;;
+		vicmd)
+			prompt_segment cyan black "INSERT"
+		;;
+		*)
+			prompt_segment white black $CURRENT_KEYMAP
+		;;
+	esac
+}
+
 prompt_context() {
 	prompt_segment $([[ $UID == 0 ]] && echo yellow || echo green) black "$USER"
 }
@@ -49,7 +63,7 @@ prompt_dir() {
 prompt_git() {
 	{
 		if git rev-parse --is-inside-work-tree >/dev/null; then
-			prompt_segment $([[ -n $(git status --porcelain) ]] && echo yellow || echo green) black
+			prompt_segment $([[ -n $(git status --porcelain) ]] && echo -n yellow || echo green) black
 
 			if git symbolic-ref HEAD >/dev/null; then
 				echo -n " $(git symbolic-ref HEAD | sed s:refs/heads/::)"
@@ -69,12 +83,25 @@ prompt_git() {
 }
 
 build_prompt() {
-	RETVAL=$?
-	prompt_status
-	prompt_context
-	prompt_dir
-	prompt_git
-	prompt_segment
+	{
+		prompt_vim_mode
+		prompt_segment
+	} | {
+		print "$(cat)"
+	}
+}
+precmd() {
+	{
+		RETVAL=$?
+		prompt_status
+		prompt_context
+		prompt_dir
+		prompt_git
+		prompt_segment black
+		echo -n "%{\e[K%}"
+	} | {
+		print -P "$(cat)"
+	}
 }
 
 setopt promptsubst
