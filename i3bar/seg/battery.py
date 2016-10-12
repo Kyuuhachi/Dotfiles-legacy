@@ -1,9 +1,9 @@
-import i3py.bar
+import i3bar
 import configparser
-from types import SimpleNamespace
 import time
 
-class Battery(i3py.bar.Segment):
+__all__ = ["Battery"]
+class Battery(i3bar.Segment):
 	file = "/sys/class/power_supply/BAT0/uevent"
 
 	def getOutput(self):
@@ -17,10 +17,10 @@ class Battery(i3py.bar.Segment):
 				val = int(val)
 			except ValueError:
 				pass
-			battery[k.lower()[13:]] = val;
+			battery[k.lower()[13:]] = val
 
 		percent = 100 * battery["energy_now"] / battery["energy_full"]
-		if "power_now" in battery and battery["power_now"] > 0:
+		if battery.get("power_now", 0) > 0:
 			charging = battery["status"] == "Charging"
 			symbol = "↑" if charging else "↓"
 
@@ -34,7 +34,8 @@ class Battery(i3py.bar.Segment):
 
 			out = {}
 			out["full_text"] = "⚡ {:.0f}% {}{:.2f}W ({})".format(percent, symbol, consumption, remainingTime)
-			if percent < 10: out["urgent"] = True
+			if percent < 10:
+				out["urgent"] = True
 			return out
 		else:
 			return "⚡ {:.0f}%".format(percent)

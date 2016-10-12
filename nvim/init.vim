@@ -1,11 +1,12 @@
-set nocompatible
+scriptencoding utf-8
 filetype off
-set rtp+=~/.config/nvim/bundle/Vundle.vim
-call vundle#begin("~/.config/nvim/bundle")
-Plugin 'altercation/vim-colors-solarized'
+let s:bund = '~/.config/nvim/bundle'
+execute 'set rtp+='.s:bund.'/Vundle.vim'
+call vundle#begin(s:bund)
+Plugin 'eagletmt/ghcmod-vim'
+Plugin 'eagletmt/neco-ghc'
 Plugin 'elzr/vim-json'
 Plugin 'ervandew/supertab'
-Plugin 'initrc/eclim-vundle'
 Plugin 'kana/vim-textobj-entire'
 Plugin 'kana/vim-textobj-fold'
 Plugin 'kana/vim-textobj-lastpat'
@@ -16,10 +17,12 @@ Plugin 'Konfekt/FoldText'
 Plugin 'mh21/errormarker.vim'
 Plugin 'michaeljsmith/vim-indent-object'
 Plugin 'noahfrederick/vim-noctu'
-Plugin 'othree/html5.vim'
+Plugin 'parsonsmatt/vim2hs'
 Plugin 'pbrisbin/vim-mkdir'
 Plugin 'PotatoesMaster/i3-vim-syntax'
+Plugin 'scrooloose/syntastic'
 Plugin 'sheerun/vim-polyglot'
+Plugin 'Shougo/vimproc.vim'
 Plugin 'spiiph/vim-space'
 Plugin 'tpope/vim-abolish'
 Plugin 'tpope/vim-afterimage'
@@ -34,24 +37,20 @@ Plugin 'tpope/vim-vinegar'
 Plugin 'vim-airline/vim-airline'
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'wellle/targets.vim'
+Plugin 'xuhdev/vim-latex-live-preview'
+Plugin 'Caagr98/c98color.vim'
 call vundle#end()
 
-highlight Normal guibg=Black guifg=White
-set guifont=Droid\ Sans\ Mono\ Dotted\ for\ Powerline\ 10
-if has("gui_running")
-	colorscheme solarized
-else
-	colorscheme noctu
-endif
+colorscheme c98color
+" let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 
 set mouse=
-set nocompatible
 syntax on
 filetype indent plugin on
 " set encoding=utf-8
 set cursorline
 set autoindent
-set showcmd
+set showcmd noshowmode
 set incsearch hlsearch
 set wildmenu wildmode=list:longest
 set backspace=2
@@ -59,7 +58,6 @@ set cmdheight=2
 set tabstop=4 shiftwidth=4
 set ignorecase smartcase
 set ffs=unix,dos,mac
-set dir=~/.vim-tmp/
 set list listchars=tab:⟩\ ,trail:+,precedes:<,extends:>
 set number
 set autochdir
@@ -67,29 +65,124 @@ set whichwrap+=h,l
 set scrolloff=7
 set nowrap
 set foldmethod=marker
-
+set dir=~/.vim-swap//
+set backupdir=~/.vim-backup//
+set undofile undodir=~/.vim-undo//
 
 set shell=zsh
 
 let g:airline_powerline_fonts = 1
-let g:SuperTabNoCompleteAfter=['^', '\t']
+let g:SuperTabNoCompleteAfter = ['^\s*']
 set completeopt+=longest
 
-let g:c_gnu = 1
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+let g:textobj_entire_no_default_key_mappings = 1
+omap aE <Plug>(textobj-entire-a)
+omap iE <Plug>(textobj-entire-i)
 
 vnoremap . :norm.<CR>
 nnoremap gV `[v`]
-nnoremap <C-L> :nohl<CR><C-L>
-nnoremap q: :q<CR>
+map H ^
+map L $
 
-nmap gS :call <SID>SynStack()<CR>
-function! <SID>SynStack()
-  if !exists("*synstack")
-    return
-  endif
-  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+nnoremap <silent> <C-L> :nohl<CR>:call <SID>NoHL()<CR><C-L>
+function! <SID>NoHL()
+	if exists(':GhcModTypeClear')
+		GhcModTypeClear
+	endif
 endfunc
 
-autocmd FileType java setlocal formatexpr=eclim#java#src#Format(v:lnum,v:lnum+v:count-1)
-autocmd FileType java let l:SuperTabDefaultCompletionType="<c-x><c-u>"
-autocmd FileType python set expandtab< tabstop< softtabstop< shiftwidth<
+nnoremap gS :call <SID>SynStack()<CR>
+function! <SID>SynStack()
+	echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+endfunc
+
+" autocmd FileType java setlocal formatexpr=eclim#java#src#Format(v:lnum,v:lnum+v:count-1)
+" au FileType java let l:SuperTabDefaultCompletionType="<c-x><c-u>"
+
+let g:c_gnu = 1
+
+let g:syntastic_python_python_exec='python3'
+let g:syntastic_python_flake8_args='--ignore=E128,E241,E261,E301,E302,E501,E704,E741,E742,E743,W191'
+augroup Python
+	au!
+	au FileType python setlocal expandtab< tabstop< softtabstop< shiftwidth<
+augroup END
+
+let g:syntastic_scss_scss_lint_args='--config ~/dot/nvim/scss-lint.yml'
+
+let g:haskell_conceal = 0
+let g:haskell_conceal_wide = 1 - g:haskell_conceal
+let g:haskell_fold = 0
+augroup Haskell
+	au!
+	au FileType haskell setlocal expandtab tabstop=8 softtabstop=8 shiftwidth=2
+	au FileType haskell let SuperTabDefaultCompletionType="<c-x><c-o>"
+	au FileType haskell setlocal omnifunc=necoghc#omnifunc
+	au FileType haskell noremap <buffer> <F1> :GhcModType<CR>
+	au FileType haskell noremap <buffer> <silent> <F2> :call <SID>HS_Pointfree()<CR>
+	au FileType haskell noremap <buffer> <silent> <F3> :call <SID>HS_Pointful()<CR>
+	au FileType haskell noremap <buffer> <F4> :GhcModTypeInsert<CR>
+augroup END
+
+function! <SID>HS_Pointfree()
+	call setline('.', split(system('pointfree '.shellescape(join(getline(a:firstline, a:lastline), "\n"))), "\n"))
+endfunction
+function! <SID>HS_Pointful()
+	call setline('.', split(system('pointful '.shellescape(join(getline(a:firstline, a:lastline), "\n"))), "\n"))
+endfunction
+
+
+
+
+function! ReadBinary()
+	if !&bin
+		if &ft ==# ''
+			let s:fn = shellescape(expand('%:p'))
+			if system('file -ib ' . s:fn) =~# '; charset=binary\n$'
+				setlocal binary
+			endif
+		endif
+	endif
+	" That is, Vim doesn't know the file and File thinks it's binary
+	if &bin
+		silent %!xxd -g 1
+		set ft=xxd
+	endif
+endfunc
+
+function! PreWriteBinary()
+	if &bin
+		let b:bin_cpos = getcurpos()
+		"Remove address header
+		silent %s/^[0-9a-f]\+:/
+		"Remove ASCII display
+		silent %s/  .\{,16\}\r\=$/
+		"Remove whitespace
+		silent %s/\_s//g
+		"Check if it ends with 0A (EOL)
+		let &eol = getline(1) =~? '0A$'
+		silent %!xxd -r -p
+	endif
+endfunc
+
+function! PostWriteBinary()
+	if &bin
+		undojoin | silent %!xxd -g 1
+		call setpos('.', b:bin_cpos)
+		" set nomod
+		set ft=xxd
+	endif
+endfunc
+
+augroup Binary
+	au!
+	au BufReadPost  * call ReadBinary()
+	au BufWritePre  * call PreWriteBinary()
+	au BufWritePost * call PostWriteBinary()
+augroup END
+
+" KNOWN BUGS: :w and then u moves cursor unpleasantly

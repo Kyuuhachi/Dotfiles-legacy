@@ -1,13 +1,14 @@
-import i3py.bar
+import i3bar
 import basiciw
 
-class Network(i3py.bar.Segment):
+__all__ = ["Network"]
+class Network(i3bar.Segment):
 	name = "wlan0"
 
 	def getOutput(self):
 		out = {}
 		ssid = basiciw.iwinfo(self.name)["essid"]
-		if ssid == None:
+		if ssid == "":
 			ssid = "DOWN"
 			out["urgent"] = True
 		out["full_text"] = "{}: {}".format(self.name, ssid)

@@ -1,6 +1,6 @@
 import os
 import socket
-import i3py.util
+import i3bar.util
 
 _server_address = '/tmp/i3py'
 _handlers = {}
@@ -13,7 +13,7 @@ def start():
 			raise
 	_run()
 
-@i3py.util.OtherThread
+@i3bar.util.OtherThread
 def _run():
 	sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
 	sock.bind(_server_address)

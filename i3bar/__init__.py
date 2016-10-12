@@ -1,5 +1,7 @@
-import json, os, sys, threading, logging
-import i3py.util
+import json
+import sys
+import threading
+import i3bar.util
 
 class _InputHandler(threading.Thread):
 	def run(self):
@@ -17,7 +19,7 @@ class _InputHandler(threading.Thread):
 		for line in sys.stdin:
 			yield json.loads(line.strip(","))
 
-class _OutputHandler(i3py.util.Timer):
+class _OutputHandler(i3bar.util.Timer):
 	def _update(self, seg):
 		def convert(seg):
 			segOut = seg.getOutput()
@@ -27,8 +29,10 @@ class _OutputHandler(i3py.util.Timer):
 			if type(segOut) == str:
 				val["full_text"] = segOut
 			if type(segOut) == tuple:
-				if segOut[0]: val["full_text"] = segOut[0]
-				if segOut[1]: val["color"] = segOut[1]
+				if segOut[0]:
+					val["full_text"] = segOut[0]
+				if segOut[1]:
+					val["color"] = segOut[1]
 			if type(segOut) == dict:
 				val.update(segOut)
 
@@ -48,6 +52,10 @@ class _OutputHandler(i3py.util.Timer):
 			self._update(s)
 		self.printStatus()
 
+	def start(self):
+		print('{"version":1,"click_events":true}\n[\n[]', file=sys.stderr)
+		super().start()
+
 	def run(self):
 		for seg in _segments:
 			self._update(seg)
@@ -58,8 +66,8 @@ class _OutputHandler(i3py.util.Timer):
 		for seg in _segments:
 			if seg._out:
 				list.insert(0, dict(seg._out))
-		print("," + json.dumps(list), file=i3py.stdout)
-		i3py.stdout.flush()
+		print("," + json.dumps(list), file=sys.stderr)
+		sys.stderr.flush()
 
 _in = _InputHandler()
 _out = _OutputHandler()

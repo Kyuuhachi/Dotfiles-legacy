@@ -1,0 +1,53 @@
+linters:
+  Indentation:
+    severity: warning
+    width: 1
+    character: tab
+  ColorVariable:
+    enabled: false
+  HexNotation:
+    style: uppercase
+  PropertySortOrder:
+    order: [
+      content,
+      display, position, top, right, bottom, left,
+      columns, column-gap, column-fill, column-rule, column-span, column-count, column-width,
+      float, clear,
+      transform, transition,
+      animation, animation-name, animation-duration, animation-timing-function, animation-delay, animation-iteration-count, animation-direction, animation-fill-mode, animation-play-state,
+      visibility, opacity, z-index,
+      margin, margin-top, margin-right, margin-bottom, margin-left,
+      box-shadow,
+      outline,
+      border, border-top, border-right, border-bottom, border-left,
+      border-width, border-top-width, border-right-width, border-bottom-width, border-left-width,
+      border-style, border-top-style, border-right-style, border-bottom-style, border-left-style,
+      border-radius, border-top-left-radius, border-top-right-radius, border-bottom-left-radius, border-bottom-right-radius,
+      border-color, border-top-color, border-right-color, border-bottom-color, border-left-color,
+      background, background-color, background-image, background-repeat, background-position, background-size,
+      cursor,
+      padding, padding-top, padding-right, padding-bottom, padding-left,
+      width, min-width, max-width,
+      height, min-height, max-height,
+      overflow,
+      flex-direction, flex-wrap, justify-content, align-items, align-content,
+      flex, flex-grow, flex-shrink, flex-basis, align-self,
+      table-layout, border-collapse, border-spacing, empty-cells,
+      list-style, caption-side, quotes, cursor,
+      vertical-align,
+      text-align, text-indent, text-transform, text-decoration, text-rendering, text-shadow, text-overflow,
+      line-height, word-spacing, letter-spacing, white-space, color,
+      font, font-family, font-size, font-weight, font-smoothing, font-style,
+    ]
+  SpaceBeforeBrace:
+    allow_single_line_padding: true
+  SpaceAfterPropertyColon:
+    style: one_space_or_newline
+  StringQuotes:
+    style: double_quotes
+  NestingDepth:
+    enabled: false
+  SelectorDepth:
+    enabled: false
+  ImportantRule:
+    enabled: false

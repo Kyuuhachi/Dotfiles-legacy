@@ -9,7 +9,7 @@ autoload -Uz compinit && compinit
 autoload -Uz colors && colors
 autoload -U zmv
 
-setopt extendedglob interactivecomments
+setopt extendedglob interactivecomments autocd
 
 nowrap() {
 	echoti rmam
@@ -17,7 +17,7 @@ nowrap() {
 	echoti smam
 }
 mkcd() {
-	mkdir $1
+	mkdir -p $1
 	cd $1
 }
 umv() {

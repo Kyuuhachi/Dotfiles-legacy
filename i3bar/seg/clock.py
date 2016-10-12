@@ -1,6 +1,7 @@
-import i3py.bar
+import i3bar
 import time
 
-class Clock(i3py.bar.Segment):
+__all__ = ["Clock"]
+class Clock(i3bar.Segment):
 	def getOutput(self):
 		return time.strftime("%T")

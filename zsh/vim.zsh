@@ -45,11 +45,13 @@ bindkey -M vicmd "^[OB" down-line
 bindkey -M vicmd "^[[B" down-line
 bindkey -M vicmd "j" down-line
 bindkey -M vicmd "+" history-beginning-search-forward
-bindkey -M vicmd "J" history-beginning-search-forward
 bindkey -M vicmd "^[[6~" history-beginning-search-forward
 bindkey -M vicmd -- "-" history-beginning-search-backward
-bindkey -M vicmd "K" history-beginning-search-backward
 bindkey -M vicmd "^[[5~" history-beginning-search-backward
+
+bindkey -M vicmd "^[OH" vi-beginning-of-line
+bindkey -M vicmd "^[OF" vi-end-of-line
+bindkey -M vicmd "^[[3~" vi-delete-char
 
 bindkey -M viins '^J' vi-open-line-above
 bindkey -M viins '^M' vi-open-line-below
@@ -59,5 +61,6 @@ bindkey -M viins "^[OB" down-line
 bindkey -M viins "^[[B" down-line
 bindkey -M viins "^H" backward-delete-char
 bindkey -M viins "^?" backward-delete-char
-bindkey -M viins "^[[3~" vi-delete-char
+bindkey -M viins "^[OH" vi-beginning-of-line
+bindkey -M viins "^[OF" vi-end-of-line
 bindkey -M viins "^[[3~" vi-delete-char
