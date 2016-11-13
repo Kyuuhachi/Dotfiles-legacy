@@ -13,7 +13,7 @@ class _InputHandler(threading.Thread):
 				update(seg)
 			except Exception as e:
 				import traceback
-				print(traceback.format_exc())
+				print(traceback.format_exc(), file=sys.stderr)
 
 	def read(self):
 		for line in sys.stdin:
@@ -45,7 +45,7 @@ class _OutputHandler(i3bar.util.Timer):
 			seg._out = convert(seg)
 		except Exception:
 			import traceback
-			print(traceback.format_exc())
+			print(traceback.format_exc(), file=sys.stderr)
 
 	def update(self, *seg):
 		for s in seg:
@@ -53,7 +53,7 @@ class _OutputHandler(i3bar.util.Timer):
 		self.printStatus()
 
 	def start(self):
-		print('{"version":1,"click_events":true}\n[\n[]', file=sys.stderr)
+		print('{"version":1,"click_events":true}\n[\n[]')
 		super().start()
 
 	def run(self):
@@ -66,8 +66,8 @@ class _OutputHandler(i3bar.util.Timer):
 		for seg in _segments:
 			if seg._out:
 				list.insert(0, dict(seg._out))
-		print("," + json.dumps(list), file=sys.stderr)
-		sys.stderr.flush()
+		print("," + json.dumps(list))
+		sys.stdout.flush()
 
 _in = _InputHandler()
 _out = _OutputHandler()

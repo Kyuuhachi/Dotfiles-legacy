@@ -15,7 +15,7 @@ def getBus():
 	return dbus.SessionBus().get_object(TOTEM_BUS, TOTEM_OBJECT)
 
 class Totem(i3bar.Segment):
-	timer = threading.Thread()
+	timeout = threading.Thread()
 	def getOutput(self):
 		try:
 			status = getBus().GetAll(TOTEM_IFACE, dbus_interface=dbus.PROPERTIES_IFACE)
@@ -24,15 +24,15 @@ class Totem(i3bar.Segment):
 			except KeyError:
 				path = urllib.parse.unquote(status["Metadata"]["mpris:trackid"])
 				title = os.path.basename(path)
-				title = re.sub(r"^\d+(\.| -) ", "", title) # Strip leading numbers
-				title = re.sub(r"\.[a-z0-9]{3}$", "", title) # Strip file extension
+				title = re.sub(r"^[0-9\-]+(\.| -) ", "", title) # Strip leading numbers
+				title = re.sub(r"\.[a-z0-9]{3,4}$", "", title) # Strip file extension
 
-			if not self.timer.isAlive():
+			if not self.timeout.isAlive():
 				title = re.sub(r"\(.+\)", "", title)
 				title = re.sub(r"\s+", " ", title).strip()
 				maxlen = 40
 				if len(title) > maxlen:
-					title = title[0:maxlen] + "…"
+					title = title[:maxlen] + "…"
 
 			playing = status["PlaybackStatus"] == "Playing"
 
@@ -41,11 +41,11 @@ class Totem(i3bar.Segment):
 			return None
 
 	def showInfo(self):
-		if self.timer.isAlive():
-			self.timer.interrupt()
+		if self.timeout.isAlive():
+			self.timeout.interrupt()
 		else:
-			self.timer = i3bar.util.Timeout(1, lambda: i3bar.update(self))
-			self.timer.start()
+			self.timeout = i3bar.util.Timeout(1, lambda: i3bar.update(self))
+			self.timeout.start()
 
 	def click(self, button):
 		if button == 1:

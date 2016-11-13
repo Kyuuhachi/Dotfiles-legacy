@@ -20,6 +20,7 @@ Plugin 'noahfrederick/vim-noctu'
 Plugin 'parsonsmatt/vim2hs'
 Plugin 'pbrisbin/vim-mkdir'
 Plugin 'PotatoesMaster/i3-vim-syntax'
+Plugin 's3rvac/AutoFenc'
 Plugin 'scrooloose/syntastic'
 Plugin 'sheerun/vim-polyglot'
 Plugin 'Shougo/vimproc.vim'
@@ -82,6 +83,10 @@ let g:syntastic_check_on_wq = 0
 let g:textobj_entire_no_default_key_mappings = 1
 omap aE <Plug>(textobj-entire-a)
 omap iE <Plug>(textobj-entire-i)
+
+let g:autofenc_ext_prog_path='uchardet'
+let g:autofenc_ext_prog_args=''
+let g:autofenc_ext_prog_unknown_fenc='ascii/unknown'
 
 vnoremap . :norm.<CR>
 nnoremap gV `[v`]

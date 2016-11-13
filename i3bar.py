@@ -45,6 +45,3 @@ i3bar.add(s.FFNFeed("HP&G", 11950816)) # HP, Harry Potter & the Game
 i3bar.add(s.Totem())
 
 i3bar.start()
-
-import time, threading,os
-print(sorted(map(lambda l:l.name, threading.enumerate())))

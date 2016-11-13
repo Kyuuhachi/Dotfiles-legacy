@@ -20,16 +20,19 @@ mkcd() {
 	mkdir -p $1
 	cd $1
 }
-umv() {
-	mv $2 $1
+
+alias locate="locate --basename"
+locd() {
+	locate $@ | while read f; do
+		[ -d $f ] && echo $f
+	done
 }
 loccd() {
-	cd "$(=locate --basename $1 | ${2:-head} -n 1)"
+	cd "$(locd | ${2:-head} -n 1)"
 }
 
 alias su="sudo $SHELL"
 alias o=xdg-open
-alias locate="locate --basename"
 alias git="git --no-pager"
 
 s=car0b1nius@muncher.se

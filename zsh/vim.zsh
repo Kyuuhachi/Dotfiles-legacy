@@ -29,7 +29,7 @@ expand-or-complete-with-dots() {
 	zle redisplay
 }
 zle -N expand-or-complete-with-dots
-bindkey "^I" expand-or-complete-with-dots
+bindkey -M viins "^I" expand-or-complete-with-dots
 
 nop() {}
 zle -N nop

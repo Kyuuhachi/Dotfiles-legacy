@@ -1,10 +1,4 @@
-#!/usr/bin/zsh
-export WINEPREFIX="$HOME/.local/share/wineprefixes/steam"
-cd "$WINEPREFIX/drive_c/Program Files (x86)/Steam"
-if [[ "${1[1]}" == "-" ]]; then
-	wine${1#-}
-else
-	wine ${1:-Steam.exe} &
-	sleep 1
-	pkill explorer.exe #Don't need any tray
-fi
+#!/usr/bin/env zsh
+export WINEPREFIX="$HOME/.wine32"
+cd "$WINEPREFIX/drive_c/Program Files/Steam"
+wine Steam.exe
