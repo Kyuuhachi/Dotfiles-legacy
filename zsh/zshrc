@@ -1,4 +1,5 @@
 #!/bin/zsh
+# source ~/dot/zsh/hl.zsh
 #{{{1 History
 setopt histignorealldups
 HISTSIZE=1000
@@ -68,18 +69,6 @@ ls() {
 		=ls $@
 	fi
 }
-#{{{1 Syntax highlight
-source ~/dot/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
-
-typeset -A ZSH_HIGHLIGHT_STYLES
-ZSH_HIGHLIGHT_STYLES[alias]='fg=magenta,bold'
-ZSH_HIGHLIGHT_STYLES[path]='fg=cyan'
-ZSH_HIGHLIGHT_STYLES[single-hyphen-option]='fg=blue'
-ZSH_HIGHLIGHT_STYLES[double-hyphen-option]='fg=blue'
-
-ZSH_HIGHLIGHT_MAXLENGTH=300
 #{{{1 Completion
 source ~/dot/zsh/zsh-completions/zsh-completions.plugin.zsh
 unsetopt menu_complete
@@ -120,3 +109,15 @@ zstyle '*' single-ignored show
 # TODO don't do absolute paths
 source ~/dot/zsh/prompt.zsh
 source ~/dot/zsh/vim.zsh
+
+#{{{1 Syntax highlight
+source ~/dot/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
+
+typeset -A ZSH_HIGHLIGHT_STYLES
+ZSH_HIGHLIGHT_STYLES[alias]='fg=magenta,bold'
+ZSH_HIGHLIGHT_STYLES[path]='fg=cyan'
+ZSH_HIGHLIGHT_STYLES[single-hyphen-option]='fg=blue'
+ZSH_HIGHLIGHT_STYLES[double-hyphen-option]='fg=blue'
+
+ZSH_HIGHLIGHT_MAXLENGTH=300

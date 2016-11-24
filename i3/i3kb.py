@@ -7,7 +7,7 @@ display = Xlib.display.Display()
 root = display.screen().root
 i3ipc = i3ipc.Connection()
 
-if True:
+if False:
 	def system(cmd):
 		print(cmd)
 		print(i3ipc.command(cmd))
@@ -58,7 +58,7 @@ def grab_keys(*maps):
 	keys = {}
 	def add(map):
 		if "<extends>" in keymap[map]:
-			add(keymap["map"]["<extends>"])
+			add(keymap[map]["<extends>"])
 		keys.update(keymap[map])
 	for map in maps:
 		add(map)

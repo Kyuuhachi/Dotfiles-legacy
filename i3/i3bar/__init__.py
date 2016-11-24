@@ -91,6 +91,10 @@ def start():
 	for seg in _segments:
 		seg.start()
 
+def log(*args):
+	print(*args, file=sys.stderr)
+	sys.stderr.flush()
+
 class Segment:
 	_out = None
 	def start(self):

@@ -5,7 +5,7 @@ execute 'set rtp+='.s:bund.'/Vundle.vim'
 call vundle#begin(s:bund)
 Plugin 'eagletmt/ghcmod-vim'
 Plugin 'eagletmt/neco-ghc'
-Plugin 'elzr/vim-json'
+" Plugin 'elzr/vim-json'
 Plugin 'ervandew/supertab'
 Plugin 'kana/vim-textobj-entire'
 Plugin 'kana/vim-textobj-fold'
@@ -14,6 +14,7 @@ Plugin 'kana/vim-textobj-syntax'
 Plugin 'kana/vim-textobj-user'
 Plugin 'Konfekt/FastFold'
 Plugin 'Konfekt/FoldText'
+Plugin 'lervag/vimtex'
 Plugin 'mh21/errormarker.vim'
 Plugin 'michaeljsmith/vim-indent-object'
 Plugin 'noahfrederick/vim-noctu'
@@ -72,6 +73,8 @@ set undofile undodir=~/.vim-undo//
 
 set shell=zsh
 
+let g:polyglot_disabled = ["latex"]
+
 let g:airline_powerline_fonts = 1
 let g:SuperTabNoCompleteAfter = ['^\s*']
 set completeopt+=longest
@@ -111,7 +114,7 @@ endfunc
 let g:c_gnu = 1
 
 let g:syntastic_python_python_exec='python3'
-let g:syntastic_python_flake8_args='--ignore=E128,E241,E261,E301,E302,E501,E704,E741,E742,E743,W191'
+let g:syntastic_python_flake8_args='--ignore=E128,E221,E241,E261,E301,E302,E501,E704,E741,E742,E743,W191'
 augroup Python
 	au!
 	au FileType python setlocal expandtab< tabstop< softtabstop< shiftwidth<
@@ -139,55 +142,3 @@ endfunction
 function! <SID>HS_Pointful()
 	call setline('.', split(system('pointful '.shellescape(join(getline(a:firstline, a:lastline), "\n"))), "\n"))
 endfunction
-
-
-
-
-function! ReadBinary()
-	if !&bin
-		if &ft ==# ''
-			let s:fn = shellescape(expand('%:p'))
-			if system('file -ib ' . s:fn) =~# '; charset=binary\n$'
-				setlocal binary
-			endif
-		endif
-	endif
-	" That is, Vim doesn't know the file and File thinks it's binary
-	if &bin
-		silent %!xxd -g 1
-		set ft=xxd
-	endif
-endfunc
-
-function! PreWriteBinary()
-	if &bin
-		let b:bin_cpos = getcurpos()
-		"Remove address header
-		silent %s/^[0-9a-f]\+:/
-		"Remove ASCII display
-		silent %s/  .\{,16\}\r\=$/
-		"Remove whitespace
-		silent %s/\_s//g
-		"Check if it ends with 0A (EOL)
-		let &eol = getline(1) =~? '0A$'
-		silent %!xxd -r -p
-	endif
-endfunc
-
-function! PostWriteBinary()
-	if &bin
-		undojoin | silent %!xxd -g 1
-		call setpos('.', b:bin_cpos)
-		" set nomod
-		set ft=xxd
-	endif
-endfunc
-
-augroup Binary
-	au!
-	au BufReadPost  * call ReadBinary()
-	au BufWritePre  * call PreWriteBinary()
-	au BufWritePost * call PostWriteBinary()
-augroup END
-
-" KNOWN BUGS: :w and then u moves cursor unpleasantly

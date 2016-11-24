@@ -42,6 +42,7 @@ i3bar.add(s.FFNFeed("HPJI", 8914586)) # HP, Harry Potter: Junior Inquisitor
 i3bar.add(s.FFNFeed("EOL", 10972919)) # HP, The Evil Overlord List
 i3bar.add(s.FFNFeed("HP&G", 11950816)) # HP, Harry Potter & the Game
 
-i3bar.add(s.Totem())
+# i3bar.add(s.Totem())
+i3bar.add(s.MPD())
 
 i3bar.start()

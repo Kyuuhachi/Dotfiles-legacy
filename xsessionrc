@@ -10,9 +10,9 @@ export QT_IM_MODULE=ibus
 export XMODIFIERS=@im=ibus
 
 # setxkbmap c98
-# xkbcomp ~/dot/c98.xkb $DISPLAY
+xkbcomp ~/dot/c98.xkb $DISPLAY
 xset -dpms s off
 compton --config ~/dot/compton.conf -b &
-ibus-daemon &
+# ibus-daemon &
 # xkbset nullify lock &
 

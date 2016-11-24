@@ -1,9 +1,9 @@
-import subprocess
-from collections import namedtuple
 import i3bar
 import i3bar.pulse as pa_ # TODO
 from i3bar.pulse import pa
 import i3bar.ipc
+import subprocess
+from collections import namedtuple
 
 __all__ = ["Volume"]
 

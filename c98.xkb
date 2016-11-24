@@ -1,57 +1,78 @@
 // vim: ft=xkb
 xkb_keymap {
-	xkb_keycodes  { include "evdev(evdev)" };
-	xkb_geometry  { include "pc(pc105)" };
+	xkb_keycodes "k" { include "evdev(evdev)" };
+	xkb_geometry "g" { shape "" {{[0,0]}}; };
 
-	xkb_types {
-		virtual_modifiers NumLock;
-		virtual_modifiers LevelThree;
-		virtual_modifiers Alt;
-
-		type "ONE_LEVEL" {
+	xkb_types "t" {
+		type "ONE_LEVEL" { // w(1)
 			modifiers = None;
 			map[None] = Level1;
 			level_name[Level1]= "Any";
 		};
 
-		type "TWO_LEVEL" {
+		type "ALPHABETIC" { // w(2) && lower(0) && upper(1)
+			modifiers = Shift+Lock;
+			map[Shift] = Level2;
+			level_name[Level1] = "Base";
+			level_name[Level2] = "Shift";
+		};
+
+		type "KEYPAD" { // w(2) && (keypad(0) || keypad(1))
+			modifiers = Shift+Mod2;
+			map[Shift] = Level2;
+			level_name[Level1] = "Base";
+			level_name[Level2] = "Shift";
+		};
+
+		type "TWO_LEVEL" { // w(2)
 			modifiers = Shift;
 			map[Shift] = Level2;
 			level_name[Level1] = "Base";
 			level_name[Level2] = "Shift";
 		};
 
-		type "FOUR_LEVEL" {
-			modifiers = Shift+LevelThree;
-			map[None] = Level1;
-			map[Shift] = Level2;
-			map[LevelThree] = Level3;
-			map[Shift+LevelThree] = Level4;
+		type "FOUR_LEVEL_ALPHABETIC" { // w(4) && lower(0) && upper(1) && lower(2) && upper(3)
+			modifiers = Shift+Mod5;
+			map[None      ] = Level1;
+			map[Shift     ] = Level2;
+			map[      Mod5] = Level3;
+			map[Shift+Mod5] = Level4;
 			level_name[Level1] = "Base";
 			level_name[Level2] = "Shift";
 			level_name[Level3] = "Level3 Base";
 			level_name[Level4] = "Shift Level3";
 		};
 
-		type "ALPHABETIC" {
-			modifiers = Shift+Lock;
-			map[Shift] = Level2;
-			map[      Lock] = Level2;
-			map[Shift+Lock] = Level2;
+		type "FOUR_LEVEL_SEMIALPHABETIC" { // w(4) && lower(0) && upper(1)
+			modifiers = Shift+Mod5;
+			map[None      ] = Level1;
+			map[Shift     ] = Level2;
+			map[      Mod5] = Level3;
+			map[Shift+Mod5] = Level4;
 			level_name[Level1] = "Base";
-			level_name[Level2] = "Caps";
+			level_name[Level2] = "Shift";
+			level_name[Level3] = "Level3 Base";
+			level_name[Level4] = "Shift Level3";
 		};
 
-		type "FOUR_LEVEL_ALPHABETIC" {
-			modifiers = Shift+Lock+LevelThree;
-			map[None]                  = Level1;
-			map[Shift]                 = Level2;
-			map[      Lock]            = Level2;
-			map[Shift+Lock]            = Level1;
-			map[           LevelThree] = Level3;
-			map[Shift     +LevelThree] = Level4;
-			map[      Lock+LevelThree] = Level4;
-			map[Shift+Lock+LevelThree] = Level3;
+		type "FOUR_LEVEL_KEYPAD" { // w(4) && (keypad(0) || keypad(1))
+			modifiers = Shift+Mod5;
+			map[None      ] = Level1;
+			map[Shift     ] = Level2;
+			map[      Mod5] = Level3;
+			map[Shift+Mod5] = Level4;
+			level_name[Level1] = "Base";
+			level_name[Level2] = "Shift";
+			level_name[Level3] = "Level3 Base";
+			level_name[Level4] = "Shift Level3";
+		};
+
+		type "FOUR_LEVEL" { // w(4)
+			modifiers = Shift+Mod5;
+			map[None      ] = Level1;
+			map[Shift     ] = Level2;
+			map[      Mod5] = Level3;
+			map[Shift+Mod5] = Level4;
 			level_name[Level1] = "Base";
 			level_name[Level2] = "Shift";
 			level_name[Level3] = "Level3 Base";
@@ -59,64 +80,36 @@ xkb_keymap {
 		};
 
 		type "Xorg" {
-			modifiers = Control;
-			map[None] = Level1;
-			map[Control] = Level2;
+			modifiers = Control+Mod1;
+			map[Control+Mod1] = Level2;
 			level_name[Level1] = "Base";
 			level_name[Level2] = "Ctrl+Alt";
 		};
 
-		type "PC_ALT_LEVEL2" {
-			modifiers = Alt;
-			map[None] = Level1;
-			map[Alt] = Level2;
+		type "Print" {
+			modifiers = Mod1;
+			map[Mod1] = Level2;
 			level_name[Level1] = "Base";
 			level_name[Level2] = "Alt";
 		};
 
-		type "PC_CONTROL_LEVEL2" {
+		type "PauseBreak" {
 			modifiers = Control;
-			map[None] = Level1;
 			map[Control] = Level2;
 			level_name[Level1] = "Base";
 			level_name[Level2] = "Control";
 		};
 	};
-	xkb_compat {
-		virtual_modifiers NumLock;
-		virtual_modifiers LevelThree;
 
+	xkb_compat "c" {
 		interpret.repeat=False;
 		setMods.clearLocks=True;
 		latchMods.clearLocks=True;
 		latchMods.latchToLock=True;
 
-		interpret Shift_Lock+AnyOf(Shift+Lock) {
-			action=LockMods(modifiers=Shift);
-		};
-
-		interpret Any+Lock {
-			action=LockMods(modifiers=Lock);
-		};
-
-		interpret Num_Lock+Any {
-			virtualModifier=NumLock;
-			action=LockMods(modifiers=NumLock);
-		};
-
-		interpret Any+Any {
-			action=SetMods(modifiers=modMapMods);
-		};
-
-		interpret ISO_Level3_Shift+Any {
-			useModMapMods=level1;
-			virtualModifier=LevelThree;
-			action=SetMods(modifiers=LevelThree);
-		};
-
-		interpret ISO_Level3_Shift {
-			action=SetMods(modifiers=LevelThree);
-		};
+		interpret Any+Any          {action=SetMods(modifiers=modMapMods);};
+		interpret Alt_L            {action=SetMods(modifiers=Mod1);};
+		interpret ISO_Level3_Shift {action=SetMods(modifiers=Mod5);};
 
 		interpret.repeat=True;
 		interpret XF86_Switch_VT_1  {action=SwitchScreen(Screen=1, !SameServer);};
@@ -139,7 +132,10 @@ xkb_keymap {
 		interpret XF86_Ungrab       {action=Private(type=0x86,data="Ungrab");};
 		interpret XF86_ClearGrab    {action=Private(type=0x86,data="ClsGrb");};
 	};
-	xkb_symbols {
+
+	xkb_symbols "s" {
+		name[Group1]="C98 Custom";
+
 		key <MUTE> {[XF86AudioMute]};
 		key <VOL+> {[XF86AudioRaiseVolume]};
 		key <VOL-> {[XF86AudioLowerVolume]};
@@ -153,7 +149,7 @@ xkb_keymap {
 		key <I128> {[XF86LaunchA]};
 		key <I152> {[XF86Explorer]};
 
-		key <ESC>  {[Escape]};
+		key <ESC>  {[]};
 		key <FK01> {type="Xorg", symbols[Group1]=[F1,  XF86_Switch_VT_1 ]};
 		key <FK02> {type="Xorg", symbols[Group1]=[F2,  XF86_Switch_VT_2 ]};
 		key <FK03> {type="Xorg", symbols[Group1]=[F3,  XF86_Switch_VT_3 ]};
@@ -184,10 +180,10 @@ xkb_keymap {
 		key <AE10> {[0,parenright]};
 		key <AE11> {[minus,underscore]};
 		key <AE12> {[equal,plus]};
-		key <BKSP> {[BackSpace,BackSpace]}; //TODO C-A-Backspace
+		key <BKSP> {type="Xorg", symbols[Group1]=[BackSpace, BackSpace]}; //TODO C-A-Backspace
 
 		key  <TAB> {[Tab,ISO_Left_Tab]};
-		key <AD01> {type="Xorg", symbols[Group1]=[q,Q]};
+		key <AD01> {[q,Q]};
 		key <AD02> {[w,W]};
 		key <AD03> {[e,E,adiaeresis,Adiaeresis]};
 		key <AD04> {[r,R]};
@@ -216,7 +212,7 @@ xkb_keymap {
 		key <BKSL> {[backslash,bar]};
 
 		key <LFSH> {[Shift_L]};
-		key <LSGT> {[]};
+		key <LSGT> {[Escape]};
 		key <AB01> {[z,Z]};
 		key <AB02> {[x,X]};
 		key <AB03> {[c,C]};
@@ -235,7 +231,7 @@ xkb_keymap {
 		key <LALT> {[Alt_L]};
 		key <SPCE> {[space]};
 		key <RALT> {[ISO_Level3_Shift]};
-		key <PRSC> {type="PC_ALT_LEVEL2",symbols[Group1]=[Print,Sys_Req]};
+		key <PRSC> {type="Print",symbols[Group1]=[Print,Sys_Req]};
 		key <RCTL> {[Control_R]};
 
 		key <PGUP> {[Prior]};
@@ -248,24 +244,24 @@ xkb_keymap {
 		// modifier_map Lock {Caps_Lock};
 		modifier_map Shift {Shift_L,Shift_R};
 		modifier_map Control {Control_L,Control_R};
-		modifier_map Mod1 {Alt_L,Meta_L};
+		modifier_map Mod1 {Alt_L};
 		modifier_map Mod2 {Num_Lock};
 		modifier_map Mod4 {Super_L,Super_R};
 
 		key <LVL3> {[ISO_Level3_Shift]};
 		key <MDSW> {[Mode_switch]};
-		key  <ALT> {[NoSymbol,Alt_L]};
-		key <META> {[NoSymbol,Meta_L]};
-		key <SUPR> {[NoSymbol,Super_L]};
-		key <HYPR> {[NoSymbol,Hyper_L]};
+		key  <ALT> {[Alt_L]};
+		key <META> {[Meta_L]};
+		key <SUPR> {[Super_L]};
+		key <HYPR> {[Hyper_L]};
 		modifier_map Mod5 {<LVL3>,<MDSW>};
-		modifier_map Mod1 {<META>};
+		modifier_map Mod1 {<LALT>,<ALT>,<META>};
 		modifier_map Mod4 {<SUPR>};
 		modifier_map Mod4 {<HYPR>};
 
 		// {{{ Not on my keyboard
 		key <SCLK> {[Scroll_Lock]};
-		key <PAUS> {type="PC_CONTROL_LEVEL2",symbols[Group1]=[Pause,Break]};
+		key <PAUS> {type="PauseBreak",symbols[Group1]=[Pause,Break]};
 		key <NMLK> {[Num_Lock]};
 		key <RWIN> {[Super_R]};
 		key <MENU> {[Menu]};
