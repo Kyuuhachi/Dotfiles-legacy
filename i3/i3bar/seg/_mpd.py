@@ -69,10 +69,9 @@ class MPD(i3bar.Segment):
 			title = gettitle(mpd.currentsong(), None if self.timeout.isAlive() else 40)
 			sym = "" if state == "play" else " " # 
 			t = status["time"].split(':')
-			prog = int((len(title) + 1) * int(t[0] / int(t[1])))
+			prog = int((len(title) + 1) * int(t[0]) / int(t[1]))
 			pre, post = quote(title[:prog]), quote(title[prog:])
 			out = "{} <span underline='single'>{}</span>{}".format(sym, pre, post)
-			i3bar.log(out)
 			return {"full_text": out, "markup": "pango"}
 
 	def click(self, button):
