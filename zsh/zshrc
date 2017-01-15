@@ -17,6 +17,11 @@ nowrap() {
 	cat
 	echoti smam
 }
+
+astty() {
+	script -eqc "zsh -c '$(typeset -f); ${(q)*}'" /dev/null
+}
+
 mkcd() {
 	mkdir -p $1
 	cd $1
@@ -27,9 +32,6 @@ locd() {
 	locate $@ | while read f; do
 		[ -d $f ] && echo $f
 	done
-}
-loccd() {
-	cd "$(locd | ${2:-head} -n 1)"
 }
 
 alias su="sudo $SHELL"
@@ -81,6 +83,7 @@ zmodload -i zsh/complist
 eval "$(dircolors -b)"
 
 zstyle ':completion:*' format 'Completing %d'
+zstyle ':completion:*' group-name ''
 zstyle ':completion:*' list-colors ''
 zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z-_}={A-Za-z_-}' 'r:|.=*'

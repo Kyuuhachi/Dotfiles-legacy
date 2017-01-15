@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 import Xlib.threaded
 import Xlib
+import Xlib.display
 from Xlib import Xatom, X
-import i3ipc
+import i3ipc.i3ipc as i3ipc
 import subprocess
 import colorsys
 import random
@@ -53,9 +54,10 @@ def change_workspace(name):
 	if (name, w, h) not in backgrounds:
 		hue, rand = mkrand(name)
 		backgrounds[name, w, h] = gen_bg(root.create_pixmap(w, h, screen.root_depth), hue, rand)
-	root.change_property(display.get_atom("_XROOTPMAP_ID"), Xatom.PIXMAP, 32, [backgrounds[name, w, h].id])
-	root.change_property(display.get_atom("ESETROOT_PMAP_ID"), Xatom.PIXMAP, 32, [backgrounds[name, w, h].id])
-	root.change_attributes(background_pixmap=backgrounds[name, w, h].id)
+	id = backgrounds[name, w, h].id
+	root.change_property(display.get_atom("_XROOTPMAP_ID"), Xatom.PIXMAP, 32, [id])
+	root.change_property(display.get_atom("ESETROOT_PMAP_ID"), Xatom.PIXMAP, 32, [id])
+	root.change_attributes(background_pixmap=id)
 	display.sync()
 
 	if name not in colors:
@@ -94,15 +96,15 @@ def gen_colors(hue):
 		colormap.append("%s:#%06X" % (k, hsv2rgb(hue, s, v)))
 	return "\n".join(colormap)
 
-def workspace_event(i3, evt):
-	if evt["change"] != "focus":
-		return
-	change_workspace(evt["current"]["name"])
-
 for output in i3.get_outputs():
 	if output["current_workspace"]:
 		change_workspace(output["current_workspace"])
 
+
+def workspace_event(i3, evt):
+	if evt["change"] != "focus":
+		return
+	change_workspace(evt["current"]["name"])
 i3.on("workspace", workspace_event)
 i3.subscriptions = 0xFF
 i3.main()

@@ -225,13 +225,13 @@ xkb_keymap {
 		key <AB10> {[slash,question]};
 		key <RTSH> {[Shift_R]};
 
-		key <I151> {[]}; //FN - usually XF86WakeUp
+		key <I151> {[]}; //FN - default XF86WakeUp
 		key <LCTL> {[Control_L]};
 		key <LWIN> {[Super_L]};
 		key <LALT> {[Alt_L]};
 		key <SPCE> {[space]};
 		key <RALT> {[ISO_Level3_Shift]};
-		key <PRSC> {type="Print",symbols[Group1]=[Print,Sys_Req]};
+		key <PRSC> {type="Print", symbols[Group1]=[Print,Sys_Req]};
 		key <RCTL> {[Control_R]};
 
 		key <PGUP> {[Prior]};

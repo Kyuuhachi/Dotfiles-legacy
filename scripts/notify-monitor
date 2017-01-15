@@ -1,0 +1,18 @@
+#!/usr/bin/env python3
+import dbus
+from dbus.mainloop.glib import DBusGMainLoop
+from gi.repository import GLib
+import json
+
+def msg_cb(bus, msg):
+	if msg.has_destination(bus.get_unique_name()):
+		return
+	args = msg.get_args_list()
+	print(json.dumps({"sender": args[0], "title": args[3], "body": args[4]}), flush=True)
+
+if __name__ == '__main__':
+	DBusGMainLoop(set_as_default=True)
+	bus = dbus.SessionBus()
+	bus.add_match_string("interface='org.freedesktop.Notifications',member='Notify',eavesdrop='true'")
+	bus.add_message_filter(msg_cb)
+	GLib.MainLoop().run()

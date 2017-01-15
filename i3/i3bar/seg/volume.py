@@ -78,13 +78,13 @@ def Pulse(name, callback, threaded=True): # Pretends to be a class, since C does
 
 	return namedtuple("Pulse", "start stop nogarb")(start, stop, nogarb)
 
-class Volume(i3bar.Segment):
+class Volume(i3bar.Segment): # TODO better way to increase/decrease/mute
 	def start(self):
 		self.pulse = Pulse("i3py", self)
 		self.pulse.start()
-		i3bar.ipc.register("mute", lambda: self.click(1))
-		i3bar.ipc.register("inc", lambda: self.click(4))
-		i3bar.ipc.register("dec", lambda: self.click(5))
+		i3bar.ipc.register("mute", lambda: self.click(1, None))
+		i3bar.ipc.register("inc", lambda: self.click(4, None))
+		i3bar.ipc.register("dec", lambda: self.click(5, None))
 
 	sink = None
 	volume = 0
@@ -101,14 +101,14 @@ class Volume(i3bar.Segment):
 	def getOutput(self):
 		text = "♪ {}%".format(round(100 * self.volume / 0x10000))
 		color = "#7F7F7F" if self.mute else None
-		return (text, color)
+		return {"full_text": text, "color": color}
 
-	def click(self, button):
+	def click(self, button, name):
 		if button == 1:
-			subprocess.Popen(['pactl', 'set-sink-mute', self.sink, "toggle"])
+			subprocess.Popen(["pactl", "set-sink-mute", self.sink, "toggle"])
 		if button == 3:
-			subprocess.Popen(['pavucontrol'])
+			subprocess.Popen(["pavucontrol"])
 		if button == 4:
-			subprocess.Popen(['pactl', 'set-sink-volume', self.sink, "--", "+5%"])
+			subprocess.Popen(["pactl", "set-sink-volume", self.sink, "--", "+5%"])
 		if button == 5:
-			subprocess.Popen(['pactl', 'set-sink-volume', self.sink, "--", "-5%"])
+			subprocess.Popen(['pactl', "set-sink-volume", self.sink, "--", "-5%"])

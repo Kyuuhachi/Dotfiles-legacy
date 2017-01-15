@@ -1,35 +1,27 @@
 #!/usr/bin/env python3
 import i3ipc
 import Xlib
+import Xlib.display
 from Xlib import X, XK
+import subprocess
 
 display = Xlib.display.Display()
-root = display.screen().root
 i3ipc = i3ipc.Connection()
-
-if False:
-	def system(cmd):
-		print(cmd)
-		print(i3ipc.command(cmd))
-		import sys
-		sys.stdout.flush()
-else:
-	system = i3ipc.command
 
 class i3:
 	def __init__(self, cmd): self.cmd = cmd
 	def __repr__(self): return "i3(%r)" % self.cmd
-	def __call__(self): system(self.cmd)
+	def __call__(self): return i3ipc.command(self.cmd)
 
 class run:
 	def __init__(self, cmd): self.cmd = cmd
 	def __repr__(self): return "run(%r)" % self.cmd
-	def __call__(self): system("exec --no-startup-id %s" % self.cmd)
+	def __call__(self): return subprocess.Popen(self.cmd, shell=True)
 
 class mode:
 	def __init__(self, id): self.id = id
 	def __repr__(self): return "mode(%r)" % self.id
-	def __call__(self): grab_keys(self.id)
+	def __call__(self): return grab_keys(self.id)
 
 mods = {"c": X.ControlMask, "s": X.ShiftMask, "w": X.Mod4Mask, "a": X.Mod1Mask}
 modmask = 0
@@ -45,40 +37,46 @@ def parse_key(k):
 		if mod not in mods:
 			raise Exception("Invalid mod '%s'" % mod)
 		modmask |= mods[mod]
-	keycode = display.keysym_to_keycode(XK.string_to_keysym(parts[-1]))
-	if keycode == 0:
+	keysym = XK.string_to_keysym(parts[-1])
+	if keysym == 0:
 		print("Invalid key '%s'" % parts[-1])
-	return (keycode, modmask)
+	return (keysym, modmask)
 
 keymap = None
-callbacks = {}
+bound = {}
+keys = {}
 def grab_keys(*maps):
-	global callbacks
-
+	global keys
 	keys = {}
 	def add(map):
 		if "<extends>" in keymap[map]:
 			add(keymap[map]["<extends>"])
-		keys.update(keymap[map])
+		for k, f in keymap[map].items():
+			keys[parse_key(k)] = f
 	for map in maps:
 		add(map)
 
-	for key in callbacks.keys():
+	rebind()
+	display.sync()
+
+def rebind():
+	global bound
+	root = display.screen().root
+	for key in bound.keys():
 		root.ungrab_key(key[0], key[1])
 
-	callbacks = {}
-	for k in keys:
-		code, mask = parse_key(k)
+	bound = {}
+	for (code, mask), func in keys.items():
+		code = display.keysym_to_keycode(code)
 		if (code, mask) == (0, 0):
 			continue
-		callbacks[code, mask] = keys[k]
-		callbacks[code, mask | X.Mod2Mask] = keys[k]
-		callbacks[code, mask | X.LockMask] = keys[k]
-		callbacks[code, mask | X.Mod2Mask | X.LockMask] = keys[k]
+		bound[code, mask] = func
+		bound[code, mask | X.Mod2Mask] = func
+		bound[code, mask | X.LockMask] = func
+		bound[code, mask | X.Mod2Mask | X.LockMask] = func
 
-	for key in callbacks.keys():
+	for key in bound.keys():
 		root.grab_key(key[0], key[1], 1, X.GrabModeAsync, X.GrabModeAsync)
-	display.sync()
 
 def start(keys):
 	global keymap, root
@@ -94,24 +92,66 @@ def start(keys):
 	while True:
 		evt = display.next_event()
 		if evt.type == X.KeyPress:
+			print(type(evt), evt.detail, hex(evt.state), flush=True)
 			k = evt.detail, evt.state & modmask
-			if k in callbacks:
-				callbacks[k]()
+			print(k, bound.get(k, None), flush=True)
+			if k in bound:
+				bound[k]()
+		if evt.type == X.MappingNotify and evt.request == X.MappingKeyboard:
+			print(evt, flush=True)
+			display.refresh_keyboard_mapping(evt)
+			rebind()
+
+
+suspend_time = 0
+def suspend():
+	import time
+	import dbus
+	global suspend_time
+	if time.time() < suspend_time + 5:
+		return
+	up = "org.freedesktop.UPower"
+	upower = dbus.Interface(dbus.SystemBus().get_object(up, '/' + up.replace('.', '/')), up)
+	upower.Suspend()
+
+def nosuspend():
+	import time
+	global suspend_time
+	suspend_time = time.time()
+	run("notify-send 'Ignoring lid...'")()
+
+def backlight(mode):
+	states = [0, 1, 2, 5, 10, 20, 50, 75, 100]
+	def closest(list, n):
+		aux = []
+		for v in list:
+			aux.append(abs(n - v))
+		return aux.index(min(aux))
+
+	def f():
+		n = float(subprocess.check_output("xbacklight", shell=True))
+		idx = closest(states, n) + mode
+		if 0 <= idx < len(states):
+			run("xbacklight -set %d -time 0" % states[idx])()
+	return f
 
 keys = {
 	None: {
-		"XF86_MonBrightnessUp":   run("xbacklight -inc 20 -time 0"),
-		"XF86_MonBrightnessDown": run("xbacklight -dec 20 -time 0"),
+		"XF86_MonBrightnessUp":   backlight(+1),
+		"XF86_MonBrightnessDown": backlight(-1),
 		"XF86_AudioMute":         run("echo mute | nc -U /tmp/i3py"),
 		"XF86_AudioRaiseVolume":  run("echo inc  | nc -U /tmp/i3py"),
 		"XF86_AudioLowerVolume":  run("echo dec  | nc -U /tmp/i3py"),
+		"XF86_PowerOff": run(""),
+		"XF86_Standby": suspend,
+		"XF86_Tools": nosuspend,
 
 		"w-Print":   run("scrot    '%Y-%m-%d_%H-%M-%S.png' -e 'mv $f ~/Screenshots'"),
-		"w-s-Print": run("scrot -u '%Y-%m-%d_%H-%M-%S.png' -e 'mv $f ~/Screenshots'"),
+		"w-a-Print": run("scrot -u '%Y-%m-%d_%H-%M-%S.png' -e 'mv $f ~/Screenshots'"),
 
-		"w-Return": run("i3-sensible-terminal"),
-		"w-d": run("dmenu_run"),
-		"Caps_Lock": run("compose ~/dot/htmlent.txt"),
+		"w-Return": i3("exec --no-startup-id x-terminal-emulator"),
+		"w-d": i3("exec --no-startup-id dmenu_run"),
+		"Caps_Lock": i3("exec --no-startup-id compose ~/dot/htmlent.txt"),
 
 		"w-c": i3("reload"),
 		"w-z": i3("restart"),

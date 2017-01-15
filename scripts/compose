@@ -8,22 +8,28 @@ keys = []
 chars = {}
 with open(sys.argv[1], "rt") as file:
 	for line in file:
+		line = line.rstrip('\n')
+		if not line:
+			continue
+		print(line)
 		v, k, c = line.split(" ", 2)
+		k += " " + chr(int(v, 16))
 		keys.append(k)
 		chars[k] = chr(int(v, 16))
 
 code = dmenu.Dmenu().show(keys)
 
-numRe = re.compile("#([0-9]+)")
-hexRe = re.compile("#x([0-9a-fA-F]+)")
+if code is not None:
+	numRe = re.compile("#([0-9]+)")
+	hexRe = re.compile("#x([0-9a-fA-F]+)")
 
-char = None
-if code in chars:
-	char = chars[code]
-elif hexRe.match(code):
-	char = chr(int(hexRe.match(code).group(1), 16))
-elif numRe.match(code):
-	char = chr(int(numRe.match(code).group(1)))
+	char = None
+	if code in chars:
+		char = chars[code]
+	elif hexRe.match(code):
+		char = chr(int(hexRe.match(code).group(1), 16))
+	elif numRe.match(code):
+		char = chr(int(numRe.match(code).group(1)))
 
-if char:
-	subprocess.Popen(["xtype", char])
+	if char:
+		subprocess.Popen(["xtype", char])

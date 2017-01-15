@@ -1,7 +1,7 @@
 import i3bar
 
 __all__ = ["Temp"]
-class Temp(i3bar.Segment):
+class Temp(i3bar.Segment): # TODO use psutil
 	file = "/sys/class/thermal/thermal_zone0/temp"
 
 	def getOutput(self):

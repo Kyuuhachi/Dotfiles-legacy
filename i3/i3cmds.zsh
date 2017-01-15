@@ -1,6 +1,7 @@
 #!/usr/bin/env zsh
 trap 'trap - TERM; kill -- -$$' INT TERM EXIT
 pwd=${0:a:h}
+source $pwd/../venv/bin/activate
 truncate -s 0 ~/i3-log
 truncate -s 0 ~/i3-out
 $pwd/i3bg.py &>> ~/i3-log &

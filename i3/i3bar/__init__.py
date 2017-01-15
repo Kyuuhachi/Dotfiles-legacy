@@ -9,11 +9,11 @@ class _InputHandler(threading.Thread):
 		for cmd in self.read():
 			try:
 				seg = _map[int(cmd["instance"])]
-				seg.click(cmd["button"])
+				seg.click(cmd["button"], cmd.get("name", None))
 				update(seg)
 			except Exception as e:
 				import traceback
-				print(traceback.format_exc(), file=sys.stderr)
+				i3bar.log(traceback.format_exc())
 
 	def read(self):
 		for line in sys.stdin:
@@ -22,25 +22,25 @@ class _InputHandler(threading.Thread):
 class _OutputHandler(i3bar.util.Timer):
 	def _update(self, seg):
 		def convert(seg):
-			segOut = seg.getOutput()
+			info = seg.getOutput()
+			if info is None:
+				return []
+			if not hasattr(info, "__iter__") or isinstance(info, str) or isinstance(info, dict):
+				info = [info]
 
-			val = _proto.copy()
-			val["instance"] = str(id(seg))
-			if type(segOut) == str:
-				val["full_text"] = segOut
-			if type(segOut) == tuple:
-				if segOut[0]:
-					val["full_text"] = segOut[0]
-				if segOut[1]:
-					val["color"] = segOut[1]
-			if type(segOut) == dict:
-				val.update(segOut)
-
-			if "full_text" in val:
-				return val
-			else:
-				return None
-
+			out = []
+			for segOut in info:
+				val = _proto.copy()
+				val["instance"] = str(id(seg))
+				if isinstance(segOut, str):
+					val["full_text"] = segOut
+				elif isinstance(segOut, dict):
+					val.update(segOut)
+				elif segOut is None:
+					continue
+				if "full_text" in val:
+					out.append(val)
+			return out
 		try:
 			seg._out = convert(seg)
 		except Exception:
@@ -63,9 +63,8 @@ class _OutputHandler(i3bar.util.Timer):
 
 	def printStatus(self):
 		list = []
-		for seg in _segments:
-			if seg._out:
-				list.insert(0, dict(seg._out))
+		for seg in reversed(_segments):
+			list += reversed(seg._out)
 		print("," + json.dumps(list))
 		sys.stdout.flush()
 
@@ -96,10 +95,10 @@ def log(*args):
 	sys.stderr.flush()
 
 class Segment:
-	_out = None
+	_out = []
 	def start(self):
 		pass
 	def getOutput(self):
 		return ""
-	def click(self, button):
+	def click(self, button, name):
 		pass

@@ -16,7 +16,7 @@ class Apt(i3bar.util.Timer, i3bar.Segment):
 			return None
 		return "Updates: {}".format(self.updates)
 
-	def click(self, button):
+	def click(self, button, name):
 		if button == 1:
 			subprocess.Popen(["x-terminal-emulator", "-x", "sudo", "aptitude", "upgrade"])
 			self.updates = 0

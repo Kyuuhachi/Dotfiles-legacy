@@ -1,3 +1,4 @@
+# flake8: noqa E701
 # Mostly stolen from pulsectl, but made to fit my needs better
 import ctypes as c
 p = c.POINTER
