@@ -129,7 +129,7 @@ def backlight(mode):
 		return aux.index(min(aux))
 
 	def f():
-		n = float(subprocess.check_output("xbacklight", shell=True))
+		n = float(subprocess.check_output("xbacklight"))
 		idx = closest(states, n) + mode
 		if 0 <= idx < len(states):
 			run("xbacklight -set %d -time 0" % states[idx])()

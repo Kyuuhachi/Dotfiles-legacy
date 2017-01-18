@@ -36,10 +36,8 @@ i3bar.add(s.Feeds([
 	s.FFNFeed("MKO", 11815818), # HP+SAO, Mystic Knight Online
 	s.FFNFeed("AEA", 11146312), # HP+Poke, An Epic Adventure
 	s.FFNFeed("SA", 9236537), # SAO+Poke, Soul Ablaze
-	s.FFNFeed("ISDSC", 10613753), # HP+Poke, [italian]
 	s.FFNFeed("HPNFP", 2636963), # HP, Harry Potter and the Nightmares of Futures Past
 	s.FFNFeed("HPJI", 8914586), # HP, Harry Potter: Junior Inquisitor
-	s.FFNFeed("EOL", 10972919), # HP, The Evil Overlord List
 	s.FFNFeed("HP&G", 11950816), # HP, Harry Potter & the Game
 	s.FFNFeed("TBL", 2217186), # Poke, The Black Latios
 	s.FFNFeed("LotCO", 11998973), # Poke, Loss of the Chosen One
