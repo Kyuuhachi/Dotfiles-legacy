@@ -1,3 +1,0 @@
-#!/usr/bin/env zsh
-cd "$1"
-x-terminal-emulator

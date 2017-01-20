@@ -1,5 +1,0 @@
-#!/usr/bin/env zsh
-export WINEPREFIX="$HOME/.wine32"
-cd "$WINEPREFIX/drive_c/Program Files/Steam"
-# wine Steam.exe
-/opt/wine-devel/bin/wine Steam.exe

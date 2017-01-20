@@ -1,2 +1,0 @@
-#!/usr/bin/env zsh
-mate-terminal -x nvim "$1"
