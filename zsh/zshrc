@@ -1,5 +1,4 @@
 #!/bin/zsh
-# source ~/dot/zsh/hl.zsh
 #{{{1 History
 setopt histignorealldups
 HISTSIZE=1000
@@ -18,8 +17,8 @@ nowrap() {
 	echoti smam
 }
 
-astty() {
-	script -eqc "zsh -c '$(typeset -f); ${(q)*}'" /dev/null
+title() {
+	printf "\e]0;%s\a" $1
 }
 
 mkcd() {
@@ -27,19 +26,20 @@ mkcd() {
 	cd $1
 }
 
-alias locate="locate --basename"
 locd() {
 	locate $@ | while read f; do
-		[ -d $f ] && echo $f
+		[[ -d $f ]] && echo $f
 	done
 }
 
+alias locate="locate --basename"
 alias su="sudo $SHELL"
-alias o=xdg-open
 alias git="git --no-pager"
 
-s=car0b1nius@muncher.se
+alias o=xdg-open
+alias \$= # Allows copying scripts with $ prompts
 
+s=car0b1nius@muncher.se
 #{{{1 CNF
 command_not_found_handler() {
 	cnf-lookup $1
@@ -109,6 +109,7 @@ zstyle '*' single-ignored show
 #{{{1 Large custom scripts
 source ~/dot/zsh/prompt.zsh
 #{{{1 ZLE
+bindkey -e #As much as I like Vim, I think I want something more normal for commandline
 ctrl-z() {
 	[[ $(jobs | wc -l) > 0 ]] && {
 		zle push-line
@@ -117,7 +118,6 @@ ctrl-z() {
 	}
 }
 zle -N ctrl-z
-bindkey "^Z" ctrl-z
 
 expand-or-complete-with-dots() {
 	print -Pn "%{%F{red}...%f%}" | nowrap
@@ -125,7 +125,26 @@ expand-or-complete-with-dots() {
 	zle redisplay
 }
 zle -N expand-or-complete-with-dots
+
+bindkey -- "$terminfo[khome]" beginning-of-line
+bindkey -- "$terminfo[kend]"  end-of-line
+bindkey -- "$terminfo[kich1]" overwrite-mode
+bindkey -- "$terminfo[kbs]"   backward-delete-char
+bindkey -- "$terminfo[kdch1]" delete-char
+bindkey -- "$terminfo[kcuu1]" up-line-or-history
+bindkey -- "$terminfo[kcud1]" down-line-or-history
+bindkey -- "$terminfo[kcub1]" backward-char
+bindkey -- "$terminfo[kcuf1]" forward-char
+bindkey "^Z" ctrl-z
 bindkey "^I" expand-or-complete-with-dots
+# "$terminfo[kpp]"
+# "$terminfo[knp]"
+
+zle-line-init()   { echoti smkx }
+zle-line-finish() { echoti rmkx }
+zle -N zle-line-init
+zle -N zle-line-finish
+
 #{{{1 Syntax highlight
 source ~/dot/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)

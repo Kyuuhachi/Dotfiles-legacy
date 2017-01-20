@@ -19,26 +19,13 @@ prompt_segment() {
 
 prompt_status() {
 	prompt_segment black default
-
-	#Zsh nesting depth
-	local pid=$PPID
-	local exe=$(readlink -f $SHELL)
-	while [[ $pid != 0 ]]; do
-		[[ "$(readlink -f /proc/$pid/exe)" == "$exe" ]] && echo -n " "
-		pid=$(ps -o ppid h $pid | sed -r "s/^\s+//;s/\s+$//")
-	done
-
-	#Various status symbols
-	local symbols
-	symbols=()
-	[[ $RETVAL -ne 0 ]] && symbols+="%{%F{red}%}✘"
-	[[ $UID -eq 0 ]] && symbols+="%{%F{yellow}%}⚡"
-	[[ $(jobs -l | wc -l) -gt 0 ]] && symbols+="%{%F{cyan}%}⚙"
-	echo -n "$symbols"
+	echo -n "%(?..%{%F{red}%}✘)" # Status code
+	echo -n "%(!.%{%F{yellow}%}⚡.)" # Root
+	echo -n "%(1j.%{%F{cyan}%}⚙.)" # Jobs
 }
 
 prompt_context() {
-	prompt_segment $([[ $UID == 0 ]] && echo yellow || echo green) black
+	prompt_segment $(print -P "%(!.yellow.green)") black
 	echo -n "$USER"
 }
 
