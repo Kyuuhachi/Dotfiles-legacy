@@ -39,12 +39,10 @@ alias o=xdg-open
 alias git="git --no-pager"
 
 s=car0b1nius@muncher.se
-win=/mnt/windows/Users/admusr
-: ~win
 
 #{{{1 CNF
 command_not_found_handler() {
-	python /usr/lib/command-not-found $1
+	cnf-lookup $1
 	exit 127
 }
 
@@ -109,10 +107,25 @@ zstyle ':completion:*:*:*:users' ignored-patterns \
 	usbmux uucp vcsa wwwrun xfs '_*'
 zstyle '*' single-ignored show
 #{{{1 Large custom scripts
-# TODO don't do absolute paths
 source ~/dot/zsh/prompt.zsh
-source ~/dot/zsh/vim.zsh
+#{{{1 ZLE
+ctrl-z() {
+	[[ $(jobs | wc -l) > 0 ]] && {
+		zle push-line
+		BUFFER="fg"
+		zle accept-line
+	}
+}
+zle -N ctrl-z
+bindkey "^Z" ctrl-z
 
+expand-or-complete-with-dots() {
+	print -Pn "%{%F{red}...%f%}" | nowrap
+	zle expand-or-complete
+	zle redisplay
+}
+zle -N expand-or-complete-with-dots
+bindkey "^I" expand-or-complete-with-dots
 #{{{1 Syntax highlight
 source ~/dot/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)

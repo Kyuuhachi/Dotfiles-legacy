@@ -1,33 +1,32 @@
 #!/bin/zsh
-CURRENT_BG=''
+CURRENT_BG="default"
 prompt_segment() {
-	local bg fg
-	[[ -n $1 ]] && bg="%K{$1}" || bg="%k"
-	[[ -n $2 ]] && fg="%F{$2}" || fg="%f"
-	if [[ -z $CURRENT_BG ]]; then
-		echo -n "%{$bg$fg%} "
+	if [[ $RIGHT != 1 ]]; then
+		if [[ $CURRENT_BG == "default" ]]; then
+			echo -n "%{%K{$1}%F{$2}%} "
+		else
+			echo -n " %{%K{$1}%F{$CURRENT_BG}%}%{%F{$2}%} "
+		fi
 	else
-		echo -n " %{$bg%F{$CURRENT_BG}%}%{$fg%} "
+		if [[ $CURRENT_BG == "default" ]]; then
+			echo -n "%{%F{$1}%}%{%K{$1}%F{$2}%} "
+		else
+			echo -n " %{%F{$1}%K{$CURRENT_BG}%}%{%K{$1}%F{$2}%} "
+		fi
 	fi
 	CURRENT_BG=$1
-	[[ -n $3 ]] && echo -n $3
 }
 
 prompt_status() {
 	prompt_segment black default
 
 	#Zsh nesting depth
-	local d=0
 	local pid=$PPID
 	local exe=$(readlink -f $SHELL)
-	local cmd
-	while true; do
-		cmd=$(readlink -f /proc/$pid/exe)
-		[[ "$cmd" == "$exe" ]] || break
-		((d++))
+	while [[ $pid != 0 ]]; do
+		[[ "$(readlink -f /proc/$pid/exe)" == "$exe" ]] && echo -n " "
 		pid=$(ps -o ppid h $pid | sed -r "s/^\s+//;s/\s+$//")
 	done
-	printf %${d}s ""
 
 	#Various status symbols
 	local symbols
@@ -38,26 +37,14 @@ prompt_status() {
 	echo -n "$symbols"
 }
 
-prompt_vim_mode() {
-	case $CURRENT_KEYMAP in
-		main)
-			prompt_segment yellow black "NORMAL"
-		;;
-		vicmd)
-			prompt_segment cyan black "INSERT"
-		;;
-		*)
-			prompt_segment white black $CURRENT_KEYMAP
-		;;
-	esac
-}
-
 prompt_context() {
-	prompt_segment $([[ $UID == 0 ]] && echo yellow || echo green) black "$USER"
+	prompt_segment $([[ $UID == 0 ]] && echo yellow || echo green) black
+	echo -n "$USER"
 }
 
 prompt_dir() {
-	prompt_segment blue black '%~'
+	prompt_segment blue black
+	echo -n '%~'
 }
 
 prompt_git() {
@@ -82,27 +69,39 @@ prompt_git() {
 	} 2> /dev/null
 }
 
-build_prompt() {
-	{
-		prompt_vim_mode
-		prompt_segment
-	} | {
-		print "$(cat)"
-	}
+prompt_time() {
+	prompt_segment blue black
+	if [[ $_SENDING == 1 ]]; then
+		echo -n "%D{%H:%M:%S}"
+	else
+		echo -n "--:--:--"
+	fi
 }
-precmd() {
-	{
-		RETVAL=$?
-		prompt_status
-		prompt_context
-		prompt_dir
-		prompt_git
-		prompt_segment black
-		echo -n "%{\e[K%}"
-	} | {
-		print -P "$(cat)"
-	}
+
+build_prompt() {
+	RETVAL=$?
+	RIGHT=0
+	prompt_status
+	prompt_context
+	prompt_dir
+	prompt_git
+	prompt_segment default default
+}
+
+build_rprompt() {
+	RIGHT=1
+	prompt_time
+	echo -n "%{ %}"
 }
 
 setopt promptsubst
 PROMPT='%{%f%b%k%}$(build_prompt)'
+RPROMPT='%{%f%b%k%}$(build_rprompt)'
+
+function _reset-prompt-and-accept-line {
+	_SENDING=1
+	zle reset-prompt
+	_SENDING=0
+	zle .accept-line
+}
+zle -N accept-line _reset-prompt-and-accept-line

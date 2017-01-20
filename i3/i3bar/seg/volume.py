@@ -1,7 +1,6 @@
 import i3bar
 import i3bar.pulse as pa_ # TODO
 from i3bar.pulse import pa
-import i3bar.ipc
 import subprocess
 from collections import namedtuple
 
@@ -22,7 +21,6 @@ def Pulse(name, callback, threaded=True): # Pretends to be a class, since C does
 	@pa_.SERVER_INFO_CB_T
 	def server_info_cb(context, server_info_p, data):
 		sink = server_info_p.contents.default_sink_name
-		callback.setSink(sink)
 		pa.operation_unref(pa.context_get_sink_info_by_name(context, sink, sink_info_cb, None))
 
 	@nogarb
@@ -33,7 +31,7 @@ def Pulse(name, callback, threaded=True): # Pretends to be a class, since C does
 			pa.context_set_subscribe_callback(context, context_subscribe_cb, None)
 			mask = 0
 			mask |= pa_.SUBSCRIPTION_MASK_SINK # Volume
-			mask |= pa_.SUBSCRIPTION_MASK_SERVER # Change default card (i hope)
+			mask |= pa_.SUBSCRIPTION_MASK_SERVER # Change default card
 			pa.operation_unref(pa.context_subscribe(context, mask, context_success_cb, None)) # TODO
 
 	@nogarb
@@ -78,20 +76,13 @@ def Pulse(name, callback, threaded=True): # Pretends to be a class, since C does
 
 	return namedtuple("Pulse", "start stop nogarb")(start, stop, nogarb)
 
-class Volume(i3bar.Segment): # TODO better way to increase/decrease/mute
+class Volume(i3bar.Segment):
 	def start(self):
 		self.pulse = Pulse("i3py", self)
 		self.pulse.start()
-		i3bar.ipc.register("mute", lambda: self.click(1, None))
-		i3bar.ipc.register("inc", lambda: self.click(4, None))
-		i3bar.ipc.register("dec", lambda: self.click(5, None))
 
-	sink = None
 	volume = 0
 	mute = 0
-
-	def setSink(self, sink):
-		self.sink = sink
 
 	def sinkInfo(self, sink_info):
 		self.volume = sink_info.volume.values[0]
@@ -105,10 +96,10 @@ class Volume(i3bar.Segment): # TODO better way to increase/decrease/mute
 
 	def click(self, button, name):
 		if button == 1:
-			subprocess.Popen(["pactl", "set-sink-mute", self.sink, "toggle"])
+			subprocess.Popen(["pactl", "set-sink-mute", "@DEFAULT_SINK@", "toggle"])
 		if button == 3:
 			subprocess.Popen(["pavucontrol"])
 		if button == 4:
-			subprocess.Popen(["pactl", "set-sink-volume", self.sink, "--", "+5%"])
+			subprocess.Popen(["pactl", "set-sink-volume", "@DEFAULT_SINK@", "+5%"])
 		if button == 5:
-			subprocess.Popen(['pactl', "set-sink-volume", self.sink, "--", "-5%"])
+			subprocess.Popen(['pactl', "set-sink-volume", "@DEFAULT_SINK@", "-5%"])

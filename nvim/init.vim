@@ -107,7 +107,7 @@ endfunc
 let g:c_gnu = 1
 
 let g:ale_python_python_exec='python3'
-let g:ale_python_flake8_args='--ignore=E128,E221,E241,E261,E301,E302,E501,E704,E741,E742,E743,W191'
+let g:ale_python_flake8_args='--ignore=E128,E221,E241,E261,E301,E302,E305,E306,E501,E704,E741,E742,E743,W191'
 augroup Python
 	au!
 	au FileType python setlocal expandtab< tabstop< softtabstop< shiftwidth<

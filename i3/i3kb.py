@@ -121,7 +121,7 @@ def nosuspend():
 	run("notify-send 'Ignoring lid...'")()
 
 def backlight(mode):
-	states = [0, 1, 2, 5, 10, 20, 50, 75, 100]
+	states = [0, 1, 2, 3, 5, 10, 20, 33, 50, 75, 100]
 	def closest(list, n):
 		aux = []
 		for v in list:
@@ -139,9 +139,9 @@ keys = {
 	None: {
 		"XF86_MonBrightnessUp":   backlight(+1),
 		"XF86_MonBrightnessDown": backlight(-1),
-		"XF86_AudioMute":         run("echo mute | nc -U /tmp/i3py"),
-		"XF86_AudioRaiseVolume":  run("echo inc  | nc -U /tmp/i3py"),
-		"XF86_AudioLowerVolume":  run("echo dec  | nc -U /tmp/i3py"),
+		"XF86_AudioMute":         run("pactl set-sink-mute @DEFAULT_SINK@ toggle"),
+		"XF86_AudioRaiseVolume":  run("pactl set-sink-volume @DEFAULT_SINK@ +5%"),
+		"XF86_AudioLowerVolume":  run("pactl set-sink-volume @DEFAULT_SINK@ -5%"),
 		"XF86_PowerOff": run(""),
 		"XF86_Standby": suspend,
 		"XF86_Tools": nosuspend,
