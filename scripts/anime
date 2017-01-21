@@ -1,4 +1,4 @@
-#!/usr/bin/env python3.5
+#!/usr/bin/env python3
 import os
 import re
 import sys
@@ -11,4 +11,4 @@ def gt(name):
 		return False
 	return int(match.groups()[0]) >= n
 
-os.execvp("totem", ["totem"] + list(filter(gt, sorted(os.listdir()))))
+os.execvp("baka-mplayer", ["baka-mplayer"] + list(filter(gt, sorted(os.listdir()))))

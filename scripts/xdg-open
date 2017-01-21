@@ -2,21 +2,26 @@
 import os
 import magic
 import argparse
-import shlex
 
 argp = argparse.ArgumentParser()
 argp.add_argument("file")
 args = argp.parse_args()
 
-if not os.path.exists(args.file):
-	argp.error("%s: no such file or directory" % args.file)
-if os.path.isdir(args.file):
-	type, sub = "inode", "directory"
+f = args.file # type: str
+
+if f.startswith("file://"):
+	f = f[7:]
+if ":" in f:
+	type, sub = "protocol", f.split(":")[0]
 else:
-	type, sub = magic.from_file(args.file, mime=True).split("/", 2)
+	if not os.path.exists(f):
+		argp.error("%s: no such file or directory" % f)
+	if os.path.isdir(f):
+		type, sub = "inode", "directory"
+	else:
+		type, sub = magic.from_file(f, mime=True).split("/", 2)
 
 env = os.environ
-f = args.file
 
 run = {}
 run["text/*"] = ["x-terminal-emulator", "-x", env["EDITOR"], f]
@@ -24,12 +29,18 @@ run["text/html"] = [env["BROWSER"], f]
 run["image/*"] = ["gimp", f]
 run["video/*"] = ["baka-mplayer", f]
 run["inode/directory"] = ["x-terminal-emulator", "--working-directory", f]
+run["application/zip"] = ["engrampa", f]
+run["application/x-rar"] = ["engrampa", f]
 
 run["inode/x-empty"] = run["text/*"]
 run["application/pdf"] = run["text/html"]
 
+run["protocol/http"] = run["text/html"]
+run["protocol/https"] = run["text/html"]
+
 cmd = run.get("%s/%s" % (type, sub)) or run.get("%s/*" % type)
 if not cmd:
-	argp.error("Don't know how to handle %s/%s" % (type, sub))
-print("%s/%s:" % (type, sub), " ".join(map(shlex.quote, cmd)))
-os.execvp(cmd[0], cmd)
+	cmd = ["notify-send", "Don't know how to handle '%s/%s' file '%s'" % (type, sub, f)]
+print("%s/%s:" % (type, sub), " ".join(map(repr, cmd)))
+if not os.fork():
+	os.execvp(cmd[0], cmd)

@@ -1,0 +1,34 @@
+#!/usr/bin/env python3
+import subprocess
+from pathlib import Path
+
+mimes = set(subprocess.check_output(["lsdesktopf", "--gm", "0"]).decode().splitlines())
+mimes.add("x-scheme-handler/file")
+mimes = sorted(mimes)
+print(mimes)
+
+# Mimeapps
+path = Path("~/.local/share/applications/").expanduser()
+(path / "xdg-open.desktop").write_text("""
+[Desktop Entry]
+Type=Application
+Name=xdg-open
+Exec=xdg-open %u
+NoDisplay=true
+""".strip())
+with (path / "mimeapps.list").open("w") as f:
+	f.write("[Default Applications]\n")
+	for mime in mimes:
+		f.write("%s=xdg-open.desktop\n" % mime)
+
+# Gconf
+subprocess.check_output(["gconftool-2", "--recursive-unset", "/desktop/gnome/url-handlers"])
+for mime in mimes:
+	type, sub = mime.split("/")
+	if type != "x-scheme-handler":
+		continue
+	def gconf(t, k, v):
+		subprocess.check_output(["gconftool-2", "--type", t, "--set", "/desktop/gnome/url-handlers/%s/%s" % (sub, k), v])
+	gconf("str", "command", "xdg-open %s")
+	gconf("bool", "enabled", "true")
+	gconf("bool", "needs_terminal", "false")

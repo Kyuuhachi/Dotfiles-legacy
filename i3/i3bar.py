@@ -5,7 +5,7 @@ import i3bar.seg as s
 import i3bar
 
 i3bar.add(s.Clock())
-i3bar.add(s.Apt())
+i3bar.add(s.Updates(s.Pacaur, s.Pip))
 i3bar.add(s.Temp())
 i3bar.add(s.Battery())
 i3bar.add(s.Network())
@@ -39,7 +39,7 @@ i3bar.add(s.Feeds([
 	s.FFNFeed("HPNFP", 2636963), # HP, Harry Potter and the Nightmares of Futures Past
 	s.FFNFeed("HPJI", 8914586), # HP, Harry Potter: Junior Inquisitor
 	s.FFNFeed("HP&G", 11950816), # HP, Harry Potter & the Game
-	s.FFNFeed("TBL", 2217186), # Poke, The Black Latios
+	s.FFNFeed("TBL", 6667359), # Poke, The Black Latios
 	s.FFNFeed("LotCO", 11998973), # Poke, Loss of the Chosen One
 	s.FFNFeed("DtM", 11923423), # Poke, Denki to Mizu (電気と水)
 	s.FFNFeed("LoJ", 10364015), # Poke, Legends of Johto (changing)

@@ -1,6 +1,7 @@
 import i3bar
 import i3bar.util
 from urllib.request import urlopen
+import threading
 
 __all__ = ["Feeds", "RSSFeed", "FFNFeed"]
 
@@ -21,6 +22,7 @@ class Feeds(i3bar.util.Timer, i3bar.Segment):
 
 		@i3bar.util.OtherThread
 		def download(feed):
+			threading.current_thread().name = feed.name
 			urls = feed.load_feed(urlopen(feed.url))
 			self.entries[feed.name] = [clean_url(url) for url in urls][:50]
 		for name in self.names:
