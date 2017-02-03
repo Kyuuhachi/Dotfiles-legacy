@@ -11,4 +11,6 @@ def gt(name):
 		return False
 	return int(match.groups()[0]) >= n
 
-os.execvp("baka-mplayer", ["baka-mplayer"] + list(filter(gt, sorted(os.listdir()))))
+eps = list(filter(gt, sorted(os.listdir())))
+
+os.execvp("baka-mplayer", ["baka-mplayer"] + eps)

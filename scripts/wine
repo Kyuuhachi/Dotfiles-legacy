@@ -1,0 +1,11 @@
+#!/usr/bin/env zsh
+
+# [[ -n $C98_SANDBOX ]] || {
+# 	msg="Wine should be run in a sandbox"
+# 	[[ $TTY == /dev/tty* ]] && notify-send $msg || echo $msg
+# 	exit 1
+# }
+export WINEARCH=win32
+# export WINEPREFIX=$HOME/wine
+
+exec /usr/bin/$(basename $0) $*

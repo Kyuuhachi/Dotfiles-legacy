@@ -102,24 +102,6 @@ def start(keys):
 			display.refresh_keyboard_mapping(evt)
 			rebind()
 
-
-suspend_time = 0
-def suspend():
-	import time
-	import dbus
-	global suspend_time
-	if time.time() < suspend_time + 5:
-		return
-	up = "org.freedesktop.UPower"
-	upower = dbus.Interface(dbus.SystemBus().get_object(up, '/' + up.replace('.', '/')), up)
-	upower.Suspend()
-
-def nosuspend():
-	import time
-	global suspend_time
-	suspend_time = time.time()
-	run("notify-send 'Ignoring lid...'")()
-
 def backlight(mode):
 	states = [0, 1, 2, 3, 5, 10, 20, 33, 50, 75, 100]
 	def closest(list, n):
@@ -142,9 +124,6 @@ keys = {
 		"XF86_AudioMute":         run("pactl set-sink-mute @DEFAULT_SINK@ toggle"),
 		"XF86_AudioRaiseVolume":  run("pactl set-sink-volume @DEFAULT_SINK@ +5%"),
 		"XF86_AudioLowerVolume":  run("pactl set-sink-volume @DEFAULT_SINK@ -5%"),
-		"XF86_PowerOff": run(""),
-		"XF86_Standby": suspend,
-		"XF86_Tools": nosuspend,
 
 		"w-Print":   run("scrot    '%Y-%m-%d_%H-%M-%S.png' -e 'mv $f ~/Screenshots'"),
 		"w-a-Print": run("scrot -u '%Y-%m-%d_%H-%M-%S.png' -e 'mv $f ~/Screenshots'"),

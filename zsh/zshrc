@@ -57,9 +57,9 @@ export LESS_TERMCAP_ue=$(printf "$reset_color")
 
 mvn() {
 	=mvn $@ | sed \
-		-e "s/^\[INFO]/${fg[blue]}${bold_color}[INFO]${reset_color}/" \
-		-e "s/^\[WARNING]/${fg[yellow]}${bold_color}[WARNING]${reset_color}/" \
-		-e "s/^\[ERROR]/${fg[red]}${bold_color}[ERROR]${reset_color}/"
+		-e "s/^\[INFO]/${fg[blue]}${bold_color}&${reset_color}/i" \
+		-e "s/^\[WARNING]/${fg[yellow]}${bold_color}&${reset_color}/i" \
+		-e "s/^\[ERROR]/${fg[red]}${bold_color}&${reset_color}/i"
 }
 
 ls() {

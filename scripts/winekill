@@ -1,0 +1,3 @@
+#!/usr/bin/env zsh
+pkill -9 'wine'
+pkill -9 '.*\.exe'

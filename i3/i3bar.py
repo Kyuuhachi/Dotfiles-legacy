@@ -29,20 +29,17 @@ i3bar.add(s.Feeds([
 	s.RSSFeed("defan", "https://defan752.wordpress.com/feed/", seq=False, match=lambda e: e.category == "Sword Art Online"),
 
 	s.FFNFeed("HPGTT", 10870770), # HP+Poke, Harry Potter and the Grand Trainer Tournament (changing)
-	s.FFNFeed("HP20", 8096183), # HP+DnD, Harry Potter and the Natural 20
 	s.FFNFeed("FtA", 9173821), # HP+Poke, From the Ashes
 	s.FFNFeed("WoD", 10604571), # HP+Poke, On the Wings of Death
 	s.FFNFeed("MO", 10552390), # HP+SAO, Magic Online
 	s.FFNFeed("MKO", 11815818), # HP+SAO, Mystic Knight Online
 	s.FFNFeed("AEA", 11146312), # HP+Poke, An Epic Adventure
-	s.FFNFeed("SA", 9236537), # SAO+Poke, Soul Ablaze
-	s.FFNFeed("HPNFP", 2636963), # HP, Harry Potter and the Nightmares of Futures Past
-	s.FFNFeed("HPJI", 8914586), # HP, Harry Potter: Junior Inquisitor
 	s.FFNFeed("HP&G", 11950816), # HP, Harry Potter & the Game
 	s.FFNFeed("TBL", 6667359), # Poke, The Black Latios
 	s.FFNFeed("LotCO", 11998973), # Poke, Loss of the Chosen One
-	s.FFNFeed("DtM", 11923423), # Poke, Denki to Mizu (電気と水)
 	s.FFNFeed("LoJ", 10364015), # Poke, Legends of Johto (changing)
+	s.FFNFeed("UB", 12295133), # Poke, Ultimate Betrayal
+	s.FFNFeed("AOTP", 7262793), # Poke, Ashes of the Past
 ]))
 
 i3bar.add(s.MPD(dmenu_color="#00AF5F"))

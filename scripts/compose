@@ -17,7 +17,7 @@ with open(sys.argv[1], "rt") as file:
 		keys.append(k)
 		chars[k] = chr(int(v, 16))
 
-code = dmenu.Dmenu().show(keys)
+code = dmenu.show(keys)
 
 if code is not None:
 	numRe = re.compile("#([0-9]+)")

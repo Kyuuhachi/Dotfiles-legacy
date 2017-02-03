@@ -19,6 +19,13 @@ prompt_segment() {
 
 prompt_status() {
 	prompt_segment black default
+	pid=$$
+	n=0
+	while [[ ! -z $pid && $pid != 1 ]]; do
+		[[ $(readlink /proc/$pid/exe) == $(realpath =$SHELL) ]] && (( n++ ))
+		pid=$(echo -n $(ps -o ppid= -p $pid))
+	done
+	printf "%$((n-1))s" ""
 	echo -n "%(?..%{%F{red}%}✘)" # Status code
 	echo -n "%(!.%{%F{yellow}%}⚡.)" # Root
 	echo -n "%(1j.%{%F{cyan}%}⚙.)" # Jobs

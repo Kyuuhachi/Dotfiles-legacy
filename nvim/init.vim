@@ -39,6 +39,7 @@ Plugin 'wellle/targets.vim'
 Plugin 'xuhdev/vim-latex-live-preview'
 Plugin 'vim-scripts/Improved-AnsiEsc'
 Plugin 'w0rp/ale'
+Plugin 'dansomething/vim-eclim'
 Plugin 'Caagr98/c98color.vim'
 call vundle#end()
 
@@ -73,12 +74,11 @@ set undofile undodir=~/.vim-undo//
 set shell=zsh
 
 let g:polyglot_disabled = ['latex']
-
 let g:airline_powerline_fonts = 1
 
 set completeopt+=longest
 set splitbelow splitright
-let g:ycm_python_binary_path = 'python3'
+let g:ycm_python_binary_path = '/usr/bin/python3'
 
 map <silent> <C-k> <Plug>(ale_previous_wrap)
 map <silent> <C-j> <Plug>(ale_next_wrap)
@@ -96,13 +96,20 @@ vnoremap . :norm.<CR>
 nnoremap gV `[v`]
 map H ^
 map L $
+nnoremap <silent> <C-L> :nohl<CR><C-L>
 
-nnoremap <silent> <C-L> :nohl<CR>:call <SID>NoHL()<CR><C-L>
-function! <SID>NoHL()
-	if exists(':GhcModTypeClear')
-		GhcModTypeClear
-	endif
-endfunc
+" map <ScrollWheelUp>     <C-Y>
+" map <S-ScrollWheelUp>   <C-Y>
+" map <ScrollWheelDown>   <C-E>
+" map <S-ScrollWheelDown> <C-E>
+" map!<ScrollWheelUp>     <C-O><C-Y>
+" map!<S-ScrollWheelUp>   <C-O><C-Y>
+" map!<ScrollWheelDown>   <C-O><C-E>
+" map!<S-ScrollWheelDown> <C-O><C-E>
+map <PageUp>    <C-U>
+map <PageDown>  <C-D>
+map!<PageUp>   <C-O><C-U>
+map!<PageDown> <C-O><C-D>
 
 let g:c_gnu = 1
 
@@ -113,27 +120,17 @@ augroup Python
 	au FileType python setlocal expandtab< tabstop< softtabstop< shiftwidth<
 augroup END
 
-let g:ale_scss_scss_lint_args='--config ~/dot/nvim/scss-lint.yml'
-
-let g:haskell_conceal = 0
-let g:haskell_conceal_wide = 1 - g:haskell_conceal
-let g:haskell_fold = 0
-augroup Haskell
+let g:EclimCompletionMethod = 'omnifunc'
+let g:EclimMavenPomClasspathUpdate = 0
+augroup Java
 	au!
-	au FileType haskell setlocal expandtab tabstop=8 softtabstop=8 shiftwidth=2
-	au FileType haskell setlocal omnifunc=necoghc#omnifunc
-	au FileType haskell noremap <buffer> <F1> :GhcModType<CR>
-	au FileType haskell noremap <buffer> <silent> <F2> :call <SID>HS_Pointfree()<CR>
-	au FileType haskell noremap <buffer> <silent> <F3> :call <SID>HS_Pointful()<CR>
-	au FileType haskell noremap <buffer> <F4> :GhcModTypeInsert<CR>
+	au FileType java nmap <buffer> <Leader>o :JavaImportOrganize<CR>
+	au FileType java nmap <buffer> <Leader>i :JavaImport<CR>
+	au FileType java nmap <buffer> <Leader>r :JavaRename<CR>
+	au FileType java nmap <buffer> K :JavaSearchContext<CR>
 augroup END
 
-function! <SID>HS_Pointfree()
-	call setline('.', split(system('pointfree '.getline('.')), '\n'))
-endfunction
-function! <SID>HS_Pointful()
-	call setline('.', split(system('pointful '.getline('.')), '\n'))
-endfunction
+let g:ale_scss_scss_lint_args='--config ~/dot/nvim/scss-lint.yml'
 
 nnoremap gS :call <SID>SynStack()<CR>
 function! <SID>SynStack()
