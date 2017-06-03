@@ -5,7 +5,7 @@ import i3bar.seg as s
 import i3bar
 
 i3bar.add(s.Clock())
-i3bar.add(s.Updates(s.Pacaur, s.Pip))
+i3bar.add(s.Updates(s.Pacaur))
 i3bar.add(s.Temp())
 i3bar.add(s.Battery())
 i3bar.add(s.Network())
@@ -21,9 +21,7 @@ i3bar.add(s.Feeds([
 	s.RSSFeed("SaW", "http://www.sandraandwoo.com/feed/", seq=False, match=lambda e: e.category == "Comics"),
 	s.RSSFeed("EGS", "http://www.egscomics.com/rss.php", match=lambda e: urlparse(e.link).path == "/index.php"),
 	s.RSSFeed("EGS-NP", "http://www.egscomics.com/rss.php", match=lambda e: urlparse(e.link).path == "/egsnp.php"),
-	s.RSSFeed("GC", "http://www.gunnerkrigg.com/rss.xml"),
-	s.RSSFeed("CQ", "http://cucumber.gigidigi.com/feed/"),
-	s.RSSFeed("SD", "http://www.sdamned.com/feed/"),
+	s.RSSFeed("SD", "http://www.sdamned.com/rss.php"),
 	s.RSSFeed("AD", "http://feeds.feedburner.com/AvasDemon?format=xml"),
 	s.RSSFeed("OotS", "http://www.giantitp.com/comics/oots.rss"),
 	s.RSSFeed("defan", "https://defan752.wordpress.com/feed/", seq=False, match=lambda e: e.category == "Sword Art Online"),
@@ -35,11 +33,7 @@ i3bar.add(s.Feeds([
 	s.FFNFeed("MKO", 11815818), # HP+SAO, Mystic Knight Online
 	s.FFNFeed("AEA", 11146312), # HP+Poke, An Epic Adventure
 	s.FFNFeed("HP&G", 11950816), # HP, Harry Potter & the Game
-	s.FFNFeed("TBL", 6667359), # Poke, The Black Latios
-	s.FFNFeed("LotCO", 11998973), # Poke, Loss of the Chosen One
 	s.FFNFeed("LoJ", 10364015), # Poke, Legends of Johto (changing)
-	s.FFNFeed("UB", 12295133), # Poke, Ultimate Betrayal
-	s.FFNFeed("AOTP", 7262793), # Poke, Ashes of the Past
 ]))
 
 i3bar.add(s.MPD(dmenu_color="#00AF5F"))

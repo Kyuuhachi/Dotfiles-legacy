@@ -27,13 +27,13 @@ prompt_status() {
 	done
 	printf "%$((n-1))s" ""
 	echo -n "%(?..%{%F{red}%}✘)" # Status code
-	echo -n "%(!.%{%F{yellow}%}⚡.)" # Root
+	echo -n "%(!.%{%F{yellow}%}#.)" # Root
 	echo -n "%(1j.%{%F{cyan}%}⚙.)" # Jobs
 }
 
 prompt_context() {
 	prompt_segment $(print -P "%(!.yellow.green)") black
-	echo -n "$USER"
+	echo -n "%n"
 }
 
 prompt_dir() {

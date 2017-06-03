@@ -16,7 +16,11 @@ class i3:
 class run:
 	def __init__(self, cmd): self.cmd = cmd
 	def __repr__(self): return "run(%r)" % self.cmd
-	def __call__(self): return subprocess.Popen(self.cmd, shell=True)
+	def __call__(self):
+		try:
+			return subprocess.Popen(self.cmd, shell=True)
+		except Exception as e:
+			pass
 
 class mode:
 	def __init__(self, id): self.id = id
@@ -111,7 +115,7 @@ def backlight(mode):
 		return aux.index(min(aux))
 
 	def f():
-		n = float(subprocess.check_output("xbacklight"))
+		n = float(subprocess.check_output("xbacklight -getf", shell=True))
 		idx = closest(states, n) + mode
 		if 0 <= idx < len(states):
 			run("xbacklight -set %d -time 0" % states[idx])()
@@ -127,6 +131,7 @@ keys = {
 
 		"w-Print":   run("scrot    '%Y-%m-%d_%H-%M-%S.png' -e 'mv $f ~/Screenshots'"),
 		"w-a-Print": run("scrot -u '%Y-%m-%d_%H-%M-%S.png' -e 'mv $f ~/Screenshots'"),
+		"w-s-Print": run("sleep 0.5; scrot -s '%Y-%m-%d_%H-%M-%S.png' -e 'mv $f ~/Screenshots'"),
 
 		"w-Return": i3("exec --no-startup-id x-terminal-emulator"),
 		"w-d": i3("exec --no-startup-id dmenu_run"),

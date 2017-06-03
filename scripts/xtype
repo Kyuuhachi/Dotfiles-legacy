@@ -24,8 +24,8 @@ def type_char(char, keycode=KEYCODE):
 
 if __name__ == "__main__":
 	parser = argparse.ArgumentParser(description="Types a string using Xtest")
-	parser.add_argument("string", help="The string to type")
-	parser.add_argument("-s", "--keysym", action="store_true", help="Specify a keysym by name instead of chars")
+	parser.add_argument("string", nargs="+", help="The string to type")
+	parser.add_argument("-s", "--keysym", action="store_true", help="Specify  keysym by name instead of chars")
 	args = parser.parse_args()
 
 	if args.keysym:
@@ -33,8 +33,15 @@ if __name__ == "__main__":
 		import Xlib.XK
 		for group in Xlib.keysymdef.__all__:
 			Xlib.XK.load_keysym_group(group)
-		keysym = Xlib.XK.string_to_keysym(args.string)
-		type(keysym)
+		for key in args.string:
+			keysym = Xlib.XK.string_to_keysym(key)
+			if keysym == 0:
+				try:
+					keysym = int(key, base=16)
+				except:
+					print("Invalid keysym: %s" % key)
+					continue
+			type(keysym)
 	else:
-		for char in map(ord, args.string):
+		for char in map(ord, " ".join(args.string)):
 			type_char(char)

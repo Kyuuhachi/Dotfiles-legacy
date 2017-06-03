@@ -2,21 +2,23 @@
 import subprocess
 from pathlib import Path
 
-mimes = set(subprocess.check_output(["lsdesktopf", "--gm", "0"]).decode().splitlines())
+mimes = set()
+mimes |= set(subprocess.check_output(["lsdesktopf", "--gm", "0"]).decode().splitlines())
+mimes |= set("x-scheme-handler/" + f[29:] for f in subprocess.check_output(["gconftool-2", "--all-dirs", "/desktop/gnome/url-handlers"]).decode().splitlines())
 mimes.add("x-scheme-handler/file")
 mimes = sorted(mimes)
 print(mimes)
 
 # Mimeapps
-path = Path("~/.local/share/applications/").expanduser()
-(path / "xdg-open.desktop").write_text("""
+Path("~/.local/share/applications/xdg-open.desktop").expanduser().write_text("""
 [Desktop Entry]
 Type=Application
 Name=xdg-open
 Exec=xdg-open %u
 NoDisplay=true
-""".strip())
-with (path / "mimeapps.list").open("w") as f:
+MimeType={};
+""".format(";".join(mimes)).strip())
+with Path("~/.config/mimeapps.list").expanduser().open("w") as f:
 	f.write("[Default Applications]\n")
 	for mime in mimes:
 		f.write("%s=xdg-open.desktop\n" % mime)

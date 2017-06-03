@@ -54,34 +54,50 @@ class MPD(i3bar.Segment):
 		with open() as mpd:
 			while True:
 				mpd.idle()
+				i3bar.log("asdf")
 				i3bar.update(self)
 
 	def getOutput(self):
 		with open() as mpd:
 			status = mpd.status()
-			state = status["state"]
-			if state not in ["pause", "play"]:
-				return None
 			title = gettitle(mpd.currentsong())
-			sym = "" if state == "play" else " " # 
-			t = status["time"].split(':')
-			prog = int((len(title) + 1) * int(t[0]) / (int(t[1]) or 1)) # MIDIs have no length!?
-			pre, post = quote(title[:prog]), quote(title[prog:])
-			out = "{} <span underline='single'>{}</span>{}".format(sym, pre, post)
-			return {"full_text": out, "markup": "pango"}
+		progress = len(title) * float(status["elapsed"]) / float(status["duration"])
+
+		segs = [
+			{
+				"full_text": {"play": " ", "pause": " "}.get(status["state"], "? "),
+				"name": "symbol",
+				"separator": False,
+				"separator_block_width": 0
+			},
+			*({
+				"full_text": "<span {format}>{char}</span>".format(format="underline='single'" if i <= progress - 0.5 else "", char=quote(c)),
+				"markup": "pango",
+				"name": "title-{}".format(i),
+				"separator": False,
+				"separator_block_width": 0
+			} for i, c in enumerate(title)),
+			{
+				"full_text": "<span></span>",
+				"markup": "pango"
+			}
+		]
+		return reversed(segs)
 
 	def click(self, button, name):
-		if button == 1:
-			self.play()
-		if button == 2:
-			self.album()
-		if button == 3:
-			self.restart()
+		if name == "symbol":
+			if button == 1:
+				self.play()
+		elif name.startswith("title-"):
+			if button == 1:
+				self.seek(int(name[6:]))
+			if button == 2:
+				self.album()
 
-	def restart(self):
+	def seek(self, n):
 		with open() as mpd:
-			mpd.stop()
-			mpd.play()
+			title = gettitle(mpd.currentsong())
+			mpd.seekcur(n / len(title) * float(mpd.status()["duration"]))
 
 	def stop(self):
 		with open() as mpd:

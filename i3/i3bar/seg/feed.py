@@ -5,7 +5,7 @@ import threading
 
 __all__ = ["Feeds", "RSSFeed", "FFNFeed"]
 
-class Feeds(i3bar.util.Timer, i3bar.Segment):
+class Feeds(i3bar.Segment):
 	interval = 3600
 
 	def __init__(self, feeds):
@@ -13,8 +13,14 @@ class Feeds(i3bar.util.Timer, i3bar.Segment):
 		self.feeds = {feed.name: feed for feed in feeds}
 		self.entries = {k: {} for k in self.names}
 		self.latest = {k: None for k in self.names}
+		self.fetchTimer = i3bar.util.Timer(60 * 60, self.fetchFeeds, "fetchFeeds")
+		self.checkTimer = i3bar.util.Timer(5, self.checkHistory, "checkHistory")
 
-	def run(self):
+	def start(self):
+		self.fetchTimer.start()
+		self.checkTimer.start()
+
+	def fetchFeeds(self):
 		def clean_url(url):
 			from urllib.parse import urlparse, urlunparse
 			parse = urlparse(url)
@@ -24,11 +30,11 @@ class Feeds(i3bar.util.Timer, i3bar.Segment):
 		def download(feed):
 			threading.current_thread().name = feed.name
 			urls = feed.load_feed(urlopen(feed.url))
-			self.entries[feed.name] = [clean_url(url) for url in urls][:50]
+			self.entries[feed.name] = [clean_url(url) for url in urls]
 		for name in self.names:
 			download(self.feeds[name])
 
-	def check(self):
+	def checkHistory(self):
 		entries = dict(self.entries) # Don't update while we're working
 		urls = []
 		for name in self.names:
@@ -53,7 +59,6 @@ class Feeds(i3bar.util.Timer, i3bar.Segment):
 					self.latest[name] = entries[name][i]
 
 	def getOutput(self):
-		self.check()
 		for name in self.names:
 			if self.latest[name] is not None:
 				yield {"full_text": name, "name": name}
@@ -114,7 +119,7 @@ def hist(urls):
 
 	with sqlite3.connect(getProfilePath() + "/places.sqlite") as sql:
 		cur = sql.cursor()
-		query = "SELECT url FROM moz_places WHERE url IN ({})".format(",".join("?" for a in range(len(urls))))
+		query = "SELECT url FROM moz_places WHERE url IN ({})".format(",".join(["?"] * len(urls)))
 		cur.execute(query, urls)
 		rows = cur.fetchall()
 		return set(row[0] for row in rows)

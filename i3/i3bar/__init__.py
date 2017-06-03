@@ -38,8 +38,7 @@ class _OutputHandler(i3bar.util.Timer):
 					val.update(segOut)
 				elif segOut is None:
 					continue
-				if "full_text" in val:
-					out.append(val)
+				out.append(val)
 			return out
 		try:
 			seg._out = convert(seg)

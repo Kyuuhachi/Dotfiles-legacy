@@ -1,15 +1,18 @@
 #!/bin/zsh
 #{{{1 History
 setopt histignorealldups
-HISTSIZE=1000
-SAVEHIST=1000
+HISTSIZE=1000000
+SAVEHIST=1000000
 HISTFILE=~/.zsh_history
 #{{{1 Utils
 autoload -Uz compinit && compinit
 autoload -Uz colors && colors
-autoload -U zmv
+autoload -U zmv && alias zmv="noglob zmv"
 
 setopt extendedglob interactivecomments autocd
+setopt auto_continue
+WORDCHARS='*?_-.[]~=&;!#$%^(){}<>' # exclude '/' for backward-kill-word
+REPORTTIME=3 # report elapsed time (> 3 sec.)
 
 nowrap() {
 	echoti rmam
@@ -33,19 +36,18 @@ locd() {
 }
 
 alias locate="locate --basename"
+alias sudo="sudo env HOME=$HOME"
 alias su="sudo $SHELL"
 alias git="git --no-pager"
 
 alias o=xdg-open
 alias \$= # Allows copying scripts with $ prompts
 
-s=car0b1nius@muncher.se
-#{{{1 CNF
-command_not_found_handler() {
-	cnf-lookup $1
-	exit 127
-}
+for c in cp rm chmod chown rename; do
+	alias $c="$c -v"
+done
 
+s=car0b1nius@muncher.se
 #{{{1 Color and formatting
 export LESS_TERMCAP_mb=$(printf "$fg[red]")
 export LESS_TERMCAP_md=$(printf "$fg[blue]")
@@ -69,8 +71,9 @@ ls() {
 		=ls $@
 	fi
 }
+
+alias grep="grep --color"
 #{{{1 Completion
-source ~/dot/zsh/zsh-completions/zsh-completions.plugin.zsh
 unsetopt menu_complete
 unsetopt flowcontrol
 setopt auto_menu
@@ -80,37 +83,49 @@ WORDCHARS=''
 zmodload -i zsh/complist
 eval "$(dircolors -b)"
 
-zstyle ':completion:*' format 'Completing %d'
+alias zstyle="noglob zstyle"
+zstyle ':completion:*' format "%B%F{yellow}%U%d%f%b%u"
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*' list-colors ''
-zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
-zstyle ':completion:*' matcher-list 'm:{a-zA-Z-_}={A-Za-z_-}' 'r:|.=*'
-zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
+zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+zstyle ':completion:*' list-prompt '%SAt %p: Hit TAB for more, or the character to insert%s'
+zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %p%s'
 zstyle ':completion:*' use-compctl false
 zstyle ':completion:*' verbose true
-zstyle ':completion:*:*:*:*:*' menu select
-zstyle ':completion:*:*:*:*:processes' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
-zstyle ':completion:*:*:*:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
-zstyle ':completion:*:cd:*' tag-order local-directories directory-stack path-directories
+zstyle ':completion:*' menu select
+zstyle ':completion:*' list-separator '|'
+zstyle ':completion:*' list-suffixes true
+zstyle ':completion:*' ignore-parents parent pwd
+zstyle ':completion:*' completer _complete _approximate _ignored
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
-zstyle ':completion::complete:*' cache-path $ZSH_CACHE_DIR
-zstyle ':completion::complete:*' use-cache 1
+zstyle ':completion:*:complete:*' use-cache 1
+zstyle ':completion:*:complete:*' cache-path ~/.zsh_cache
+zstyle -e ':completion:*:approximate:*' max-errors 'reply=( $(( ($#PREFIX+$#SUFFIX)/3 )) )'
+
+zstyle ':completion:*:original' list-colors "=*=$color[red];$color[bold]"
+zstyle ':completion:*:processes' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
+zstyle ':completion:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
+
+zstyle ':completion:*:timidity:*' file-patterns '*(-/):directories *.midi#:all-files'
+zstyle ':completion:*:lilypond:*' file-patterns '*(-/):directories *.ly:all-files'
+zstyle ':completion:*:cd:*' tag-order local-directories directory-stack path-directories
+
 
 zstyle ':completion:*:*:*:users' ignored-patterns \
-	adm amanda apache at avahi avahi-autoipd beaglidx bin cacti canna \
-	clamav daemon dbus distcache dnsmasq dovecot fax ftp games gdm \
-	gkrellmd gopher hacluster haldaemon halt hsqldb ident junkbust kdm \
-	ldap lp mail mailman mailnull man messagebus  mldonkey mysql nagios \
-	named netdump news nfsnobody nobody nscd ntp nut nx obsrun openvpn \
-	operator pcap polkitd postfix postgres privoxy pulse pvm quagga radvd \
-	rpc rpcuser rpm rtkit scard shutdown squid sshd statd svn sync tftp \
-	usbmux uucp vcsa wwwrun xfs '_*'
-zstyle '*' single-ignored show
+	adm amanda apache avahi beaglidx bin cacti canna clamav daemon \
+	dbus distcache dovecot fax ftp games gdm gkrellmd gopher \
+	hacluster haldaemon halt hsqldb ident junkbust ldap lp mail \
+	mailman mailnull mldonkey mysql nagios \
+	named netdump news nfsnobody nobody nscd ntp nut nx openvpn \
+	operator pcap postfix postgres privoxy pulse pvm quagga radvd \
+	rpc rpcuser rpm shutdown squid sshd sync uucp vcsa xfs \
+	systemd-*
+
 #{{{1 Large custom scripts
 source ~/dot/zsh/prompt.zsh
 #{{{1 ZLE
-bindkey -e #As much as I like Vim, I think I want something more normal for commandline
-ctrl-z() {
+bindkey -e
+function ctrl-z() {
 	[[ $(jobs | wc -l) > 0 ]] && {
 		zle push-line
 		BUFFER="fg"
@@ -119,34 +134,63 @@ ctrl-z() {
 }
 zle -N ctrl-z
 
-expand-or-complete-with-dots() {
+function expand-with-dots() {
 	print -Pn "%{%F{red}...%f%}" | nowrap
-	zle expand-or-complete
+	zle expand-word
 	zle redisplay
 }
-zle -N expand-or-complete-with-dots
+zle -N expand-with-dots
 
-bindkey -- "$terminfo[khome]" beginning-of-line
-bindkey -- "$terminfo[kend]"  end-of-line
+function complete-with-dots() {
+	print -Pn "%{%F{red}...%f%}" | nowrap
+	zle complete-word
+	zle redisplay
+}
+zle -N complete-with-dots
+
+function rationalise-dot() {
+	if [[ $LBUFFER = *.. ]]; then
+		LBUFFER+=/.
+	fi
+	zle self-insert
+}
+zle -N rationalise-dot
+
+function nop() {}
+zle -N nop
+
+# Terminfo is wrong sometimes.
 bindkey -- "$terminfo[kich1]" overwrite-mode
 bindkey -- "$terminfo[kbs]"   backward-delete-char
 bindkey -- "$terminfo[kdch1]" delete-char
-bindkey -- "$terminfo[kcuu1]" up-line-or-history
-bindkey -- "$terminfo[kcud1]" down-line-or-history
+bindkey -- "$terminfo[kcuu1]" up-line-or-search
+bindkey -- "$terminfo[kcud1]" down-line-or-search
 bindkey -- "$terminfo[kcub1]" backward-char
 bindkey -- "$terminfo[kcuf1]" forward-char
+bindkey -- "$terminfo[khome]" beginning-of-line
+bindkey -- "$terminfo[kend]"  end-of-line
+bindkey -- "$terminfo[kpp]"   nop
+bindkey -- "$terminfo[knp]"   nop
+bindkey "^[[2~"   overwrite-mode       # Insert
+bindkey "^?"      backward-delete-char # Backspace
+bindkey "^[^?"    backward-delete-word # A-Backspace
+bindkey "^[[3~"   delete-char          # Delete
+bindkey "^[[3;3~" delete-word          # A-Delete
+bindkey "^[[A"    up-line-or-search    # Up
+bindkey "^[[B"    down-line-or-search  # Down
+bindkey "^[[C"    forward-char         # Right
+bindkey "^[[D"    backward-char        # Left
+bindkey "^[[F"    end-of-line          # End
+bindkey "^[[H"    beginning-of-line    # Home
+bindkey "^[[5~"   nop                  # PgUp
+bindkey "^[[6~"   nop                  # PgDn
 bindkey "^Z" ctrl-z
-bindkey "^I" expand-or-complete-with-dots
-# "$terminfo[kpp]"
-# "$terminfo[knp]"
-
-zle-line-init()   { echoti smkx }
-zle-line-finish() { echoti rmkx }
-zle -N zle-line-init
-zle -N zle-line-finish
+bindkey "^@" expand-with-dots
+bindkey "^I" complete-with-dots
+bindkey "." rationalise-dot
 
 #{{{1 Syntax highlight
-source ~/dot/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 
 typeset -A ZSH_HIGHLIGHT_STYLES
@@ -155,4 +199,4 @@ ZSH_HIGHLIGHT_STYLES[path]='fg=cyan'
 ZSH_HIGHLIGHT_STYLES[single-hyphen-option]='fg=blue'
 ZSH_HIGHLIGHT_STYLES[double-hyphen-option]='fg=blue'
 
-ZSH_HIGHLIGHT_MAXLENGTH=300
+ZSH_HIGHLIGHT_MAXLENGTH=1000

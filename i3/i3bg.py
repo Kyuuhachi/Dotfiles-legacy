@@ -74,8 +74,8 @@ def gen_bg(pixmap, hue, rand):
 	w, h = geom.width, geom.height
 
 	border = [(w // 2, 0 - h), (w // 2, h + h), (0 - w, h // 2), (w + w, h // 2)]
-	points = [(rand.random() * w, rand.random() * h) for _ in range(160)]
-	vor = Voronoi(border + points)
+	points = border + [(rand.random() * w, rand.random() * h) for _ in range(160)]
+	vor = Voronoi(points)
 	polys = [[(int(v[0]), int(v[1])) for v in vor.vertices[region]] for region in vor.regions]
 
 	def randcolor(rand, hue):

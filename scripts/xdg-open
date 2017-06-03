@@ -1,55 +1,139 @@
 #!/usr/bin/env python3
 import os
-import magic
+import os.path
 import argparse
+from xdg.mime import MimeType
+import xdg.mime
 from fnmatch import fnmatch
+
+def match_globs(path, globs=xdg.mime.GLOBS):
+	name = os.path.basename(path)
+	if name in globs._literals:
+		return [globs._literals[name]]
+	if name.lower() in globs._literals:
+		return [globs._literals[name.lower()]]
+
+	ext = os.path.splitext(name)[1]
+	matches = None
+	if ext in globs._extensions:
+		matches = globs._extensions[ext]
+	elif ext.lower() in globs._extensions:
+		matches = globs._extensions[ext.lower()]
+	else:
+		matches = []
+		for w, m, g, f in globs._matches:
+			if fnmatch(name, g) or "cs" not in f and fnmatch(name.lower(), g):
+				matches.append((w + len(g) / 128, m))
+	return sorted(matches, reverse=True)
+
+def match_magic(f, magic=xdg.mime.MAGIC):
+	data = open(f, "rb").read(magic.maxLength)
+	matches = []
+	for priority in magic.types.keys():
+		for type in magic.types[priority]:
+			if type.match(data):
+				matches.append((priority, type.mime))
+	return sorted(matches, reverse=True)
+
+def match_inode(path):
+	return MimeType.fromInode(path)
+
+def match_basic(path):
+	data = open(path, "rb").read(1024)
+	if not data:
+		return "inode/x-empty"
+	elif not xdg.mime._isBinaryString(data):
+		return "text/plain"
+	else:
+		return "application/octet-stream"
+
+def match(path):
+	globs = []
+	magic = []
+	inode = None
+	basic = None
+	try: globs = match_globs(path)
+	except OSError: pass
+	try: magic = match_magic(path)
+	except OSError: pass
+	try: inode = match_inode(path)
+	except OSError: pass
+	try: basic = match_basic(path)
+	except OSError: pass
+
+	print(globs, magic, inode, basic)
+
+	if inode: return inode
+	inode_ = [inode] if inode else []
+	magic_hi = [m[1] for m in magic if m[0] >= 80]
+	magic_lo = [m[1] for m in magic if m[0] < 80]
+	globs_ = [m[1] for m in globs]
+	return inode_ + magic_hi + globs_ + magic_lo + [basic]
 
 argp = argparse.ArgumentParser()
 argp.add_argument("file")
 args = argp.parse_args()
 
 f = args.file # type: str
-
 if f.startswith("file://"):
-	f = f[7:]
-if ":" in f:
-	type, sub = "protocol", f.split(":")[0]
+	f = f[7:] # TODO escaping and stuff
+
+if ':' in f:
+	mime = [MimeType("x-scheme-handler/" + f.split(":", 1)[0])]
 else:
-	if not os.path.exists(f):
-		argp.error("%s: no such file or directory" % f)
-	if os.path.isdir(f):
-		type, sub = "inode", "directory"
-	else:
-		type, sub = magic.from_file(f, mime=True).split("/", 2)
-
-if (type, sub) == ("application", "zip") and fnmatch(f, "*.mscz"):
-	sub = "mscore"
-
-env = os.environ
+	mime = [MimeType(m) for m in match(f)]
 
 run = {}
-run["text/*"] = ["x-terminal-emulator", "-x", env["EDITOR"], f]
-run["text/html"] = [env["BROWSER"], f]
-run["image/*"] = ["gimp", f]
-run["video/*"] = ["baka-mplayer", f]
-run["audio/midi"] = ["musescore", f]
-run["inode/directory"] = ["x-terminal-emulator", "--working-directory", f]
-run["application/zip"] = ["engrampa", f]
-run["application/x-rar"] = ["engrampa", f]
-run["application/x-bittorrent"] = ["deluge", f]
+with open(os.path.expanduser("~/dot/mime.cfg")) as mimelist:
+	cmd = None
+	for line in mimelist.read().splitlines(): # type: str
+		if line == line.lstrip():
+			cmd = line.split()
+			for i, word in enumerate(cmd):
+				if word == "%":
+					cmd[i] = f
+				elif word[:1] == "$":
+					cmd[i] = os.environ[word[1:]]
+		else:
+			run[line.lstrip()] = cmd
 
-run["inode/x-empty"] = run["text/*"]
-run["application/pdf"] = run["text/html"]
-run["application/mscore"] = run["audio/midi"]
-run["image/svg"] = run["text/html"]
+def nub(seq):
+	return list(dict.fromkeys(seq)) # Only in 3.6
 
-run["protocol/http"] = run["text/html"]
-run["protocol/https"] = run["text/html"]
-run["protocol/magnet"] = run["application/x-bittorrent"]
+def first(seq):
+	try:
+		return next(item for item in seq if item is not None)
+	except StopIteration:
+		return None
 
-cmd = run.get("%s/%s" % (type, sub)) or run.get("%s/*" % type)
+checked = []
+def check(mime):
+	checked.append(mime)
+	return run.get(mime)
+
+def get(mime):
+	if mime is None:
+		return None
+	return first([
+		check(mime.name()),
+		check("%s/*" % mime.type()),
+		check("@%s" % mime.genericIcon()),
+		get(mime.aliasOf()),
+		first([get(m) for m in mime.subClassOf()]),
+	])
+
+
+cmd = first([get(m) for m in mime])
+print("Possible mime types:")
+for m in nub(mime):
+	print(" ", m)
+print("Checked keys:")
+for m in nub(checked):
+	print(" ", m)
+print("Command:")
+print(" ", cmd)
+
 if not cmd:
-	cmd = ["notify-send", "Don't know how to handle '%s/%s' file" % (type, sub), f]
-print("%s/%s:" % (type, sub), " ".join(map(repr, cmd)))
-if not os.fork():
-	os.execvp(cmd[0], cmd)
+	cmd = ["notify-send", "Don't know how to handle %s file" % checked, f]
+
+os.execvp(cmd[0], cmd)

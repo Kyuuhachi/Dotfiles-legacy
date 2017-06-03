@@ -7,8 +7,7 @@ class Temp(i3bar.Segment): # TODO use psutil
 	def getOutput(self):
 		with open(self.file, "r") as f:
 			temp = float(f.read().strip()) / 1000
-		out = {}
-		out["full_text"] = "{}°C".format(round(temp))
-		if temp >= 90:
-			out["urgent"] = True
-		return out
+		return {
+			"full_text": "{}°C".format(round(temp)),
+			"urgent": temp >= 90
+		}
