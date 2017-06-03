@@ -5,7 +5,6 @@ HISTSIZE=1000000
 SAVEHIST=1000000
 HISTFILE=~/.zsh_history
 #{{{1 Utils
-autoload -Uz compinit && compinit
 autoload -Uz colors && colors
 autoload -U zmv && alias zmv="noglob zmv"
 
@@ -74,6 +73,7 @@ ls() {
 
 alias grep="grep --color"
 #{{{1 Completion
+autoload -Uz compinit && compinit
 unsetopt menu_complete
 unsetopt flowcontrol
 setopt auto_menu
