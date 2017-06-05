@@ -137,10 +137,6 @@ keys = {
 		"w-d": i3("exec --no-startup-id dmenu_run"),
 		"Caps_Lock": i3("exec --no-startup-id compose ~/dot/htmlent.txt"),
 
-		"w-c": i3("reload"),
-		"w-z": i3("restart"),
-		"c-a-BackSpace": i3("exit"),
-
 		"w-x": i3("kill"),
 		"w-s-x": i3("focus parent;" * 10 + "kill"),
 
