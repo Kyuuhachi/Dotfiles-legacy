@@ -10,7 +10,7 @@ class Battery(i3bar.Segment):
 		charge = battery.energy_now / battery.energy_full
 		text = "{}{:.0f}%".format([" ", " ", " ", " ", " "][min(int(charge * 5), 4)], 100 * charge)
 
-		if battery.consumption:
+		if abs(battery.current) > 0.01:
 			charging = battery.status == "Charging"
 			symbol = {"Charging": "↑", "Discharging": "↓"}.get(battery.status, "")
 
@@ -18,8 +18,8 @@ class Battery(i3bar.Segment):
 				remaining = battery.energy_full - battery.energy_now
 			else:
 				remaining = battery.energy_now
-			remainingTime = time.strftime("%H:%M", time.gmtime(remaining / battery.consumption * 60**2))
-			text += " {}{:.2f}W ({})".format(symbol, battery.consumption, remainingTime)
+			remainingTime = time.strftime("%H:%M", time.gmtime(remaining / battery.current * 60**2))
+			text += " {}{:.2f}W ({})".format(symbol, battery.current, remainingTime)
 
 		out = {}
 		out["full_text"] = text
@@ -50,5 +50,5 @@ class BatteryStatus:
 		self.status = get("status")
 		self.energy_now = get("energy_now", "charge_now") / 1000000
 		self.energy_full = get("energy_full", "charge_full") / 1000000
-		self.consumption = get("power_now", "current_now") / 1000000
+		self.current = get("power_now", "current_now") / 1000000
 
