@@ -108,6 +108,7 @@ noremap L $
 noremap j gj
 noremap k gk
 nnoremap r gr
+nnoremap r<CR> r<CR>
 nnoremap R gR
 
 nnoremap gS :call <SID>SynStack()<CR>
