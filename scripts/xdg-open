@@ -63,7 +63,7 @@ def match(path):
 
 	print(globs, magic, inode, basic)
 
-	if inode: return inode
+	if inode: return [inode]
 	inode_ = [inode] if inode else []
 	magic_hi = [m[1] for m in magic if m[0] >= 80]
 	magic_lo = [m[1] for m in magic if m[0] < 80]
