@@ -8,7 +8,7 @@ class Battery(i3bar.Segment):
 	def getOutput(self):
 		battery = BatteryStatus(self.file)
 		charge = battery.energy_now / battery.energy_full
-		text = "{}{:.0f}%".format([" ", " ", " ", " ", " "][int(charge * 5)], 100 * charge)
+		text = "{}{:.0f}%".format([" ", " ", " ", " ", " "][min(int(charge * 5), 4)], 100 * charge)
 
 		if battery.consumption:
 			charging = battery.status == "Charging"
