@@ -11,5 +11,5 @@ class Network(i3bar.Segment):
 		if ssid == "":
 			ssid = "DOWN"
 			out["urgent"] = True
-		out["full_text"] = "{}: {}".format(self.name, ssid)
+		out["full_text"] = " {}".format(ssid)
 		return out
