@@ -50,5 +50,5 @@ class BatteryStatus:
 		self.status = get("status")
 		self.energy_now = get("energy_now", "charge_now") / 1000000
 		self.energy_full = get("energy_full", "charge_full") / 1000000
-		self.consumption = get("power_now") / 1000000
+		self.consumption = get("power_now", "current_now") / 1000000
 
