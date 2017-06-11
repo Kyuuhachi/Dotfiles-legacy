@@ -71,5 +71,6 @@ Imap -builtin <C-/> <Pass>
 
 set titlestring=
 set hlfind
+set urlsep='\|'
 
 " vim: ft=vim
