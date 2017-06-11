@@ -65,13 +65,14 @@ mvn() {
 
 ls() {
 	if [[ -t 1 ]]; then
-		=ls -F -x --color $@
+		=ls --color $@
 	else
 		=ls $@
 	fi
 }
 
 alias grep="grep --color"
+alias pacaur="pacaur --color always"
 #{{{1 Completion
 autoload -Uz compinit && compinit
 unsetopt menu_complete
@@ -106,8 +107,9 @@ zstyle ':completion:*:original' list-colors "=*=$color[red];$color[bold]"
 zstyle ':completion:*:processes' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 zstyle ':completion:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 
-zstyle ':completion:*:timidity:*' file-patterns '*(-/):directories *.midi#:all-files'
-zstyle ':completion:*:lilypond:*' file-patterns '*(-/):directories *.ly:all-files'
+compdef '_files -g "*"' play
+compdef '_files -g "*.midi#"' timidity
+compdef '_files -g "*.ly"' lilypond
 zstyle ':completion:*:cd:*' tag-order local-directories directory-stack path-directories
 
 
