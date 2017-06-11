@@ -23,7 +23,7 @@ class Battery(i3bar.Segment):
 
 		out = {}
 		out["full_text"] = text
-		if charge < 0.15: # Rounding
+		if charge < 0.105: # Rounding
 			out["urgent"] = True
 		return out
 
@@ -51,4 +51,3 @@ class BatteryStatus:
 		self.energy_now = get("energy_now", "charge_now") / 1000000
 		self.energy_full = get("energy_full", "charge_full") / 1000000
 		self.current = get("power_now", "current_now") / 1000000
-
