@@ -6,7 +6,6 @@ import dmenu
 import os.path
 import re
 from mpd import MPDClient
-from contextlib import contextmanager
 import threading
 
 __all__ = ["MPD"]
@@ -29,17 +28,6 @@ def gettitle(track):
 def quote(s):
 	return s.replace('&', "&amp;").replace('<', "&lt;").replace('>', "&gt;")
 
-@contextmanager
-def open():
-	mpd = MPDClient()
-	try:
-		mpd.connect(os.path.expanduser("~/.mpd/socket"), None)
-	except:
-		pass
-	yield mpd
-	mpd.close()
-	mpd.disconnect()
-
 class MPD(i3bar.Segment):
 	def __init__(self, dmenu_color=None):
 		self.color = dmenu_color
@@ -53,6 +41,11 @@ class MPD(i3bar.Segment):
 
 	@property
 	def mpd(self):
+		if hasattr(self._mpd, "mpd"):
+			try:
+				self._mpd.mpd.status()
+			except BrokenPipeError:
+				del self._mpd.mpd
 		if not hasattr(self._mpd, "mpd"):
 			self._mpd.mpd = MPDClient()
 			self._mpd.mpd.connect(os.getenv("MPD_HOST", "localhost"), os.getenv("MPD_PORT", None))
@@ -66,6 +59,8 @@ class MPD(i3bar.Segment):
 
 	def getOutput(self):
 		status = self.mpd.status()
+		if status["state"] not in ["play", "pause"]:
+			return None
 		currentsong = self.mpd.currentsong()
 		title = gettitle(currentsong)
 		progress = len(title) * float(status["elapsed"]) / float(status["duration"])
