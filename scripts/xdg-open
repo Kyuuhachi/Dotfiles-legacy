@@ -71,6 +71,7 @@ def match(path):
 	return inode_ + magic_hi + globs_ + magic_lo + [basic]
 
 argp = argparse.ArgumentParser()
+argp.add_argument("-n", "--dry-run", action="store_true")
 argp.add_argument("file")
 args = argp.parse_args()
 
@@ -133,7 +134,8 @@ for m in nub(checked):
 print("Command:")
 print(" ", cmd)
 
-if not cmd:
-	cmd = ["notify-send", "Don't know how to handle %s file" % checked, f]
+if not args.dry_run:
+	if not cmd:
+		cmd = ["notify-send", "Don't know how to handle %s file" % checked, f]
 
-os.execvp(cmd[0], cmd)
+	os.execvp(cmd[0], cmd)
