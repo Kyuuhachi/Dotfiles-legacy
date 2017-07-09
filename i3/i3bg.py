@@ -1,12 +1,9 @@
-#!/usr/bin/env python3
 import Xlib.threaded
 import Xlib
 import Xlib.display
-from Xlib import Xatom, X
+from Xlib import Xatom
 import i3ipc.i3ipc as i3ipc
 import subprocess
-import colorsys
-import random
 
 i3ipc.WorkspaceEvent = lambda data, conn: data
 i3ipc.GenericEvent = lambda data: data
@@ -35,14 +32,19 @@ c = {
 }
 
 def hsv2rgb(h, s, v):
-	rgb = colorsys.hsv_to_rgb(h % 1, s % 1, v % 1)
+	import colorsys
+	rgb = colorsys.hsv_to_rgb(h % 1, s, v)
 	return int(rgb[0] * 0xFF) << 16 | int(rgb[1] * 0xFF) << 8 | int(rgb[2] * 0xFF)
 
 def mkrand(seed):
-	seed = sum(map(ord, seed), 29)
-	rand = random.Random(seed)
-	hue = rand.random()
-	return hue, rand
+	import random
+	return random.Random(mkseed(seed))
+
+def mkseed(seed):
+	import platform
+	import os
+	import pwd
+	return sum(map(ord, "{user}@{host}:{seed}".format(host=platform.node(), user=pwd.getpwuid(os.getuid()), seed=seed))) % (1 << 32)
 
 def change_workspace(name):
 	display = Xlib.display.Display()
@@ -50,45 +52,26 @@ def change_workspace(name):
 	root = screen.root
 
 	w, h = screen.width_in_pixels, screen.height_in_pixels
-
-	if (name, w, h) not in backgrounds:
-		hue, rand = mkrand(name)
-		backgrounds[name, w, h] = gen_bg(root.create_pixmap(w, h, screen.root_depth), hue, rand)
-	id = backgrounds[name, w, h].id
-	root.change_property(display.get_atom("_XROOTPMAP_ID"), Xatom.PIXMAP, 32, [id])
-	root.change_property(display.get_atom("ESETROOT_PMAP_ID"), Xatom.PIXMAP, 32, [id])
-	root.change_attributes(background_pixmap=id)
-	display.sync()
+	try:
+		hue = int(name)/10+1/3
+	except:
+		hue = mkrand(name).random()
 
 	if name not in colors:
-		hue, rand = mkrand(name)
 		colors[name] = gen_colors(hue)
 	proc = subprocess.Popen(["xrdb", "-merge"], stdin=subprocess.PIPE)
 	proc.communicate(input=colors[name].encode())
 	proc.wait()
 	i3.command("reload")
 
-def gen_bg(pixmap, hue, rand):
-	from scipy.spatial import Voronoi
-	geom = pixmap.get_geometry()
-	w, h = geom.width, geom.height
-
-	border = [(w // 2, 0 - h), (w // 2, h + h), (0 - w, h // 2), (w + w, h // 2)]
-	points = border + [(rand.random() * w, rand.random() * h) for _ in range(160)]
-	vor = Voronoi(points)
-	polys = [[(int(v[0]), int(v[1])) for v in vor.vertices[region]] for region in vor.regions]
-
-	def randcolor(rand, hue):
-		h = (rand() * 2 - 1) / 360 * 12
-		s = rand() * 0.8 + 0.2
-		v = rand() * 0.8 + 0.2
-		return hsv2rgb(hue + h, s, v)
-
-	paint = pixmap.create_gc()
-	for verts in polys:
-		paint.change(foreground=randcolor(rand.random, hue))
-		pixmap.fill_poly(paint, X.Convex, X.CoordModeOrigin, verts)
-	return pixmap
+	if (name, w, h) not in backgrounds:
+		backgrounds[name, w, h] = root.create_pixmap(w, h, screen.root_depth)
+		gen_bg(backgrounds[name, w, h], hue, name)
+	id = backgrounds[name, w, h].id
+	root.change_property(display.get_atom("_XROOTPMAP_ID"), Xatom.PIXMAP, 32, [id])
+	root.change_property(display.get_atom("ESETROOT_PMAP_ID"), Xatom.PIXMAP, 32, [id])
+	root.change_attributes(background_pixmap=id)
+	display.sync()
 
 def gen_colors(hue):
 	colormap = []
@@ -96,15 +79,19 @@ def gen_colors(hue):
 		colormap.append("%s:#%06X" % (k, hsv2rgb(hue, s, v)))
 	return "\n".join(colormap)
 
-for output in i3.get_outputs():
-	if output["current_workspace"]:
-		change_workspace(output["current_workspace"])
+def gen_bg(pixmap, hue, name):
+	raise NotImplemented
 
+def register(gen_bg):
+	globals()["gen_bg"] = gen_bg
 
-def workspace_event(i3, evt):
-	if evt["change"] != "focus":
-		return
-	change_workspace(evt["current"]["name"])
-i3.on("workspace", workspace_event)
-i3.subscriptions = 0xFF
-i3.main()
+	for output in i3.get_outputs():
+		if output["current_workspace"]:
+			change_workspace(output["current_workspace"])
+	def workspace_event(i3, evt):
+		if evt["change"] != "focus":
+			return
+		change_workspace(evt["current"]["name"])
+	i3.on("workspace", workspace_event)
+	i3.subscriptions = 0xFF
+	i3.main()
