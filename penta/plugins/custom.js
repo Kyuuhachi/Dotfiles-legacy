@@ -24,6 +24,6 @@
 		}
 	};
 
-	let $ = document.getElementById.bind(document);
-	$("dactyl-addon-bar").append($("PanelUI-button"));
+	let $ = document.querySelector.bind(document); // Really primitive implementation of jQuery
+	$("#dactyl-addon-bar").append($("#PanelUI-button"));
 })();
