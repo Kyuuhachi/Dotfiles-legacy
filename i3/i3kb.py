@@ -121,6 +121,13 @@ def backlight(mode):
 			run("xbacklight -set %d -time 0" % states[idx])()
 	return f
 
+toggle_cmd = """
+window=$(xprop -root -notype _NET_ACTIVE_WINDOW | pcregrep -xo1 '_NET_ACTIVE_WINDOW: window id # (?!0x0)(0x[0-9a-f]+)') || exit
+pid=$(xprop -id $window -notype _NET_WM_PID | pcregrep -xo1 '_NET_WM_PID = (\d+)') || exit
+state=$(ps --no-headers -o state $pid) || exit
+kill -$([[ $state == T ]] && echo CONT || echo STOP) $pid
+"""
+
 keys = {
 	None: {
 		"XF86_MonBrightnessUp":   backlight(+1),
@@ -139,6 +146,7 @@ keys = {
 
 		"w-x": i3("kill"),
 		"w-s-x": i3("focus parent;" * 10 + "kill"),
+		"w-p": run(toggle_cmd),
 
 		"w-f": i3("fullscreen"),
 		"w-a": i3("focus parent"),
