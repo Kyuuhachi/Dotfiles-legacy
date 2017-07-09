@@ -138,7 +138,7 @@ keys = {
 
 		"w-Print":   run("scrot    '%Y-%m-%d_%H-%M-%S.png' -e 'mv $f ~/Screenshots'"),
 		"w-a-Print": run("scrot -u '%Y-%m-%d_%H-%M-%S.png' -e 'mv $f ~/Screenshots'"),
-		"w-s-Print": run("sleep 0.5; scrot -s '%Y-%m-%d_%H-%M-%S.png' -e 'mv $f ~/Screenshots'"),
+		"w-s-Print": run("sleep 0.1; scrot -s '%Y-%m-%d_%H-%M-%S.png' -e 'mv $f ~/Screenshots'"),
 
 		"w-Return": i3("exec --no-startup-id x-terminal-emulator"),
 		"w-d": i3("exec --no-startup-id dmenu_run"),
