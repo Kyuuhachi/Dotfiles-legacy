@@ -34,6 +34,7 @@ i3bar.add(s.Feeds([
 	s.FFNFeed("AEA", 11146312), # HP+Poke, An Epic Adventure
 	s.FFNFeed("HP&G", 11950816), # HP, Harry Potter & the Game
 	s.FFNFeed("LoJ", 10364015), # Poke, Legends of Johto (changing)
+	s.FFNFeed("TFB", 10666740), # Poke, The Final Battle
 ]))
 
 i3bar.add(s.MPD(dmenu_color="#00AF5F"))
