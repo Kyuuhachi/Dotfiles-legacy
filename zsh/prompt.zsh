@@ -26,9 +26,19 @@ prompt_status() {
 		pid=$(echo -n $(ps -o ppid= -p $pid))
 	done
 	printf "%$((n-1))s" ""
-	echo -n "%(?..%{%F{red}%}✘)" # Status code
-	echo -n "%(!.%{%F{yellow}%}#.)" # Root
-	echo -n "%(1j.%{%F{cyan}%}⚙.)" # Jobs
+
+	icons=()
+	if [[ $RETVAL == 130 || $RETVAL == 131 ]]; then
+		icons=($icons "%{%F{yellow}%}") # SIGINT and SIGQUIt
+	elif [[ $RETVAL == 148 ]]; then
+		icons=($icons "%{%F{blue}%}") # SIGTSTOP
+	elif [[ $RETVAL != 0 ]]; then
+		icons=($icons "%{%F{red}%}")
+	fi
+	[[ $(jobs -s | wc -l) -gt 0 ]] && icons=($icons "%{%F{cyan}%}") # Suspended jobs
+	[[ $(jobs -r | wc -l) -gt 0 ]] && icons=($icons "%{%F{green}%}") # Running jobs
+	# Possibly %{%F{yellow}%} for root
+	echo -n ${(j. .)icons}
 }
 
 prompt_context() {
