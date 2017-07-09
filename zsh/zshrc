@@ -35,7 +35,7 @@ locd() {
 }
 
 alias locate="locate --basename"
-alias sudo="sudo env HOME=$HOME"
+alias sudo="sudo env HOME=$HOME "
 alias su="sudo $SHELL"
 alias git="git --no-pager"
 
