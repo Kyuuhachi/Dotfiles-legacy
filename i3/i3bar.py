@@ -5,10 +5,9 @@ import i3bar.seg as s
 import i3bar
 
 i3bar.add(s.Clock())
-i3bar.add(s.Updates(s.Pacaur))
-i3bar.add(s.Temp())
-i3bar.add(s.Battery())
-i3bar.add(s.Network())
+i3bar.add(s.Battery("/sys/class/power_supply/BAT0"))
+i3bar.add(s.Temp("coretemp-isa-0000", "Package id 0", 45))
+i3bar.add(s.Network("wlan0"))
 i3bar.add(s.Ram())
 i3bar.add(s.CpuGraph())
 i3bar.add(s.Volume())

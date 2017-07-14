@@ -3,11 +3,12 @@ import basiciw
 
 __all__ = ["Network"]
 class Network(i3bar.Segment):
-	name = "wlan0"
+	def __init__(self, interface):
+		self.interface = interface
 
 	def getOutput(self):
 		out = {}
-		ssid = basiciw.iwinfo(self.name)["essid"]
+		ssid = basiciw.iwinfo(self.interface)["essid"]
 		if ssid == "":
 			ssid = "DOWN"
 			out["urgent"] = True

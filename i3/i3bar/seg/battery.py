@@ -1,12 +1,14 @@
 import i3bar
+import os.path
 import time
 
 __all__ = ["Battery"]
 class Battery(i3bar.Segment):
-	file = "/sys/class/power_supply/BAT0/uevent"
+	def __init__(self, path):
+		self.path = os.path.join(path, "uevent")
 
 	def getOutput(self):
-		battery = BatteryStatus(self.file)
+		battery = BatteryStatus(self.path)
 		charge = battery.energy_now / battery.energy_full
 		text = "{}{:.0f}%".format([" ", " ", " ", " ", " "][min(int(charge * 5), 4)], 100 * charge)
 
