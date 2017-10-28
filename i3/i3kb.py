@@ -135,10 +135,14 @@ keys = {
 		"XF86_AudioMute":         run("pactl set-sink-mute @DEFAULT_SINK@ toggle"),
 		"XF86_AudioRaiseVolume":  run("pactl set-sink-volume @DEFAULT_SINK@ +5%"),
 		"XF86_AudioLowerVolume":  run("pactl set-sink-volume @DEFAULT_SINK@ -5%"),
+		"w-Romaji":               run("kanjidraw"),
 
 		"w-Print":   run("scrot    '%Y-%m-%d_%H-%M-%S.png' -e 'mv $f ~/Screenshots'"),
 		"w-a-Print": run("scrot -u '%Y-%m-%d_%H-%M-%S.png' -e 'mv $f ~/Screenshots'"),
 		"w-s-Print": run("sleep 0.1; scrot -s '%Y-%m-%d_%H-%M-%S.png' -e 'mv $f ~/Screenshots'"),
+		"w-c-Print":   run("scrot    '%Y-%m-%d_%H-%M-%S.png' -e 'dragon $f; mv $f ~/Screenshots'"),
+		"w-c-a-Print": run("scrot -u '%Y-%m-%d_%H-%M-%S.png' -e 'dragon $f; mv $f ~/Screenshots'"),
+		"w-c-s-Print": run("sleep 0.1; scrot -s '%Y-%m-%d_%H-%M-%S.png' -e 'dragon $f; mv $f ~/Screenshots'"),
 
 		"w-Return": i3("exec --no-startup-id x-terminal-emulator"),
 		"w-d": i3("exec --no-startup-id dmenu_run"),
@@ -185,24 +189,18 @@ keys = {
 		"w-s-j": i3("move down"),
 		"w-s-k": i3("move up"),
 		"w-s-l": i3("move right"),
+		"w-s-m": i3("move position center"),
 
-		"w-r": mode("resize"),
-	},
-	"resize": {
-		"<name>": "Resize",
-		"<extends>": None,
+		"w-c-h": i3("resize shrink width  10 px"),
+		"w-c-j": i3("resize grow   height 10 px"),
+		"w-c-k": i3("resize shrink height 10 px"),
+		"w-c-l": i3("resize grow   width  10 px"),
+		"w-c-m": i3("move position center"),
 
-		"h": i3("resize shrink width  10 px"),
-		"j": i3("resize grow   height 10 px"),
-		"k": i3("resize shrink height 10 px"),
-		"l": i3("resize grow   width  10 px"),
-
-		"s-h": i3("resize shrink width  1 px"),
-		"s-j": i3("resize grow   height 1 px"),
-		"s-k": i3("resize shrink height 1 px"),
-		"s-l": i3("resize grow   width  1 px"),
-
-		"Escape": mode(None)
+		"w-c-s-h": i3("resize shrink width  1 px"),
+		"w-c-s-j": i3("resize grow   height 1 px"),
+		"w-c-s-k": i3("resize shrink height 1 px"),
+		"w-c-s-l": i3("resize grow   width  1 px"),
 	}
 }
 
