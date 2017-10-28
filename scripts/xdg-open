@@ -48,11 +48,11 @@ def match_basic(path):
 		return "application/octet-stream"
 
 def match(path):
-	globs = []
+	glob = []
 	magic = []
 	inode = None
 	basic = None
-	try: globs = match_globs(path)
+	try: glob = match_globs(path)
 	except OSError: pass
 	try: magic = match_magic(path)
 	except OSError: pass
@@ -61,14 +61,14 @@ def match(path):
 	try: basic = match_basic(path)
 	except OSError: pass
 
-	print(globs, magic, inode, basic)
+	print(f"glob={glob}, magic={magic}, inode={inode}, basic={basic}")
 
 	if inode: return [inode]
 	inode_ = [inode] if inode else []
 	magic_hi = [m[1] for m in magic if m[0] >= 80]
 	magic_lo = [m[1] for m in magic if m[0] < 80]
-	globs_ = [m[1] for m in globs]
-	return inode_ + magic_hi + globs_ + magic_lo + [basic]
+	glob_ = [m[1] for m in glob]
+	return inode_ + magic_hi + glob_ + magic_lo + [basic]
 
 argp = argparse.ArgumentParser()
 argp.add_argument("-n", "--dry-run", action="store_true")
@@ -87,7 +87,7 @@ else:
 run = {}
 with open(os.path.expanduser("~/dot/mime.cfg")) as mimelist:
 	cmd = None
-	for line in mimelist.read().splitlines(): # type: str
+	for line in mimelist.read().splitlines():
 		if line == line.lstrip():
 			cmd = line.split()
 			for i, word in enumerate(cmd):
@@ -99,7 +99,7 @@ with open(os.path.expanduser("~/dot/mime.cfg")) as mimelist:
 			run[line.lstrip()] = cmd
 
 def nub(seq):
-	return list(dict.fromkeys(seq)) # Only in 3.6
+	return list(dict.fromkeys(seq)) # Only works in 3.6
 
 def first(seq):
 	try:
@@ -124,6 +124,7 @@ def get(mime):
 	])
 
 
+print(f"Opening '{f}'")
 cmd = first([get(m) for m in mime])
 print("Possible mime types:")
 for m in nub(mime):

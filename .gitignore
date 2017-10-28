@@ -1,5 +1,4 @@
 __pycache__
 nvim/.netrwhist
 nvim/bundle/*
-zsh/zsh-*
-venv
+zsh/plug/*

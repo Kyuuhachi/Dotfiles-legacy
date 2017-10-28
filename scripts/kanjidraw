@@ -1,0 +1,293 @@
+#!/usr/bin/env python3
+from PyQt5.QtCore import Qt, QThread, pyqtSignal, QPointF, QRectF
+from PyQt5.QtWidgets import QApplication, QWidget
+from PyQt5.QtGui import QColor, QPen, QFont, QPainter
+
+import evdev
+import evdev.ecodes as e
+import select
+
+import urllib.request
+import json
+
+import Xlib.X
+import Xlib.display
+import time
+
+STROKE_WIDTH         = 4
+STROKE_COLOR         = QColor(0xE0, 0xE0, 0xE0)
+CURSOR_COLOR         = QColor(0x40, 0x40, 0xE0)
+CURSOR_SIZE          = 10
+CURRENT_STROKE_COLOR = QColor(0x90, 0x90, 0xE0)
+
+BUTTON_FONT_SIZE     = 1/10
+BUTTON_BORDER_WIDTH  = 4
+BUTTON_BORDER        = QColor(0x30, 0x30, 0x30)
+BUTTON_TEXT          = STROKE_COLOR
+INACTIVE_BG          = QColor(0x5F, 0x5F, 0x5F, 0x7F)
+
+SUGGESTION_BG        = QColor(0x00, 0x7F, 0x00, 0x7F)
+SUGGESTION_FONT      = "KanjiStrokeOrders"
+UNDO_BG              = QColor(0x00, 0x00, 0x7F, 0x7F)
+UNDO_ICON            = ("FontAwesome", "")
+CLOSE_BG             = QColor(0x7F, 0x00, 0x00, 0x7F)
+CLOSE_ICON           = ("FontAwesome", "")
+
+class TouchpadEvents(QThread): # {{{1
+	event = pyqtSignal(dict, float, float)
+
+	def __init__(self):
+		super().__init__()
+		self.running = True
+
+	def stop(self):
+		self.running = False
+
+	def run(self):
+		dev = None
+		for device in map(evdev.InputDevice, evdev.list_devices()):
+			n = device.name.lower()
+			if "touchpad" in n or "synaptics" in n:
+				dev = device
+		if dev is None:
+			raise Exception("No touchpad detected!")
+
+		state = False
+		caps = dict(dev.capabilities()[e.EV_ABS])
+		X, Y = caps[e.ABS_X], caps[e.ABS_Y]
+		x, minx, maxx = X.value, X.min, X.max
+		y, miny, maxy = X.value, Y.min, Y.max
+		touch, click = None, None
+		while self.running:
+			if dev in select.select([dev], [], [], 0.01)[0]:
+				for event in dev.read():
+					if (event.type, event.code, event.value) == (e.EV_SYN, e.SYN_REPORT, 0):
+						if touch is not None:
+							state = touch
+						if state or touch is not None or click is not None:
+							X = (x-minx)/(maxx-minx)
+							Y = (y-miny)/(maxy-miny)
+							self.event.emit({"touch": touch, "click": click}, X, Y)
+						touch, click = None, None
+					elif event.type == e.EV_ABS:
+						if event.code == e.ABS_X:
+							x = event.value
+						elif event.code == e.ABS_Y:
+							y = event.value
+					elif event.type == e.EV_KEY:
+						if event.code == e.BTN_TOUCH:
+							touch = bool(event.value)
+						elif event.code == e.BTN_MOUSE:
+							click = bool(event.value)
+		dev.ungrab()
+
+class KanjiThread(QThread): # {{{1
+	def __init__(self, callback, strokes):
+		super().__init__()
+		self.callback = callback
+		self.strokes = strokes
+
+	def run(self):
+		url = "https://www.google.com/inputtools/request?ime=handwriting"
+		data = {
+			"requests": [{
+				"writing_guide": {
+					"writing_area_width": 1,
+					"writing_area_height": 1,
+				},
+				"language": "ja",
+				"ink": [list(zip(*stroke)) for stroke in self.strokes],
+			}]
+		}
+		req = urllib.request.Request(url, data=json.dumps(data).encode(), headers={'content-type': 'application/json'})
+		resp = json.loads(urllib.request.urlopen(req).read())
+		self.callback(resp[1][0][1])
+
+def type_char(char, keycode=255): # {{{1
+	if isinstance(char, str):
+		char = ord(char)
+
+	keysym = char | 0x01000000
+	if 0x80 <= char <= 0xFF:
+		keysym = char
+	if chr(char) in "\r\n\t\x1B":
+		keysym = 0xFF00 | char
+	display = Xlib.display.Display()
+	display.change_keyboard_mapping(keycode, [(keysym,) * 8])
+	display.sync()
+	time.sleep(0.01)
+	display.xtest_fake_input(Xlib.X.KeyPress, keycode)
+	display.xtest_fake_input(Xlib.X.KeyRelease, keycode)
+	display.sync()
+
+class Button: # {{{1
+	def __init__(self, x1, y1, x2, y2, *, color, font, text, enabled, callback):
+		def f(a):
+			return a if callable(a) else lambda: a
+		self.x1 = x1
+		self.y1 = y1
+		self.x2 = x2
+		self.y2 = y2
+		self.color = f(color)
+		self.font = f(font)
+		self.text = f(text)
+		self.enabled = f(enabled)
+		self.callback = callback
+
+	def isHovered(self, mx, my):
+		return mx and my and self.x1 < mx < self.x2 and self.y1 < my < self.y2
+
+	def draw(self, gfx, mx, my, w, h):
+		rect = QRectF(self.x1*w, self.y1*h, (self.x2-self.x1)*w, (self.y2-self.y1)*h)
+		enabled = self.enabled()
+		color = self.color()
+		text = self.text()
+		font = self.font()
+		hover = self.isHovered(mx, my)
+
+		fillc = INACTIVE_BG if not enabled else (color.lighter(120) if hover else color)
+		gfx.fillRect(rect, fillc)
+		gfx.setPen(QPen(BUTTON_BORDER, BUTTON_BORDER_WIDTH))
+		gfx.drawRect(rect)
+
+		if font and text:
+			gfx.setPen(QPen(BUTTON_TEXT))
+			gfx.setFont(QFont(font, h*BUTTON_FONT_SIZE))
+			gfx.drawText(rect, Qt.AlignCenter, text)
+
+class Draw(QWidget): # {{{1
+	def __init__(self):
+		super().__init__()
+		self.tp = TouchpadEvents()
+		self.tp.event.connect(self._tpEvent)
+
+		self._kanjiThread = None
+
+		self.strokes = []
+		self._pos = None
+		self._ppos = None
+		self._points = None
+		self._isDrawing = False
+		self.suggestions = []
+
+		self.buttons = []
+		self.buttons.append(Button(0,   0,    0.5, 0.15, color=UNDO_BG,       font=UNDO_ICON[0],    text=UNDO_ICON[1],       enabled=lambda: len(self.strokes),          callback=self._undo))
+		self.buttons.append(Button(0.5, 0,    1,   0.15, color=CLOSE_BG,      font=CLOSE_ICON[0],   text=CLOSE_ICON[1],      enabled=True,                               callback=self.close))
+		self.buttons.append(Button(0.0, 0.85, 0.3, 1,    color=SUGGESTION_BG, font=SUGGESTION_FONT, text=self._sugGetter(1), enabled=lambda: len(self.suggestions) > 1, callback=self._sugAccept(1)))
+		self.buttons.append(Button(0.3, 0.80, 0.7, 1,    color=SUGGESTION_BG, font=SUGGESTION_FONT, text=self._sugGetter(0), enabled=lambda: len(self.suggestions) > 0, callback=self._sugAccept(0)))
+		self.buttons.append(Button(0.7, 0.85, 1.0, 1,    color=SUGGESTION_BG, font=SUGGESTION_FONT, text=self._sugGetter(2), enabled=lambda: len(self.suggestions) > 2, callback=self._sugAccept(2)))
+
+	def _undo(self):
+		self.strokes.pop()
+		self.updateSuggestions()
+
+	def _sugAccept(self, n):
+		def f():
+			for ch in self.suggestions[n]:
+				type_char(ch)
+			self.strokes.clear()
+		return f
+
+	def _sugGetter(self, n):
+		def f():
+			if n < len(self.suggestions):
+				return self.suggestions[n]
+			return None
+		return f
+
+	def showEvent(self, e):
+		self.tp.start()
+
+	def hideEvent(self, event):
+		self.tp.stop()
+
+	def updateSuggestions(self):
+		self._suggestions([])
+		if self._kanjiThread and self._kanjiThread.isRunning():
+			self._kanjiThread.terminate()
+		if self.strokes:
+			self._kanjiThread = KanjiThread(self._suggestions, self.strokes)
+			self._kanjiThread.start()
+
+	def _suggestions(self, suggestions):
+		self.suggestions = suggestions
+		self.update()
+
+	def _tpEvent(self, events, x, y):
+		touch = events.get("touch")
+		click = events.get("click")
+		self._pos = (x, y)
+		if click is False and self._isDrawing:
+			self._isDrawing = False
+			self._ppos = None
+			self._addPos()
+			self.strokes.append(self._points)
+			self._points = None
+			self.updateSuggestions()
+		if touch is False:
+			self._pos = None
+		else:
+			for button in self.buttons:
+				if click is True and button.isHovered(x, y):
+					if button.enabled():
+						button.callback()
+					break
+			else:
+				if click is True:
+					self._isDrawing = True
+				if self._isDrawing:
+					self._addPos()
+		self.update()
+
+	def _addPos(self):
+		if self._ppos is None or (self._pos[0] - self._ppos[0])**2 + (self._pos[1] - self._ppos[1])**2 > 0.01**2:
+			if self._points is None:
+				self._points = []
+			self._points.append(self._pos)
+			self.update()
+			self._ppos = self._pos
+
+	def paintEvent(self, event):
+		def point(x, y, *, w=self.width(), h=self.height()):
+			return QPointF(x*w, y*h)
+
+		gfx = QPainter()
+		gfx.begin(self)
+		gfx.setRenderHints(QPainter.HighQualityAntialiasing)
+
+		strokeOutlinePen = QPen(Qt.black, STROKE_WIDTH+2, cap=Qt.RoundCap, join=Qt.RoundJoin)
+		strokePen = QPen(STROKE_COLOR, STROKE_WIDTH, cap=Qt.RoundCap, join=Qt.RoundJoin)
+		for stroke in self.strokes:
+			if stroke:
+				gfx.setPen(strokeOutlinePen)
+				gfx.drawPolyline(*(point(x, y) for x, y in stroke))
+				gfx.setPen(strokePen)
+				gfx.drawPolyline(*(point(x, y) for x, y in stroke))
+
+		strokePen.setColor(CURRENT_STROKE_COLOR)
+		if self._pos and self._points:
+			gfx.setPen(strokeOutlinePen)
+			gfx.drawPolyline(*(point(x, y) for x, y in self._points), point(*self._pos))
+			gfx.setPen(strokePen)
+			gfx.drawPolyline(*(point(x, y) for x, y in self._points), point(*self._pos))
+
+		for button in self.buttons:
+			button.draw(gfx, self._pos[0] if self._pos else None, self._pos[1] if self._pos else None, self.width(), self.height())
+
+		if self._pos:
+			gfx.setPen(QPen(CURSOR_COLOR, CURSOR_SIZE, cap=Qt.RoundCap))
+			gfx.drawPoint(point(*self._pos))
+
+		gfx.end()
+
+if __name__ == '__main__': # {{{1
+	import sys
+	app = QApplication(sys.argv)
+	win = Draw()
+	win.setWindowFlags(Qt.X11BypassWindowManagerHint)
+	win.setAttribute(Qt.WA_TranslucentBackground)
+	win.setCursor(Qt.BlankCursor)
+	win.setGeometry(QApplication.desktop().availableGeometry())
+	# win.move(QApplication.desktop().availableGeometry().center() - win.rect().center())
+	win.show()
+	sys.exit(app.exec_())

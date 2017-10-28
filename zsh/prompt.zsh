@@ -99,8 +99,9 @@ build_rprompt() {
 }
 
 setopt promptsubst
-PROMPT='%{%f%b%k%}$(build_prompt)'
-RPROMPT='%{%f%b%k%}$(build_rprompt)'
+_PROMPT_RESET=$'%{\e[0m%}'
+PROMPT=$_PROMPT_RESET'$(build_prompt)'
+RPROMPT=$_PROMPT_RESET'$(build_rprompt)'
 
 function _reset-prompt-and-accept-line {
 	_SENDING=1

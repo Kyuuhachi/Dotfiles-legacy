@@ -1,4 +1,11 @@
 #!/bin/zsh
+[[ -f ~/.profile ]] && source ~/.profile
+autoload -Uz add-zsh-hook
+zsh_path="$(print -P %N)"
+zsh_path=$zsh_path:A:h
+
+fpath=($zsh_path/comp $fpath)
+
 #{{{1 History
 setopt histignorealldups
 HISTSIZE=1000000
@@ -9,7 +16,8 @@ autoload -Uz colors && colors
 autoload -U zmv && alias zmv="noglob zmv"
 
 setopt extendedglob interactivecomments autocd
-setopt auto_continue
+setopt auto_continue noflowcontrol
+
 WORDCHARS='*?_-.[]~=&;!#$%^(){}<>' # exclude '/' for backward-kill-word
 REPORTTIME=3 # report elapsed time (> 3 sec.)
 
@@ -42,11 +50,24 @@ alias git="git --no-pager"
 alias o=xdg-open
 alias \$= # Allows copying scripts with $ prompts
 
-for c in cp rm chmod chown rename; do
+for c in cp rm mv chmod chown rename; do
 	alias $c="$c -v"
 done
 
 s=car0b1nius@muncher.se
+
+reentry_hook() {
+	if [[ $(stat -c "%h" .) -eq 0 ]]; then
+		if [[ -d $PWD ]]; then
+			echo "PWD recreated"
+			builtin cd .
+		else
+			echo "PWD nonexistent!"
+		fi
+	fi
+}
+add-zsh-hook preexec reentry_hook
+
 #{{{1 Color and formatting
 export LESS_TERMCAP_mb=$(printf "$fg[red]")
 export LESS_TERMCAP_md=$(printf "$fg[blue]")
@@ -63,32 +84,21 @@ mvn() {
 		-e "s/^\[ERROR]/${fg[red]}${bold_color}&${reset_color}/i"
 }
 
-ls() {
-	if [[ -t 1 ]]; then
-		=ls --color $@
-	else
-		=ls $@
-	fi
-}
-
-alias grep="grep --color"
-alias pacaur="pacaur --color always"
+eval "$(dircolors -b)"
+alias ls="ls --color=auto -F"
+alias grep="grep --color=auto"
+alias pacaur="pacaur --color=auto"
 #{{{1 Completion
 autoload -Uz compinit && compinit
-unsetopt menu_complete
-unsetopt flowcontrol
-setopt auto_menu
 setopt complete_in_word
 setopt always_to_end
-WORDCHARS=''
 zmodload -i zsh/complist
-eval "$(dircolors -b)"
 
 alias zstyle="noglob zstyle"
 zstyle ':completion:*' format "%B%F{yellow}%U%d%f%b%u"
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*' list-colors ''
-zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}'
 zstyle ':completion:*' list-prompt '%SAt %p: Hit TAB for more, or the character to insert%s'
 zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %p%s'
 zstyle ':completion:*' use-compctl false
@@ -107,24 +117,36 @@ zstyle ':completion:*:original' list-colors "=*=$color[red];$color[bold]"
 zstyle ':completion:*:processes' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 zstyle ':completion:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 
-compdef '_files -g "*"' play
-compdef '_files -g "*.midi#"' timidity
-compdef '_files -g "*.ly"' lilypond
-zstyle ':completion:*:cd:*' tag-order local-directories directory-stack path-directories
-
-
 zstyle ':completion:*:*:*:users' ignored-patterns \
-	adm amanda apache avahi beaglidx bin cacti canna clamav daemon \
-	dbus distcache dovecot fax ftp games gdm gkrellmd gopher \
-	hacluster haldaemon halt hsqldb ident junkbust ldap lp mail \
-	mailman mailnull mldonkey mysql nagios \
-	named netdump news nfsnobody nobody nscd ntp nut nx openvpn \
-	operator pcap postfix postgres privoxy pulse pvm quagga radvd \
-	rpc rpcuser rpm shutdown squid sshd sync uucp vcsa xfs \
-	systemd-*
+	adm amanda apache avahi beaglidx bin cacti canna clamav daemon dbus \
+	distcache dovecot fax ftp games gdm gkrellmd gopher hacluster haldaemon \
+	halt hsqldb ident junkbust ldap lp mail mailman mailnull mldonkey mysql \
+	nagios named netdump news nfsnobody nobody nscd ntp nut nx openvpn \
+	operator pcap postfix postgres privoxy pulse pvm quagga radvd rpc rpcuser \
+	rpm shutdown squid sshd sync uucp vcsa xfs systemd-*
+
+autoload -U regexp-replace
+setopt re_match_pcre
+
+function _list_files() {
+	local f output
+
+	listfiles=()
+	listopts=()
+
+	output="$(cd ${2:-.} && ls -dlU --color=always ${(PQ)1})"$'\n'
+	regexp-replace output '\[0m(?!\n)' ''
+	regexp-replace output '\[00;' '['
+	listfiles=(${(f)output})
+
+	(( ${#listfiles} )) && listopts=(-o -l -d listfiles)
+
+	return 0
+}
 
 #{{{1 Large custom scripts
 source ~/dot/zsh/prompt.zsh
+
 #{{{1 ZLE
 bindkey -e
 function ctrl-z() {
@@ -135,6 +157,7 @@ function ctrl-z() {
 	}
 }
 zle -N ctrl-z
+bindkey "^Z" ctrl-z
 
 function expand-with-dots() {
 	print -Pn "%{%F{red}...%f%}" | nowrap
@@ -142,6 +165,7 @@ function expand-with-dots() {
 	zle redisplay
 }
 zle -N expand-with-dots
+bindkey "^@" expand-with-dots
 
 function complete-with-dots() {
 	print -Pn "%{%F{red}...%f%}" | nowrap
@@ -149,6 +173,7 @@ function complete-with-dots() {
 	zle redisplay
 }
 zle -N complete-with-dots
+bindkey "^I" complete-with-dots
 
 function rationalise-dot() {
 	if [[ $LBUFFER = *.. ]]; then
@@ -157,48 +182,44 @@ function rationalise-dot() {
 	zle self-insert
 }
 zle -N rationalise-dot
+bindkey "." rationalise-dot
 
 function nop() {}
 zle -N nop
 
-# Terminfo is wrong sometimes.
-bindkey -- "$terminfo[kich1]" overwrite-mode
-bindkey -- "$terminfo[kbs]"   backward-delete-char
-bindkey -- "$terminfo[kdch1]" delete-char
-bindkey -- "$terminfo[kcuu1]" up-line-or-search
-bindkey -- "$terminfo[kcud1]" down-line-or-search
-bindkey -- "$terminfo[kcub1]" backward-char
-bindkey -- "$terminfo[kcuf1]" forward-char
-bindkey -- "$terminfo[khome]" beginning-of-line
-bindkey -- "$terminfo[kend]"  end-of-line
-bindkey -- "$terminfo[kpp]"   nop
-bindkey -- "$terminfo[knp]"   nop
-bindkey "^[[2~"   overwrite-mode       # Insert
-bindkey "^?"      backward-delete-char # Backspace
-bindkey "^[^?"    backward-delete-word # A-Backspace
-bindkey "^[[3~"   delete-char          # Delete
-bindkey "^[[3;3~" delete-word          # A-Delete
-bindkey "^[[A"    up-line-or-search    # Up
-bindkey "^[[B"    down-line-or-search  # Down
-bindkey "^[[C"    forward-char         # Right
-bindkey "^[[D"    backward-char        # Left
-bindkey "^[[F"    end-of-line          # End
-bindkey "^[[H"    beginning-of-line    # Home
-bindkey "^[[5~"   nop                  # PgUp
-bindkey "^[[6~"   nop                  # PgDn
-bindkey "^Z" ctrl-z
-bindkey "^@" expand-with-dots
-bindkey "^I" complete-with-dots
-bindkey "." rationalise-dot
+#{{{1 Terminfo
+bindkey "^[[2~"   overwrite-mode       ; bindkey -- "$terminfo[kich1]" overwrite-mode       # Insert
+bindkey "^?"      backward-delete-char ; bindkey -- "$terminfo[kbs]"   backward-delete-char # Backspace
+bindkey "^[^?"    backward-delete-word ;                                                    # A-Backspace
+bindkey "^[[3~"   delete-char          ; bindkey -- "$terminfo[kdch1]" delete-char          # Delete
+bindkey "^[[3;3~" delete-word          ;                                                    # A-Delete
+bindkey "^[[A"    up-line-or-search    ; bindkey -- "$terminfo[kcuu1]" up-line-or-search    # Up
+bindkey "^[[B"    down-line-or-search  ; bindkey -- "$terminfo[kcud1]" down-line-or-search  # Down
+bindkey "^[[C"    forward-char         ; bindkey -- "$terminfo[kcub1]" backward-char        # Right
+bindkey "^[[D"    backward-char        ; bindkey -- "$terminfo[kcuf1]" forward-char         # Left
+bindkey "^[[F"    end-of-line          ; bindkey -- "$terminfo[khome]" beginning-of-line    # End
+bindkey "^[[H"    beginning-of-line    ; bindkey -- "$terminfo[kend]"  end-of-line          # Home
+bindkey "^[[5~"   nop                  ; bindkey -- "$terminfo[kpp]"   nop                  # PgUp
+bindkey "^[[6~"   nop                  ; bindkey -- "$terminfo[knp]"   nop                  # PgDn
 
-#{{{1 Syntax highlight
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
+#{{{1 Plugins
 
-typeset -A ZSH_HIGHLIGHT_STYLES
-ZSH_HIGHLIGHT_STYLES[alias]='fg=magenta,bold'
-ZSH_HIGHLIGHT_STYLES[path]='fg=cyan'
-ZSH_HIGHLIGHT_STYLES[single-hyphen-option]='fg=blue'
-ZSH_HIGHLIGHT_STYLES[double-hyphen-option]='fg=blue'
+function plug() {
+	source $zsh_path/plug/$1/*.plugin.zsh
+}
 
-ZSH_HIGHLIGHT_MAXLENGTH=1000
+plug history-search-multi-word
+zstyle ":history-search-multi-word" page-size 25
+zstyle ":history-search-multi-word" highlight-color "standout"
+
+plug fast-syntax-highlighting
+
+HIGHLIGHT=(
+	"alias"    "fg=magenta,bold"
+	"path"     "fg=cyan"
+	"variable" "fg=green,bold"
+)
+typeset -gA HSMW_HIGHLIGHT_STYLES
+typeset -gA FAST_HIGHLIGHT_STYLES
+HSMW_HIGHLIGHT_STYLES+=(${(kv)HIGHLIGHT})
+FAST_HIGHLIGHT_STYLES+=(${(kv)HIGHLIGHT})

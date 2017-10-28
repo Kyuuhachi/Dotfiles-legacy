@@ -38,13 +38,20 @@ Plugin 'junegunn/vim-easy-align'
 Plugin 'vim-scripts/JavaScript-Indent'
 Plugin 'mbbill/undotree'
 Plugin 'Vimjas/vim-python-pep8-indent'
-Plugin 'Shougo/deoplete.nvim'
 Plugin 'Shougo/denite.nvim'
 Plugin 'h1mesuke/unite-outline'
+
+Plugin 'Shougo/deoplete.nvim'
 Plugin 'Shougo/deoplete-zsh'
 Plugin 'Shougo/neco-vim'
 Plugin 'Shougo/neco-syntax'
 Plugin 'zchee/deoplete-jedi'
+
+" Plugin 'neovimhaskell/haskell-vim'
+Plugin 'itchyny/vim-haskell-indent'
+Plugin 'eagletmt/neco-ghc'
+Plugin 'eagletmt/ghcmod-vim'
+
 Plugin 'Caagr98/c98color.vim'
 Plugin 'Caagr98/c98ibus.vim'
 Plugin 'Caagr98/c98tabbar.vim'
@@ -70,10 +77,12 @@ set ignorecase smartcase
 set fileformats=unix,dos,mac
 set list listchars=tab:⟩\ ,trail:+,precedes:<,extends:>,space:·
 set number
+set shortmess=asWAIc
+set formatoptions=crqlmM1j
 set autochdir
 set scrolloff=7
-set nowrap
-set foldmethod=marker
+set nowrap linebreak
+set foldmethod=marker "foldcolumn=1
 set directory=~/.vim-swap//
 set backupdir=~/.vim-backup//
 set undofile undodir=~/.vim-undo//
@@ -83,7 +92,8 @@ set nojoinspaces
 
 set shell=zsh
 
-let g:polyglot_disabled = ['latex']
+let g:polyglot_disabled = []
+if !exists('g:deoplete#omni#input_patterns') | let g:deoplete#omni#input_patterns = {} | endif
 
 let g:splitjoin_split_mapping = ''
 let g:splitjoin_join_mapping = ''
@@ -94,40 +104,8 @@ let g:airline_powerline_fonts = 1
 let g:airline_inactive_collapse = 1
 let g:airline#parts#ffenc#skip_expected_string = 'utf-8[unix]'
 let g:airline#extensions#eclim#enabled = 1
-let g:airline#extensions#whitespace#checks = ['mixed-indent-file', 'trailing']
+let g:airline#extensions#whitespace#checks = ['trailing']
 let g:airline#extensions#whitespace#trailing_format = 'Trailing@%s'
-let g:airline#extensions#whitespace#mixed_indent_file_format = 'Wrong indent@%s'
-
-function! s:getSearchPos()
-	let curpos = getcurpos()
-	call setpos('.', [0, 0, 0, 0, 1])
-	let searches = []
-	while 1
-		let [l, c] = searchpos(@/, 'W'.(len(searches) == 0 ? 'c' : ''))
-		if l != 0
-			let searches += [[l, c]]
-		else
-			break
-		endif
-	endwhile
-	call setpos('.', curpos)
-	let idx = index(searches, getcurpos()[1:2]) + 1
-	return [idx, len(searches)]
-endfunction
-
-function! GetSearchPos()
-	let [n, N] = s:getSearchPos()
-	return n.'/'.N
-endfunction
-
-function! ShowSearchPos()
-	let [n, N] = s:getSearchPos()
-	return n != 0
-endfunction
-
-call airline#parts#define_function('searchpos', 'GetSearchPos')
-call airline#parts#define_condition('searchpos', 'ShowSearchPos()')
-let g:airline_section_x = airline#section#create_right(['searchpos', 'filetype'])
 
 set showtabline=2
 
@@ -138,15 +116,10 @@ inoremap <expr> <TAB> pumvisible() ? "<C-n>" : "<TAB>"
 inoremap <expr> <Down> pumvisible() ? "<C-n>" : "<Down>"
 inoremap <expr> <S-TAB> pumvisible() ? "<C-p>" : "<S-TAB>"
 inoremap <expr> <Up> pumvisible() ? "<C-p>" : "<Up>"
-inoremap <expr> <CR> pumvisible() ? "<C-y>" : "<CR>"
+inoremap <expr> <CR> pumvisible() ? "<C-y><CR>" : "<CR>"
 imap <NUL> <C-Space>
 inoremap <expr> <C-Space> deoplete#mappings#manual_complete()
-let g:deoplete#sources#jedi#show_docstring = 1
 let g:deoplete#auto_complete_start_length = 1
-let g:deoplete#ignore_sources = {'_': ['buffer', 'file', 'around']}
-
-map <silent> <C-k> <Plug>(ale_previous_wrap)
-map <silent> <C-j> <Plug>(ale_next_wrap)
 
 let g:textobj_entire_no_default_key_mappings = 1
 omap aE <Plug>(textobj-entire-a)
@@ -165,6 +138,8 @@ noremap <leader>s :%s/\s*$//<CR>
 nnoremap <leader>cc :call setreg(v:register, getreg(), "c")<CR>
 nnoremap <leader>cl :call setreg(v:register, getreg(), "l")<CR>
 nnoremap <leader>cb :call setreg(v:register, getreg(), "b")<CR>
+xmap <leader>a <Plug>(EasyAlign)
+nmap <leader>a <Plug>(EasyAlign)
 
 noremap H ^
 noremap L $
@@ -179,56 +154,77 @@ function! <SID>SynStack()
 	echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, ''name'')')
 endfunc
 
-" map <ScrollWheelUp>     <C-Y>
-" map <S-ScrollWheelUp>   <C-Y>
-" map <ScrollWheelDown>   <C-E>
-" map <S-ScrollWheelDown> <C-E>
-" map!<ScrollWheelUp>     <C-O><C-Y>
-" map!<S-ScrollWheelUp>   <C-O><C-Y>
-" map!<ScrollWheelDown>   <C-O><C-E>
-" map!<S-ScrollWheelDown> <C-O><C-E>
+map <ScrollWheelUp>     <C-Y>
+map <S-ScrollWheelUp>   <C-Y>
+map <ScrollWheelDown>   <C-E>
+map <S-ScrollWheelDown> <C-E>
+map!<ScrollWheelUp>     <C-O><C-Y>
+map!<S-ScrollWheelUp>   <C-O><C-Y>
+map!<ScrollWheelDown>   <C-O><C-E>
+map!<S-ScrollWheelDown> <C-O><C-E>
 map <PageUp>    <C-U>
 map <PageDown>  <C-D>
 map!<PageUp>   <C-O><C-U>
 map!<PageDown> <C-O><C-D>
 
+map <silent> <C-k> <Plug>(ale_previous_wrap)
+map <silent> <C-j> <Plug>(ale_next_wrap)
+let g:ale_linters = {}
+let g:ale_sign_column_always = 1
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%:%severity%] %s'
+let g:ale_lint_on_text_changed = 'normal'
+let g:ale_lint_on_insert_leave = 1
+
+let g:ale_linters.java = []
+
+let g:ale_linters.tex = ["chktex"]
+let g:ale_tex_chktex_options = '-n 38' " 38: punc inside quote
+call add(g:polyglot_disabled, 'latex')
+let g:vimtex_imaps_enabled = 0
+let g:deoplete#omni#input_patterns.tex = g:vimtex#re#deoplete
+let g:tex_flavor = "latex"
+
 let g:c_gnu = 1
 
 let g:ale_scss_scss_lint_args = '--config ~/dot/nvim/scss-lint.yml'
+
 let g:ale_python_python_exec = 'python3'
-let g:ale_python_flake8_args = '--ignore=E101,E201,E202,E221,E222,E225,E226,E227,E228,E231,E241,E251,E261,E262,E265,E265,E271,E272,E301,E302,E303,E305,E306,E402,E501,E701,E702,E704,E722,E741,E742,E743,W191,W291,W292,W293,W503,F731'
-" E101                Mixed space and tab
-" E201 E202           Whitespace inside parens
-" E221 E222           Multiple spaces around operator
-" E225 E226 E227 E228 No spaces around operator
-" E231                No space after [,;:]
-" E241                Multiple spaces after [,]
-" E251                Spaces around kwargs [=]
-" E261                Require two spaces before comment
-" E262 E265           Require space after [#]
-" E265                Multiple [#]
-" E271 E272           Multiple spaces around keyword
-" E301 E302 E303 E305 E306 Blank line
-" E402                Import not at top
-" E501                Line length
-" E701 E702 E704      Multiple statements on one line
-" E722                No omni-except
-" E741 E742 E743      No stuff named [lOI]
-" W191                Indentation contains tab
-" W291 W292 W293      Whitespace (Vim handles that just fine)
-" W503                Line break before bin-op
-" F731                Assign lambda to variable
-
-let g:ale_tex_chktex_options = '-n 32'
-let g:ale_sign_column_always = 1
-let g:ale_linters = {
-\	'java': [],
-\	'tex': ['chktex'],
-\}
-
+let g:ale_python_flake8_args = '--select=E112,E113,E251,E303,E304,E401,E502,E703,E711,E712,E713,E714,E901,E902,E999,W391,W6,F'
 let g:python_highlight_builtins=1
 let g:python_highlight_exceptions=1
+let g:deoplete#sources#jedi#show_docstring = 1
 augroup Python
 	au!
 	au FileType python setlocal expandtab< tabstop< softtabstop< shiftwidth<
+augroup END
+
+silent! runtime! ale_linters/haskell/*.vim
+call ale#linter#Define('haskell', {
+\   'name': 'ghc-mod_',
+\   'executable': 'ghc-mod',
+\   'command': 'ghc-mod --map-file %s=%t check %s -g -Wno-type-defaults',
+\   'callback': 'ale#handlers#haskell#HandleGHCFormat',
+\})
+call ale#linter#Define('haskell', {
+\   'name': 'hlint_',
+\   'executable': 'hlint',
+\   'command': 'hlint --color=never --json -',
+\   'callback': 'ale_linters#haskell#hlint#Handle',
+\})
+
+let g:ale_linters.haskell = ["ghc-mod_", "hlint_"]
+let g:necoghc_enable_detailed_browse=1
+let g:haskell_classic_highlighting=1
+let g:haskell_enable_arrowsyntax=1
+let g:haskell_enable_pattern_synonyms=1
+let g:haskell_enable_quantification=1
+let g:haskell_enable_recursivedo=1
+let g:haskell_enable_static_pointers=1
+let g:haskell_enable_typeroles=1
+augroup Haskell
+	au!
+	au FileType haskell setlocal expandtab ts=2 sts=2 sw=2
+	au FileType haskell syn match haskellFloat "\v<[0-9]+(\.[0-9]\+)?([eE][-+]?[0-9]+)?>"
 augroup END

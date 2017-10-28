@@ -1,0 +1,97 @@
+#compdef a
+function _lilypond_scheme_opt() {
+	local opts
+	opts=()
+	function _boolop() {
+		opts+=({,no-}"$1[(#$2) $3]")
+	}
+	function _op() {
+		opts+=("$1[($2) $3]:value:$4")
+	}
+	_boolop aux-files                   t      '{EPS} create .tex, .texi, .count files'
+	_boolop include-eps-fonts           t      '{EPS} include fonts in separate-system EPS files'
+	_boolop eps-box-padding             f      '{EPS} pad left edge of the output EPS (in mm)'
+	_op     anti-alias-factor           1      '{PNG} render at higher resolution and scale down result' '( )'
+	_op     resolution                  101    '{PNG} resolution in dpi'
+	_boolop font-export-dir             f      '{PS?} directory for exporting fonts as PostScript files'
+	_boolop delete-intermediate-files   t      '{PS} delete intermediate PostScript files'
+	_boolop strokeadjust                f      '{PS} set the strokeadjust operator explicitly'
+	_boolop point-and-click             t      '{SVG,PDF} add point & click links'
+	_boolop svg-woff                    f      '{SVG} use woff font files'
+	_op     backend                     ps     'select backend' '(eps null ps scm socket svg)'
+	_boolop check-internal-types        f      'check every property assignment for types'
+	_boolop clip-systems                f      'generate cut-out snippets of a score'
+	_boolop debug-gc                    f      'dump memory debugging statistics'
+	_boolop debug-lexer                 f      'debug the flex lexer'
+	_boolop debug-page-breaking-scoring f      'dump scores for many different page breaking configurations'
+	_boolop debug-parser                f      'debug the bison parser'
+	_boolop debug-property-callbacks    f      'debug cyclic callback chains'
+	_boolop debug-skylines              f      'debug skylines'
+	_boolop dump-cpu-profile            f      'dump timing information'
+	_boolop dump-profile                f      'dump memory and time information for each file'
+	_boolop dump-signatures             f      'dump output signatures of each system'
+	_boolop embed-source-code           f      'embed source files PDF document'
+	_boolop gs-load-fonts               f      'load fonts via Ghostscript'
+	_boolop gs-load-lily-fonts          f      'load only LilyPond fonts via Ghostscript'
+	_boolop gs-never-embed-fonts        f      'make Ghostscript embed only TrueType fonts and no other font format'
+	_boolop gui                         f      'run LilyPond from a GUI and redirect stderr to a log file'
+	opts+=('help[show list of options]')
+	_boolop include-book-title-preview  t      'include book titles in preview images'
+	_boolop include-settings            f      'include file for global settings'
+	_op     job-count                   \#f    'number of parallel jobs'
+	_op     log-file                    \#f    'redirect output to FILE.log'
+	_op     max-markup-depth            1024   'maximum depth for the markup tree'
+	_op     midi-extension              midi   'default MIDI extension'
+	_boolop music-strings-to-paths      f      'convert music font glyphs to paths'
+	_op     paper-size                  a4     'default paper size'
+	_op     pixmap-format               png16m 'set GhostScript'\''s output format for pixel images'
+	_boolop preview                     f      'create preview images also'
+	_boolop print-pages                 t      'print pages in the normal way'
+	_boolop profile-property-accesses   f      'keep statistics of get_property() calls'
+	_boolop protected-scheme-parsing    t      'continue when errors in inline scheme are caught in the parser'
+	_boolop read-file-list              f      'read list of input files from file'
+	_boolop relative-includes           f      'look for \include'\''d files relative to current file'
+	_boolop safe                        f      'run in safer mode'
+	_boolop separate-log-files          f      'output each input'\''s log data to a a separate log file'
+	_boolop show-available-fonts        f      'list available font names'
+	_boolop strict-infinity-checking    f      'crash on floating point errors'
+	_boolop strip-output-dir            t      'use base name only for constructing output file names'
+	_boolop trace-memory-frequency      f      'record Scheme cell usage this many times per second'
+	_op trace-scheme-coverage           \#f    'record coverage of Scheme files in FILE.cov'
+	_boolop warning-as-error            f      'treat all warnings as fatal'
+
+	# _boolop help                        t      'show list of options'
+	# _op     datadir                     /usr/share/lilypond/2.19.64 'LilyPond prefix for data files (read-only).'
+	# _boolop debug-gc-assert-parsed-dead f 'For memory debugging: Ensure that all references to parsed objects are dead.  This is an internal option, and is switched on automatically for `-ddebug-gc'\''.'
+	# _boolop verbose                     f 'Verbose output, i.e. loglevel at least DEBUG (read-only).'
+	_values "Scheme option" $opts
+}
+
+local arguments
+arguments=(
+	'*'{-d+,--define-default=}'[set Scheme option]:Scheme option:_lilypond_scheme_opt'
+	'*'{-e+,--evaluate=}'[evaluate Scheme code]:Scheme code:'
+
+	'(-f --format)'{-f+,--format=}'[dump FORMAT,...]:format:{_values -s , pdf png ps}'
+	'(-f --format --pdf --png --ps)--pdf[-f pdf]'
+	'(-f --format --pdf --png --ps)--png[-f png]'
+	'(-f --format --pdf --png --ps)--ps[-f ps]'
+	'(-b --bigpdfs)'{-b,--bigpdfs}'[generate big PDF files]'
+	'(-o --output)'{-o+,--output=}'[write output to FILE.SUFFIX]:output file:{_path_files}' # Dunno how to tell it to remove the extension
+	'--relocate[relocate using directory of lilypond program]'
+
+	'*'{-I+,--include=}'[add DIR to search path]:include path:{_path_files -/}'
+	'(-i --init)'{-i+,--init=}'[use FILE as init file]:init file:{_path_files -/ -g \*.ly -g \*.ily}'
+	'(-j --jail)'{-j+,--jail=}'[chroot to JAIL, become USER:GROUP, cd into DIR]:jail:( )'
+
+	'(-l --loglevel)'{-l+,--loglevel=}'[print log messages according to LOGLEVEL]:log level:(NONE ERROR WARNING BASIC PROGRESS INFO DEBUG)'
+	'(-s --silent)'{-s,--silent}'[--loglevel=ERROR]'
+	'(-V --verbose)'{-V,--verbose}'[--loglevel=DEBUG]'
+	'*'{-H+,--header=}'[dump specified FIELD to file BASENAME.FIELD]:header field:'
+
+	'(-h --help)'{-h,--help}'[show help and exit]'
+	'(-v --version)'{-v,--version}'[show version number and exit]'
+	'(-w --warranty)'{-w,--warranty}'[show warranty and copyright and exit]'
+	'*:filename:{_path_files -/ -g \*.ly}'
+)
+_arguments -s -S $arguments

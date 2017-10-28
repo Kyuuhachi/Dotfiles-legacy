@@ -1,11 +1,20 @@
 loadplugins '\.(js|penta)$'
 group user
 
+set titlestring=
+set hlfind
+set urlsep='\|'
+set showtabline=multitab
+set showstatuslinks=
+
 nmap gp -ex pin!
 nmap -builtin <C-L> -ex nohl
+nmap -javascript y dactyl.clipboardWrite(decodeURIComponent(buffer.uri.spec), true)
 
+nmap -count h -builtin <count>h<count>h<count>h<count>h
 nmap -count j -builtin <count>j<count>j<count>j<count>j
 nmap -count k -builtin <count>k<count>k<count>k<count>k
+nmap -count l -builtin <count>l<count>l<count>l<count>l
 nmap -count <C-S-A> ]]
 nmap -count <C-S-X> [[
 
@@ -33,7 +42,7 @@ Imap -builtin <C--> <Pass>
 Imap -builtin <C-=> <Pass>
 
 Imap -builtin <C-q> <Pass>
-Imap -builtin <C-w> <Pass>
+" Imap -builtin <C-w> <Pass>
 Imap -builtin <C-e> <Pass>
 Imap -builtin <C-r> <Pass>
 Imap -builtin <C-t> <Pass>
@@ -68,9 +77,5 @@ Imap -builtin <C-m> <Pass>
 Imap -builtin <C-,> <Pass>
 Imap -builtin <C-.> <Pass>
 Imap -builtin <C-/> <Pass>
-
-set titlestring=
-set hlfind
-set urlsep='\|'
 
 " vim: ft=vim

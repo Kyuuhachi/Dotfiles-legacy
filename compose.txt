@@ -1,0 +1,600 @@
+¡	iexcl
+¢	cent
+£	pound
+¤	curren
+¥	yen
+€	euro
+
+§	sect
+¶	para
+©	copy
+®	reg
+™	trade
+␣	blank
+♀	female
+♂	male
+♠	spades
+♣	clubs
+♥	hearts
+♦	diams
+♪	note
+♭	flat
+♮	natural
+♯	sharp
+✓	check
+✗	cross
+¿	iquest
+¡	iexcl
+‽	interrobang
+°	deg
+¹	sup1
+²	sup2
+³	sup3
+µ	micro
+·	middot
+†	dagger
+‡	ddagger
+•	bull
+√	sqrt
+∞	infin
+
+¬	not
+×	times
+÷	div
+∏	prod
+∐	coprod
+∑	sum
+±	pm
+∓	mp
+∧	and
+∨	or
+∫	int
+∴	therefore
+∵	because
+
+≈	asymp
+≉	nap
+≔	colone
+≟	equest
+≠	ne
+≡	equiv
+≤	le
+≥	ge
+≮	nlt
+≯	ngt
+≰	nle
+≱	nge
+≪	ll
+≫	gg
+⋘	lll
+⋙	ggg
+
+≈	~=
+≉	!~=
+≔	:=
+≟	=?
+≠	!=
+≡	==
+≤	<=
+≥	>=
+≮	!<
+≯	!>
+≰	!<=
+≱	!>=
+≪	<<
+≫	>>
+⋘	<<<
+⋙	>>>
+
+▀	uhblk
+▄	lhblk
+█	block
+░	blk14
+▒	blk12
+▓	blk34
+
+Ð	ETH
+ð	eth
+Þ	THORN
+þ	thorn
+ı	inodot
+ȷ	jnodot
+Æ	AElig
+æ	aelig
+ŉ	napos
+
+¼	frac14
+½	frac12
+¾	frac34
+⅓	frac13
+⅔	frac23
+⅕	frac15
+⅖	frac25
+⅗	frac35
+⅘	frac45
+⅙	frac16
+⅚	frac56
+⅛	frac18
+⅜	frac38
+⅝	frac58
+⅞	frac78
+
+# {{{ Diacritics
+´	acute
+Á	Aacute
+á	aacute
+Ć	Cacute
+ć	cacute
+É	Eacute
+é	eacute
+ǵ	gacute
+Í	Iacute
+í	iacute
+Ĺ	Lacute
+ĺ	lacute
+Ń	Nacute
+ń	nacute
+Ó	Oacute
+ó	oacute
+Ŕ	Racute
+ŕ	racute
+Ś	Sacute
+ś	sacute
+Ú	Uacute
+ú	uacute
+Ý	Yacute
+ý	yacute
+Ź	Zacute
+ź	zacute
+
+˘	breve
+Ă	Abreve
+ă	abreve
+Ğ	Gbreve
+ğ	gbreve
+Ŭ	Ubreve
+ŭ	ubreve
+
+ˇ	caron
+Č	Ccaron
+č	ccaron
+Ď	Dcaron
+ď	dcaron
+Ě	Ecaron
+ě	ecaron
+Ľ	Lcaron
+ľ	lcaron
+Ň	Ncaron
+ň	ncaron
+Ř	Rcaron
+ř	rcaron
+Š	Scaron
+š	scaron
+Ť	Tcaron
+ť	tcaron
+Ž	Zcaron
+ž	zcaron
+
+¸	cedil
+Ç	Ccedil
+ç	ccedil
+Ģ	Gcedil
+Ķ	Kcedil
+ķ	kcedil
+Ļ	Lcedil
+ļ	lcedil
+Ņ	Ncedil
+ņ	ncedil
+Ŗ	Rcedil
+ŗ	rcedil
+Ş	Scedil
+ş	scedil
+Ţ	Tcedil
+ţ	tcedil
+
+ˆ	circ
+Â	Acirc
+â	acirc
+Ĉ	Ccirc
+ĉ	ccirc
+Ê	Ecirc
+ê	ecirc
+Ĝ	Gcirc
+ĝ	gcirc
+Ĥ	Hcirc
+ĥ	hcirc
+Î	Icirc
+î	icirc
+Ĵ	Jcirc
+ĵ	jcirc
+Ô	Ocirc
+ô	ocirc
+Ŝ	Scirc
+ŝ	scirc
+Û	Ucirc
+û	ucirc
+Ŵ	Wcirc
+ŵ	wcirc
+Ŷ	Ycirc
+ŷ	ycirc
+
+¨	uml
+Ä	Auml
+ä	auml
+Ë	Euml
+ë	euml
+Ï	Iuml
+ï	iuml
+Ö	Ouml
+ö	ouml
+Ü	Uuml
+ü	uuml
+Ÿ	Yuml
+ÿ	yuml
+
+˙	dot
+Ċ	Cdot
+ċ	cdot
+Ė	Edot
+ė	edot
+Ġ	Gdot
+ġ	gdot
+İ	Idot
+Ż	Zdot
+ż	zdot
+
+˝	dblac
+Ő	Odblac
+ő	odblac
+Ű	Udblac
+ű	udblac
+
+`	grave
+À	Agrave
+à	agrave
+È	Egrave
+è	egrave
+Ì	Igrave
+ì	igrave
+Ò	Ograve
+ò	ograve
+Ù	Ugrave
+ù	ugrave
+
+¯	macr
+Ā	Amacr
+ā	amacr
+Ē	Emacr
+ē	emacr
+Ī	Imacr
+ī	imacr
+Ō	Omacr
+ō	omacr
+Ū	Umacr
+ū	umacr
+
+·	midot
+Ŀ	Lmidot
+ŀ	lmidot
+
+˛	ogon
+Ą	Aogon
+ą	aogon
+Ę	Eogon
+ę	eogon
+Į	Iogon
+į	iogon
+Ų	Uogon
+ų	uogon
+
+˚	ring
+Å	Aring
+å	aring
+Ů	Uring
+ů	uring
+
+Đ	Dstrok
+đ	dstrok
+Ħ	Hstrok
+ħ	hstrok
+Ł	Lstrok
+ł	lstrok
+Ŧ	Tstrok
+ŧ	tstrok
+Ƶ	Zstrok
+
+˜	tilde
+Ã	Atilde
+ã	atilde
+Ĩ	Itilde
+ĩ	itilde
+Ñ	Ntilde
+ñ	ntilde
+Õ	Otilde
+õ	otilde
+Ũ	Utilde
+ũ	utilde
+
+Ø	Oslash
+ø	oslash
+# }}}
+# {{{ Greek
+Α	Alpha
+α	alpha
+Β	Beta
+β	beta
+Γ	Gamma
+γ	gamma
+Δ	Delta
+δ	delta
+Ε	Epsilon
+ε	epsilon
+Ζ	Zeta
+ζ	zeta
+Η	Eta
+η	eta
+Θ	Theta
+θ	theta
+Ι	Iota
+ι	iota
+Κ	Kappa
+κ	kappa
+Λ	Lambda
+λ	lambda
+Μ	Mu
+μ	mu
+Ν	Nu
+ν	nu
+Ξ	Xi
+ξ	xi
+Ο	Omicron
+ο	omicron
+Π	Pi
+π	pi
+Ρ	Rho
+ρ	rho
+Σ	Sigma
+σ	sigma
+Τ	Tau
+τ	tau
+Υ	Upsilon
+υ	upsilon
+Φ	Phi
+φ	phi
+Χ	Chi
+χ	chi
+Ψ	Psi
+ψ	psi
+Ω	Omega
+ω	omega
+
+ς	sigmaf
+ϑ	thetav
+ϒ	upsih
+ϕ	straightphi
+ϖ	varpi
+Ϝ	Gammad
+ϝ	gammad
+ϝ	digamma
+ϰ	varkappa
+ϱ	rhov
+ϱ	varrho
+ϵ	epsi
+϶	bepsi
+# }}}
+# {{{ Spaces, bars, quotes/brackets
+ 	ensp
+ 	emsp
+ 	emsp13
+ 	emsp14
+ 	numsp
+ 	puncsp
+ 	thinsp
+ 	hairsp
+​	zwsp
+‌	zwnj
+‍	zwj
+‎	lrm
+‏	rlm
+
+–	ndash
+—	mdash
+―	hbar
+‖	dbar
+¦	brbar
+|	vbar
+
+‘	quo-ls
+’	quo-rs
+“	quo-ld
+”	quo-rd
+‹	quo-lsa
+›	quo-rsa
+«	quo-lda
+»	quo-rda
+# }}}
+
+∀	set-forall
+∁	set-comp
+∂	set-part
+∃	set-exist
+∄	set-nexist
+∅	set-empty
+∈	set-in
+∉	set-notin
+∋	set-ni
+∌	set-notni
+∖	set-minus
+∩	set-intersect
+∪	set-union
+⊂	set-sub
+⊄	set-nsub
+⊆	set-sube
+⊈	set-nsube
+⊃	set-sup
+⊅	set-nsup
+⊇	set-supe
+⊉	set-nsupe
+
+# I should make a better interface for box drawings.
+╗	box-DL
+╖	box-Dl
+╕	box-dL
+┐	box-dl
+╔	box-DR
+╓	box-Dr
+╒	box-dR
+┌	box-dr
+═	box-LR
+─	box-lr
+╦	box-LRD
+╤	box-LRd
+╥	box-lrD
+┬	box-lrd
+╩	box-LRU
+╧	box-LRu
+╨	box-lrU
+┴	box-lru
+┼	box-lrud
+║	box-UD
+│	box-ud
+╣	box-UDL
+╢	box-UDl
+╡	box-udL
+┤	box-udl
+╬	box-UDLR
+╫	box-UDlr
+╪	box-udLR
+╠	box-UDR
+╟	box-UDr
+╞	box-udR
+├	box-udr
+╝	box-UL
+╜	box-Ul
+╛	box-uL
+┘	box-ul
+╚	box-UR
+╙	box-Ur
+╘	box-uR
+└	box-ur
+
+# {{{ Arrows
+←	larr          # ←
+↑	uarr          # ↑
+→	rarr          # →
+↓	darr          # ↓
+↔	harr          # ↔
+↕	varr          # ↕
+↖	nwarr         # ↖
+↗	nearr         # ↗
+↘	searr         # ↘
+↙	swarr         # ↙
+⇖	nWarr         # ⇖
+⇗	nEarr         # ⇗
+⇘	sEarr         # ⇘
+⇙	sWarr         # ⇙
+↞	Larr          # ↞
+↟	Uarr          # ↟
+↠	Rarr          # ↠
+↡	Darr          # ↡
+↼	lubarb        # ↼
+↽	ldbarb        # ↽
+↾	urbarb        # ↾
+↿	ulbarb        # ↿
+⇀	rubarb        # ⇀
+⇁	rdbarb        # ⇁
+⇂	drbarb        # ⇂
+⇃	dlbarb        # ⇃
+⇄	rlarr         # ⇄
+⇅	udarr         # ⇅
+⇆	lrarr         # ⇆
+⇵	duarr         # ⇵
+⇇	llarr         # ⇇
+⇈	uuarr         # ⇈
+⇉	rrarr         # ⇉
+⇊	ddarr         # ⇊
+⇠	larr-dot      # ⇠
+⇡	uarr-dot      # ⇡
+⇢	rarr-dot      # ⇢
+⇣	darr-dot      # ⇣
+⇷	larr-stroke   # ⇷
+⇸	rarr-stroke   # ⇸
+⇹	harr-stroke   # ⇹
+⇺	larr-dstroke  # ⇺
+⇻	rarr-dstroke  # ⇻
+⇞	uarr-dstroke  # ⇞
+⇟	darr-dstroke  # ⇟
+⇼	harr-dstroke  # ⇼
+↜	larr-squiggle # ↜
+↝	rarr-squiggle # ↝
+↩	larr-turn     # ↩
+↪	rarr-turn     # ↪
+↫	larr-loop     # ↫
+↬	rarr-loop     # ↬
+↢	larr-split    # ↢
+↣	rarr-split    # ↣
+⇤	larr-tbar     # ⇤
+⇥	rarr-tbar     # ⇥
+↤	larr-fbar     # ↤
+↥	uarr-fbar     # ↥
+↦	rarr-fbar     # ↦
+↧	darr-fbar     # ↧
+⇐	lArr          # ⇐
+⇑	uArr          # ⇑
+⇒	rArr          # ⇒
+⇓	dArr          # ⇓
+⇔	hArr          # ⇔
+⇕	vArr          # ⇕
+⇦	lArr-back     # ⇦
+⇧	uArr-back     # ⇧
+⇨	rArr-back     # ⇨
+⇩	dArr-back     # ⇩
+⇜	larr-wave     # ⇜
+⇝	rarr-wave     # ⇝
+↭	harr-wave     # ↭
+↚	larr-slash    # ↚
+↛	rarr-slash    # ↛
+↮	harr-slash    # ↮
+⇍	lArr-slash    # ⇍
+⇏	rArr-slash    # ⇏
+⇎	hArr-slash    # ⇎
+↶	ccw180        # ↶
+↷	cw180         # ↷
+↺	ccw270        # ↺
+↻	cw270         # ↻
+⟲	ccw360        # ⟲
+⟳	cw360         # ⟳
+# }}}
+
+Ⅰ	romanI # ROMAN NUMERAL ONE
+Ⅱ	romanII # ROMAN NUMERAL TWO
+Ⅲ	romanIII # ROMAN NUMERAL THREE
+Ⅳ	romanIV # ROMAN NUMERAL FOUR
+Ⅴ	romanV # ROMAN NUMERAL FIVE
+Ⅵ	romanVI # ROMAN NUMERAL SIX
+Ⅶ	romanVII # ROMAN NUMERAL SEVEN
+Ⅷ	romanVIII # ROMAN NUMERAL EIGHT
+Ⅸ	romanIX # ROMAN NUMERAL NINE
+Ⅹ	romanX # ROMAN NUMERAL TEN
+Ⅺ	romanXI # ROMAN NUMERAL ELEVEN
+Ⅻ	romanXII # ROMAN NUMERAL TWELVE
+Ⅼ	romanL # ROMAN NUMERAL FIFTY
+Ⅽ	romanC # ROMAN NUMERAL ONE HUNDRED
+Ⅾ	romanD # ROMAN NUMERAL FIVE HUNDRED
+Ⅿ	romanM # ROMAN NUMERAL ONE THOUSAND
+ⅰ	romani # SMALL ROMAN NUMERAL ONE
+ⅱ	romanii # SMALL ROMAN NUMERAL TWO
+ⅲ	romaniii # SMALL ROMAN NUMERAL THREE
+ⅳ	romaniv # SMALL ROMAN NUMERAL FOUR
+ⅴ	romanv # SMALL ROMAN NUMERAL FIVE
+ⅵ	romanvi # SMALL ROMAN NUMERAL SIX
+ⅶ	romanvii # SMALL ROMAN NUMERAL SEVEN
+ⅷ	romanviii # SMALL ROMAN NUMERAL EIGHT
+ⅸ	romanix # SMALL ROMAN NUMERAL NINE
+ⅹ	romanx # SMALL ROMAN NUMERAL TEN
+ⅺ	romanxi # SMALL ROMAN NUMERAL ELEVEN
+ⅻ	romanxii # SMALL ROMAN NUMERAL TWELVE
+ⅼ	romanl # SMALL ROMAN NUMERAL FIFTY
+ⅽ	romanc # SMALL ROMAN NUMERAL ONE HUNDRED
+ⅾ	romand # SMALL ROMAN NUMERAL FIVE HUNDRED
+ⅿ	romanm # SMALL ROMAN NUMERAL ONE THOUSAND
