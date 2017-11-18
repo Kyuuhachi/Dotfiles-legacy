@@ -107,7 +107,8 @@ def start(keys):
 			rebind()
 
 def backlight(mode):
-	states = [0, 1, 2, 3, 5, 10, 20, 33, 50, 75, 100]
+	m = float(subprocess.check_output("brightnessctl -q m", shell=True))
+	states = [0, 1] + [(a/10)**2*m for a in range(2, 11)]
 	def closest(list, n):
 		aux = []
 		for v in list:
@@ -115,10 +116,10 @@ def backlight(mode):
 		return aux.index(min(aux))
 
 	def f():
-		n = float(subprocess.check_output("xbacklight -getf", shell=True))
+		n = float(subprocess.check_output("brightnessctl -q g", shell=True))
 		idx = closest(states, n) + mode
 		if 0 <= idx < len(states):
-			run("xbacklight -set %d -time 0" % states[idx])()
+			run("brightnessctl -q s %d" % states[idx])()
 	return f
 
 toggle_cmd = """
@@ -132,21 +133,15 @@ keys = {
 	None: {
 		"XF86_MonBrightnessUp":   backlight(+1),
 		"XF86_MonBrightnessDown": backlight(-1),
-		"XF86_AudioMute":         run("pactl set-sink-mute @DEFAULT_SINK@ toggle"),
-		"XF86_AudioRaiseVolume":  run("pactl set-sink-volume @DEFAULT_SINK@ +5%"),
-		"XF86_AudioLowerVolume":  run("pactl set-sink-volume @DEFAULT_SINK@ -5%"),
-		"w-Romaji":               run("kanjidraw"),
 
-		"w-Print":   run("scrot    '%Y-%m-%d_%H-%M-%S.png' -e 'mv $f ~/Screenshots'"),
-		"w-a-Print": run("scrot -u '%Y-%m-%d_%H-%M-%S.png' -e 'mv $f ~/Screenshots'"),
-		"w-s-Print": run("sleep 0.1; scrot -s '%Y-%m-%d_%H-%M-%S.png' -e 'mv $f ~/Screenshots'"),
-		"w-c-Print":   run("scrot    '%Y-%m-%d_%H-%M-%S.png' -e 'dragon $f; mv $f ~/Screenshots'"),
-		"w-c-a-Print": run("scrot -u '%Y-%m-%d_%H-%M-%S.png' -e 'dragon $f; mv $f ~/Screenshots'"),
-		"w-c-s-Print": run("sleep 0.1; scrot -s '%Y-%m-%d_%H-%M-%S.png' -e 'dragon $f; mv $f ~/Screenshots'"),
+		"Print":   run("maim -ks                            | xclip -selection clipboard -t image/png"),
+		"s-Print": run("maim -k                             | xclip -selection clipboard -t image/png"),
+		"a-Print": run("maim -ki $(xdotool getactivewindow) | xclip -selection clipboard -t image/png"),
 
-		"w-Return": i3("exec --no-startup-id x-terminal-emulator"),
-		"w-d": i3("exec --no-startup-id dmenu_run"),
+		"w-Return":  i3("exec --no-startup-id x-terminal-emulator"),
+		"w-d":       i3("exec --no-startup-id dmenu_run"),
 		"Caps_Lock": i3("exec --no-startup-id compose ~/dot/htmlent.txt"),
+		"w-Romaji":  i3("exec --no-startup-id kanjidraw"),
 
 		"w-x": i3("kill"),
 		"w-s-x": i3("focus parent;" * 10 + "kill"),
