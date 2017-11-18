@@ -187,6 +187,11 @@ bindkey "." rationalise-dot
 function nop() {}
 zle -N nop
 
+autoload -Uz bracketed-paste-magic
+autoload -Uz url-quote-magic
+zle -N bracketed-paste bracketed-paste-magic
+zle -N self-insert url-quote-magic
+
 #{{{1 Terminfo
 bindkey "^[[2~"   overwrite-mode       ; bindkey -- "$terminfo[kich1]" overwrite-mode       # Insert
 bindkey "^?"      backward-delete-char ; bindkey -- "$terminfo[kbs]"   backward-delete-char # Backspace
