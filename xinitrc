@@ -16,11 +16,14 @@ export GTK_CSD=0
 export LD_PRELOAD=/usr/lib/libgtk3-nocsd.so.0
 export GTK_OVERLAY_SCROLLING=0
 
+systemctl --user import-environment DISPLAY XAUTHORITY
+dbus-update-activation-environment DISPLAY XAUTHORITY
+
 xkbcomp ~/dot/c98.xkb $DISPLAY
 xset -dpms s off
 xrdb -load .Xresources
+
 compton --config ~/dot/compton.conf &
-pgrep mpd &>/dev/null || mpd --no-daemon &
-while /usr/local/libexec/mate-notification-daemon; do true; done &
 ibus-daemon &
+
 exec ${1:-i3}
