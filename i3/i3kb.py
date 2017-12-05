@@ -134,7 +134,7 @@ keys = {
 		"XF86_MonBrightnessUp":   backlight(+1),
 		"XF86_MonBrightnessDown": backlight(-1),
 
-		"Print":   run("maim -ks                            | xclip -selection clipboard -t image/png"),
+		"Print":   run("maim -ksu                           | xclip -selection clipboard -t image/png"),
 		"s-Print": run("maim -k                             | xclip -selection clipboard -t image/png"),
 		"a-Print": run("maim -ki $(xdotool getactivewindow) | xclip -selection clipboard -t image/png"),
 
