@@ -27,6 +27,20 @@ nmap -builtin <CR> <Pass>
 nmap -builtin <PageUp> <Pass>
 nmap -builtin <PageDown> <Pass>
 
+js <<EOF
+function ffncopy() {
+	urls=[];
+	for(let tab of tabs.visibleTabs) {
+		tabs.select(tab);
+		if(buffer.URL.host == "www.fanfiction.net" && buffer.URL.path.startsWith("/s/"))
+			urls.push(buffer.URL.path.split("/")[2]);
+	}
+	dactyl.echo(urls.join(" "))
+}
+EOF
+command! -js ffncopy ffncopy()
+command! rc source ~/.pentadactylrc
+
 Imap -builtin <C-`> <Pass>
 Imap -builtin <C-1> <Pass>
 Imap -builtin <C-2> <Pass>
