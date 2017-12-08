@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+#{{{
 import i3ipc
 import Xlib
 import Xlib.display
@@ -105,6 +106,7 @@ def start(keys):
 			print(evt, flush=True)
 			display.refresh_keyboard_mapping(evt)
 			rebind()
+#}}}
 
 def backlight(mode):
 	m = float(subprocess.check_output("brightnessctl -q m", shell=True))
