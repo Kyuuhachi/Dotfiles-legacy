@@ -10,8 +10,6 @@ Plug 'kana/vim-textobj-user'
 Plug 'Konfekt/FastFold'
 Plug 'Konfekt/FoldText'
 Plug 'lervag/vimtex'
-Plug 'michaeljsmith/vim-indent-object'
-Plug 'noahfrederick/vim-noctu'
 Plug 'pbrisbin/vim-mkdir'
 Plug 'PotatoesMaster/i3-vim-syntax'
 Plug 's3rvac/AutoFenc'
@@ -31,12 +29,13 @@ Plug 'wellle/targets.vim'
 Plug 'vim-scripts/sudo.vim'
 Plug 'w0rp/ale'
 Plug 'junegunn/vim-easy-align'
-Plug 'vim-scripts/JavaScript-Indent'
+Plug 'vim-scripts/JavaScript-Indent', {'for':['javascript', 'jsx']}
 Plug 'mbbill/undotree'
 Plug 'Shougo/denite.nvim'
 Plug 'h1mesuke/unite-outline'
+Plug 'kien/ctrlp.vim'
 
-Plug 'artur-shaik/vim-javacomplete2'
+Plug 'artur-shaik/vim-javacomplete2', {'for':['java']}
 Plug 'Shougo/echodoc.vim'
 
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -70,7 +69,9 @@ set cursorline
 set autoindent
 set showcmd noshowmode
 set incsearch hlsearch inccommand=nosplit
-set wildmenu wildmode=list:longest
+set wildmode=longest:list
+set suffixes+=.midi,.pdf,.mp3 "Lilypond
+set suffixes+=.class "Java
 set cmdheight=2
 set tabstop=4 softtabstop=4 shiftwidth=4 noexpandtab
 set ignorecase smartcase
@@ -89,7 +90,8 @@ set undofile undodir=~/.vim-undo//
 set updatetime=500
 set notimeout
 set nojoinspaces
-set preserveindent copyindent
+set hidden
+set signcolumn=yes
 
 set shell=zsh
 
@@ -101,6 +103,15 @@ let g:airline_inactive_collapse = 1
 let g:airline#parts#ffenc#skip_expected_string = 'utf-8[unix]'
 let g:airline#extensions#whitespace#checks = ['trailing']
 let g:airline#extensions#whitespace#trailing_format = 'Trailing@%s'
+
+let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_use_caching = 1
+let g:ctrlp_root_markers = ['.vim_root']
+let g:ctrlp_custom_ignore = {
+\ 'dir':  '\v[\/]\.(git|hg|svn)$',
+\ 'file': '\v\.(exe|so|dll|class)$',
+\ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
+\ }
 
 set showtabline=2
 
@@ -172,8 +183,6 @@ let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%:%severity%] %s'
 let g:ale_lint_on_text_changed = 'normal'
 let g:ale_lint_on_insert_leave = 1
-
-" let g:ale_linters.java = []
 
 let g:ale_linters.tex = ["chktex"]
 let g:ale_tex_chktex_options = '-n 38' " 38: punc inside quote
