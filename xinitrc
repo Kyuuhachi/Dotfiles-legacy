@@ -25,5 +25,6 @@ xrdb -load .Xresources
 
 compton --config ~/dot/compton.conf &
 ibus-daemon &
+unclutter --timeout 2.5 &
 
 exec ${1:-i3}
