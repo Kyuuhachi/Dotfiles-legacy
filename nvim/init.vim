@@ -15,7 +15,6 @@ Plug 'PotatoesMaster/i3-vim-syntax'
 Plug 's3rvac/AutoFenc'
 Plug 'sheerun/vim-polyglot'
 Plug 'Shougo/vimproc.vim'
-Plug 'spiiph/vim-space'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-afterimage'
 Plug 'tpope/vim-characterize'
@@ -34,6 +33,7 @@ Plug 'mbbill/undotree'
 Plug 'Shougo/denite.nvim'
 Plug 'h1mesuke/unite-outline'
 Plug 'kien/ctrlp.vim'
+Plug 'easymotion/vim-easymotion'
 
 Plug 'artur-shaik/vim-javacomplete2', {'for':['java']}
 Plug 'Shougo/echodoc.vim'
@@ -123,7 +123,8 @@ inoremap <expr> <Down> pumvisible() ? "<C-n>" : "<Down>"
 inoremap <expr> <S-TAB> pumvisible() ? "<C-p>" : "<S-TAB>"
 inoremap <expr> <Up> pumvisible() ? "<C-p>" : "<Up>"
 inoremap <expr> <CR> pumvisible() ? "<C-y><CR>" : "<CR>"
-imap <NUL> <C-Space>
+map <NUL> <C-Space>
+map! <NUL> <C-Space>
 inoremap <expr> <C-Space> deoplete#mappings#manual_complete()
 let g:deoplete#auto_complete_start_length = 1
 
@@ -153,10 +154,10 @@ nnoremap <leader>cb :call setreg(v:register, getreg(), "b")<CR>
      map <leader>a <Plug>(EasyAlign)
      map <silent> <C-k> <Plug>(ale_previous_wrap)
      map <silent> <C-j> <Plug>(ale_next_wrap)
-let g:splitjoin_split_mapping = ''
-let g:splitjoin_join_mapping = ''
-nnoremap <leader>j :SplitjoinJoin<cr>
-nnoremap <leader>s :SplitjoinSplit<cr>
+nnoremap <expr> n 'Nn'[v:searchforward]
+nnoremap <expr> N 'nN'[v:searchforward]
+     map <Space> <Plug>(easymotion-s)
+     map <C-Space> <Plug>(easymotion-s2)
 
 nnoremap gs :call <SID>SynStack()<CR>
 function! <SID>SynStack()
@@ -175,6 +176,9 @@ noremap <PageUp>    <NOP>
 noremap <PageDown>  <NOP>
 noremap!<PageUp>    <NOP>
 noremap!<PageDown>  <NOP>
+
+hi LongLine cterm=italic
+match LongLine /\%>120v\S/
 
 let g:ale_linters = {}
 let g:ale_sign_column_always = 1
