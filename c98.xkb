@@ -192,7 +192,7 @@ xkb_keymap {
 		key <AD07> {[u,U]};
 		key <AD08> {[i,I]};
 		key <AD09> {[o,O,odiaeresis,Odiaeresis]};
-		key <AD10> {[p,P]};
+		key <AD10> {[p,P,Greek_pi,Greek_PI]};
 		key <AD11> {[bracketleft,braceleft]};
 		key <AD12> {[bracketright,braceright]};
 		key <RTRN> {[Return,Return,0x100240A,0x0100240D]};
