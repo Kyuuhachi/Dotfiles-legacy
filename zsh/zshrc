@@ -228,3 +228,4 @@ typeset -gA HSMW_HIGHLIGHT_STYLES
 typeset -gA FAST_HIGHLIGHT_STYLES
 HSMW_HIGHLIGHT_STYLES+=(${(kv)HIGHLIGHT})
 FAST_HIGHLIGHT_STYLES+=(${(kv)HIGHLIGHT})
+eval $(thefuck --alias) && alias f=fuck
