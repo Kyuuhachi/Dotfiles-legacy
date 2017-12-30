@@ -1,17 +1,21 @@
 #!/bin/zsh
 CURRENT_BG="default"
-prompt_segment() {
+prompt_segment() { # bg color, fg color
 	if [[ $RIGHT != 1 ]]; then
-		if [[ $CURRENT_BG == "default" ]]; then
-			echo -n "%{%K{$1}%F{$2}%} "
+		if [[ $CURRENT_BG == $1 ]]; then
+			echo -n "%{%F{$2}%}"
+		elif [[ $CURRENT_BG == "default" ]]; then
+			echo -n "%{%K{$1}%F{$2}%}"
 		else
-			echo -n " %{%K{$1}%F{$CURRENT_BG}%}%{%F{$2}%} "
+			echo -n "%{%K{$1}%F{$CURRENT_BG}%}%{%F{$2}%}"
 		fi
 	else
-		if [[ $CURRENT_BG == "default" ]]; then
-			echo -n "%{%F{$1}%}%{%K{$1}%F{$2}%} "
+		if [[ $CURRENT_BG == $1 ]]; then
+			echo -n "%{%F{$2}%}"
+		elif [[ $CURRENT_BG == "default" ]]; then
+			echo -n "%{%F{$1}%}%{%K{$1}%F{$2}%}"
 		else
-			echo -n " %{%F{$1}%K{$CURRENT_BG}%}%{%K{$1}%F{$2}%} "
+			echo -n "%{%F{$1}%K{$CURRENT_BG}%}%{%K{$1}%F{$2}%}"
 		fi
 	fi
 	CURRENT_BG=$1
@@ -25,36 +29,37 @@ prompt_status() {
 		[[ $(readlink /proc/$pid/exe) == $(realpath =$SHELL) ]] && (( n++ ))
 		pid=$(echo -n $(ps -o ppid= -p $pid))
 	done
-	printf "%$((n-1))s" ""
+	printf "%$((n-1))s"
 
 	icons=()
-	if [[ $RETVAL == 130 || $RETVAL == 131 ]]; then
-		icons=($icons "%{%F{yellow}%}") # SIGINT and SIGQUIt
-	elif [[ $RETVAL == 148 ]]; then
-		icons=($icons "%{%F{blue}%}") # SIGTSTOP
-	elif [[ $RETVAL != 0 ]]; then
-		icons=($icons "%{%F{red}%}")
+	if   [[ $RETVAL == 130 || $RETVAL == 131 ]]; then icons=($icons "%{%F{yellow}%}") # SIGINT and SIGQUIT
+	elif [[ $RETVAL == 148                   ]]; then icons=($icons "%{%F{blue}%}") # SIGTSTOP
+	elif [[ $RETVAL != 0                     ]]; then icons=($icons "%{%F{red}%}")
 	fi
 	[[ $(jobs -s | wc -l) -gt 0 ]] && icons=($icons "%{%F{cyan}%}") # Suspended jobs
 	[[ $(jobs -r | wc -l) -gt 0 ]] && icons=($icons "%{%F{green}%}") # Running jobs
 	# Possibly %{%F{yellow}%} for root
-	echo -n ${(j. .)icons}
+	[[ $#icons -gt 0 ]] && echo -n " ${(j. .)icons}"
+	echo -n " "
 }
 
 prompt_context() {
 	prompt_segment $(print -P "%(!.yellow.green)") black
-	echo -n "%n"
+	echo -n " %n "
 }
 
 prompt_dir() {
 	prompt_segment blue black
-	echo -n '%~'
+	echo -n " %~ "
 }
 
 prompt_git() {
 	{
 		if git rev-parse --is-inside-work-tree >/dev/null; then
-			prompt_segment $([[ -n $(git status --porcelain) ]] && echo -n yellow || echo green) black
+			git status --ignore-submodules=dirty -z | grep -zq '^.\S'; local HAS_UNSTAGED=$?
+			git status --ignore-submodules=dirty -z --untracked-files=no | grep -zq '^\S.'; local HAS_STAGED=$?
+			prompt_segment $([[ $HAS_UNSTAGED == 0 || $HAS_STAGED == 0 ]] && echo yellow || echo green) black
+			echo -n " "
 
 			if git symbolic-ref HEAD >/dev/null; then
 				echo -n " $(git symbolic-ref HEAD | sed s:refs/heads/::)"
@@ -69,6 +74,10 @@ prompt_git() {
 				[[ $AHEAD -gt 0 ]] && echo -n "↑$AHEAD"
 				[[ $BEHIND -gt 0 ]] && echo -n "↓$BEHIND"
 			fi
+			echo -n " "
+			if [[ $HAS_STAGED == 0 ]]; then
+				prompt_segment $([[ $HAS_UNSTAGED != 1 ]] && echo yellow || echo green) black
+			fi
 		fi
 	} 2> /dev/null
 }
@@ -76,9 +85,9 @@ prompt_git() {
 prompt_time() {
 	prompt_segment blue black
 	if [[ $_SENDING == 1 ]]; then
-		echo -n "%D{%H:%M:%S}"
+		echo -n " %D{%H:%M:%S} "
 	else
-		echo -n "--:--:--"
+		echo -n " --:--:-- "
 	fi
 }
 
@@ -90,6 +99,7 @@ build_prompt() {
 	prompt_dir
 	prompt_git
 	prompt_segment default default
+	echo -n " "
 }
 
 build_rprompt() {
