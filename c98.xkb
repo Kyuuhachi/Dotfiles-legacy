@@ -200,7 +200,7 @@ xkb_keymap {
 		key <CAPS> {[Caps_Lock]};
 		key <AC01> {[a,A,aring,Aring]};
 		key <AC02> {[s,S]};
-		key <AC03> {[d,D]};
+		key <AC03> {[d,D,Greek_delta,Greek_DELTA]};
 		key <AC04> {[f,F]};
 		key <AC05> {[g,G]};
 		key <AC06> {[h,H,leftarrow,leftarrow]};
