@@ -150,6 +150,7 @@ keys = {
 		"w-p": run(toggle_cmd),
 
 		"w-f": i3("fullscreen"),
+		"w-s-f": i3("border toggle"),
 		"w-a": i3("focus parent"),
 		"w-s-a": i3("focus child"),
 		"w-space": i3("focus mode_toggle"),
