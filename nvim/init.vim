@@ -77,7 +77,7 @@ set cmdheight=2
 set tabstop=4 softtabstop=4 shiftwidth=4 noexpandtab
 set ignorecase smartcase
 set fileformats=unix,dos,mac
-set list listchars=tab:⟩\ ,trail:+,precedes:<,extends:>,space:·
+set list listchars=tab:⟩\ ,trail:+,precedes:<,extends:>,space:·,nbsp:░
 set number
 set shortmess=asWAIc
 set formatoptions=crqlmM1j
