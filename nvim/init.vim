@@ -199,8 +199,6 @@ let g:tex_flavor = "latex"
 
 let g:c_gnu = 1
 
-let g:ale_scss_scss_lint_args = '--config ~/dot/nvim/scss-lint.yml'
-
 let g:ale_python_python_exec = 'python3'
 let g:ale_python_flake8_args = '--select=E112,E113,E251,E303,E304,E401,E502,E703,E711,E712,E713,E714,E901,E902,E999,W391,W6,F'
 let g:python_highlight_builtins=1
