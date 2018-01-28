@@ -47,6 +47,8 @@ alias sudo="sudo env HOME=$HOME "
 alias su="sudo $SHELL"
 alias git="git --no-pager"
 
+alias https='http --default-scheme=https' # HTTPie
+
 alias o=xdg-open
 alias \$= # Allows copying scripts with $ prompts
 
