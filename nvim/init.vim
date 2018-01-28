@@ -35,6 +35,7 @@ Plug 'h1mesuke/unite-outline'
 Plug 'kien/ctrlp.vim'
 Plug 'easymotion/vim-easymotion'
 Plug 'vito-c/jq.vim'
+Plug 'andymass/vim-matchup'
 
 Plug 'artur-shaik/vim-javacomplete2', {'for':['java']}
 Plug 'Shougo/echodoc.vim'
