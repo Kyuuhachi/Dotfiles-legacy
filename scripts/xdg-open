@@ -318,7 +318,9 @@ print("Command:")
 print(" ", cmd)
 
 if not args.dry_run:
-	if not cmd:
+	if cmd:
+		subprocess.Popen(["notify-send", f"Opening '{cmd[0]}'", f])
+	else:
 		cmd = ["notify-send", "Don't know how to handle %s file" % checked, f]
 
 
