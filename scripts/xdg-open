@@ -6,6 +6,7 @@ from fnmatch import fnmatch
 import stat
 from collections import defaultdict
 import subprocess
+import appdirs
 
 #{{{1 Largely inspired from xdg.mime
 XDG_HOME = os.environ.get("XDG_DATA_HOME", os.path.expanduser("~/.local/share"))
@@ -266,7 +267,7 @@ else:
 	mime = match(f)
 
 run = {}
-with open(os.path.expanduser("~/dot/mime.cfg")) as mimelist:
+with open(appdirs.user_config_dir("mime.cfg")) as mimelist:
 	cmd = None
 	for line in mimelist.read().splitlines():
 		if line == line.lstrip():
