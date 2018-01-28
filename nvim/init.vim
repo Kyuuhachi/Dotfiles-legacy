@@ -36,6 +36,7 @@ Plug 'kien/ctrlp.vim'
 Plug 'easymotion/vim-easymotion'
 Plug 'vito-c/jq.vim'
 Plug 'andymass/vim-matchup'
+Plug 'vim-scripts/css3-mod'
 
 Plug 'artur-shaik/vim-javacomplete2', {'for':['java']}
 Plug 'Shougo/echodoc.vim'
