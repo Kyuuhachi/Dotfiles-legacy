@@ -241,3 +241,5 @@ augroup END
 
 autocmd FileType java setlocal omnifunc=javacomplete#Complete
 let g:JavaComplete_ClosingBrace = 0
+
+autocmd FileType vim syn clear vimCommentString
