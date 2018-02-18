@@ -164,8 +164,8 @@ xkb_keymap {
 		key <FK12> {type="Xorg", symbols[Group1]=[F12, XF86_Switch_VT_12]};
 		key <HOME> {[Home]};
 		key  <END> {[End]};
-		key  <INS> {[Insert]};
-		key <DELE> {[Delete,Delete]};
+		key  <INS> {type="Xorg", symbols[Group1]=[Insert,XF86_Ungrab]};
+		key <DELE> {type="Xorg", symbols[Group1]=[Delete,XF86_ClearGrab]};
 
 		key <TLDE> {[grave,asciitilde]};
 		key <AE01> {[1,exclam,onesuperior,onesubscript]};
