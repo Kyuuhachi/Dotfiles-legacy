@@ -187,7 +187,7 @@ xkb_keymap {
 		key <AD02> {[w,W]};
 		key <AD03> {[e,E,adiaeresis,Adiaeresis]};
 		key <AD04> {[r,R]};
-		key <AD05> {[t,T]};
+		key <AD05> {[t,T,trademark,trademark]};
 		key <AD06> {[y,Y]};
 		key <AD07> {[u,U]};
 		key <AD08> {[i,I]};
