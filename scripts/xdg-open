@@ -259,7 +259,8 @@ args = argp.parse_args()
 
 f = args.file # type: str
 if f.startswith("file://"):
-	f = f[7:] # TODO escaping and stuff
+	import urllib.parse
+	f = urllib.parse.unquote(f[7:])
 
 if ':' in f:
 	mime = ["x-scheme-handler/" + f.split(":", 1)[0]]
