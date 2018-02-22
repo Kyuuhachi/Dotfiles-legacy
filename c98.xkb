@@ -1,6 +1,9 @@
 // vim: ft=xkb
 xkb_keymap {
-	xkb_keycodes "k" { include "evdev(evdev)" };
+	xkb_keycodes "k" {
+		include "evdev(evdev)"
+		alias <AE00> = <TLDE>;
+	};
 	xkb_geometry "g" { shape "" {{[0,0]}}; };
 
 	xkb_types "t" { // {{{
@@ -167,7 +170,15 @@ xkb_keymap {
 		key  <INS> {type="Xorg", symbols[Group1]=[Insert,XF86_Ungrab]};
 		key <DELE> {type="Xorg", symbols[Group1]=[Delete,XF86_ClearGrab]};
 
-		key <TLDE> {[grave,asciitilde]};
+		key <BKSP> {[BackSpace]};
+		key  <TAB> {[Tab,ISO_Left_Tab,0x01002408,0x01002408]};
+		key <RTRN> {[Return,Return,0x100240A,0x0100240D]};
+		key <CAPS> {[Caps_Lock]};
+		key <LFSH> {[Shift_L]};
+		key <LSGT> {[Escape,Escape,0x0100241B,0x0100241B]};
+		key <RTSH> {[Shift_R]};
+
+		key <AE00> {[grave,asciitilde]};
 		key <AE01> {[1,exclam,onesuperior,onesubscript]};
 		key <AE02> {[2,at,twosuperior,twosubscript]};
 		key <AE03> {[3,numbersign,threesuperior,threesubscript]};
@@ -180,9 +191,7 @@ xkb_keymap {
 		key <AE10> {[0,parenright,zerosuperior,zerosubscript]};
 		key <AE11> {[minus,underscore,endash,emdash]};
 		key <AE12> {[equal,plus,notequal,plusminus]};
-		key <BKSP> {[BackSpace]};
 
-		key  <TAB> {[Tab,ISO_Left_Tab,0x01002408,0x01002408]};
 		key <AD01> {[q,Q]};
 		key <AD02> {[w,W]};
 		key <AD03> {[e,E,adiaeresis,Adiaeresis]};
@@ -195,9 +204,7 @@ xkb_keymap {
 		key <AD10> {[p,P,Greek_pi,Greek_PI]};
 		key <AD11> {[bracketleft,braceleft]};
 		key <AD12> {[bracketright,braceright]};
-		key <RTRN> {[Return,Return,0x100240A,0x0100240D]};
 
-		key <CAPS> {[Caps_Lock]};
 		key <AC01> {[a,A,aring,Aring]};
 		key <AC02> {[s,S]};
 		key <AC03> {[d,D,Greek_delta,Greek_DELTA]};
@@ -209,10 +216,8 @@ xkb_keymap {
 		key <AC09> {[l,L,rightarrow,rightarrow]};
 		key <AC10> {[semicolon,colon]};
 		key <AC11> {[apostrophe,quotedbl]};
-		key <BKSL> {[backslash,bar]};
+		key <AC12> {[backslash,bar]};
 
-		key <LFSH> {[Shift_L]};
-		key <LSGT> {[Escape,Escape,0x0100241B,0x0100241B]};
 		key <AB01> {[z,Z]};
 		key <AB02> {[x,X,multiply,division]};
 		key <AB03> {[c,C]};
@@ -223,7 +228,6 @@ xkb_keymap {
 		key <AB08> {[comma,less,comma,guillemotleft]};
 		key <AB09> {[period,greater,ellipsis,guillemotright]};
 		key <AB10> {[slash,question]};
-		key <RTSH> {[Shift_R]};
 
 		key <I151> {[]}; //FN - default XF86WakeUp
 		key <LCTL> {[Control_L]};
