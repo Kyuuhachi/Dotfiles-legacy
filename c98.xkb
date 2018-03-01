@@ -110,8 +110,15 @@ xkb_keymap {
 		latchMods.clearLocks=True;
 		latchMods.latchToLock=True;
 
-		interpret Any+Any          {action=SetMods(modifiers=modMapMods);};
+		// interpret Any+Any          {action=SetMods(modifiers=modMapMods);};
+		interpret Shift_L          {action=SetMods(modifiers=Shift);};
+		interpret Shift_R          {action=SetMods(modifiers=Shift);};
+		interpret Control_L        {action=SetMods(modifiers=Control);};
+		interpret Control_R        {action=SetMods(modifiers=Control);};
 		interpret Alt_L            {action=SetMods(modifiers=Mod1);};
+		interpret Alt_R            {action=SetMods(modifiers=Mod1);};
+		interpret Super_L          {action=SetMods(modifiers=Mod4);};
+		interpret Super_R          {action=SetMods(modifiers=Mod4);};
 		interpret ISO_Level3_Shift {action=SetMods(modifiers=Mod5);};
 
 		interpret.repeat=True;
@@ -244,24 +251,6 @@ xkb_keymap {
 		key <LEFT> {[Left]};
 		key <DOWN> {[Down]};
 		key <RGHT> {[Right]};
-
-		// modifier_map Lock {Caps_Lock};
-		modifier_map Shift {Shift_L,Shift_R};
-		modifier_map Control {Control_L,Control_R};
-		modifier_map Mod1 {Alt_L};
-		modifier_map Mod2 {Num_Lock};
-		modifier_map Mod4 {Super_L,Super_R};
-
-		key <LVL3> {[ISO_Level3_Shift]};
-		key <MDSW> {[Mode_switch]};
-		key  <ALT> {[Alt_L]};
-		key <META> {[Meta_L]};
-		key <SUPR> {[Super_L]};
-		key <HYPR> {[Hyper_L]};
-		modifier_map Mod5 {<LVL3>,<MDSW>};
-		modifier_map Mod1 {<LALT>,<ALT>,<META>};
-		modifier_map Mod4 {<SUPR>};
-		modifier_map Mod4 {<HYPR>};
 
 		// {{{ Not on my keyboard
 		key <SCLK> {[Scroll_Lock]};
