@@ -1,4 +1,3 @@
-¡	iexcl
 ¢	cent
 £	pound
 ¤	curren
@@ -23,20 +22,83 @@
 ♯	sharp
 ✓	check
 ✗	cross
-¿	iquest
-¡	iexcl
-‽	interrobang
+¿	iquest ??
+¡	iexcl  !!
+‽	interrobang !? ?!
 °	deg
-¹	sup1
-²	sup2
-³	sup3
 µ	micro
-·	middot
+·	middot cdot
 †	dagger
 ‡	ddagger
 •	bull
 √	sqrt
 ∞	infin
+
+# {{{1 Sup/sub
+⁰	sup0
+¹	sup1
+²	sup2
+³	sup3
+⁴	sup4
+⁵	sup5
+⁶	sup6
+⁷	sup7
+⁸	sup8
+⁹	sup9
+₀	sub0
+₁	sub1
+₂	sub2
+₃	sub3
+₄	sub4
+₅	sub5
+₆	sub6
+₇	sub7
+₈	sub8
+₉	sub9
+
+ᵃ	supa
+ᵇ	supb
+ᶜ	supc
+ᵈ	supd
+ᵉ	supe
+ᶠ	supf
+ᵍ	supg
+ʰ	suph
+ⁱ	supi
+ʲ	supj
+ᵏ	supk
+ˡ	supl
+ᵐ	supm
+ⁿ	supn
+ᵒ	supo
+ᵖ	supp
+ʳ	supr
+ˢ	sups
+ᵗ	supt
+ᵘ	supu
+ᵛ	supv
+ʷ	supw
+ˣ	supx
+ʸ	supy
+ᶻ	supz
+ₐ	suba
+ₑ	sube
+ₕ	subh
+ᵢ	subi
+ⱼ	subj
+ₖ	subk
+ₗ	subl
+ₘ	subm
+ₙ	subn
+ₒ	subo
+ₚ	subp
+ᵣ	subr
+ₛ	subs
+ₜ	subt
+ᵤ	subu
+ᵥ	subv
+ₓ	subx
+# }}}1
 
 ¬	not
 ×	times
@@ -52,46 +114,30 @@
 ∴	therefore
 ∵	because
 
-≈	asymp
-≉	nap
-≔	colone
-≟	equest
-≠	ne
-≡	equiv
-≤	le
-≥	ge
-≮	nlt
-≯	ngt
-≰	nle
-≱	nge
-≪	ll
-≫	gg
-⋘	lll
-⋙	ggg
+≠	ne     !=
+≈	app    ~=
+≉	napp   !~=
+≔	colone :=
+≡	equiv  ==
+≮	nlt    !<
+≯	ngt    !>
+≤	le     <=
+≥	ge     >=
+≰	nle    !<=
+≱	nge    !>=
+≪	ll     <<
+≫	gg     >>
+⋘	lll    <<<
+⋙	ggg    >>>
+≟	equest =?
+≝	eqdef  =def
 
-≈	~=
-≉	!~=
-≔	:=
-≟	=?
-≠	!=
-≡	==
-≤	<=
-≥	>=
-≮	!<
-≯	!>
-≰	!<=
-≱	!>=
-≪	<<
-≫	>>
-⋘	<<<
-⋙	>>>
-
-▀	uhblk
-▄	lhblk
-█	block
-░	blk14
-▒	blk12
-▓	blk34
+█	blk
+▀	blku
+▄	blkd
+░	blk1
+▒	blk2
+▓	blk3
 
 Ð	ETH
 ð	eth
@@ -101,7 +147,6 @@
 ȷ	jnodot
 Æ	AElig
 æ	aelig
-ŉ	napos
 
 ¼	frac14
 ½	frac12
@@ -383,6 +428,7 @@
 ϶	bepsi
 # }}}
 # {{{ Spaces, bars, quotes/brackets
+ 	nbsp
  	ensp
  	emsp
  	emsp13
@@ -479,122 +525,122 @@
 └	box-ur
 
 # {{{ Arrows
-←	larr          # ←
-↑	uarr          # ↑
-→	rarr          # →
-↓	darr          # ↓
-↔	harr          # ↔
-↕	varr          # ↕
-↖	nwarr         # ↖
-↗	nearr         # ↗
-↘	searr         # ↘
-↙	swarr         # ↙
-⇖	nWarr         # ⇖
-⇗	nEarr         # ⇗
-⇘	sEarr         # ⇘
-⇙	sWarr         # ⇙
-↞	Larr          # ↞
-↟	Uarr          # ↟
-↠	Rarr          # ↠
-↡	Darr          # ↡
-↼	lubarb        # ↼
-↽	ldbarb        # ↽
-↾	urbarb        # ↾
-↿	ulbarb        # ↿
-⇀	rubarb        # ⇀
-⇁	rdbarb        # ⇁
-⇂	drbarb        # ⇂
-⇃	dlbarb        # ⇃
-⇄	rlarr         # ⇄
-⇅	udarr         # ⇅
-⇆	lrarr         # ⇆
-⇵	duarr         # ⇵
-⇇	llarr         # ⇇
-⇈	uuarr         # ⇈
-⇉	rrarr         # ⇉
-⇊	ddarr         # ⇊
-⇠	larr-dot      # ⇠
-⇡	uarr-dot      # ⇡
-⇢	rarr-dot      # ⇢
-⇣	darr-dot      # ⇣
-⇷	larr-stroke   # ⇷
-⇸	rarr-stroke   # ⇸
-⇹	harr-stroke   # ⇹
-⇺	larr-dstroke  # ⇺
-⇻	rarr-dstroke  # ⇻
-⇞	uarr-dstroke  # ⇞
-⇟	darr-dstroke  # ⇟
-⇼	harr-dstroke  # ⇼
-↜	larr-squiggle # ↜
-↝	rarr-squiggle # ↝
-↩	larr-turn     # ↩
-↪	rarr-turn     # ↪
-↫	larr-loop     # ↫
-↬	rarr-loop     # ↬
-↢	larr-split    # ↢
-↣	rarr-split    # ↣
-⇤	larr-tbar     # ⇤
-⇥	rarr-tbar     # ⇥
-↤	larr-fbar     # ↤
-↥	uarr-fbar     # ↥
-↦	rarr-fbar     # ↦
-↧	darr-fbar     # ↧
-⇐	lArr          # ⇐
-⇑	uArr          # ⇑
-⇒	rArr          # ⇒
-⇓	dArr          # ⇓
-⇔	hArr          # ⇔
-⇕	vArr          # ⇕
-⇦	lArr-back     # ⇦
-⇧	uArr-back     # ⇧
-⇨	rArr-back     # ⇨
-⇩	dArr-back     # ⇩
-⇜	larr-wave     # ⇜
-⇝	rarr-wave     # ⇝
-↭	harr-wave     # ↭
-↚	larr-slash    # ↚
-↛	rarr-slash    # ↛
-↮	harr-slash    # ↮
-⇍	lArr-slash    # ⇍
-⇏	rArr-slash    # ⇏
-⇎	hArr-slash    # ⇎
-↶	ccw180        # ↶
-↷	cw180         # ↷
-↺	ccw270        # ↺
-↻	cw270         # ↻
-⟲	ccw360        # ⟲
-⟳	cw360         # ⟳
+←	larr
+↑	uarr
+→	rarr
+↓	darr
+↔	harr
+↕	varr
+↖	nwarr
+↗	nearr
+↘	searr
+↙	swarr
+⇖	nWarr
+⇗	nEarr
+⇘	sEarr
+⇙	sWarr
+↞	Larr
+↟	Uarr
+↠	Rarr
+↡	Darr
+↼	lubarb
+↽	ldbarb
+↾	urbarb
+↿	ulbarb
+⇀	rubarb
+⇁	rdbarb
+⇂	drbarb
+⇃	dlbarb
+⇄	rlarr
+⇅	udarr
+⇆	lrarr
+⇵	duarr
+⇇	llarr
+⇈	uuarr
+⇉	rrarr
+⇊	ddarr
+⇠	larr-dot
+⇡	uarr-dot
+⇢	rarr-dot
+⇣	darr-dot
+⇷	larr-stroke
+⇸	rarr-stroke
+⇹	harr-stroke
+⇺	larr-dstroke
+⇻	rarr-dstroke
+⇞	uarr-dstroke
+⇟	darr-dstroke
+⇼	harr-dstroke
+↜	larr-squiggle
+↝	rarr-squiggle
+↩	larr-turn
+↪	rarr-turn
+↫	larr-loop
+↬	rarr-loop
+↢	larr-split
+↣	rarr-split
+⇤	larr-tbar
+⇥	rarr-tbar
+↤	larr-fbar
+↥	uarr-fbar
+↦	rarr-fbar
+↧	darr-fbar
+⇐	lArr
+⇑	uArr
+⇒	rArr
+⇓	dArr
+⇔	hArr
+⇕	vArr
+⇦	lArr-back
+⇧	uArr-back
+⇨	rArr-back
+⇩	dArr-back
+⇜	larr-wave
+⇝	rarr-wave
+↭	harr-wave
+↚	larr-slash
+↛	rarr-slash
+↮	harr-slash
+⇍	lArr-slash
+⇏	rArr-slash
+⇎	hArr-slash
+↶	ccw180
+↷	cw180
+↺	ccw270
+↻	cw270
+⟲	ccw360
+⟳	cw360
 # }}}
 
-Ⅰ	romanI # ROMAN NUMERAL ONE
-Ⅱ	romanII # ROMAN NUMERAL TWO
-Ⅲ	romanIII # ROMAN NUMERAL THREE
-Ⅳ	romanIV # ROMAN NUMERAL FOUR
-Ⅴ	romanV # ROMAN NUMERAL FIVE
-Ⅵ	romanVI # ROMAN NUMERAL SIX
-Ⅶ	romanVII # ROMAN NUMERAL SEVEN
-Ⅷ	romanVIII # ROMAN NUMERAL EIGHT
-Ⅸ	romanIX # ROMAN NUMERAL NINE
-Ⅹ	romanX # ROMAN NUMERAL TEN
-Ⅺ	romanXI # ROMAN NUMERAL ELEVEN
-Ⅻ	romanXII # ROMAN NUMERAL TWELVE
-Ⅼ	romanL # ROMAN NUMERAL FIFTY
-Ⅽ	romanC # ROMAN NUMERAL ONE HUNDRED
-Ⅾ	romanD # ROMAN NUMERAL FIVE HUNDRED
-Ⅿ	romanM # ROMAN NUMERAL ONE THOUSAND
-ⅰ	romani # SMALL ROMAN NUMERAL ONE
-ⅱ	romanii # SMALL ROMAN NUMERAL TWO
-ⅲ	romaniii # SMALL ROMAN NUMERAL THREE
-ⅳ	romaniv # SMALL ROMAN NUMERAL FOUR
-ⅴ	romanv # SMALL ROMAN NUMERAL FIVE
-ⅵ	romanvi # SMALL ROMAN NUMERAL SIX
-ⅶ	romanvii # SMALL ROMAN NUMERAL SEVEN
-ⅷ	romanviii # SMALL ROMAN NUMERAL EIGHT
-ⅸ	romanix # SMALL ROMAN NUMERAL NINE
-ⅹ	romanx # SMALL ROMAN NUMERAL TEN
-ⅺ	romanxi # SMALL ROMAN NUMERAL ELEVEN
-ⅻ	romanxii # SMALL ROMAN NUMERAL TWELVE
-ⅼ	romanl # SMALL ROMAN NUMERAL FIFTY
-ⅽ	romanc # SMALL ROMAN NUMERAL ONE HUNDRED
-ⅾ	romand # SMALL ROMAN NUMERAL FIVE HUNDRED
-ⅿ	romanm # SMALL ROMAN NUMERAL ONE THOUSAND
+Ⅰ	romanI
+Ⅱ	romanII
+Ⅲ	romanIII
+Ⅳ	romanIV
+Ⅴ	romanV
+Ⅵ	romanVI
+Ⅶ	romanVII
+Ⅷ	romanVIII
+Ⅸ	romanIX
+Ⅹ	romanX
+Ⅺ	romanXI
+Ⅻ	romanXII
+Ⅼ	romanL
+Ⅽ	romanC
+Ⅾ	romanD
+Ⅿ	romanM
+ⅰ	romani
+ⅱ	romanii
+ⅲ	romaniii
+ⅳ	romaniv
+ⅴ	romanv
+ⅵ	romanvi
+ⅶ	romanvii
+ⅷ	romanviii
+ⅸ	romanix
+ⅹ	romanx
+ⅺ	romanxi
+ⅻ	romanxii
+ⅼ	romanl
+ⅽ	romanc
+ⅾ	romand
+ⅿ	romanm

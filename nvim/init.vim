@@ -12,7 +12,6 @@ Plug 'Konfekt/FoldText'
 Plug 'lervag/vimtex'
 Plug 'pbrisbin/vim-mkdir'
 Plug 'PotatoesMaster/i3-vim-syntax'
-Plug 's3rvac/AutoFenc'
 Plug 'sheerun/vim-polyglot'
 Plug 'Shougo/vimproc.vim'
 Plug 'tpope/vim-abolish'
@@ -38,7 +37,6 @@ Plug 'vito-c/jq.vim'
 Plug 'andymass/vim-matchup'
 Plug 'vim-scripts/css3-mod'
 
-Plug 'artur-shaik/vim-javacomplete2', {'for':['java']}
 Plug 'Shougo/echodoc.vim'
 
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -57,7 +55,10 @@ Plug 'eagletmt/ghcmod-vim', {'for':['haskell']}
 Plug 'Caagr98/c98color.vim'
 Plug 'Caagr98/c98ibus.vim'
 Plug 'Caagr98/c98tabbar.vim'
-Plug 'Caagr98/c98lilypond.vim'
+"Plug 'Caagr98/c98lilypond.vim'
+"Plug 'Caagr98/c98notes.vim'
+"Plug 'Caagr98/c98classified.vim'
+"Plug 'Caagr98/c98elsa.vim'
 call plug#end()
 
 colorscheme c98color
@@ -83,7 +84,7 @@ set list listchars=tab:⟩\ ,trail:+,precedes:<,extends:>,space:·,nbsp:░
 set number
 set shortmess=asWAIc
 set formatoptions=crqlmM1j
-set autochdir
+" set autochdir
 set scrolloff=7
 set nowrap linebreak
 set foldmethod=marker "foldcolumn=1
@@ -136,10 +137,6 @@ onoremap aE <Plug>(textobj-entire-a)
 onoremap iE <Plug>(textobj-entire-i)
 xnoremap aE <Plug>(textobj-entire-a)
 xnoremap iE <Plug>(textobj-entire-i)
-
-let g:autofenc_ext_prog_path='uchardet'
-let g:autofenc_ext_prog_args=''
-let g:autofenc_ext_prog_unknown_fenc='ascii/unknown'
 
  noremap H ^
  noremap L $
@@ -197,11 +194,18 @@ call add(g:polyglot_disabled, 'latex')
 let g:vimtex_imaps_enabled = 0
 let g:deoplete#omni#input_patterns.tex = g:vimtex#re#deoplete
 let g:tex_flavor = "latex"
+let g:vimtex_indent_on_ampersands = 0
+let g:tex_no_error = 1
+augroup Latex
+	au!
+	au FileType tex setlocal expandtab
+	au FileType tex let b:tex_stylish = 1
+augroup END
 
 let g:c_gnu = 1
 
 let g:ale_python_python_exec = 'python3'
-let g:ale_python_flake8_args = '--select=E112,E113,E251,E303,E304,E401,E502,E703,E711,E712,E713,E714,E901,E902,E999,W391,W6,F'
+let g:ale_python_flake8_options = '--select=E112,E113,E251,E303,E304,E401,E502,E703,E711,E712,E713,E714,E901,E902,E999,W391,W6,F'
 let g:python_highlight_builtins=1
 let g:python_highlight_exceptions=1
 let g:deoplete#sources#jedi#show_docstring = 1
@@ -239,7 +243,13 @@ augroup Haskell
 	au FileType haskell syn match haskellFloat "\v<[0-9]+(\.[0-9]\+)?([eE][-+]?[0-9]+)?>"
 augroup END
 
-autocmd FileType java setlocal omnifunc=javacomplete#Complete
-let g:JavaComplete_ClosingBrace = 0
-
 autocmd FileType vim syn clear vimCommentString
+
+fun! s:openTerm(args, count, vertical)
+	exe (a:count ? a:count : "") . (a:vertical ? 'vnew' : 'new')
+	exe 'terminal' a:args
+endf
+command! -count -nargs=* -complete=shellcmd Term call s:openTerm(<q-args>, <count>, 0)
+command! -count -nargs=* -complete=shellcmd VTerm call s:openTerm(<q-args>, <count>, 1)
+tnoremap <Esc> <C-\><C-n>
+tnoremap <C-\><Esc> <Esc>

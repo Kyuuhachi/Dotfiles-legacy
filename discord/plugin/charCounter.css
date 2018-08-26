@@ -1,0 +1,12 @@
+.chat form > :first-child {
+	z-index: 1;
+}
+#charcounter {
+	display: block;
+	position: absolute;
+	right: 0;
+	opacity: .5;
+	bottom:-1.7em;
+	font-size: 75%;
+}
+

@@ -1,0 +1,15 @@
+[class*="messages-"] > [class*="containerCozy-"] {
+	margin: 0;
+	padding: 0;
+}
+[class*="messages-"] > [class*="containerCozy-"] > [class*="dividerEnabled-"],
+[class*="messages-"] > [class*="divider-"] {
+	margin: .5em 20px;
+}
+[class*="channelTextArea-"] {
+	margin-top: .5em;
+	padding-top: .5em;
+}
+[class*="headerCozy-"] [class*="wrapper-"][role="button"] {
+	margin: 0 10px 0 20px;
+}

@@ -79,17 +79,9 @@ export LESS_TERMCAP_me=$(printf "$reset_color")
 export LESS_TERMCAP_se=$(printf "$reset_color")
 export LESS_TERMCAP_ue=$(printf "$reset_color")
 
-mvn() {
-	=mvn $@ | sed \
-		-e "s/^\[INFO]/${fg[blue]}${bold_color}&${reset_color}/i" \
-		-e "s/^\[WARNING]/${fg[yellow]}${bold_color}&${reset_color}/i" \
-		-e "s/^\[ERROR]/${fg[red]}${bold_color}&${reset_color}/i"
-}
-
 eval "$(dircolors -b)"
 alias ls="ls --color=auto -F"
 alias grep="grep --color=auto"
-alias pacaur="pacaur --color=auto"
 #{{{1 Completion
 autoload -Uz compinit && compinit
 setopt complete_in_word
@@ -130,7 +122,7 @@ zstyle ':completion:*:*:*:users' ignored-patterns \
 autoload -U regexp-replace
 setopt re_match_pcre
 
-function _list_files() {
+false && function _list_files() {
 	local f output
 
 	listfiles=()
@@ -177,22 +169,8 @@ function complete-with-dots() {
 zle -N complete-with-dots
 bindkey "^I" complete-with-dots
 
-function rationalise-dot() {
-	if [[ $LBUFFER = *.. ]]; then
-		LBUFFER+=/.
-	fi
-	zle self-insert
-}
-zle -N rationalise-dot
-bindkey "." rationalise-dot
-
 function nop() {}
 zle -N nop
-
-autoload -Uz bracketed-paste-magic
-autoload -Uz url-quote-magic
-zle -N bracketed-paste bracketed-paste-magic
-zle -N self-insert url-quote-magic
 
 #{{{1 Terminfo
 bindkey "^[[2~"   overwrite-mode       ; bindkey -- "$terminfo[kich1]" overwrite-mode       # Insert
@@ -230,4 +208,3 @@ typeset -gA HSMW_HIGHLIGHT_STYLES
 typeset -gA FAST_HIGHLIGHT_STYLES
 HSMW_HIGHLIGHT_STYLES+=(${(kv)HIGHLIGHT})
 FAST_HIGHLIGHT_STYLES+=(${(kv)HIGHLIGHT})
-eval $(thefuck --alias) && alias f=fuck

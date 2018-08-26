@@ -44,9 +44,10 @@ def mkseed(seed):
 	import platform
 	import os
 	import pwd
-	return sum(map(ord, "{user}@{host}:{seed}".format(host=platform.node(), user=pwd.getpwuid(os.getuid()), seed=seed))) % (1 << 32)
+	return sum(map(ord, f"{pwd.getpwuid(os.getuid())}@{platform.node()}:{seed}")) & 0xFFFFFFFF
 
 def change_workspace(name):
+	print(f"Changing to {name}", flush=True)
 	display = Xlib.display.Display()
 	screen = display.screen()
 	root = screen.root
@@ -71,6 +72,7 @@ def change_workspace(name):
 	root.change_property(display.get_atom("_XROOTPMAP_ID"), Xatom.PIXMAP, 32, [id])
 	root.change_property(display.get_atom("ESETROOT_PMAP_ID"), Xatom.PIXMAP, 32, [id])
 	root.change_attributes(background_pixmap=id)
+	root.clear_area(0, 0, w, h)
 	display.sync()
 
 def gen_colors(hue):

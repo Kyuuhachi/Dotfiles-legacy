@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 import sys
 import re
-import subprocess
 import dmenu
+import xtype
 
 keys = []
 chars = {}
@@ -19,16 +19,13 @@ with open(sys.argv[1], "rt") as file:
 code = dmenu.show(keys)
 
 if code is not None:
-	numRe = re.compile("#([0-9]+)")
-	hexRe = re.compile("#x([0-9a-fA-F]+)")
+	rx = re.compile("#x?([0-9]+)")
 
 	char = None
 	if code in chars:
 		char = chars[code]
-	elif hexRe.match(code):
-		char = chr(int(hexRe.match(code).group(1), 16))
-	elif numRe.match(code):
-		char = chr(int(numRe.match(code).group(1)))
+	elif rx.match(code):
+		char = chr(int(rx.match(code).group(1), 16))
 
 	if char:
-		subprocess.Popen(["xtype", char])
+		xtype.xtype([xtype.get_char(char)])

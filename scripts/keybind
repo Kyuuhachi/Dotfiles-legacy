@@ -1,0 +1,17 @@
+#!/usr/bin/env python3
+import subprocess
+import argparse
+import gi
+gi.require_version("Gdk", "3.0")
+gi.require_version("Keybinder", "3.0")
+from gi.repository import Keybinder, GLib, Gdk
+del Gdk
+
+args = argparse.ArgumentParser()
+args.add_argument("key")
+args.add_argument("command")
+args = args.parse_args()
+
+Keybinder.init()
+Keybinder.bind(args.key, lambda k, a: subprocess.Popen(a, shell=True), args.command)
+GLib.MainLoop().run()

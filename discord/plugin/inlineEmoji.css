@@ -1,0 +1,10 @@
+.emoji.emoji.emoji {
+	width: 1em;
+	height: 1em;
+	vertical-align: top;
+	min-width: initial;
+	min-height: initial;
+	margin: 0;
+	position: relative;
+	top: .15em;
+}

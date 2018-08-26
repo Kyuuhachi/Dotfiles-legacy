@@ -1,0 +1,34 @@
+#!/usr/bin/env zsh
+DISCORD_DIR=/opt/discord
+LOCAL_DIR="$(echo ~/.config/discord/0.*)"
+CORE=$LOCAL_DIR/modules/discord_desktop_core
+
+function find_root() {
+	local head=$1:h
+	if [[ -d $1/discord ]]; then
+		echo $1/discord
+	elif [[ $head == $1 ]]; then
+		return 1
+	else
+		find_root $head
+	fi
+}
+MOD_DIR="$(find_root "$(realpath $0)")"
+if [[ -z $MOD_DIR ]] then echo "Couldn't find mod directory"; return 1; fi
+
+function install() {
+	asar e "$CORE/core.asar" "$CORE/core"
+	echo "module.exports = require('./core');" > $CORE/index.js
+	sed \
+		-e "1a module.paths.push('$MOD_DIR');let discordmod = require('discordmod');" \
+		-e '/new \(\w\+\.\)*BrowserWindow/a discordmod(mainWindow);' \
+		-i "$CORE/core/app/mainScreen.js"
+	echo patched "$CORE/core/app/mainScreen.js"
+}
+function uninstall() {
+	rm -r "$CORE/core"
+	echo "module.exports = require('./core.asar');" > $CORE/index.js
+}
+
+[[ -d "$CORE/core" ]] && uninstall
+install

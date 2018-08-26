@@ -1,8 +1,6 @@
 #!/bin/sh
-export PATH="$HOME/dot/scripts:$HOME/.local/bin:$PATH"
-export LANG="en_US.UTF-8"
-export LC_TIME="C"
-export LC_NUMERIC="C"
+
+source ~/.profile
 
 export GTK_IM_MODULE=ibus
 export QT_IM_MODULE=ibus
