@@ -103,7 +103,6 @@ class Selem:
 	def callback(self, func):
 		@functools.wraps(func)
 		def func2(ptr, mask):
-			print("foob")
 			return func(mask) or 0
 		func3 = asound.elem_callback(func2)
 		self._gc.append(func3)
