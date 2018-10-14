@@ -1,9 +1,0 @@
-/* eslint-env jquery */
-/* global Modules, MonkeyPatch */
-"use strict";
-
-(async function() {
-	const Notifications = await Modules.byFields("showNotification", "hasPermission");
-	const Window = await Modules.byFields("flashFrame");
-	MonkeyPatch(Notifications, "showNotification", { after: () => Window.flashFrame(true) });
-})();
