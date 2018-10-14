@@ -2,9 +2,9 @@
 import gi
 gi.require_version("Gtk", "3.0")
 from gi.repository import GLib, Gtk, Gdk
-from pathlib import Path
+import simplebat
 
-batfile = Path("/sys/class/power_supply/BAT0/capacity")
+path = "/sys/class/power_supply/BAT0"
 
 def main():
 	disp = Gdk.Display.get_default()
@@ -22,7 +22,6 @@ def main():
 	win.get_window().set_child_input_shapes()
 	win.get_window().set_override_redirect(True)
 
-	win.bat = None
 	update(win)
 	GLib.timeout_add_seconds(1, update, win)
 	win.connect("draw", draw)
@@ -31,11 +30,12 @@ def main():
 	Gtk.main()
 
 def update(win):
-	bat = int(batfile.read_bytes())
-	if bat != win.bat:
-		win.bat = bat
-		win.get_window().invalidate_region(win.get_window().get_visible_region(), False)
+	bat = simplebat.BatteryStatus(path)
+	win.bat = bat.energy_now / bat.energy_full
+	win.get_window().invalidate_region(win.get_window().get_visible_region(), False)
+	win.set_visible(alpha(win.bat) > 0)
 	return True
+
 def draw_(cr, a, hor):
 	import cairo
 	if hor:
@@ -49,11 +49,13 @@ def draw_(cr, a, hor):
 	cr.set_source(g)
 	cr.paint()
 
+def alpha(bat):
+	return max(0, (1-bat/.1)/2)
+
 def draw(win, cr):
-	if win.bat < 10:
-		a = (1-win.bat/10)/2
-		draw_(cr, a, True)
-		draw_(cr, a, False)
+	a = alpha(win.bat)
+	draw_(cr, a, True)
+	draw_(cr, a, False)
 
 if __name__ == "__main__":
 	main()

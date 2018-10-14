@@ -122,22 +122,6 @@ zstyle ':completion:*:*:*:users' ignored-patterns \
 autoload -U regexp-replace
 setopt re_match_pcre
 
-false && function _list_files() {
-	local f output
-
-	listfiles=()
-	listopts=()
-
-	output="$(cd ${2:-.} && ls -dlU --color=always ${(PQ)1})"$'\n'
-	regexp-replace output '\[0m(?!\n)' ''
-	regexp-replace output '\[00;' '['
-	listfiles=(${(f)output})
-
-	(( ${#listfiles} )) && listopts=(-o -l -d listfiles)
-
-	return 0
-}
-
 #{{{1 Large custom scripts
 source ~/dot/zsh/prompt.zsh
 
@@ -172,20 +156,19 @@ bindkey "^I" complete-with-dots
 function nop() {}
 zle -N nop
 
-#{{{1 Terminfo
-bindkey "^[[2~"   overwrite-mode       ; bindkey -- "$terminfo[kich1]" overwrite-mode       # Insert
-bindkey "^?"      backward-delete-char ; bindkey -- "$terminfo[kbs]"   backward-delete-char # Backspace
-bindkey "^[^?"    backward-delete-word ;                                                    # A-Backspace
-bindkey "^[[3~"   delete-char          ; bindkey -- "$terminfo[kdch1]" delete-char          # Delete
-bindkey "^[[3;3~" delete-word          ;                                                    # A-Delete
-bindkey "^[[A"    up-line-or-search    ; bindkey -- "$terminfo[kcuu1]" up-line-or-search    # Up
-bindkey "^[[B"    down-line-or-search  ; bindkey -- "$terminfo[kcud1]" down-line-or-search  # Down
-bindkey "^[[C"    forward-char         ; bindkey -- "$terminfo[kcub1]" backward-char        # Right
-bindkey "^[[D"    backward-char        ; bindkey -- "$terminfo[kcuf1]" forward-char         # Left
-bindkey "^[[F"    end-of-line          ; bindkey -- "$terminfo[khome]" beginning-of-line    # End
-bindkey "^[[H"    beginning-of-line    ; bindkey -- "$terminfo[kend]"  end-of-line          # Home
-bindkey "^[[5~"   nop                  ; bindkey -- "$terminfo[kpp]"   nop                  # PgUp
-bindkey "^[[6~"   nop                  ; bindkey -- "$terminfo[knp]"   nop                  # PgDn
+bindkey "^[[2~"   overwrite-mode       # Insert
+bindkey "^?"      backward-delete-char # Backspace
+bindkey "^[^?"    backward-delete-word # A-Backspace
+bindkey "^[[3~"   delete-char          # Delete
+bindkey "^[[3;3~" delete-word          # A-Delete
+bindkey "^[[A"    up-line-or-history   # Up
+bindkey "^[[B"    down-line-or-history # Down
+bindkey "^[[C"    forward-char         # Right
+bindkey "^[[D"    backward-char        # Left
+bindkey "^[[F"    end-of-line          # End
+bindkey "^[[H"    beginning-of-line    # Home
+bindkey "^[[5~"   nop                  # PgUp
+bindkey "^[[6~"   nop                  # PgDn
 
 #{{{1 Plugins
 

@@ -22,10 +22,10 @@ if code is not None:
 	rx = re.compile("#x?([0-9]+)")
 
 	char = None
-	if code in chars:
+	if code[:1] == "#":
+		char = chr(int(code[1:], 16))
+	elif code in chars:
 		char = chars[code]
-	elif rx.match(code):
-		char = chr(int(rx.match(code).group(1), 16))
 
 	if char:
 		xtype.xtype([xtype.get_char(char)])

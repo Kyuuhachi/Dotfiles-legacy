@@ -13,7 +13,7 @@ Plug 'lervag/vimtex'
 Plug 'pbrisbin/vim-mkdir'
 Plug 'PotatoesMaster/i3-vim-syntax'
 Plug 'sheerun/vim-polyglot'
-Plug 'Shougo/vimproc.vim'
+Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-afterimage'
 Plug 'tpope/vim-characterize'
@@ -37,7 +37,7 @@ Plug 'vito-c/jq.vim'
 Plug 'andymass/vim-matchup'
 Plug 'vim-scripts/css3-mod'
 
-Plug 'Shougo/echodoc.vim'
+" Plug 'Shougo/echodoc.vim'
 
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/deoplete-zsh', {'for':['zsh']}
@@ -49,13 +49,15 @@ Plug 'xuhdev/vim-latex-live-preview', {'on': 'LLPStartPreview'}
 
 " Plugin 'neovimhaskell/haskell-vim'
 Plug 'itchyny/vim-haskell-indent', {'for':['haskell']}
-Plug 'eagletmt/neco-ghc', {'for':['haskell']}
-Plug 'eagletmt/ghcmod-vim', {'for':['haskell']}
+" Plug 'eagletmt/neco-ghc', {'for':['haskell']}
+" Plug 'eagletmt/ghcmod-vim', {'for':['haskell']}
+Plug 'junegunn/fzf'
+Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
 
 Plug 'Caagr98/c98color.vim'
-Plug 'Caagr98/c98ibus.vim'
+" Plug 'Caagr98/c98ibus.vim'
 Plug 'Caagr98/c98tabbar.vim'
-"Plug 'Caagr98/c98lilypond.vim'
+Plug 'Caagr98/c98lilypond.vim'
 "Plug 'Caagr98/c98notes.vim'
 "Plug 'Caagr98/c98classified.vim'
 "Plug 'Caagr98/c98elsa.vim'
@@ -119,7 +121,7 @@ let g:ctrlp_custom_ignore = {
 
 set showtabline=2
 
-set completeopt=menu,menuone,preview,noselect
+set completeopt=menu,menuone,preview,noselect,noinsert
 set splitbelow splitright
 let g:deoplete#enable_at_startup = 1
 inoremap <expr> <TAB> pumvisible() ? "<C-n>" : "<TAB>"
@@ -127,10 +129,25 @@ inoremap <expr> <Down> pumvisible() ? "<C-n>" : "<Down>"
 inoremap <expr> <S-TAB> pumvisible() ? "<C-p>" : "<S-TAB>"
 inoremap <expr> <Up> pumvisible() ? "<C-p>" : "<Up>"
 inoremap <expr> <CR> pumvisible() ? "<C-y><CR>" : "<CR>"
+
+let g:LanguageClient_serverCommands = {}
+let g:LanguageClient_serverCommands.python = ['pyls']
+let g:LanguageClient_serverCommands.haskell = ['hie-wrapper']
 map <NUL> <C-Space>
 map! <NUL> <C-Space>
+nnoremap <C-space> :call LanguageClient_contextMenu()<CR>
 inoremap <expr> <C-Space> deoplete#mappings#manual_complete()
-let g:deoplete#auto_complete_start_length = 1
+nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> gl :call LanguageClient#textDocument_documentSymbol()<CR>
+nnoremap <silent> gh :call LanguageClient#textDocument_references()<CR>
+nnoremap <silent> g<C-l> :call LanguageClient#textDocument_documentHighlight()<CR>
+nnoremap <silent> <F1> :call LanguageClient#explainErrorAtPoint()<CR>
+nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+set completefunc=LanguageClient#complete
+" set formatexpr=LanguageClient#textDocument_rangeFormatting_sync()
+
 
 let g:textobj_entire_no_default_key_mappings = 1
 onoremap aE <Plug>(textobj-entire-a)
@@ -140,8 +157,6 @@ xnoremap iE <Plug>(textobj-entire-i)
 
  noremap H ^
  noremap L $
- noremap j gj
- noremap k gk
 vnoremap . :norm.<CR>
  noremap <leader>v `<v`>
  noremap <leader>V `<V`>
@@ -180,16 +195,7 @@ noremap!<PageDown>  <NOP>
 hi LongLine cterm=italic
 match LongLine /\%>120v\S/
 
-let g:ale_linters = {}
-let g:ale_sign_column_always = 1
-let g:ale_echo_msg_error_str = 'E'
-let g:ale_echo_msg_warning_str = 'W'
-let g:ale_echo_msg_format = '[%linter%:%severity%] %s'
-let g:ale_lint_on_text_changed = 'normal'
-let g:ale_lint_on_insert_leave = 1
 
-let g:ale_linters.tex = ["chktex"]
-let g:ale_tex_chktex_options = '-n 38' " 38: punc inside quote
 call add(g:polyglot_disabled, 'latex')
 let g:vimtex_imaps_enabled = 0
 let g:deoplete#omni#input_patterns.tex = g:vimtex#re#deoplete
@@ -204,30 +210,12 @@ augroup END
 
 let g:c_gnu = 1
 
-let g:ale_python_python_exec = 'python3'
-let g:ale_python_flake8_options = '--select=E112,E113,E251,E303,E304,E401,E502,E703,E711,E712,E713,E714,E901,E902,E999,W391,W6,F'
 let g:python_highlight_builtins=1
 let g:python_highlight_exceptions=1
-let g:deoplete#sources#jedi#show_docstring = 1
 augroup Python
 	au!
 	au FileType python setlocal expandtab< tabstop< softtabstop< shiftwidth<
 augroup END
-
-silent! runtime! ale_linters/haskell/*.vim
-call ale#linter#Define('haskell', {
-\   'name': 'ghc-mod_',
-\   'executable': 'ghc-mod',
-\   'command': 'ghc-mod --map-file %s=%t check %s -g -Wno-type-defaults',
-\   'callback': 'ale#handlers#haskell#HandleGHCFormat',
-\})
-call ale#linter#Define('haskell', {
-\   'name': 'hlint_',
-\   'executable': 'hlint',
-\   'command': 'hlint --color=never --json -',
-\   'callback': 'ale_linters#haskell#hlint#Handle',
-\})
-let g:ale_linters.haskell = ["ghc-mod_", "hlint_"]
 
 let g:necoghc_enable_detailed_browse=1
 let g:haskell_classic_highlighting=1

@@ -21,4 +21,8 @@ xkbcomp ~/dot/c98.xkb $DISPLAY
 xset -dpms s off
 xrdb -load .Xresources
 
+ibus-daemon &
+compton --config ~/dot/compton.conf &
+unclutter --timeout 2.5 &
+
 exec ${1:-i3}
