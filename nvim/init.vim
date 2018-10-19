@@ -195,7 +195,16 @@ noremap!<PageDown>  <NOP>
 hi LongLine cterm=italic
 match LongLine /\%>120v\S/
 
+let g:ale_linters = {}
+let g:ale_sign_column_always = 1
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%:%severity%] %s'
+let g:ale_lint_on_text_changed = 'normal'
+let g:ale_lint_on_insert_leave = 1
 
+let g:ale_linters.tex = []
+let g:ale_tex_chktex_options = '-n 38' " 38: punc inside quote
 call add(g:polyglot_disabled, 'latex')
 let g:vimtex_imaps_enabled = 0
 let g:deoplete#omni#input_patterns.tex = g:vimtex#re#deoplete
