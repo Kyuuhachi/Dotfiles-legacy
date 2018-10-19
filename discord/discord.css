@@ -17,7 +17,7 @@
 	margin-top: .25em;
 }
 
-[class*="markup-"] .emoji.emoji.emoji {
+[class*="markup-"] .emoji.emoji.emoji[src$=".svg"]:not(.jumboable) {
 	width: 1em;
 	height: 1em;
 	vertical-align: top;
