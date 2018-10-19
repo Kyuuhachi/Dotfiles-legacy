@@ -131,21 +131,21 @@ inoremap <expr> <Up> pumvisible() ? "<C-p>" : "<Up>"
 inoremap <expr> <CR> pumvisible() ? "<C-y><CR>" : "<CR>"
 
 let g:LanguageClient_serverCommands = {}
-let g:LanguageClient_serverCommands.python = ['pyls']
+" let g:LanguageClient_serverCommands.python = ['pyls']
 let g:LanguageClient_serverCommands.haskell = ['hie-wrapper']
 map <NUL> <C-Space>
 map! <NUL> <C-Space>
-nnoremap <C-space> :call LanguageClient_contextMenu()<CR>
-inoremap <expr> <C-Space> deoplete#mappings#manual_complete()
-nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-nnoremap <silent> gl :call LanguageClient#textDocument_documentSymbol()<CR>
-nnoremap <silent> gh :call LanguageClient#textDocument_references()<CR>
-nnoremap <silent> g<C-l> :call LanguageClient#textDocument_documentHighlight()<CR>
-nnoremap <silent> <F1> :call LanguageClient#explainErrorAtPoint()<CR>
-nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
-nnoremap <F5> :call LanguageClient_contextMenu()<CR>
-set completefunc=LanguageClient#complete
+" nnoremap <C-space> :call LanguageClient_contextMenu()<CR>
+" inoremap <expr> <C-Space> deoplete#mappings#manual_complete()
+" nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+" nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+" nnoremap <silent> gl :call LanguageClient#textDocument_documentSymbol()<CR>
+" nnoremap <silent> gh :call LanguageClient#textDocument_references()<CR>
+" nnoremap <silent> g<C-l> :call LanguageClient#textDocument_documentHighlight()<CR>
+" nnoremap <silent> <F1> :call LanguageClient#explainErrorAtPoint()<CR>
+" nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+" nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+" set completefunc=LanguageClient#complete
 " set formatexpr=LanguageClient#textDocument_rangeFormatting_sync()
 
 
@@ -210,6 +210,8 @@ augroup END
 
 let g:c_gnu = 1
 
+let g:ale_python_python_exec = 'python3'
+let g:ale_python_flake8_options = '--select=E112,E113,E251,E303,E304,E401,E502,E703,E711,E712,E713,E714,E901,E902,E999,W391,W6,F'
 let g:python_highlight_builtins=1
 let g:python_highlight_exceptions=1
 augroup Python
