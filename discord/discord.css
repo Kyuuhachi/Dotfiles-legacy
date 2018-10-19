@@ -27,6 +27,12 @@
 	position: relative;
 	top: .15em;
 }
+
+[class*="textArea-"] {
+	letter-spacing: normal;
+	resize: vertical;
+}
+
 * {
 	animation: none !important;
 }
