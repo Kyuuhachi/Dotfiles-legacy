@@ -181,12 +181,11 @@ class HttpHandler(Handler):
 	@property
 	@once
 	def hosts(self):
-		if "." in self.url:
-			def tails(s):
-				if "." in s:
-					return [s] + tails(s[s.find(".")+1:])
-				else:
-					return [s]
-			return tails(self.url)
-		else:
-			return [self.url]
+		import urllib.parse
+		domain = urllib.parse.urlparse(self.url).hostname
+		def tails(s):
+			if "." in s:
+				return [s] + tails(s[s.find(".")+1:])
+			else:
+				return [s]
+		return tails(domain)
