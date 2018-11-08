@@ -36,6 +36,7 @@ Plug 'easymotion/vim-easymotion'
 Plug 'vito-c/jq.vim'
 Plug 'andymass/vim-matchup'
 Plug 'vim-scripts/css3-mod'
+Plug 'exu/pgsql.vim'
 
 " Plug 'Shougo/echodoc.vim'
 
@@ -45,16 +46,17 @@ Plug 'Shougo/neco-vim', {'for':['vim']}
 Plug 'Shougo/neco-syntax'
 Plug 'Vimjas/vim-python-pep8-indent', {'for':['python']}
 Plug 'zchee/deoplete-jedi', {'for':['python']}
-Plug 'xuhdev/vim-latex-live-preview', {'on': 'LLPStartPreview'}
+" Plug 'xuhdev/vim-latex-live-preview', {'on': 'LLPStartPreview'}
+Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 
 " Plugin 'neovimhaskell/haskell-vim'
 Plug 'itchyny/vim-haskell-indent', {'for':['haskell']}
 " Plug 'eagletmt/neco-ghc', {'for':['haskell']}
 " Plug 'eagletmt/ghcmod-vim', {'for':['haskell']}
 Plug 'junegunn/fzf'
-Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
 
 Plug 'Caagr98/c98color.vim'
+Plug 'Caagr98/c98synctex.vim'
 " Plug 'Caagr98/c98ibus.vim'
 Plug 'Caagr98/c98tabbar.vim'
 Plug 'Caagr98/c98lilypond.vim'
@@ -130,24 +132,10 @@ inoremap <expr> <S-TAB> pumvisible() ? "<C-p>" : "<S-TAB>"
 inoremap <expr> <Up> pumvisible() ? "<C-p>" : "<Up>"
 inoremap <expr> <CR> pumvisible() ? "<C-y><CR>" : "<CR>"
 
-let g:LanguageClient_serverCommands = {}
-" let g:LanguageClient_serverCommands.python = ['pyls']
-let g:LanguageClient_serverCommands.haskell = ['hie-wrapper']
 map <NUL> <C-Space>
 map! <NUL> <C-Space>
-" nnoremap <C-space> :call LanguageClient_contextMenu()<CR>
-" inoremap <expr> <C-Space> deoplete#mappings#manual_complete()
-" nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-" nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-" nnoremap <silent> gl :call LanguageClient#textDocument_documentSymbol()<CR>
-" nnoremap <silent> gh :call LanguageClient#textDocument_references()<CR>
-" nnoremap <silent> g<C-l> :call LanguageClient#textDocument_documentHighlight()<CR>
-" nnoremap <silent> <F1> :call LanguageClient#explainErrorAtPoint()<CR>
-" nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
-" nnoremap <F5> :call LanguageClient_contextMenu()<CR>
-" set completefunc=LanguageClient#complete
-" set formatexpr=LanguageClient#textDocument_rangeFormatting_sync()
-
+inoremap <expr> <C-Space> deoplete#mappings#manual_complete()
+let g:deoplete#auto_complete_start_length = 1
 
 let g:textobj_entire_no_default_key_mappings = 1
 onoremap aE <Plug>(textobj-entire-a)
@@ -195,6 +183,7 @@ noremap!<PageDown>  <NOP>
 hi LongLine cterm=italic
 match LongLine /\%>120v\S/
 
+let g:ale_fixers = {'*': ['remove_trailing_lines', 'trim_whitespace']}
 let g:ale_linters = {}
 let g:ale_sign_column_always = 1
 let g:ale_echo_msg_error_str = 'E'
@@ -211,23 +200,31 @@ let g:deoplete#omni#input_patterns.tex = g:vimtex#re#deoplete
 let g:tex_flavor = "latex"
 let g:vimtex_indent_on_ampersands = 0
 let g:tex_no_error = 1
-augroup Latex
-	au!
-	au FileType tex setlocal expandtab
-	au FileType tex let b:tex_stylish = 1
-augroup END
+let g:tex_stylish = 1
+let g:livepreview_engine='xelatex'
 
 let g:c_gnu = 1
 
+call add(g:polyglot_disabled, 'python')
+let g:semshi#error_sign = v:false
 let g:ale_python_python_exec = 'python3'
 let g:ale_python_flake8_options = '--select=E112,E113,E251,E303,E304,E401,E502,E703,E711,E712,E713,E714,E901,E902,E999,W391,W6,F'
-let g:python_highlight_builtins=1
-let g:python_highlight_exceptions=1
+function! s:InitSemshi()
+	nmap <buffer> <silent> <leader>rr :Semshi rename<CR>
+
+	nmap <buffer> <silent> <Tab> :Semshi goto name next<CR>
+	nmap <buffer> <silent> <S-Tab> :Semshi goto name prev<CR>
+
+	let g:semshi#mark_selected_nodes = 2
+endf
 augroup Python
 	au!
 	au FileType python setlocal expandtab< tabstop< softtabstop< shiftwidth<
+	au FileType python call s:InitSemshi()
 augroup END
 
+let g:ale_linters.haskell = ['hlint', 'stack_ghc']
+let g:ale_fixers.haskell = ['hlint']
 let g:necoghc_enable_detailed_browse=1
 let g:haskell_classic_highlighting=1
 let g:haskell_enable_arrowsyntax=1
@@ -242,7 +239,19 @@ augroup Haskell
 	au FileType haskell syn match haskellFloat "\v<[0-9]+(\.[0-9]\+)?([eE][-+]?[0-9]+)?>"
 augroup END
 
-autocmd FileType vim syn clear vimCommentString
+silent! runtime! ale_linters/sql/*.vim
+call ale#linter#Define('pgsql', {
+\   'name': 'sqlint',
+\   'executable': 'sqlint',
+\   'command': 'sqlint',
+\   'callback': 'ale_linters#sql#sqlint#Handle',
+\})
+let g:ale_linters.pgsql = ["sqlint"]
+let g:sql_type_default = 'pgsql'
+augroup SQL
+	au!
+	au FileType sql setlocal expandtab ts=2 sts=2 sw=2
+augroup END
 
 fun! s:openTerm(args, count, vertical)
 	exe (a:count ? a:count : "") . (a:vertical ? 'vnew' : 'new')
@@ -252,3 +261,28 @@ command! -count -nargs=* -complete=shellcmd Term call s:openTerm(<q-args>, <coun
 command! -count -nargs=* -complete=shellcmd VTerm call s:openTerm(<q-args>, <count>, 1)
 tnoremap <Esc> <C-\><C-n>
 tnoremap <C-\><Esc> <Esc>
+
+fun! s:fixVimscript()
+	syn clear vimCommentString
+
+	let l:colors = [
+		\ ['black'], ['darkred'], ['darkgreen'], ['brown', 'darkyellow'], ['darkblue'], ['darkmagenta'], ['darkcyan'], ['lightgray', 'lightgrey', 'gray', 'grey'],
+		\ ['darkgray', 'darkgrey'], ['red', 'lightred'], ['green', 'lightgreen'], ['yellow', 'lightyellow'], ['blue', 'lightblue'], ['magenta', 'lightmagenta'], ['cyan', 'lightcyan'], ['white'] ]
+
+	syn clear vimHiCtermColor
+	syn match vimHiCtermColor contained "\<color\d\{1,3}\>"
+	for l:num in range(256)
+		let l:bg = index([0,16,17,22,52]+range(232,236), l:num) != -1 ? '008' : '000'
+		exec 'hi def vimHiCol_'.l:num.' ctermbg='.l:num.' ctermfg='.l:bg
+
+		exec 'syn match vimHiCol_'.l:num.' /\c\<0*'.l:num.'\>/ containedin=vimHiNmbr contained'
+		exec 'syn match vimHiCol_'.l:num.' /\c\<color'.l:num.'\>/ containedin=vimHiCtermColor contained'
+		if l:num < 16
+			for l:col in l:colors[l:num]
+				exec 'syn match vimHiCtermColor contained /\c\<'.l:col.'\>/'
+				exec 'syn match vimHiCol_'.l:num.' /\c\<'.l:col.'\>/ containedin=vimHiCtermColor contained'
+			endfor
+		endif
+	endfor
+endf
+autocmd FileType vim call s:fixVimscript()
