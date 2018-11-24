@@ -36,7 +36,7 @@ Plug 'easymotion/vim-easymotion'
 Plug 'vito-c/jq.vim'
 Plug 'andymass/vim-matchup'
 Plug 'vim-scripts/css3-mod'
-Plug 'exu/pgsql.vim'
+Plug 'lifepillar/pgsql.vim'
 
 " Plug 'Shougo/echodoc.vim'
 
@@ -205,7 +205,7 @@ let g:livepreview_engine='xelatex'
 
 let g:c_gnu = 1
 
-call add(g:polyglot_disabled, 'python')
+" call add(g:polyglot_disabled, 'python')
 let g:semshi#error_sign = v:false
 let g:ale_python_python_exec = 'python3'
 let g:ale_python_flake8_options = '--select=E112,E113,E251,E303,E304,E401,E502,E703,E711,E712,E713,E714,E901,E902,E999,W391,W6,F'
@@ -215,13 +215,14 @@ function! s:InitSemshi()
 	nmap <buffer> <silent> <Tab> :Semshi goto name next<CR>
 	nmap <buffer> <silent> <S-Tab> :Semshi goto name prev<CR>
 
-	let g:semshi#mark_selected_nodes = 2
 endf
 augroup Python
 	au!
 	au FileType python setlocal expandtab< tabstop< softtabstop< shiftwidth<
 	au FileType python call s:InitSemshi()
 augroup END
+let g:semshi#mark_selected_nodes = 2
+let g:semshi#excluded_hl_groups = []
 
 let g:ale_linters.haskell = ['hlint', 'stack_ghc']
 let g:ale_fixers.haskell = ['hlint']
@@ -239,18 +240,11 @@ augroup Haskell
 	au FileType haskell syn match haskellFloat "\v<[0-9]+(\.[0-9]\+)?([eE][-+]?[0-9]+)?>"
 augroup END
 
-silent! runtime! ale_linters/sql/*.vim
-call ale#linter#Define('pgsql', {
-\   'name': 'sqlint',
-\   'executable': 'sqlint',
-\   'command': 'sqlint',
-\   'callback': 'ale_linters#sql#sqlint#Handle',
-\})
-let g:ale_linters.pgsql = ["sqlint"]
-let g:sql_type_default = 'pgsql'
+call add(g:polyglot_disabled, 'sql')
+call add(g:polyglot_disabled, 'pgsql')
 augroup SQL
 	au!
-	au FileType sql setlocal expandtab ts=2 sts=2 sw=2
+	au FileType sql setlocal expandtab ts=2 sts=2 sw=2 ft=pgsql
 augroup END
 
 fun! s:openTerm(args, count, vertical)
