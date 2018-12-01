@@ -37,6 +37,7 @@ Plug 'vito-c/jq.vim'
 Plug 'andymass/vim-matchup'
 Plug 'vim-scripts/css3-mod'
 Plug 'lifepillar/pgsql.vim'
+Plug 'mlr-msft/vim-loves-dafny'
 
 " Plug 'Shougo/echodoc.vim'
 
@@ -56,7 +57,7 @@ Plug 'itchyny/vim-haskell-indent', {'for':['haskell']}
 Plug 'junegunn/fzf'
 
 Plug 'Caagr98/c98color.vim'
-Plug 'Caagr98/c98synctex.vim'
+Plug 'Caagr98/c98synctex.vim', {'for':['tex', 'latex']}
 " Plug 'Caagr98/c98ibus.vim'
 Plug 'Caagr98/c98tabbar.vim'
 Plug 'Caagr98/c98lilypond.vim'
@@ -180,8 +181,12 @@ noremap <PageDown>  <NOP>
 noremap!<PageUp>    <NOP>
 noremap!<PageDown>  <NOP>
 
-hi LongLine cterm=italic
-match LongLine /\%>120v\S/
+autocmd User targets#mappings#user call targets#mappings#extend(
+\	{ 'a': {'argument':
+\		[ {'o': '[', 'c': ']', 's': '[,;]'}
+\		, {'o': '{', 'c': '}', 's': '[,;]'}
+\		, {'o': '(', 'c': ')', 's': '[,;]'}
+\	]} })
 
 let g:ale_fixers = {'*': ['remove_trailing_lines', 'trim_whitespace']}
 let g:ale_linters = {}
@@ -201,7 +206,7 @@ let g:tex_flavor = "latex"
 let g:vimtex_indent_on_ampersands = 0
 let g:tex_no_error = 1
 let g:tex_stylish = 1
-let g:livepreview_engine='xelatex'
+let g:livepreview_engine='lualatex'
 
 let g:c_gnu = 1
 
@@ -258,6 +263,8 @@ tnoremap <C-\><Esc> <Esc>
 
 fun! s:fixVimscript()
 	syn clear vimCommentString
+	" syn clear vimHighlight
+	syn match vimHighlight "\<hi\%[ghlight]\(\s\+def\%[ault]\>\)\?" skipwhite nextgroup=@vimHighlightCluster
 
 	let l:colors = [
 		\ ['black'], ['darkred'], ['darkgreen'], ['brown', 'darkyellow'], ['darkblue'], ['darkmagenta'], ['darkcyan'], ['lightgray', 'lightgrey', 'gray', 'grey'],
