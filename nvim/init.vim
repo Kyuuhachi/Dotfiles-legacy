@@ -31,8 +31,6 @@ Plug 'vim-scripts/JavaScript-Indent', {'for':['javascript', 'jsx']}
 Plug 'mbbill/undotree'
 Plug 'Shougo/denite.nvim'
 Plug 'h1mesuke/unite-outline'
-Plug 'kien/ctrlp.vim'
-Plug 'easymotion/vim-easymotion'
 Plug 'vito-c/jq.vim'
 Plug 'andymass/vim-matchup'
 Plug 'vim-scripts/css3-mod'
@@ -47,13 +45,9 @@ Plug 'Shougo/neco-vim', {'for':['vim']}
 Plug 'Shougo/neco-syntax'
 Plug 'Vimjas/vim-python-pep8-indent', {'for':['python']}
 Plug 'zchee/deoplete-jedi', {'for':['python']}
-" Plug 'xuhdev/vim-latex-live-preview', {'on': 'LLPStartPreview'}
 Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 
-" Plugin 'neovimhaskell/haskell-vim'
 Plug 'itchyny/vim-haskell-indent', {'for':['haskell']}
-" Plug 'eagletmt/neco-ghc', {'for':['haskell']}
-" Plug 'eagletmt/ghcmod-vim', {'for':['haskell']}
 Plug 'junegunn/fzf'
 
 Plug 'Caagr98/c98color.vim'
@@ -61,9 +55,6 @@ Plug 'Caagr98/c98synctex.vim', {'for':['tex', 'latex']}
 " Plug 'Caagr98/c98ibus.vim'
 Plug 'Caagr98/c98tabbar.vim'
 Plug 'Caagr98/c98lilypond.vim'
-"Plug 'Caagr98/c98notes.vim'
-"Plug 'Caagr98/c98classified.vim'
-"Plug 'Caagr98/c98elsa.vim'
 call plug#end()
 
 colorscheme c98color
@@ -113,15 +104,6 @@ let g:airline#parts#ffenc#skip_expected_string = 'utf-8[unix]'
 let g:airline#extensions#whitespace#checks = ['trailing']
 let g:airline#extensions#whitespace#trailing_format = 'Trailing@%s'
 
-let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_use_caching = 1
-let g:ctrlp_root_markers = ['.vim_root']
-let g:ctrlp_custom_ignore = {
-\ 'dir':  '\v[\/]\.(git|hg|svn)$',
-\ 'file': '\v\.(exe|so|dll|class)$',
-\ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
-\ }
-
 set showtabline=2
 
 set completeopt=menu,menuone,preview,noselect,noinsert
@@ -156,12 +138,8 @@ nnoremap <leader>cl :call setreg(v:register, getreg(), "l")<CR>
 nnoremap <leader>cb :call setreg(v:register, getreg(), "b")<CR>
     xmap <leader>a <Plug>(EasyAlign)
      map <leader>a <Plug>(EasyAlign)
-     map <silent> <C-k> <Plug>(ale_previous_wrap)
-     map <silent> <C-j> <Plug>(ale_next_wrap)
 nnoremap <expr> n 'Nn'[v:searchforward]
 nnoremap <expr> N 'nN'[v:searchforward]
-     map <Space> <Plug>(easymotion-s)
-     map <C-Space> <Plug>(easymotion-s2)
 
 nnoremap gs :call <SID>SynStack()<CR>
 function! <SID>SynStack()
@@ -188,6 +166,9 @@ autocmd User targets#mappings#user call targets#mappings#extend(
 \		, {'o': '(', 'c': ')', 's': '[,;]'}
 \	]} })
 
+map <silent> <C-k> <Plug>(ale_previous_wrap)
+map <silent> <C-j> <Plug>(ale_next_wrap)
+let g:ale_completion_enabled = 1
 let g:ale_fixers = {'*': ['remove_trailing_lines', 'trim_whitespace']}
 let g:ale_linters = {}
 let g:ale_sign_column_always = 1
@@ -229,8 +210,7 @@ augroup END
 let g:semshi#mark_selected_nodes = 2
 let g:semshi#excluded_hl_groups = []
 
-let g:ale_linters.haskell = ['hlint', 'stack_ghc']
-let g:ale_fixers.haskell = ['hlint']
+let g:ale_linters.haskell = ['hie', 'hlint']
 let g:necoghc_enable_detailed_browse=1
 let g:haskell_classic_highlighting=1
 let g:haskell_enable_arrowsyntax=1
