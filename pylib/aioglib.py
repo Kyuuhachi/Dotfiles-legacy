@@ -1,12 +1,10 @@
 import gi
 gi.require_version("GLib", "2.0")
-from gi.repository import GLib, Gio
+from gi.repository import GLib
 
-import asyncio
 from asyncio.unix_events import SelectorEventLoop as SelectorLoop
 from asyncio.unix_events import AbstractChildWatcher as ChildWatcher
 import selectors
-from collections import namedtuple
 
 def to_cond(events):
 	cond = GLib.IOCondition(0)

@@ -1,3 +1,70 @@
+¬	not
+×	times
+÷	div
+∏	prod
+∐	coprod
+∑	sum
+±	pm
+∓	mp
+∧	and
+∨	or
+∫	int
+∴	therefore
+∵	because
+ƒ	fnof
+∘	comp
+√	sqrt
+∞	infin
+′	prime
+″	second
+∷	proportion ::
+⊥	bottom
+⊤	top
+°	deg
+
+≠	ne     !=
+≈	app    ~=
+≉	napp   !~=
+≔	colone :=
+≡	equiv  ==
+≢	nequiv !==
+<	lt
+>	gt
+≮	nlt    !<
+≯	ngt    !>
+≤	le     <=
+≥	ge     >=
+≰	nle    !<=
+≱	nge    !>=
+≪	ll     <<
+≫	gg     >>
+⋘	lll    <<<
+⋙	ggg    >>>
+≟	equest =?
+≝	eqdef  =def
+
+∀	set-forall
+∁	set-complement
+∂	set-part
+∃	set-exist
+∄	set-nexist
+∅	set-empty nil
+∈	set-in elem
+∉	set-notin notelem
+∋	set-ni contains
+∌	set-notni notcontains
+∖	set-minus
+∩	set-intersect
+∪	set-union
+⊂	set-sub
+⊄	set-nsub
+⊆	set-sube
+⊈	set-nsube
+⊃	set-sup
+⊅	set-nsup
+⊇	set-supe
+⊉	set-nsupe
+
 ¢	cent
 £	pound
 ¤	curren
@@ -10,6 +77,7 @@
 ®	reg
 ™	trade
 ␣	blank
+‾	oline
 ♀	female
 ♂	male
 ♠	spades
@@ -25,112 +93,49 @@
 ¿	iquest ??
 ¡	iexcl  !!
 ‽	interrobang !? ?!
-°	deg
 µ	micro
-·	middot cdot
+·	cdot
 †	dagger
 ‡	ddagger
 •	bull
-√	sqrt
-∞	infin
+‰	permille
+‱	permyriad
 
-# {{{1 Sup/sub
-⁰	sup0
-¹	sup1
-²	sup2
-³	sup3
-⁴	sup4
-⁵	sup5
-⁶	sup6
-⁷	sup7
-⁸	sup8
-⁹	sup9
-₀	sub0
-₁	sub1
-₂	sub2
-₃	sub3
-₄	sub4
-₅	sub5
-₆	sub6
-₇	sub7
-₈	sub8
-₉	sub9
+# {{{ Spaces, bars, quotes/brackets
+ 	nbsp
+ 	ensp
+ 	emsp
+ 	em3sp
+ 	em4sp
+ 	numsp
+ 	puncsp
+ 	thinsp
+ 	hairsp
+​	zwsp
+‌	zwnj
+‍	zwj
+‎	lrm
+‏	rlm
 
-ᵃ	supa
-ᵇ	supb
-ᶜ	supc
-ᵈ	supd
-ᵉ	supe
-ᶠ	supf
-ᵍ	supg
-ʰ	suph
-ⁱ	supi
-ʲ	supj
-ᵏ	supk
-ˡ	supl
-ᵐ	supm
-ⁿ	supn
-ᵒ	supo
-ᵖ	supp
-ʳ	supr
-ˢ	sups
-ᵗ	supt
-ᵘ	supu
-ᵛ	supv
-ʷ	supw
-ˣ	supx
-ʸ	supy
-ᶻ	supz
-ₐ	suba
-ₑ	sube
-ₕ	subh
-ᵢ	subi
-ⱼ	subj
-ₖ	subk
-ₗ	subl
-ₘ	subm
-ₙ	subn
-ₒ	subo
-ₚ	subp
-ᵣ	subr
-ₛ	subs
-ₜ	subt
-ᵤ	subu
-ᵥ	subv
-ₓ	subx
-# }}}1
+–	ndash
+—	mdash
+―	hbar
+‖	dbar
+¦	brbar
+|	vbar
 
-¬	not
-×	times
-÷	div
-∏	prod
-∐	coprod
-∑	sum
-±	pm
-∓	mp
-∧	and
-∨	or
-∫	int
-∴	therefore
-∵	because
+‘	quo-ls
+’	quo-rs
+‚	quo-bs
+“	quo-ld
+”	quo-rd
+„	quo-bd
+‹	quo-lsa
+›	quo-rsa
+«	quo-lda
+»	quo-rda
+# }}}
 
-≠	ne     !=
-≈	app    ~=
-≉	napp   !~=
-≔	colone :=
-≡	equiv  ==
-≮	nlt    !<
-≯	ngt    !>
-≤	le     <=
-≥	ge     >=
-≰	nle    !<=
-≱	nge    !>=
-≪	ll     <<
-≫	gg     >>
-⋘	lll    <<<
-⋙	ggg    >>>
-≟	equest =?
-≝	eqdef  =def
 
 █	blk
 ▀	blku
@@ -164,205 +169,14 @@
 ⅝	frac58
 ⅞	frac78
 
-# {{{ Diacritics
-´	acute
-Á	Aacute
-á	aacute
-Ć	Cacute
-ć	cacute
-É	Eacute
-é	eacute
-ǵ	gacute
-Í	Iacute
-í	iacute
-Ĺ	Lacute
-ĺ	lacute
-Ń	Nacute
-ń	nacute
-Ó	Oacute
-ó	oacute
-Ŕ	Racute
-ŕ	racute
-Ś	Sacute
-ś	sacute
-Ú	Uacute
-ú	uacute
-Ý	Yacute
-ý	yacute
-Ź	Zacute
-ź	zacute
+⁄	frac/
+⅟	frac1/
+↉	frac03
 
-˘	breve
-Ă	Abreve
-ă	abreve
-Ğ	Gbreve
-ğ	gbreve
-Ŭ	Ubreve
-ŭ	ubreve
+⅐	frac17
+⅑	frac19
+⅒	frac110
 
-ˇ	caron
-Č	Ccaron
-č	ccaron
-Ď	Dcaron
-ď	dcaron
-Ě	Ecaron
-ě	ecaron
-Ľ	Lcaron
-ľ	lcaron
-Ň	Ncaron
-ň	ncaron
-Ř	Rcaron
-ř	rcaron
-Š	Scaron
-š	scaron
-Ť	Tcaron
-ť	tcaron
-Ž	Zcaron
-ž	zcaron
-
-¸	cedil
-Ç	Ccedil
-ç	ccedil
-Ģ	Gcedil
-Ķ	Kcedil
-ķ	kcedil
-Ļ	Lcedil
-ļ	lcedil
-Ņ	Ncedil
-ņ	ncedil
-Ŗ	Rcedil
-ŗ	rcedil
-Ş	Scedil
-ş	scedil
-Ţ	Tcedil
-ţ	tcedil
-
-ˆ	circ
-Â	Acirc
-â	acirc
-Ĉ	Ccirc
-ĉ	ccirc
-Ê	Ecirc
-ê	ecirc
-Ĝ	Gcirc
-ĝ	gcirc
-Ĥ	Hcirc
-ĥ	hcirc
-Î	Icirc
-î	icirc
-Ĵ	Jcirc
-ĵ	jcirc
-Ô	Ocirc
-ô	ocirc
-Ŝ	Scirc
-ŝ	scirc
-Û	Ucirc
-û	ucirc
-Ŵ	Wcirc
-ŵ	wcirc
-Ŷ	Ycirc
-ŷ	ycirc
-
-¨	uml
-Ä	Auml
-ä	auml
-Ë	Euml
-ë	euml
-Ï	Iuml
-ï	iuml
-Ö	Ouml
-ö	ouml
-Ü	Uuml
-ü	uuml
-Ÿ	Yuml
-ÿ	yuml
-
-˙	dot
-Ċ	Cdot
-ċ	cdot
-Ė	Edot
-ė	edot
-Ġ	Gdot
-ġ	gdot
-İ	Idot
-Ż	Zdot
-ż	zdot
-
-˝	dblac
-Ő	Odblac
-ő	odblac
-Ű	Udblac
-ű	udblac
-
-`	grave
-À	Agrave
-à	agrave
-È	Egrave
-è	egrave
-Ì	Igrave
-ì	igrave
-Ò	Ograve
-ò	ograve
-Ù	Ugrave
-ù	ugrave
-
-¯	macr
-Ā	Amacr
-ā	amacr
-Ē	Emacr
-ē	emacr
-Ī	Imacr
-ī	imacr
-Ō	Omacr
-ō	omacr
-Ū	Umacr
-ū	umacr
-
-·	midot
-Ŀ	Lmidot
-ŀ	lmidot
-
-˛	ogon
-Ą	Aogon
-ą	aogon
-Ę	Eogon
-ę	eogon
-Į	Iogon
-į	iogon
-Ų	Uogon
-ų	uogon
-
-˚	ring
-Å	Aring
-å	aring
-Ů	Uring
-ů	uring
-
-Đ	Dstrok
-đ	dstrok
-Ħ	Hstrok
-ħ	hstrok
-Ł	Lstrok
-ł	lstrok
-Ŧ	Tstrok
-ŧ	tstrok
-Ƶ	Zstrok
-
-˜	tilde
-Ã	Atilde
-ã	atilde
-Ĩ	Itilde
-ĩ	itilde
-Ñ	Ntilde
-ñ	ntilde
-Õ	Otilde
-õ	otilde
-Ũ	Utilde
-ũ	utilde
-
-Ø	Oslash
-ø	oslash
-# }}}
 # {{{ Greek
 Α	Alpha
 α	alpha
@@ -427,60 +241,6 @@
 ϵ	epsi
 ϶	bepsi
 # }}}
-# {{{ Spaces, bars, quotes/brackets
- 	nbsp
- 	ensp
- 	emsp
- 	emsp13
- 	emsp14
- 	numsp
- 	puncsp
- 	thinsp
- 	hairsp
-​	zwsp
-‌	zwnj
-‍	zwj
-‎	lrm
-‏	rlm
-
-–	ndash
-—	mdash
-―	hbar
-‖	dbar
-¦	brbar
-|	vbar
-
-‘	quo-ls
-’	quo-rs
-“	quo-ld
-”	quo-rd
-‹	quo-lsa
-›	quo-rsa
-«	quo-lda
-»	quo-rda
-# }}}
-
-∀	set-forall
-∁	set-comp
-∂	set-part
-∃	set-exist
-∄	set-nexist
-∅	set-empty
-∈	set-in
-∉	set-notin
-∋	set-ni
-∌	set-notni
-∖	set-minus
-∩	set-intersect
-∪	set-union
-⊂	set-sub
-⊄	set-nsub
-⊆	set-sube
-⊈	set-nsube
-⊃	set-sup
-⊅	set-nsup
-⊇	set-supe
-⊉	set-nsupe
 
 # I should make a better interface for box drawings.
 ╗	box-DL
@@ -535,10 +295,6 @@
 ↗	nearr
 ↘	searr
 ↙	swarr
-⇖	nWarr
-⇗	nEarr
-⇘	sEarr
-⇙	sWarr
 ↞	Larr
 ↟	Uarr
 ↠	Rarr
@@ -585,12 +341,17 @@
 ↥	uarr-fbar
 ↦	rarr-fbar
 ↧	darr-fbar
+
 ⇐	lArr
 ⇑	uArr
 ⇒	rArr
 ⇓	dArr
 ⇔	hArr
 ⇕	vArr
+⇖	nwArr
+⇗	neArr
+⇘	seArr
+⇙	swArr
 ⇦	lArr-back
 ⇧	uArr-back
 ⇨	rArr-back
@@ -604,12 +365,292 @@
 ⇍	lArr-slash
 ⇏	rArr-slash
 ⇎	hArr-slash
+
 ↶	ccw180
 ↷	cw180
 ↺	ccw270
 ↻	cw270
 ⟲	ccw360
 ⟳	cw360
+# }}}
+
+# {{{ Sup/sub
+⁰	^0
+¹	^1
+²	^2
+³	^3
+⁴	^4
+⁵	^5
+⁶	^6
+⁷	^7
+⁸	^8
+⁹	^9
+₀	_0
+₁	_1
+₂	_2
+₃	_3
+₄	_4
+₅	_5
+₆	_6
+₇	_7
+₈	_8
+₉	_9
+
+ᵃ	^a
+ᵇ	^b
+ᶜ	^c
+ᵈ	^d
+ᵉ	^e
+ᶠ	^f
+ᵍ	^g
+ʰ	^h
+ⁱ	^i
+ʲ	^j
+ᵏ	^k
+ˡ	^l
+ᵐ	^m
+ⁿ	^n
+ᵒ	^o
+ᵖ	^p
+ʳ	^r
+ˢ	^s
+ᵗ	^t
+ᵘ	^u
+ᵛ	^v
+ʷ	^w
+ˣ	^x
+ʸ	^y
+ᶻ	^z
+ₐ	_a
+ₑ	_e
+ₕ	_h
+ᵢ	_i
+ⱼ	_j
+ₖ	_k
+ₗ	_l
+ₘ	_m
+ₙ	_n
+ₒ	_o
+ₚ	_p
+ᵣ	_r
+ₛ	_s
+ₜ	_t
+ᵤ	_u
+ᵥ	_v
+ₓ	_x
+
+⁺	^+
+⁻	^-
+⁼	^=
+⁽	^(
+⁾	^)
+₊	_+
+₋	_-
+₌	_=
+₍	_(
+₎	_)
+⏨	_10
+# }}}
+
+# {{{ Diacritics
+´	acute
+Á	A-acute 'A
+á	a-acute 'a
+Ć	C-acute 'C
+ć	c-acute 'c
+É	E-acute 'E
+é	e-acute 'e
+ǵ	g-acute 'g
+Í	I-acute 'I
+í	i-acute 'i
+Ĺ	L-acute 'L
+ĺ	l-acute 'l
+Ń	N-acute 'N
+ń	n-acute 'n
+Ó	O-acute 'O
+ó	o-acute 'o
+Ŕ	R-acute 'R
+ŕ	r-acute 'r
+Ś	S-acute 'S
+ś	s-acute 's
+Ú	U-acute 'U
+ú	u-acute 'u
+Ý	Y-acute 'Y
+ý	y-acute 'y
+Ź	Z-acute 'Z
+ź	z-acute 'z
+
+˘	breve
+Ă	A-breve
+ă	a-breve
+Ğ	G-breve
+ğ	g-breve
+Ŭ	U-breve
+ŭ	u-breve
+
+ˇ	caron
+Č	C-caron
+č	c-caron
+Ď	D-caron
+ď	d-caron
+Ě	E-caron
+ě	e-caron
+Ľ	L-caron
+ľ	l-caron
+Ň	N-caron
+ň	n-caron
+Ř	R-caron
+ř	r-caron
+Š	S-caron
+š	s-caron
+Ť	T-caron
+ť	t-caron
+Ž	Z-caron
+ž	z-caron
+
+¸	cedil
+Ç	C-cedil ,C
+ç	c-cedil ,c
+Ģ	G-cedil ,G
+Ķ	K-cedil ,K
+ķ	k-cedil ,k
+Ļ	L-cedil ,L
+ļ	l-cedil ,l
+Ņ	N-cedil ,N
+ņ	n-cedil ,n
+Ŗ	R-cedil ,R
+ŗ	r-cedil ,r
+Ş	S-cedil ,S
+ş	s-cedil ,s
+Ţ	T-cedil ,T
+ţ	t-cedil ,t
+
+ˆ	circ
+Â	A-circ ^A
+â	a-circ ^a
+Ĉ	C-circ ^C
+ĉ	c-circ ^c
+Ê	E-circ ^E
+ê	e-circ ^e
+Ĝ	G-circ ^G
+ĝ	g-circ ^g
+Ĥ	H-circ ^H
+ĥ	h-circ ^h
+Î	I-circ ^I
+î	i-circ ^i
+Ĵ	J-circ ^J
+ĵ	j-circ ^j
+Ô	O-circ ^O
+ô	o-circ ^o
+Ŝ	S-circ ^S
+ŝ	s-circ ^s
+Û	U-circ ^U
+û	u-circ ^u
+Ŵ	W-circ ^W
+ŵ	w-circ ^w
+Ŷ	Y-circ ^Y
+ŷ	y-circ ^y
+
+¨	uml
+Ä	A-uml "A
+ä	a-uml "a
+Ë	E-uml "E
+ë	e-uml "e
+Ï	I-uml "I
+ï	i-uml "i
+Ö	O-uml "O
+ö	o-uml "o
+Ü	U-uml "U
+ü	u-uml "u
+Ÿ	Y-uml "Y
+ÿ	y-uml "y
+
+˙	dot
+Ċ	C-dot .C
+ċ	c-dot .c
+Ė	E-dot .E
+ė	e-dot .e
+Ġ	G-dot .G
+ġ	g-dot .g
+İ	I-dot .I
+Ż	Z-dot .Z
+ż	z-dot .z
+
+˝	dblac
+Ő	O-dblac ''O
+ő	o-dblac ''o
+Ű	U-dblac ''U
+ű	u-dblac ''u
+
+`	grave
+À	A-grave `A
+à	a-grave `a
+È	E-grave `E
+è	e-grave `e
+Ì	I-grave `I
+ì	i-grave `i
+Ò	O-grave `O
+ò	o-grave `o
+Ù	U-grave `U
+ù	u-grave `u
+
+¯	macr
+Ā	A-macr AA
+ā	a-macr aa
+Ē	E-macr EE
+ē	e-macr ee
+Ī	I-macr II
+ī	i-macr ii
+Ō	O-macr OO
+ō	o-macr oo
+Ū	U-macr UU
+ū	u-macr uu
+
+·	midot
+Ŀ	L-midot
+ŀ	l-midot
+
+˛	ogon
+Ą	A-ogon
+ą	a-ogon
+Ę	E-ogon
+ę	e-ogon
+Į	I-ogon
+į	i-ogon
+Ų	U-ogon
+ų	u-ogon
+
+˚	ring
+Å	A-ring
+å	a-ring
+Ů	U-ring
+ů	u-ring
+
+Đ	D-strok /D
+đ	d-strok /d
+Ħ	H-strok /H
+ħ	h-strok /h
+Ł	L-strok /L
+ł	l-strok /l
+Ŧ	T-strok /T
+ŧ	t-strok /t
+Ƶ	Z-strok /Z
+Ø	O-slash /O
+ø	o-slash /o
+
+˜	tilde
+Ã	A-tilde ~A
+ã	a-tilde ~a
+Ẽ	E-tilde ~E
+ẽ	e-tilde ~e
+Ĩ	I-tilde ~I
+ĩ	i-tilde ~i
+Ñ	N-tilde ~N
+ñ	n-tilde ~n
+Õ	O-tilde ~O
+õ	o-tilde ~o
+Ũ	U-tilde ~U
+ũ	u-tilde ~u
 # }}}
 
 Ⅰ	romanI
@@ -628,6 +669,7 @@
 Ⅽ	romanC
 Ⅾ	romanD
 Ⅿ	romanM
+
 ⅰ	romani
 ⅱ	romanii
 ⅲ	romaniii
@@ -644,3 +686,172 @@
 ⅽ	romanc
 ⅾ	romand
 ⅿ	romanm
+
+𝒜	Ascr
+ℬ	Bscr
+𝒞	Cscr
+𝒟	Dscr
+ℰ	Escr
+ℱ	Fscr
+𝒢	Gscr
+ℋ	Hscr
+ℐ	Iscr
+𝒥	Jscr
+𝒦	Kscr
+ℒ	Lscr
+ℳ	Mscr
+𝒩	Nscr
+𝒪	Oscr
+𝒫	Pscr
+𝒬	Qscr
+ℛ	Rscr
+𝒮	Sscr
+𝒯	Tscr
+𝒰	Uscr
+𝒱	Vscr
+𝒲	Wscr
+𝒳	Xscr
+𝒴	Yscr
+𝒵	Zscr
+𝒶	ascr
+𝒷	bscr
+𝒸	cscr
+𝒹	dscr
+ℯ	escr
+𝒻	fscr
+ℊ	gscr
+𝒽	hscr
+𝒾	iscr
+𝒿	jscr
+𝓀	kscr
+𝓁	lscr
+𝓂	mscr
+𝓃	nscr
+ℴ	oscr
+𝓅	pscr
+𝓆	qscr
+𝓇	rscr
+𝓈	sscr
+𝓉	tscr
+𝓊	uscr
+𝓋	vscr
+𝓌	wscr
+𝓍	xscr
+𝓎	yscr
+𝓏	zscr
+
+𝔄	Afr
+𝔅	Bfr
+ℭ	Cfr
+𝔇	Dfr
+𝔈	Efr
+𝔉	Ffr
+𝔊	Gfr
+ℌ	Hfr
+ℑ	Ifr
+𝔍	Jfr
+𝔎	Kfr
+𝔏	Lfr
+𝔐	Mfr
+𝔑	Nfr
+𝔒	Ofr
+𝔓	Pfr
+𝔔	Qfr
+ℜ	Rfr
+𝔖	Sfr
+𝔗	Tfr
+𝔘	Ufr
+𝔙	Vfr
+𝔚	Wfr
+𝔛	Xfr
+𝔜	Yfr
+ℨ	Zfr
+𝔞	afr
+𝔟	bfr
+𝔠	cfr
+𝔡	dfr
+𝔢	efr
+𝔣	ffr
+𝔤	gfr
+𝔥	hfr
+𝔦	ifr
+𝔧	jfr
+𝔨	kfr
+𝔩	lfr
+𝔪	mfr
+𝔫	nfr
+𝔬	ofr
+𝔭	pfr
+𝔮	qfr
+𝔯	rfr
+𝔰	sfr
+𝔱	tfr
+𝔲	ufr
+𝔳	vfr
+𝔴	wfr
+𝔵	xfr
+𝔶	yfr
+𝔷	zfr
+
+𝔸	Abb
+𝔹	Bbb booleans
+ℂ	Cbb complexes
+𝔻	Dbb
+𝔼	Ebb
+𝔽	Fbb
+𝔾	Gbb
+ℍ	Hbb
+𝕀	Ibb
+𝕁	Jbb
+𝕂	Kbb
+𝕃	Lbb
+𝕄	Mbb
+ℕ	Nbb naturals
+𝕆	Obb
+ℙ	Pbb
+ℚ	Qbb rationals
+ℝ	Rbb reals
+𝕊	Sbb
+𝕋	Tbb
+𝕌	Ubb
+𝕍	Vbb
+𝕎	Wbb
+𝕏	Xbb
+𝕐	Ybb
+ℤ	Zbb integers
+𝕒	abb
+𝕓	bbb
+𝕔	cbb
+𝕕	dbb
+𝕖	ebb
+𝕗	fbb
+𝕘	gbb
+𝕙	hbb
+𝕚	ibb
+𝕛	jbb
+𝕜	kbb
+𝕝	lbb
+𝕞	mbb
+𝕟	nbb
+𝕠	obb
+𝕡	pbb
+𝕢	qbb
+𝕣	rbb
+𝕤	sbb
+𝕥	tbb
+𝕦	ubb
+𝕧	vbb
+𝕨	wbb
+𝕩	xbb
+𝕪	ybb
+𝕫	zbb
+𝟘	0bb
+𝟙	1bb
+𝟚	2bb
+𝟛	3bb
+𝟜	4bb
+𝟝	5bb
+𝟞	6bb
+𝟟	7bb
+𝟠	8bb
+𝟡	9bb

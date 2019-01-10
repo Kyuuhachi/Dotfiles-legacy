@@ -1,0 +1,2 @@
+#!/usr/bin/env zsh
+evince http://texdoc.net/pkg/$1

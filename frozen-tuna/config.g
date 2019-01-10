@@ -1,6 +1,6 @@
 start: "\n"* (line "\n"+)* line?
 line: cond "->" command -> plaincmd
-    | cond "=>" shcommand -> shcmd
+    | cond "=>" command -> shcmd
 
 ?cond: cond_or
 ?cond_or: cond_and ("|" cond_and)*
@@ -14,12 +14,11 @@ line: cond "->" command -> plaincmd
           | HOST -> cond_host
           | "else" -> cond_else
 
-WORD: ("a".."z"|"0".."9"|"-")+
+WORD: ("a".."z"|"0".."9"|"-"|".")+
 HOST: WORD ("." WORD)+
-CMDWORD: /\S+/
+CMDWORD: /"()"|\S+/
 
-command: CMDWORD+
-shcommand: /\S.*/
+command: /\S.*/
 
 %ignore ("\t"|" "|"\f"|"\r")+
 %ignore "\\" "\n"

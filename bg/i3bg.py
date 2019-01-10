@@ -46,10 +46,11 @@ def mkseed(seed):
 	import pwd
 	return sum(map(ord, f"{pwd.getpwuid(os.getuid())}@{platform.node()}:{seed}")) & 0xFFFFFFFF
 
-display = Xlib.display.Display()
-screen = display.screen()
-root = screen.root
 def change_workspace(name):
+	print(f"Changing to {name}", flush=True)
+	display = Xlib.display.Display()
+	screen = display.screen()
+	root = screen.root
 
 	w, h = screen.width_in_pixels, screen.height_in_pixels
 	try:
@@ -65,7 +66,6 @@ def change_workspace(name):
 	i3.command("reload")
 
 	if (name, w, h) not in backgrounds:
-		print(name,w,h)
 		backgrounds[name, w, h] = root.create_pixmap(w, h, screen.root_depth)
 		gen_bg(backgrounds[name, w, h], hue, name)
 	id = backgrounds[name, w, h].id
@@ -82,7 +82,7 @@ def gen_colors(hue):
 	return "\n".join(colormap)
 
 def gen_bg(pixmap, hue, name):
-	raise NotImplementedError
+	raise NotImplemented
 
 def register(gen_bg):
 	globals()["gen_bg"] = gen_bg

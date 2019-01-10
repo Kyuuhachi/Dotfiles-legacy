@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 import asyncio
-from functools import partial
 
 def this_should_be_a_module():
 	import Xlib
@@ -135,12 +134,16 @@ async def init_screenshot():
 
 async def init_launch():
 	async def launch(*cmd):
-		await asyncio.create_subprocess_exec(*cmd)
-	import os.path
+		import os
+		if os.fork() == 0:
+			if os.fork() == 0:
+				os.execvp(cmd[0], cmd)
+			else:
+				os._exit(0)
 	bind({
 		"w-Return":  lambda: launch("x-terminal-emulator"),
 		"w-d":       lambda: launch("dmenu_run"),
-		"Caps_Lock": lambda: launch("compose", os.path.expanduser("~/dot/htmlent.txt")),
+		"Caps_Lock": lambda: launch("compose"),
 	})
 
 async def init_pause():
@@ -157,7 +160,7 @@ async def init_i3():
 	import simplei3
 	i3ipc = await simplei3.i3ipc()
 
-	i3 = partial(partial, i3ipc.command, i3ipc.COMMAND)
+	i3 = lambda cmd: lambda: i3ipc.command(i3ipc.COMMAND, cmd)
 	bind({
 		"w-x": i3("kill"), "w-s-x": i3("focus parent;" * 10 + "kill"),
 

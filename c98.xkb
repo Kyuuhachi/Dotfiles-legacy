@@ -197,9 +197,9 @@ xkb_keymap {
 		key <AD02> {[w,W]};
 		key <AD03> {[e,E,adiaeresis,Adiaeresis]};
 		key <AD04> {[r,R]};
-		key <AD05> {[t,T,thorn,THORN]};
+		key <AD05> {[t,T,downtack,downtack]};
 		key <AD06> {[y,Y]};
-		key <AD07> {[u,U]};
+		key <AD07> {[u,U,union,intersection]};
 		key <AD08> {[i,I]};
 		key <AD09> {[o,O,odiaeresis,Odiaeresis]};
 		key <AD10> {[p,P,Greek_pi,Greek_PI]};
@@ -209,7 +209,7 @@ xkb_keymap {
 		key <AC01> {[a,A,aring,Aring]};
 		key <AC02> {[s,S]};
 		key <AC03> {[d,D,Greek_delta,Greek_DELTA]};
-		key <AC04> {[f,F]};
+		key <AC04> {[f,F,uptack,uptack]};
 		key <AC05> {[g,G]};
 		key <AC06> {[h,H,leftarrow,0x10021D0]};
 		key <AC07> {[j,J,downarrow,0x10021D3]};
@@ -222,7 +222,7 @@ xkb_keymap {
 		key <AB01> {[z,Z]};
 		key <AB02> {[x,X,multiply,division]};
 		key <AB03> {[c,C]};
-		key <AB04> {[v,V]};
+		key <AB04> {[v,V,logicalor,logicaland]};
 		key <AB05> {[b,B]};
 		key <AB06> {[n,N,ntilde,Ntilde]};
 		key <AB07> {[m,M]};

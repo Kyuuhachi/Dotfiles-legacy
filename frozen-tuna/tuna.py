@@ -9,6 +9,7 @@ import sys
 import config
 import mime
 import util
+import shlex
 
 def get_icons(mimes):
 	icons = set()
@@ -43,20 +44,26 @@ def get_command(scheme, hand):
 			"else": lambda: True
 		}[type](*args)
 
+	output = f"{hand.url}\n"\
+		f"{', '.join(f'{maj}/{min}' for maj, min in mimes)}\n"\
+		f"{', '.join(f'@{ic}' for ic in icons)}"
+
 	for cond, cmd in config.config:
 		if test_cond(cond):
+			util.notify(f"Opening {cmd}", output)
 			return cmd
+	util.notify(f"Couldn't open :(", output)
 
 def transform_cmd(cmd, h, env):
-	if isinstance(cmd, str): # Shell command
+	if cmd[1]: # Shell command
 		out, = subprocess.check_output(["getent", "passwd", str(os.getuid())]).decode().splitlines()
 		yield out.split(":")[6]
 		yield "-c"
-		yield cmd
+		yield " ".join(map(shlex.quote, cmd[0]))
 		os.putenv("TUNA_URL", h.url)
 		os.putenv("TUNA_PATH", h.path)
 	else: # Plain command
-		for arg in cmd:
+		for arg in cmd[0]:
 			if arg.startswith("$"):
 				yield env[arg[1:]]
 			elif arg.startswith("%"):
@@ -82,13 +89,14 @@ def __main__():
 		cmd = get_command(scheme, h)
 		print(f"[Frozen Tuna]   {cmd}", file=sys.stderr)
 		cmd = list(transform_cmd(cmd, h, os.environ))
-	except Exception as e:
+		print(f"[Frozen Tuna]   ({cmd})", file=sys.stderr)
+
+	except Exception:
 		import traceback
 		util.notify("Error", traceback.format_exc())
 		raise
 
 	if cmd:
-		util.notify(f"Opening {cmd}", h.url + "\n" + str(h.mimes))
 		if not args.dry_run:
 			if args.sync:
 				os.execlp(*cmd)

@@ -1,26 +1,25 @@
 #!/usr/bin/env python3
-import sys
-import re
 import dmenu
 import xtype
+import os.path
 
-keys = []
-chars = {}
-with open(sys.argv[1], "rt") as file:
-	for line in file:
-		line = line.rstrip('\n').split("#", 1)[0].strip()
+def parse(path):
+	chars = {}
+	for line in open(path).read().splitlines():
+		line = line.split("#", 1)[0].rstrip()
 		if not line:
 			continue
-		v, k = line.split(" ")
-		k += " " + chr(int(v, 16))
-		keys.append(k)
-		chars[k] = chr(int(v, 16))
+		assert len(line) > 2
+		assert line[1] == "\t"
+		char = line[0]
+		key = " ".join(line[2:].split())
+		chars[char + " " + key] = char
+	return chars
 
-code = dmenu.show(keys)
+chars = parse(os.path.expanduser("~/dot/compose.txt"))
+code = dmenu.show(chars)
 
 if code is not None:
-	rx = re.compile("#x?([0-9]+)")
-
 	char = None
 	if code[:1] == "#":
 		char = chr(int(code[1:], 16))

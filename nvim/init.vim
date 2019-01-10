@@ -49,13 +49,9 @@ Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 
 Plug 'itchyny/vim-haskell-indent', {'for':['haskell']}
 Plug 'junegunn/fzf'
-
-Plug 'Caagr98/c98color.vim'
-Plug 'Caagr98/c98synctex.vim', {'for':['tex', 'latex']}
-" Plug 'Caagr98/c98ibus.vim'
-Plug 'Caagr98/c98tabbar.vim'
-Plug 'Caagr98/c98lilypond.vim'
 call plug#end()
+
+let &rtp = expand('<sfile>:p:h') . '/c98*.vim' . ',' . &rtp
 
 colorscheme c98color
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
@@ -72,6 +68,7 @@ set incsearch hlsearch inccommand=nosplit
 set wildmode=longest:list
 set suffixes+=.midi,.pdf,.mp3 "Lilypond
 set suffixes+=.class "Java
+set suffixes+=.o,.hi "Haskell (also c/++)
 set cmdheight=2
 set tabstop=4 softtabstop=4 shiftwidth=4 noexpandtab
 set ignorecase smartcase
@@ -92,8 +89,16 @@ set notimeout
 set nojoinspaces
 set hidden
 set signcolumn=yes
+set virtualedit=block
 
 set shell=zsh
+
+hi LongLine ctermbg=darkgray
+augroup LongLine
+	au!
+	au BufWinEnter * call matchadd('LongLine', '\%121v.', -1)
+augroup END
+set textwidth=120
 
 let g:polyglot_disabled = []
 if !exists('g:deoplete#omni#input_patterns') | let g:deoplete#omni#input_patterns = {} | endif
@@ -187,11 +192,14 @@ let g:tex_flavor = "latex"
 let g:vimtex_indent_on_ampersands = 0
 let g:tex_no_error = 1
 let g:tex_stylish = 1
-let g:livepreview_engine='lualatex'
+let g:livepreview_engine = 'lualatex'
 
+
+let java_ignore_javadoc = 1
 let g:c_gnu = 1
+call add(g:polyglot_disabled, 'lua')
 
-" call add(g:polyglot_disabled, 'python')
+call add(g:polyglot_disabled, 'python')
 let g:semshi#error_sign = v:false
 let g:ale_python_python_exec = 'python3'
 let g:ale_python_flake8_options = '--select=E112,E113,E251,E303,E304,E401,E502,E703,E711,E712,E713,E714,E901,E902,E999,W391,W6,F'
@@ -243,7 +251,6 @@ tnoremap <C-\><Esc> <Esc>
 
 fun! s:fixVimscript()
 	syn clear vimCommentString
-	" syn clear vimHighlight
 	syn match vimHighlight "\<hi\%[ghlight]\(\s\+def\%[ault]\>\)\?" skipwhite nextgroup=@vimHighlightCluster
 
 	let l:colors = [

@@ -154,7 +154,6 @@ class HttpHandler(Handler):
 		util.notify(f"Getting HTTP...", url)
 		self.response = requests.get(url, stream=True)
 		self.response.raw.decode_content = True
-		util.notify(str(self.response), str(vars(self.response)))
 
 	@property
 	@once

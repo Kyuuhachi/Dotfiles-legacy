@@ -1,6 +1,7 @@
 import appdirs
 import lark
 import os.path
+import shlex
 
 fn = os.path.join(os.path.dirname(__file__), "config.g")
 parser = lark.Lark(open(fn).read(), parser="lalr", lexer="contextual")
@@ -11,10 +12,7 @@ def parse(f):
 			return (c.data, [parse_cond(c2) for c2 in c.children])
 		return str(c)
 	def parse_cmd(c, type):
-		if type == "shcmd":
-			return str(c.children[0])
-		if type == "plaincmd":
-			return [str(c2) for c2 in c.children]
+		return shlex.split(c.children[0]), type == "shcmd"
 	cfg = parser.parse(f.read())
 	lines = []
 	for l in cfg.children:

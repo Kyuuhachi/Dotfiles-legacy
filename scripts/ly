@@ -1,0 +1,56 @@
+#!/usr/bin/env python3
+import argparse
+import sys
+import re
+import ly.document
+import ly.rhythm
+import ly.pitch.rel2abs
+import ly.pitch.abs2rel
+import ly.pitch.transpose
+
+argp = argparse.ArgumentParser()
+sp = argp.add_subparsers(dest="command", required=True)
+
+p = sp.add_parser("double")
+def double(c): ly.rhythm.rhythm_double(c)
+
+p = sp.add_parser("halve")
+def halve(c): ly.rhythm.rhythm_halve(c)
+
+p = sp.add_parser("implicit")
+p.add_argument("per_line", action="store_true")
+def implicit(c, per_line): (ly.rhythm.rhythm_implicit_per_line if per_line else ly.rhythm.rhythm_implicit)(c)
+
+p = sp.add_parser("explicit")
+def explicit(c): ly.rhythm.rhythm_explicit(c)
+
+p = sp.add_parser("relative")
+def relative(c): ly.pitch.abs2rel.abs2rel(c, startpitch=True, first_pitch_absolute=True)
+
+p = sp.add_parser("absolute")
+def absolute(c): ly.pitch.rel2abs.rel2abs(c, first_pitch_absolute=True)
+
+p = sp.add_parser("transpose")
+p.add_argument("fr", nargs="?")
+p.add_argument("to")
+def transpose(c, *, fr="c", to):
+	def parsePitch(p):
+		name, oct = re.fullmatch(r"([a-z]+)([,']*)", p).groups()
+		return ly.pitch.Pitch(*ly.pitch.pitchReader("nederlands")(name), ly.pitch.octaveToNum(oct))
+	transposer = ly.pitch.transpose.Transposer(parsePitch(fr), parsePitch(to))
+	ly.pitch.transpose.transpose(c, transposer, relative_first_pitch_absolute=True)
+
+del sp
+del p
+
+def __main__():
+	args = vars(argp.parse_args())
+	command = args.pop("command")
+
+	doc = ly.document.Document(sys.stdin.read())
+	cursor = ly.document.Cursor(doc)
+	globals()[command](cursor, **{ k: v for k, v in args.items() if v is not None })
+	print(doc.plaintext(), end="")
+
+if __name__ == "__main__":
+	__main__()
