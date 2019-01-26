@@ -1,7 +1,6 @@
 from gi.repository import Gtk, GLib
 import os.path
 import time
-import cairo
 import simplebat
 
 __all__ = ["Battery"]
@@ -12,9 +11,9 @@ class Battery(Gtk.EventBox):
 		self.path = path
 		self.verbose = verbose
 
-		self.icon = BatteryIcon()
-		self.text = Gtk.Label()
-		box = Gtk.Box(spacing=spacing)
+		self.icon = BatteryIcon(visible=True)
+		self.text = Gtk.Label(visible=True)
+		box = Gtk.Box(spacing=spacing, visible=True)
 		box.pack_start(self.icon, False, False, 0)
 		box.pack_start(self.text, False, False, 0)
 		self.add(box)
@@ -23,8 +22,8 @@ class Battery(Gtk.EventBox):
 		n = 0
 		def row(l):
 			nonlocal n
-			left = Gtk.Label(l, xalign=0)
-			right = Gtk.Label(xalign=1)
+			left = Gtk.Label(l, xalign=0, visible=True)
+			right = Gtk.Label(xalign=1, visible=True)
 			self.tooltip.attach(left, 0, n, 1, 1)
 			self.tooltip.attach(right, 1, n, 1, 1)
 			n += 1
@@ -34,7 +33,6 @@ class Battery(Gtk.EventBox):
 		self.tt_current = row("Current")
 		self.tt_voltage = row("Voltage")
 		self.tt_capacity = row("Capacity")
-		self.tooltip.show_all()
 		self.set_has_tooltip(True)
 
 		def tooltip(self, x, y, keyboard, tooltip):
@@ -78,8 +76,8 @@ class Battery(Gtk.EventBox):
 		return True
 
 class BatteryIcon(Gtk.DrawingArea):
-	def __init__(self):
-		super().__init__()
+	def __init__(self, *args, **kwargs):
+		super().__init__(*args, **kwargs)
 		self.set_value(0)
 
 	def set_value(self, v):
@@ -87,7 +85,6 @@ class BatteryIcon(Gtk.DrawingArea):
 		self.queue_draw()
 
 	def do_draw(self, ctx):
-		ctx.set_fill_rule(cairo.FILL_RULE_EVEN_ODD)
 		style = self.get_style_context()
 		r, g, b, a = style.get_color(style.get_state())
 		ctx.set_source_rgba(r, g, b, a)
@@ -109,24 +106,15 @@ class BatteryIcon(Gtk.DrawingArea):
 		w = int(fontsize * 1.7) # Doesn't include the nub
 		self.set_size_request(w+t, h)
 
-		T = t*2
-		W = (w-T*2+0.25)*min(self.value, 1)
 		path([
-			(T, h-T),
-			(T + W, h-T),
-			(T + W, T),
-			(T, T),
-		])
-
-		path([
-			(t, h-t),
-			(w-t, h-t),
-			(w-t, h*3/4-t),
-			(w, h*3/4-t),
-			(w, h*1/4+t),
-			(w-t, h*1/4+t),
-			(w-t, t),
 			(t, t),
+			(w-t, t),
+			(w-t, h*1/4+t),
+			(w, h*1/4+t),
+			(w, h*3/4-t),
+			(w-t, h*3/4-t),
+			(w-t, h-t),
+			(t, h-t),
 		])
 
 		path([
@@ -140,4 +128,14 @@ class BatteryIcon(Gtk.DrawingArea):
 			(0, 0),
 		])
 
+		ctx.fill()
+
+		T = t*2
+		W = (w-T*2+0.25)*min(self.value, 1)
+		path([
+			(T, h-T),
+			(T + W, h-T),
+			(T + W, T),
+			(T, T),
+		])
 		ctx.fill()

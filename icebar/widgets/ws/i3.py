@@ -1,6 +1,6 @@
 from gi.repository import Gdk
 import asyncio
-from .workspaces import WSProvider
+from .workspaces import WSProvider, WSState
 from simplei3 import i3ipc
 
 __all__ = ["i3"]
@@ -23,12 +23,7 @@ class i3(WSProvider):
 	async def get_workspaces(self):
 		ws = []
 		for w in await self.i3.command(i3ipc.GET_WORKSPACES):
-			c = {
-				"focused": w["focused"],
-				"focused-other": w["visible"],
-				"urgent": w["urgent"],
-			}
-			ws.append((w["name"], c))
+			ws.append((w["name"], WSState.focused * w["focused"] + WSState.focused_other * w["visible"] + WSState.urgent * w["urgent"]))
 		self.emit("workspaces", ws)
 
 	def barconfig(self, barconfig):

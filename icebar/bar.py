@@ -140,7 +140,6 @@ def __main__():
 
 	box.show()
 	bg.show()
-	fg.show_all()
 	update_seps()
 
 	signal.signal(signal.SIGINT, lambda s, f: asyncio.get_event_loop().stop())

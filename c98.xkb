@@ -200,7 +200,7 @@ xkb_keymap {
 		key <AD05> {[t,T,downtack,downtack]};
 		key <AD06> {[y,Y]};
 		key <AD07> {[u,U,union,intersection]};
-		key <AD08> {[i,I]};
+		key <AD08> {[i,I,0x10021A3,0x10021A3]};
 		key <AD09> {[o,O,odiaeresis,Odiaeresis]};
 		key <AD10> {[p,P,Greek_pi,Greek_PI]};
 		key <AD11> {[bracketleft,braceleft]};
@@ -220,7 +220,7 @@ xkb_keymap {
 		key <AC12> {[backslash,bar,Greek_lambda,Greek_LAMBDA]};
 
 		key <AB01> {[z,Z]};
-		key <AB02> {[x,X,multiply,division]};
+		key <AB02> {[x,X,multiply,periodcentered]};
 		key <AB03> {[c,C]};
 		key <AB04> {[v,V,logicalor,logicaland]};
 		key <AB05> {[b,B]};
@@ -228,7 +228,7 @@ xkb_keymap {
 		key <AB07> {[m,M]};
 		key <AB08> {[comma,less,comma,guillemotleft]};
 		key <AB09> {[period,greater,ellipsis,guillemotright]};
-		key <AB10> {[slash,question]};
+		key <AB10> {[slash,question,division,question]};
 
 		key <I151> {[]}; //FN - default XF86WakeUp
 		key <LCTL> {[Control_L]};

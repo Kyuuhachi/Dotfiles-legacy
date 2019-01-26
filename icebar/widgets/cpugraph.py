@@ -17,6 +17,7 @@ class CPUGraph(Gtk.DrawingArea):
 		GLib.timeout_add(interval, self.update)
 		self.connect("draw", self.draw)
 		self.set_size_request(width, 0)
+		self.show()
 
 	def update(self):
 		import psutil

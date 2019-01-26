@@ -51,7 +51,9 @@ Plug 'itchyny/vim-haskell-indent', {'for':['haskell']}
 Plug 'junegunn/fzf'
 call plug#end()
 
-let &rtp = expand('<sfile>:p:h') . '/c98*.vim' . ',' . &rtp
+for path in glob(expand('<sfile>:p:h') . '/c98*.vim', 1, 1)
+	let &rtp =  path . ',' . &rtp
+endfor
 
 colorscheme c98color
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1

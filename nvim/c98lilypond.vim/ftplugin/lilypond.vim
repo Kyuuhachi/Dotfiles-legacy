@@ -24,8 +24,8 @@ function! s:is_scheme(stack)
 	let scheme = 0
 	for id in a:stack
 		let name = synIDattr(id, 'name')
-		if name ==# 'lilySchemeStruc' || name ==# 'lilySchemeQuoted' | let scheme = 1 | endif
-		if name ==# 'lilySchemeLily' | let scheme = 0 | endif
+		if name =~# 'lilySchemeStruc.' || name =~# 'lilySchemeQuoted.' | let scheme = 1 | endif
+		if name =~# 'lilySchemeLily.' | let scheme = 0 | endif
 	endfor
 	return scheme
 endfunction

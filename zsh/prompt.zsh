@@ -1,21 +1,22 @@
 #!/bin/zsh
 CURRENT_BG="default"
 prompt_segment() { # bg color, fg color
+	local bg=$1 fg=$2
 	if [[ $RIGHT != 1 ]]; then
-		if [[ $CURRENT_BG == $1 ]]; then
-			echo -n "%{%F{$2}%}"
+		if [[ $CURRENT_BG == $bg ]]; then
+			echo -n "%{%F{$fg}%}"
 		elif [[ $CURRENT_BG == "default" ]]; then
-			echo -n "%{%K{$1}%F{$2}%}"
+			echo -n "%{%K{$bg}%F{$fg}%}"
 		else
-			echo -n "%{%K{$1}%F{$CURRENT_BG}%}%{%F{$2}%}"
+			echo -n "%{%K{$bg}%F{$CURRENT_BG}%}%{%F{$fg}%}"
 		fi
 	else
-		if [[ $CURRENT_BG == $1 ]]; then
-			echo -n "%{%F{$2}%}"
+		if [[ $CURRENT_BG == $bg ]]; then
+			echo -n "%{%F{$fg}%}"
 		elif [[ $CURRENT_BG == "default" ]]; then
-			echo -n "%{%F{$1}%}%{%K{$1}%F{$2}%}"
+			echo -n "%{%F{$bg}%}%{%K{$bg}%F{$fg}%}"
 		else
-			echo -n "%{%F{$1}%K{$CURRENT_BG}%}%{%K{$1}%F{$2}%}"
+			echo -n "%{%F{$bg}%K{$CURRENT_BG}%}%{%K{$bg}%F{$fg}%}"
 		fi
 	fi
 	CURRENT_BG=$1
@@ -23,14 +24,6 @@ prompt_segment() { # bg color, fg color
 
 prompt_status() {
 	prompt_segment black default
-	pid=$$
-	n=0
-	while [[ ! -z $pid && $pid != 1 ]]; do
-		[[ $(readlink /proc/$pid/exe) == $(realpath =$SHELL) ]] && (( n++ ))
-		pid=$(echo -n $(ps -o ppid= -p $pid))
-	done
-	printf "%$((n-1))s"
-
 	icons=()
 	if   [[ $RETVAL == 130 || $RETVAL == 131 ]]; then icons=($icons "%{%F{yellow}%}") # SIGINT and SIGQUIT
 	elif [[ $RETVAL == 148                   ]]; then icons=($icons "%{%F{blue}%}") # SIGTSTOP
@@ -75,9 +68,7 @@ prompt_git() {
 				[[ $BEHIND -gt 0 ]] && echo -n "↓$BEHIND"
 			fi
 			echo -n " "
-			if [[ $HAS_STAGED == 0 ]]; then
-				prompt_segment $([[ $HAS_UNSTAGED != 1 ]] && echo yellow || echo green) black
-			fi
+			[[ $HAS_STAGED == 0 ]] && prompt_segment $([[ $HAS_UNSTAGED != 1 ]] && echo yellow || echo green) black
 		fi
 	} 2> /dev/null
 }

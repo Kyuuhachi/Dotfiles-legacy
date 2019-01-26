@@ -1,9 +1,13 @@
-import gi
-gi.require_version("PangoCairo", "1.0")
-from gi.repository import Gtk, GObject, Gdk, Pango, PangoCairo
-import cairo
+from gi.repository import Gtk, GObject, Gdk
 
-__all__ = ["Workspaces"]
+from enum import IntFlag
+
+class WSState(IntFlag):
+	focused = 1
+	focused_other = 2
+	urgent = 4
+
+__all__ = ["Workspaces", "WSProvider", "WSState"]
 
 class WSProvider(GObject.Object):
 	@GObject.Signal(arg_types=[object])
@@ -21,6 +25,7 @@ class Workspaces(Gtk.Box):
 		self.provider.connect("workspaces", self.update_workspaces)
 		self.buttons = {}
 		self.active_color = (0, 0, 0, 0)
+		self.show()
 
 	def update_color(self, _, color):
 		for button in self.buttons.values():
@@ -28,114 +33,70 @@ class Workspaces(Gtk.Box):
 		self.active_color = color
 
 	def update_workspaces(self, _, workspaces):
-		current = {a[0] for a in workspaces}
-		for name in list(self.buttons):
-			if name not in current:
-				self.buttons[name].destroy()
-				del self.buttons[name]
+		for name in self.buttons:
+			self.buttons[name].hide()
 		for i, (name, state) in enumerate(workspaces):
 			if name not in self.buttons:
-				self.buttons[name] = WorkspaceButton(name, self.active_color)
+				self.buttons[name] = WorkspaceButton(name, self.active_color, visible=True)
 				self.buttons[name].connect("activate", lambda button, name: self.provider.set_workspace(name), name)
 				self.pack_start(self.buttons[name], False, False, 0)
-				self.buttons[name].show()
 			self.buttons[name].set_state(state)
+			self.buttons[name].show()
 			self.reorder_child(self.buttons[name], i)
 
 PADDING = 4
 
 def blend(a, b, r):
 	return tuple(a*(1-r) + b*r for (a, b) in zip(a, b))
+def alpha(a, r):
+	return (a[0], a[1], a[2], a[3] * r)
 
-class WorkspaceButton(Gtk.DrawingArea):
+class WorkspaceButton(Gtk.EventBox):
 	@GObject.Signal
 	def activate(self): pass
 
-	def __init__(self, name, color):
-		super().__init__()
-		self.name = name
+	def __init__(self, name, color, **kwargs):
+		super().__init__(**kwargs)
 		self.state = 0
-		self.active_color = color
+		self.color = Gdk.RGBA(*color)
 
-		pango = self.get_pango_context()
-		layout = Pango.Layout.new(pango)
-		layout.set_text(self.name, -1)
-		ext = layout.get_pixel_extents()[1]
-		self.set_size_request(2 + 2*PADDING + ext.width, 0)
-
-		self.connect("draw", self.draw)
 		self.set_events(Gdk.EventMask.BUTTON_PRESS_MASK)
 		self.connect("button-press-event", self.on_mouse)
+		label = Gtk.Label(label=name, visible=True)
+		self.add(label)
+
+		self.style = Gtk.CssProvider()
+		label.get_style_context().add_provider(self.style, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
 
 	def on_mouse(self, _, evt):
+		print(evt)
 		if (evt.button, evt.type) == (1, Gdk.EventType.BUTTON_PRESS):
 			self.emit("activate")
 
 	def set_state(self, state):
 		if state != self.state:
 			self.state = state
-			self.queue_draw()
+			self.update()
 
 	def set_color(self, color):
-		self.active_color = tuple(color)
-		self.queue_draw()
+		self.color = Gdk.RGBA(*color)
+		self.update()
 
-	def draw(self, _, ctx):
-		ctx.set_antialias(cairo.ANTIALIAS_NONE)
-		ctx.set_line_width(1)
-		ctx.set_line_join(cairo.LINE_JOIN_BEVEL)
-		ctx.set_line_cap(cairo.LINE_CAP_BUTT)
+	def update(self):
+		bg = self.color.to_string()
+		fg = "currentColor"
+		bd = "currentColor"
 
-		style = self.get_style_context()
-		r, g, b, a = style.get_color(style.get_state())
+		if ~self.state & WSState.focused:
+			bg = f"alpha({bg}, 0)"
+		if ~self.state & (WSState.focused | WSState.focused_other):
+			fg = f"alpha({fg}, 0.5)"
+		bd = f"alpha({bd}, 0.25)"
 
-		w = self.get_allocated_width()
-		h = self.get_allocated_height()
+		if self.state & WSState.urgent:
+			urgent = Gdk.RGBA(4/6, 1/6, 1/6).to_string()
+			bg = f"mix({bg}, {urgent}, 0.75)"
+			fg = f"mix({fg}, {urgent}, 0.25)"
+			bd = f"mix({bd}, {urgent}, 0.50)"
 
-		bg = None
-		border = (r,g,b,a/8)
-		text = (r,g,b,a/2)
-		borderWidth = 1
-
-		if self.state["focused-other"]:
-			border = (r,g,b,a/4)
-			text = (r,g,b,a)
-		if self.state["focused"]:
-			bg = self.active_color
-			border = blend(bg, (r,g,b,a), 1/6)
-			text = (r,g,b,a)
-		if self.state["urgent"]:
-			border = (2/3, 1/6, 1/6, 1)
-			bg = blend(bg or border[0:3] + (0,), border, 1/2)
-			text = blend((r,g,b,a), border, 1/4)
-
-		bw = borderWidth
-		if bg:
-			ctx.set_source_rgba(*bg)
-			ctx.move_to(bw, 1+bw)
-			ctx.line_to(bw, h-1-bw)
-			ctx.line_to(w-bw, h-1-bw)
-			ctx.line_to(w-bw, 1+bw)
-			ctx.close_path()
-			ctx.fill()
-		if border:
-			ctx.set_source_rgba(*border)
-			ctx.move_to(0, 1)
-			ctx.line_to(0, h-1)
-			ctx.line_to(w, h-1)
-			ctx.line_to(w, 1)
-			ctx.close_path()
-			ctx.move_to(w-bw, 1+bw)
-			ctx.line_to(w-bw, h-1-bw)
-			ctx.line_to(bw, h-1-bw)
-			ctx.line_to(bw, 1+bw)
-			ctx.close_path()
-			ctx.fill()
-		if text:
-			ctx.set_source_rgba(*text)
-			pango = self.get_pango_context()
-			layout = Pango.Layout.new(pango)
-			layout.set_text(self.name, -1)
-			ext = layout.get_pixel_extents()[1]
-			ctx.move_to((w-ext.width)/2, (h-ext.height)/2)
-			PangoCairo.show_layout(ctx, layout)
+		self.style.load_from_data(f"* {{ border: 1px solid transparent; padding: 0 3px; margin: 1px 0; background: {bg}; color: {fg}; border-color: {bd}; }}".encode())

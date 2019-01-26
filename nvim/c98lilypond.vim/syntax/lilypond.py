@@ -141,15 +141,15 @@ def highlight():
 	mode("lilyContextMod", r"context", [ "@lilyGlobal" ], contained=True)
 	mode("lilyWith", r"with", [ "@lilyGlobal", "lilyVar" ])
 
-	START = r"[^()\"\n\t ]\@1<!"
+	START = r"[^()\"\n\t#,'` ]\@1<!"
 	END = r"[^()\"\n\t ]\@!"
-	syn_match("lilySchemeChar", START + r"#\\." + END, contained=True)
-	syn_match("lilySchemeChar", START + r"\v#\i\\%(nul|soh|stx|etx|eot|enq|ack|bel|bs|ht|newline|vt|np|cr|so|si|dle|dc1|dc2|dc3|dc4|nak|syn|etb|can|em|sub|esc|fs|gs|rs|us|space|sp|nl|tab|backspace|return|page|null|del)>" + END, contained=True)
+	syn_match("lilySchemeChar", START + r"#\\.", contained=True)
+	syn_match("lilySchemeChar", START + r"#\c\\\%(nul\|soh\|stx\|etx\|eot\|enq\|ack\|bel\|bs\|ht\|newline\|vt\|np\|cr\|so\|si\|dle\|dc1\|dc2\|dc3\|dc4\|nak\|syn\|etb\|can\|em\|sub\|esc\|fs\|gs\|rs\|us\|space\|sp\|nl\|tab\|backspace\|return\|page\|null\|del\)" + END, contained=True)
 	syn_match("lilySchemeComment", START + r";.*$", contained=True)
 	syn_region("lilySchemeComment", START + r"#!", r"#!", contained=True)
 	syn_match("lilySchemeBoolean", START + r"#[tTfF]" + END, contained=True)
 	syn_region("lilySchemeString", r'"',  r'"', skip=r'/\\"/', contained=True)
-	syn_match("lilySchemeKeyword", START + r"#:\s*.\+" + END, contained=True)
+	syn_match("lilySchemeKeyword", START + r"#:\s*[^[:space:]()',]\+" + END, contained=True)
 	# syn_region("lilySchemeExtSymbol", START + r"#{", r"#}", skip=r"/}}/", contained=True) # Not sure if this works with lily
 	syn_match("lilySchemeArray", START + r"#[0-9a-zA-z:@]*(\@<=", contained=True, nextgroup="lilySchemeArrayElt")
 	syn_region("lilySchemeArrayElt", br"/(/rs=e", br"/)/re=s", contained=True, contains="lilySchemeArrayElt", transparent=True, extend=True)
@@ -180,10 +180,10 @@ def highlight():
 
 	for a in range(0, 6):
 		n = (a+1) % 6
-		syn_match(f"lilySchemeQuote{a}", r"['`]\s*", nextgroup=f"@lilySchemeRoot,lilySchemeQuoted{n},lilySchemeUnquote{n},lilySchemeQuote{n}", contained=True)
-		syn_match(f"lilySchemeUnquote{a}", r",@\?\s*", nextgroup=f"@lilySchemeRoot,lilySchemeVar,lilySchemeFunc,lilySchemeMacro,lilySchemeStruc{n},lilySchemeQuote{n}", contained=True)
-		syn_region(f"lilySchemeQuoted{a}", "(", ")", contains=f"@lilySchemeRoot,lilySchemeQuoted{n},lilySchemeUnquote{a},lilySchemeQuote{a}", matchgroup=f"lilySchemeDelimiter{a}", contained=True)
-		syn_region(f"lilySchemeStruc{a}", "(", ")", contains=f"@lilySchemeRoot,lilySchemeVar,lilySchemeFunc,lilySchemeMacro,lilySchemeStruc{n},lilySchemeQuote{a}", matchgroup=f"lilySchemeDelimiter{a}", contained=True)
+		syn_match(f"lilySchemeQuote{a}", r"['`]\s*",   nextgroup=f"@lilySchemeRoot,lilySchemeQuoted{n},lilySchemeUnquote{n},lilySchemeQuote{n}", contained=True)
+		syn_match(f"lilySchemeUnquote{a}", r",@\?\s*", nextgroup=f"@lilySchemeRoot,lilySchemeStruc{n},lilySchemeUnquote{n},lilySchemeQuote{n},lilySchemeVar,lilySchemeFunc,lilySchemeMacro", contained=True)
+		syn_region(f"lilySchemeQuoted{a}", "(", ")",    contains=f"@lilySchemeRoot,lilySchemeQuoted{n},lilySchemeUnquote{a},lilySchemeQuote{a}", matchgroup=f"lilySchemeDelimiter{a}", contained=True)
+		syn_region(f"lilySchemeStruc{a}", "(", ")",     contains=f"@lilySchemeRoot,lilySchemeStruc{n},lilySchemeUnquote{a},lilySchemeQuote{a},lilySchemeVar,lilySchemeFunc,lilySchemeMacro", matchgroup=f"lilySchemeDelimiter{a}", contained=True)
 
 	syn_match("lilyScheme", r"[#$]@\?", nextgroup="@lilySchemeRoot,lilySchemeVar,lilySchemeFunc,lilySchemeMacro,lilySchemeStruc4,lilySchemeQuote5")
 if __name__ == "__main__":

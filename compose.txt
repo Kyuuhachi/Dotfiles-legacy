@@ -687,6 +687,35 @@
 ⅾ	romand
 ⅿ	romanm
 
+˥	tone1
+˦	tone2
+˧	tone3
+˨	tone4
+˩	tone5
+
+⎡	sqlu
+⎢	sqlm
+⎣	sqld
+⎤	sqru
+⎥	sqrm
+⎦	sqrd
+
+⎧	culu
+⎨	culp
+⎪	culm
+⎩	culd
+⎫	curu
+⎬	curp
+⎪	curm
+⎭	curd
+
+⎛	palu
+⎜	palm
+⎝	pald
+⎞	paru
+⎟	parm
+⎠	pard
+
 𝒜	Ascr
 ℬ	Bscr
 𝒞	Cscr
