@@ -161,6 +161,19 @@ async def init_i3():
 	i3ipc = await simplei3.i3ipc()
 
 	i3 = lambda cmd: lambda: i3ipc.command(i3ipc.COMMAND, cmd)
+
+	async def fromScratch():
+		tree = await i3ipc.command(i3ipc.GET_TREE)
+		scratch = [
+			node["nodes"][0]
+			for node in tree["nodes"] if node["name"] == "__i3"
+			for node in node["nodes"] if node["name"] == "content"
+			for node in node["nodes"] if node["name"] == "__i3_scratch"
+			for node in node["floating_nodes"]
+		]
+		if scratch:
+			await i3ipc.command(i3ipc.COMMAND, f"[con_id={scratch[-1]['id']}] focus")
+
 	bind({
 		"w-x": i3("kill"), "w-s-x": i3("focus parent;" * 10 + "kill"),
 
@@ -179,6 +192,7 @@ async def init_i3():
 		"w-8": i3("workspace 8"),  "w-s-8": i3("move container to workspace 8; workspace 8"),
 		"w-9": i3("workspace 9"),  "w-s-9": i3("move container to workspace 9; workspace 9"),
 		"w-0": i3("workspace 10"), "w-s-0": i3("move container to workspace 10; workspace 10"),
+		"w-minus": fromScratch,    "w-s-minus": i3("move scratchpad"),
 
 		"w-h": i3("focus left"),  "w-s-h": i3("move left"),
 		"w-j": i3("focus down"),  "w-s-j": i3("move down"),
