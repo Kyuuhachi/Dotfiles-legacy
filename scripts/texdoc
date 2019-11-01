@@ -1,2 +1,4 @@
 #!/usr/bin/env zsh
-evince http://texdoc.net/pkg/$1
+f=/tmp/texdoc-$1.pdf
+[[ -e $f ]] || curl -L http://texdoc.net/pkg/$1 -o $f
+evince $f

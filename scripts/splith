@@ -1,0 +1,2 @@
+#!/usr/bin/env zsh
+exec i3-msg layout splith

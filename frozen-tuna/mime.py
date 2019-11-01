@@ -1,6 +1,5 @@
 from collections import defaultdict
 from fnmatch import fnmatch
-import stat
 import os
 import os.path
 from util import isBinaryString, getFiles
@@ -12,7 +11,6 @@ __all__ = [
 	"match",
 	"match_globs",
 	"match_magic",
-	"match_inode",
 	"match_basic",
 	"MAGIC_MAXLEN",
 ]
@@ -46,21 +44,21 @@ GLOB_EXTENSIONS = defaultdict(list)
 GLOB_LITERALS = {}
 GLOB_MATCHES = [] # (Weight, mime, glob, flags)
 for path in getFiles("mime/globs2"):
-		with open(path, "r") as file:
-			for line in file.read().splitlines():
-				if line.startswith("#"): continue
+	with open(path, "r") as file:
+		for line in file.read().splitlines():
+			if line.startswith("#"): continue
 
-				[weight, mime, glob, flags, *_] = line.split(":") + [""]
-				flags = flags.split(",")
+			[weight, mime, glob, flags, *_] = line.split(":") + [""]
+			flags = flags.split(",")
 
-				if "*" not in glob and "?" not in glob and "[" not in glob:
-					GLOB_LITERALS[glob] = mime
-				elif glob.startswith("*.") and "cs" not in flags:
-					extension = glob[1:]
-					if "*" not in extension and "?" not in extension and "[" not in extension:
-						GLOB_EXTENSIONS[extension].append((int(weight), mime))
-				else:
-					GLOB_MATCHES.append((int(weight), mime, glob, flags))
+			if "*" not in glob and "?" not in glob and "[" not in glob:
+				GLOB_LITERALS[glob] = mime
+			elif glob.startswith("*.") and "cs" not in flags:
+				extension = glob[1:]
+				if "*" not in extension and "?" not in extension and "[" not in extension:
+					GLOB_EXTENSIONS[extension].append((int(weight), mime))
+			else:
+				GLOB_MATCHES.append((int(weight), mime, glob, flags))
 GLOB_EXTENSIONS = dict(GLOB_EXTENSIONS)
 
 class P: # Very simple binary parser/reader with one byte readahead

@@ -1,0 +1,43 @@
+#!/usr/bin/env python3
+import sys
+import binascii
+import struct
+
+a = bytearray()
+for arg in sys.argv[1:]:
+	try:
+		a.extend(binascii.a2b_hex(arg))
+	except Exception as e:
+		print(e, file=sys.stderr)
+		sys.exit(1)
+
+if not a:
+	print("Input is empty", file=sys.stderr)
+	sys.exit()
+
+table1 = str.maketrans("".join(map(chr, range(32))) + "\x7F", "␀␁␂␃␄␅␆␇␈␉␊␋␌␍␎␏␐␑␒␓␔␕␖␗␘␙␚␛␜␝␞␟␡")
+table2 = str.maketrans("".join(map(chr, range(32))) + "\x7F", "�"*33)
+
+def test(name, codec):
+	s = a.decode(codec, errors="replace")
+	if s.translate(table2).count("�") / len(s) < 0.3:
+		print(name, "=", s.translate(table1))
+		return True
+	return False
+if not test("ascii", "ascii"):
+	test("utf8", "utf8")
+	test("sjis", "cp932")
+	test("gbk", "gbk")
+if len(a) <= 8:
+	leu = int.from_bytes(a, "little")
+	les = int.from_bytes(a, "little", signed=True)
+	beu = int.from_bytes(a, "big")
+	bes = int.from_bytes(a, "big", signed=True)
+	print("LE", "=", f"{leu} ({les})" if leu != les else leu)
+	print("BE", "=", f"{beu} ({bes})" if beu != bes else beu)
+if len(a) == 4:
+	print("LE float", "=", struct.unpack("<f", a)[0])
+	print("BE float", "=", struct.unpack(">f", a)[0])
+if len(a) == 8:
+	print("LE double", "=", struct.unpack("<d", a)[0])
+	print("BE double", "=", struct.unpack(">d", a)[0])

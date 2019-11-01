@@ -126,6 +126,9 @@ hi lilyCommand           ctermfg=011               cterm=BOLD
 hi link sqlKeyword Type
 hi link sqlOperator Operator
 
+hi link zshSubst NONE
+hi link zshSubstDelim PreProc
+
 hi link pythonStrInterpRegion Normal
 " }}}1
 let &cpo = save_cpo

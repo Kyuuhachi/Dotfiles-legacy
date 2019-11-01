@@ -3,7 +3,6 @@ import argparse
 import urllib.parse
 import handler
 import os
-import os.path
 import subprocess
 import sys
 import config
@@ -30,18 +29,16 @@ def get_command(scheme, hand):
 	parent = open(f"/proc/{os.getppid()}/cmdline", "rb").read().split(b"\0")[0].decode()
 	def test_cond(c):
 		type, args = c
-		assert type.startswith("cond_")
-		type = type[5:]
 		return {
-			"or": lambda *cs: any(test_cond(c) for c in cs),
-			"and": lambda *cs: all(test_cond(c) for c in cs),
-			"mime": lambda t, s: (t,s) in mimes,
-			"mime2": lambda t: t in mimeClasses,
-			"icon": lambda i: i in icons,
-			"scheme": lambda s: s == scheme,
-			"host": lambda h: h in hand.hosts,
-			"parent": lambda n: n == parent,
-			"else": lambda: True
+			"cond_or":     lambda *cs: any(test_cond(c) for c in cs),
+			"cond_and":    lambda *cs: all(test_cond(c) for c in cs),
+			"cond_mime":   lambda t, s: (t,s) in mimes,
+			"cond_mime2":  lambda t: t in mimeClasses,
+			"cond_icon":   lambda i: i in icons,
+			"cond_scheme": lambda s: s == scheme,
+			"cond_host":   lambda h: h in hand.hosts,
+			"cond_parent": lambda n: n == parent,
+			"cond_else":   lambda: True
 		}[type](*args)
 
 	output = f"{hand.url}\n"\

@@ -7,14 +7,13 @@ mimes |= set(subprocess.check_output(["lsdesktopf", "--gm", "0"]).decode().split
 mimes |= set("x-scheme-handler/" + f[29:] for f in subprocess.check_output(["gconftool-2", "--all-dirs", "/desktop/gnome/url-handlers"]).decode().splitlines())
 mimes.add("x-scheme-handler/file")
 mimes = sorted(mimes)
-print(mimes)
 
 # Mimeapps
 Path("~/.local/share/applications/xdg-open.desktop").expanduser().write_text("""
 [Desktop Entry]
 Type=Application
 Name=xdg-open
-Exec=xdg-open %u
+Exec=/usr/bin/env xdg-open %u
 NoDisplay=true
 MimeType={};
 """.format(";".join(mimes)).strip())

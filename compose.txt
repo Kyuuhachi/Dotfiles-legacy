@@ -9,18 +9,33 @@
 ∧	and
 ∨	or
 ∫	int
-∴	therefore
-∵	because
 ƒ	fnof
+Ƒ	Fnof
 ∘	comp
 √	sqrt
 ∞	infin
+⋆	star
 ′	prime
 ″	second
-∷	proportion ::
+∷	type ::
 ⊥	bottom
 ⊤	top
 °	deg
+∝	proportional
+ᵀ	transpose
+∇	nabla
+∂	partial
+
+Þ	THORN
+þ	thorn
+Ð	ETH
+ð	eth
+ŋ	ng
+Ŋ	NG
+ı	inodot
+ȷ	jnodot
+Æ	AElig
+æ	aelig
 
 ≠	ne     !=
 ≈	app    ~=
@@ -45,7 +60,6 @@
 
 ∀	set-forall
 ∁	set-complement
-∂	set-part
 ∃	set-exist
 ∄	set-nexist
 ∅	set-empty nil
@@ -75,7 +89,7 @@
 ¶	para
 ©	copy
 ®	reg
-™	trade
+™	tm
 ␣	blank
 ‾	oline
 ♀	female
@@ -136,22 +150,12 @@
 »	quo-rda
 # }}}
 
-
 █	blk
 ▀	blku
 ▄	blkd
 ░	blk1
 ▒	blk2
 ▓	blk3
-
-Ð	ETH
-ð	eth
-Þ	THORN
-þ	thorn
-ı	inodot
-ȷ	jnodot
-Æ	AElig
-æ	aelig
 
 ¼	frac14
 ½	frac12
@@ -283,96 +287,6 @@
 ╙	box-Ur
 ╘	box-uR
 └	box-ur
-
-# {{{ Arrows
-←	larr
-↑	uarr
-→	rarr
-↓	darr
-↔	harr
-↕	varr
-↖	nwarr
-↗	nearr
-↘	searr
-↙	swarr
-↞	Larr
-↟	Uarr
-↠	Rarr
-↡	Darr
-↼	lubarb
-↽	ldbarb
-↾	urbarb
-↿	ulbarb
-⇀	rubarb
-⇁	rdbarb
-⇂	drbarb
-⇃	dlbarb
-⇄	rlarr
-⇅	udarr
-⇆	lrarr
-⇵	duarr
-⇇	llarr
-⇈	uuarr
-⇉	rrarr
-⇊	ddarr
-⇠	larr-dot
-⇡	uarr-dot
-⇢	rarr-dot
-⇣	darr-dot
-⇷	larr-stroke
-⇸	rarr-stroke
-⇹	harr-stroke
-⇺	larr-dstroke
-⇻	rarr-dstroke
-⇞	uarr-dstroke
-⇟	darr-dstroke
-⇼	harr-dstroke
-↜	larr-squiggle
-↝	rarr-squiggle
-↩	larr-turn
-↪	rarr-turn
-↫	larr-loop
-↬	rarr-loop
-↢	larr-split
-↣	rarr-split
-⇤	larr-tbar
-⇥	rarr-tbar
-↤	larr-fbar
-↥	uarr-fbar
-↦	rarr-fbar
-↧	darr-fbar
-
-⇐	lArr
-⇑	uArr
-⇒	rArr
-⇓	dArr
-⇔	hArr
-⇕	vArr
-⇖	nwArr
-⇗	neArr
-⇘	seArr
-⇙	swArr
-⇦	lArr-back
-⇧	uArr-back
-⇨	rArr-back
-⇩	dArr-back
-⇜	larr-wave
-⇝	rarr-wave
-↭	harr-wave
-↚	larr-slash
-↛	rarr-slash
-↮	harr-slash
-⇍	lArr-slash
-⇏	rArr-slash
-⇎	hArr-slash
-
-↶	ccw180
-↷	cw180
-↺	ccw270
-↻	cw270
-⟲	ccw360
-⟳	cw360
-# }}}
 
 # {{{ Sup/sub
 ⁰	^0
@@ -653,6 +567,101 @@
 ũ	u-tilde ~u
 # }}}
 
+# {{{ Arrows
+←	larr
+↑	uarr
+→	rarr
+↓	darr
+↔	harr
+↕	varr
+↖	nwarr
+↗	nearr
+↘	searr
+↙	swarr
+↞	Larr
+↟	Uarr
+↠	Rarr
+↡	Darr
+↼	lubarb
+↽	ldbarb
+↾	urbarb
+↿	ulbarb
+⇀	rubarb
+⇁	rdbarb
+⇂	drbarb
+⇃	dlbarb
+⇄	rlarr
+⇅	udarr
+⇆	lrarr
+⇵	duarr
+⇇	llarr
+⇈	uuarr
+⇉	rrarr
+⇊	ddarr
+⇠	larr-dot
+⇡	uarr-dot
+⇢	rarr-dot
+⇣	darr-dot
+⇷	larr-stroke
+⇸	rarr-stroke
+⇹	harr-stroke
+⇺	larr-dstroke
+⇻	rarr-dstroke
+⇞	uarr-dstroke
+⇟	darr-dstroke
+⇼	harr-dstroke
+↜	larr-squiggle
+↝	rarr-squiggle
+↩	larr-turn
+↪	rarr-turn
+↫	larr-loop
+↬	rarr-loop
+↢	larr-split
+↣	rarr-split
+⇤	larr-tbar
+⇥	rarr-tbar
+↤	larr-fbar
+↥	uarr-fbar
+↦	rarr-fbar
+↧	darr-fbar
+
+⇐	lArr
+⇑	uArr
+⇒	rArr
+⇓	dArr
+⇔	hArr
+⇕	vArr
+⇖	nwArr
+⇗	neArr
+⇘	seArr
+⇙	swArr
+⇦	lArr-back
+⇧	uArr-back
+⇨	rArr-back
+⇩	dArr-back
+⇜	larr-wave
+⇝	rarr-wave
+↭	harr-wave
+↚	larr-slash
+↛	rarr-slash
+↮	harr-slash
+⇍	lArr-slash
+⇏	rArr-slash
+⇎	hArr-slash
+
+↶	ccw180
+↷	cw180
+↺	ccw270
+↻	cw270
+⟲	ccw360
+⟳	cw360
+# }}}
+
+⌈	lceil
+⌉	rceil
+⌊	lfloor
+⌋	rfloor
+
 Ⅰ	romanI
 Ⅱ	romanII
 Ⅲ	romanIII
@@ -715,6 +724,9 @@
 ⎞	paru
 ⎟	parm
 ⎠	pard
+
+∴	therefore
+∵	because
 
 𝒜	Ascr
 ℬ	Bscr

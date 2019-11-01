@@ -27,14 +27,21 @@
 	position: relative;
 	top: .15em;
 }
-[class*="channelTextArea-"] [class*="buttons-"] > [class*="buttonWrapper-"]:first-child, /* Gift button */
-[class*="channelTextArea-"] [class*="buttons-"] > [class*="buttonContainer-"]:nth-child(2) /* Gif button */
+[aria-label="Send a gift"],
+[aria-label="Open GIF picker"],
+[class*="unreadMentionsIndicatorTop"] + [class*="scrollerWrap-"] > [class*="scroller-"] > [class*="listItem-"]:last-child,
+[class*="unreadMentionsIndicatorTop"] + [class*="scrollerWrap-"] > [class*="scroller-"] > [class*="listItem-"]:nth-last-child(2)
 {
-	display: none
+	display: none;
 }
 
 [class*="textArea-"] {
 	letter-spacing: normal;
+}
+
+[class*="uploadModalIn-"] [class*="uploadDropModal-"] [class*="instructions-"],
+[class*="uploadModalIn-"] [class*="uploadDropModal-"] [class*="title-"] {
+	opacity: 1
 }
 
 * {

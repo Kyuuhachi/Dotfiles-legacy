@@ -75,8 +75,13 @@ def this_should_be_a_module():
 	return bind, start
 bind, start = this_should_be_a_module()
 
+async def reap(proc):
+	p = await proc
+	asyncio.ensure_future(p.wait())
+	return p
+
 async def read_subproc(*cmd):
-	proc = await asyncio.create_subprocess_exec(*cmd, stdout=asyncio.subprocess.PIPE)
+	proc = await reap(asyncio.create_subprocess_exec(*cmd, stdout=asyncio.subprocess.PIPE))
 	stdout, _ = await proc.communicate()
 	return stdout
 
@@ -93,7 +98,7 @@ async def init_backlight():
 		current = float(await read_subproc("brightnessctl", "-q", "g"))
 		idx = closest(states, current) + mode
 		if 0 <= idx < len(states):
-			await asyncio.create_subprocess_exec("brightnessctl", "-q", "s", str(states[idx]))
+			await reap(asyncio.create_subprocess_exec("brightnessctl", "-q", "s", str(states[idx])))
 
 	bind({
 		"XF86_MonBrightnessUp":   lambda: brightness(+1),
@@ -125,21 +130,30 @@ async def init_alsa(card="hw:0", name=("Master", "Speaker")):
 
 async def init_screenshot():
 	async def maim(flags):
-		await asyncio.create_subprocess_shell(f"maim {flags} | xclip -selection clipboard -t image/png")
+		await reap(asyncio.create_subprocess_shell(f"maim {flags} | xclip -selection clipboard -t image/png"))
 	bind({
-		"Print":   lambda: maim("-ksu"),
+		"Print":   lambda: maim("-knsu"),
 		"s-Print": lambda: maim("-k"),
-		"a-Print": lambda: maim("-ki $(xdotool getactivewindow)"),
+		"a-Print": lambda: maim("-kni $(xdotool getactivewindow)"),
 	})
 
 async def init_launch():
 	async def launch(*cmd):
 		import os
-		if os.fork() == 0:
-			if os.fork() == 0:
-				os.execvp(cmd[0], cmd)
-			else:
-				os._exit(0)
+		pid = os.fork()
+		if pid == 0:
+			try:
+				os.setsid()
+				if os.fork() == 0:
+					os.execvp(cmd[0], cmd)
+				else:
+					os._exit(0)
+			except:
+				import traceback
+				traceback.print_exc()
+				os._exit(1)
+		else:
+			os.waitpid(pid, 0)
 	bind({
 		"w-Return":  lambda: launch("x-terminal-emulator"),
 		"w-d":       lambda: launch("dmenu_run"),
@@ -148,12 +162,12 @@ async def init_launch():
 
 async def init_pause():
 	async def run():
-		await asyncio.create_subprocess_shell("""
+		await reap(asyncio.create_subprocess_shell(r"""
 			window=$(xprop -root -notype _NET_ACTIVE_WINDOW | pcregrep -xo1 '_NET_ACTIVE_WINDOW: window id # (?!0x0)(0x[0-9a-f]+)') || exit
 			pid=$(xprop -id $window -notype _NET_WM_PID | pcregrep -xo1 '_NET_WM_PID = (\d+)') || exit
 			state=$(ps --no-headers -o state $pid) || exit
 			kill -$([[ $state == T ]] && echo CONT || echo STOP) $pid
-		""")
+		"""))
 	bind({"w-p": run})
 
 async def init_i3():
@@ -173,6 +187,14 @@ async def init_i3():
 		]
 		if scratch:
 			await i3ipc.command(i3ipc.COMMAND, f"[con_id={scratch[-1]['id']}] focus")
+
+	def split(d):
+		async def split():
+			tree = await i3ipc.command(i3ipc.GET_TREE)
+			# Find parent of current window
+			# If 
+			await i3("layout toggle splitv tabbed")
+			# "w-t": i3("split h; layout tabbed"),
 
 	bind({
 		"w-x": i3("kill"), "w-s-x": i3("focus parent;" * 10 + "kill"),
@@ -199,6 +221,9 @@ async def init_i3():
 		"w-k": i3("focus up"),    "w-s-k": i3("move up"),
 		"w-l": i3("focus right"), "w-s-l": i3("move right"),
 
+		"w-s": split("splith"),
+		"w-s-s": split("splitv"),
+
 		"w-c-h": i3("resize shrink width  10 px"), "w-c-s-h": i3("resize shrink width  1 px"),
 		"w-c-j": i3("resize grow   height 10 px"), "w-c-s-j": i3("resize grow   height 1 px"),
 		"w-c-k": i3("resize shrink height 10 px"), "w-c-s-k": i3("resize shrink height 1 px"),
@@ -212,3 +237,26 @@ asyncio.ensure_future(init_launch())
 asyncio.ensure_future(init_pause())
 asyncio.ensure_future(init_screenshot())
 start()
+
+
+"""
+from sys import stdin
+import json
+from os import system
+
+j = json.load(stdin)
+
+def focus_chain(tree):
+	while not tree["focused"]:
+		[tree] = (k for k in tree["nodes"] + tree["floating_nodes"] if k["id"] == tree["focus"][0])
+		yield tree
+c = list(focus_chain(j))[-2]
+s = []
+s.append((c["nodes"][0], "layout splitv"))
+for k in c["nodes"]:
+	s.append((k, "split h"))
+	s.append((k, "layout tabbed"))
+for k,cmd in s:
+	print(k['id'], cmd)
+system("i3-msg '" + '; '.join(f"[con_id={k['id']}] {cmd}" for k,cmd in s) + "'")
+"""

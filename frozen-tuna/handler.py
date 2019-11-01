@@ -19,6 +19,23 @@ def once(f):
 			return result
 	return wrapper
 
+class PrefixedFile:
+	def __init__(self, prefix, file):
+		self.prefix = prefix
+		self.file = file
+
+	def read(self, size=None):
+		if size is None:
+			v = self.prefix
+			self.prefix = b""
+		else:
+			v = self.prefix[:size]
+			self.prefix = self.prefix[size:]
+			size -= len(v)
+		if size is None or size > 0:
+			v += self.file.read(size)
+		return v
+
 class Handler:
 	def __init__(self, url):
 		self.url = url
@@ -37,25 +54,23 @@ class Handler:
 	@once
 	def open(self):
 		f = self._open()
-		self._peek = b""
-		return f
 		if f is None:
 			self._peek = None
 			return None
 		else:
-			br = io.BufferedReader(self._open(), peek_len)
-			self._peek = br.peek(peek_len)
-		return br
+			r = self._open()
+			self._peek = r.read(peek_len)
+			return PrefixedFile(self._peek, r)
 
 	@property
 	@once
 	def mimes(self):
-		print(id(self.open()))
+		self.open()
 		m = mime.match(self.filename, self._peek)
 		m2 = self.mime
 		if m2 is not None:
 			m = [*m2, *m]
-		return m
+		return [x for x in m if "/" in x]
 
 	@once
 	def read(self):

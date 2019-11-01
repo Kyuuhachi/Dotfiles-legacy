@@ -1,0 +1,10 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =8
+let g:netrw_dirhist_1='/home/yuki/dot'
+let g:netrw_dirhist_2='/home/yuki/mc/build'
+let g:netrw_dirhist_3='/'
+let g:netrw_dirhist_4='/mnt'
+let g:netrw_dirhist_5='/home/yuki/dot/nvim'
+let g:netrw_dirhist_6='/home/yuki/src/openjdk-jdk-jdk10/test/jdk/sun/misc/URLClassPath'
+let g:netrw_dirhist_7='/home/yuki/Documents/MuseScore3/Templates'
+let g:netrw_dirhist_8='/home/yuki/mc'

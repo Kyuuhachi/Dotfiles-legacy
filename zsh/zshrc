@@ -17,6 +17,7 @@ autoload -U zmv && alias zmv="noglob zmv"
 
 setopt extendedglob interactivecomments autocd
 setopt auto_continue noflowcontrol
+setopt rmstarsilent
 
 WORDCHARS='*?_-.[]~=&;!#$%^(){}<>' # exclude '/' for backward-kill-word
 REPORTTIME=3 # report elapsed time (> 3 sec.)
@@ -27,27 +28,16 @@ nowrap() {
 	echoti smam
 }
 
-title() {
-	printf "\e]0;%s\a" $1
-}
-
 mkcd() {
 	mkdir -p $1
 	cd $1
 }
 
-locd() {
-	locate $@ | while read f; do
-		[[ -d $f ]] && echo $f
-	done
-}
-
 alias locate="locate --basename"
 alias sudo="sudo env HOME=$HOME "
 alias su="sudo $SHELL"
-alias git="git --no-pager"
-
-alias https='http --default-scheme=https' # HTTPie
+alias pdflatex="pdflatex -halt-on-error"
+alias lualatex="lualatex -halt-on-error"
 
 alias o=xdg-open
 alias \$= # Allows copying scripts with $ prompts
@@ -56,7 +46,7 @@ for c in cp rm mv chmod chown rename; do
 	alias $c="$c -v"
 done
 
-s=car0b1nius@muncher.se
+s=car0b1nius@cubic.muncher.se
 
 reentry_hook() {
 	if [[ $(stat -c "%h" .) -eq 0 ]]; then
@@ -123,53 +113,8 @@ autoload -U regexp-replace
 setopt re_match_pcre
 
 #{{{1 Large custom scripts
-source ~/dot/zsh/prompt.zsh
-
-#{{{1 ZLE
-bindkey -e
-function ctrl-z() {
-	[[ $(jobs | wc -l) > 0 ]] && {
-		zle push-line
-		BUFFER="fg"
-		zle accept-line
-	}
-}
-zle -N ctrl-z
-bindkey "^Z" ctrl-z
-
-function expand-with-dots() {
-	print -Pn "%{%F{red}...%f%}" | nowrap
-	zle expand-word
-	zle redisplay
-}
-zle -N expand-with-dots
-bindkey "^@" expand-with-dots
-
-function complete-with-dots() {
-	print -Pn "%{%F{red}...%f%}" | nowrap
-	zle complete-word
-	zle redisplay
-}
-zle -N complete-with-dots
-bindkey "^I" complete-with-dots
-
-function nop() {}
-zle -N nop
-
-bindkey "^[[2~"   overwrite-mode       # Insert
-bindkey "^?"      backward-delete-char # Backspace
-bindkey "^[^?"    backward-delete-word # A-Backspace
-bindkey "^[[3~"   delete-char          # Delete
-bindkey "^[[3;3~" delete-word          # A-Delete
-bindkey "^[[A"    up-line-or-history   # Up
-bindkey "^[[B"    down-line-or-history # Down
-bindkey "^[[C"    forward-char         # Right
-bindkey "^[[D"    backward-char        # Left
-bindkey "^[[F"    end-of-line          # End
-bindkey "^[[H"    beginning-of-line    # Home
-bindkey "^[[5~"   nop                  # PgUp
-bindkey "^[[6~"   nop                  # PgDn
-
+source $zsh_path/prompt.zsh
+source $zsh_path/inp.zsh
 #{{{1 Plugins
 
 function plug() {

@@ -19,6 +19,7 @@ class i3ipc:
 
 	async def _start(self):
 		proc = await asyncio.create_subprocess_exec("i3", "--get-socketpath", stdout=asyncio.subprocess.PIPE)
+		await proc.wait()
 		stdout, _ = await proc.communicate()
 		self._r, self._w = await asyncio.open_unix_connection(stdout.decode().strip())
 

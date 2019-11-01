@@ -1,0 +1,24 @@
+#!/usr/bin/env python3
+import gi
+gi.require_version("Gtk", "3.0")
+from gi.repository import Gtk, Gdk
+
+import argparse
+from pathlib import Path
+from urllib.parse import urlparse
+
+p = argparse.ArgumentParser("drag")
+p.add_argument("url", nargs="+", help="The URLs to drag")
+args = p.parse_args()
+
+urls = [url if urlparse(url).scheme else Path(url).resolve().as_uri() for url in args.url]
+
+w = Gtk.Window()
+w.realize()
+w.connect("drag-data-get", lambda w, ctx, sel, info, time: sel.set_uris(urls))
+w.connect("drag-end", lambda w, ctx: Gtk.main_quit())
+tl = Gtk.TargetList()
+tl.add_uri_targets(0)
+w.drag_begin_with_coordinates(tl, Gdk.DragAction.COPY, 1, None, -1, -1)
+
+Gtk.main()
