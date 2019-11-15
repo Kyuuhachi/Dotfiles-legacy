@@ -25,6 +25,7 @@
 ᵀ	transpose
 ∇	nabla
 ∂	partial
+※	kome
 
 Þ	THORN
 þ	thorn
