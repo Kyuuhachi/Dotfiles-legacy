@@ -82,6 +82,9 @@ class GLibChildWatcher(ChildWatcher):
 	def __init__(self):
 		self._sources = {}
 
+	def is_active(self):
+		return True
+
 	def attach_loop(self, loop):
 		pass
 
