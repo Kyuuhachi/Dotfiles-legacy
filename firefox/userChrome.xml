@@ -1,13 +1,25 @@
-<bindings xmlns="http://www.mozilla.org/xbl">
-	<binding id="js" extends="chrome://global/content/bindings/toolbarbutton.xml#toolbarbutton-badged">
+<bindings
+	xmlns="http://www.mozilla.org/xbl"
+	xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	xmlns:xbl="http://www.mozilla.org/xbl"
+	>
+
+	<binding id="js">
 		<implementation>
 			<constructor><![CDATA[
 				function makeRelativePathURI(name) {
 					let absolutePath = Components.stack.filename;
 					return absolutePath.substring(0, absolutePath.lastIndexOf("/") + 1) + name;
 				}
-				Services.scriptloader.loadSubScriptWithOptions(makeRelativePathURI("userChrome.js"), {target: window, ignoreCache: true});
-				window.messageManager.loadFrameScript(makeRelativePathURI("userContent.js"), true);
+				function chrome(path) {
+					Services.scriptloader.loadSubScriptWithOptions(makeRelativePathURI(path), {target: window, ignoreCache: true});
+				}
+				function content(path) {
+					window.messageManager.loadFrameScript(makeRelativePathURI(path), true);
+				}
+
+				chrome("userChrome.js");
+				content("userContent.js");
 			]]></constructor>
 		</implementation>
 	</binding>

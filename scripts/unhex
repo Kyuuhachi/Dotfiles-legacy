@@ -2,9 +2,35 @@
 import sys
 import binascii
 import struct
+import encodings
+import pathlib
+import argparse
+
+p = argparse.ArgumentParser()
+p.add_argument("-a", "--all-encodings", action="store_true", help="check all encodings")
+p.add_argument("hex", nargs="+")
+args = p.parse_args()
+
+
+if args.all_encodings:
+	encs = []
+	for e in pathlib.Path(encodings.__file__).parent.iterdir():
+		try: mod = __import__("encodings." + e.stem, fromlist=["*"])
+		except ImportError: continue
+
+		try: info = mod.getregentry()
+		except AttributeError: continue
+
+		if not info._is_text_encoding: continue
+		if info.name == "undefined": continue
+
+		encs.append(info.name)
+	encs.sort(key=lambda k: (k.startswith("iso") or k.startswith("cp"), k))
+else:
+	encs = ["ascii", "latin1", "sjis", "cp932", "gbk"]
 
 a = bytearray()
-for arg in sys.argv[1:]:
+for arg in args.hex:
 	try:
 		a.extend(binascii.a2b_hex(arg))
 	except Exception as e:
@@ -18,16 +44,18 @@ if not a:
 table1 = str.maketrans("".join(map(chr, range(32))) + "\x7F", "␀␁␂␃␄␅␆␇␈␉␊␋␌␍␎␏␐␑␒␓␔␕␖␗␘␙␚␛␜␝␞␟␡")
 table2 = str.maketrans("".join(map(chr, range(32))) + "\x7F", "�"*33)
 
-def test(name, codec):
-	s = a.decode(codec, errors="replace")
-	if s.translate(table2).count("�") / len(s) < 0.3:
-		print(name, "=", s.translate(table1))
-		return True
-	return False
-if not test("ascii", "ascii"):
-	test("utf8", "utf8")
-	test("sjis", "cp932")
-	test("gbk", "gbk")
+seen = set()
+for e in encs:
+	try:
+		s = a.decode(e)
+	except UnicodeError:
+		try:
+			s = a.decode(e, errors="replace")
+		except: continue
+	if s.translate(table2).count("�") / len(s) < 0.3 and s not in seen:
+		print(e, "=", s.translate(table1))
+		seen.add(s)
+
 if len(a) <= 8:
 	leu = int.from_bytes(a, "little")
 	les = int.from_bytes(a, "little", signed=True)

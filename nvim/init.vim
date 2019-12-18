@@ -107,7 +107,7 @@ augroup CursorLineOnlyInActiveWindow
 augroup END
 set textwidth=120
 
-let g:polyglot_disabled = []
+let g:polyglot_disabled = ['lilypond']
 " if !exists('g:deoplete#omni#input_patterns') | let g:deoplete#omni#input_patterns = {} | endif
 
 command! W :write
@@ -149,7 +149,6 @@ nnoremap ,cl :call setreg(v:register, getreg(), 'l')<CR>
 nnoremap ,cb :call setreg(v:register, getreg(), 'b')<CR>
 
 nnoremap ,b :Buffers<CR>
-nnoremap ,r :Rg<CR>
 nnoremap ,f :Files<CR>
 nnoremap ,g :GFiles<CR>
 nnoremap ,, <C-^>
@@ -203,16 +202,15 @@ au FileType c syn clear cCustomFunc
 call add(g:polyglot_disabled, 'lua')
 
 call add(g:polyglot_disabled, 'python')
-let g:semshi#error_sign = v:false
+" let g:semshi#error_sign = v:false
 let g:ale_python_python_exec = 'python3'
 let g:ale_python_flake8_options = '--select=E112,E113,E251,E303,E304,E401,E502,E703,E711,E712,E713,E714,E901,E902,E999,W391,W6,F'
 function! s:InitSemshi()
-	nmap <buffer> <silent> <leader>r :Semshi rename<CR>
+	nmap <buffer> <silent> ,r :Semshi rename<CR>
 
 	nmap <buffer> <silent> <Tab> :Semshi goto name next<CR>
 	nmap <buffer> <silent> <S-Tab> :Semshi goto name prev<CR>
 endf
-au FileType python setlocal expandtab< tabstop< softtabstop< shiftwidth<
 au FileType python call s:InitSemshi()
 let g:semshi#mark_selected_nodes = 2
 let g:semshi#excluded_hl_groups = []
@@ -226,12 +224,10 @@ let g:haskell_enable_quantification=1
 let g:haskell_enable_recursivedo=1
 let g:haskell_enable_static_pointers=1
 let g:haskell_enable_typeroles=1
-au FileType haskell setlocal expandtab ts=2 sts=2 sw=2
 au FileType haskell syn match haskellFloat "\v<[0-9]+(\.[0-9]\+)?([eE][-+]?[0-9]+)?>"
 
 call add(g:polyglot_disabled, 'sql')
 call add(g:polyglot_disabled, 'pgsql')
-au FileType sql setlocal expandtab ts=2 sts=2 sw=2 ft=pgsql
 
 fun! s:fixVimscript()
 	syn clear vimCommentString
@@ -258,3 +254,8 @@ fun! s:fixVimscript()
 	endfor
 endf
 autocmd FileType vim call s:fixVimscript()
+
+au FileType *        setlocal et< ts<  sts<  sw<
+au FileType haskell  setlocal et  ts=2 sts=2 sw=2
+au FileType lilypond setlocal et  ts=2 sts=2 sw=2
+au FileType yaml     setlocal et  ts=2 sts=2 sw=2

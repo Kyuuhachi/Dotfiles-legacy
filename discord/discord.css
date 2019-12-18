@@ -27,8 +27,9 @@
 	position: relative;
 	top: .15em;
 }
-[aria-label="Send a gift"],
-[aria-label="Open GIF picker"],
+
+textarea + [class*="buttons-"] > *:not(:last-child),
+[class*="textArea-"] + [class*="buttons-"] > *:not(:last-child),
 [class*="unreadMentionsIndicatorTop"] + [class*="scrollerWrap-"] > [class*="scroller-"] > [class*="listItem-"]:last-child,
 [class*="unreadMentionsIndicatorTop"] + [class*="scrollerWrap-"] > [class*="scroller-"] > [class*="listItem-"]:nth-last-child(2)
 {

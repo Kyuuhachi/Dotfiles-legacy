@@ -1,4 +1,4 @@
-#alltabs-button { -moz-binding: url("userChrome.xml#js"); }
+#PanelUI-menu-button { -moz-binding: url("userChrome.xml#js"); }
 
 findbar {
 	transition: none !important;
@@ -45,5 +45,3 @@ findbar {
 .kitsune-link-label::first-letter {
 	color: #FFFF00;
 }
-
-.tab-close-button { display: none }

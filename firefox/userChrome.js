@@ -1,10 +1,11 @@
-"use strict";
+"use strict"; {
 
-for(let k of document.getElementsByTagName("key")) {
-	k.removeAttribute("key");
-	k.removeAttribute("keycode");
-	k.removeAttribute("charcode");
-}
+const XUL_NS = "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul";
+const {require} = Cu.import("resource://devtools/shared/Loader.jsm", {});
+const {gDevTools} = require("devtools/client/framework/devtools");
+const {TargetFactory} = require("devtools/client/framework/target");
+const ToolboxProcess = Cu.import("resource://devtools/client/framework/ToolboxProcess.jsm", {});
+const {UrlbarInput} = ChromeUtils.import("resource:///modules/UrlbarInput.jsm", {});
 
 let keys, gKeys, topKeys;
 
@@ -27,6 +28,7 @@ topKeys = {
 	"d": () => closeTab(1),
 	"D": () => closeTab(-1),
 	"u": () => undoCloseTab(),
+	"U": () => undoCloseWindow(),
 
 	"h": () => goDoCommand("cmd_scrollLeft"),
 	"j": () => goDoCommand("cmd_scrollLineDown"),
@@ -43,6 +45,10 @@ topKeys = {
 	"/": () => gBrowser.getFindBar().then(b => b.startFind(1)),
 	"^f": () => gBrowser.getFindBar().then(b => b.startFind(1)),
 	// accessibility.typeaheadfind.manual → false for find to work (though I reimplement it to mean the same, so...)
+
+	"+": () => FullZoom.enlarge(),
+	"-": () => FullZoom.reduce(),
+	"^0": () => FullZoom.reset(),
 };
 
 gKeys = {
@@ -90,7 +96,7 @@ Services.obs.addObserver({
 		}
 
 		stack && stack.remove(); // Shouldn't happen, but better safe than sorry.
-		stack = document.createElement("stack");
+		stack = document.createElementNS(XUL_NS, "stack");
 		stack.classList.add("kitsune-link-overlay");
 		gBrowser.selectedBrowser.parentNode.append(stack);
 		stack.addEventListener("blur", () => {
@@ -103,7 +109,7 @@ Services.obs.addObserver({
 		boxes = [];
 		let len = els2.length.toString(4).length
 		for(let [id,l,u,r,d] of els2) {
-			let box = document.createElement("hbox");
+			let box = document.createElementNS(XUL_NS, "hbox");
 			box.classList.add("kitsune-link");
 			box.setAttribute("left", l);
 			box.setAttribute("top", u);
@@ -171,6 +177,12 @@ Services.obs.addObserver({
 			tab.linkedBrowser.messageManager.sendAsyncMessage("kitsune@unfocus");
 		}
 	});
+
+	UrlbarInput.prototype.handleRevert = function() {
+		this.window.gBrowser.userTypedValue = null;
+		this.window.URLBarSetURI(null, true);
+		this.blur();
+	}
 }
 // {{{1 Findbar
 {
@@ -193,12 +205,12 @@ Services.obs.addObserver({
 	});
 }
 // {{{1 Open-in-tab
-{
+{ // This doesn't quite work. It seems that although whereToOpenLink *is* called on normal <a> clicks, it opens the link in the current tab as well
 	let nextTab = null;
 	window.whereToOpenLink_ = window.whereToOpenLink;
 	window.whereToOpenLink = (...args) => {
 		let n = nextTab;
-		nextTab = null;
+		window.setTimeout(() => nextTab = null, 1);
 		return n || window.whereToOpenLink_(...args);
 	};
 	topKeys["^t"] = () => nextTab = "tab";
@@ -236,7 +248,7 @@ Services.obs.addObserver({
 
 		let mut = url.mutate();
 		if(url.ref) mut.setRef(null);
-		else if(url.query) mut.setQuery(url.query.replace(/[?&][^&]*$/, ""));
+		else if(url.query) mut.setQuery(url.query.replace(/(^|&)[^&]*$/, ""));
 		else if(url.pathQueryRef != "/") mut.setPathQueryRef(url.pathQueryRef.replace(/[/][^/]+[/]*$/, ""));
 		else if(url.host != eTLD.getBaseDomain(url)) mut.setHost(url.host.replace(/^[^.]*[.]/, ""))
 		url = mut.finalize();
@@ -247,7 +259,7 @@ Services.obs.addObserver({
 		return gBrowser.selectedBrowser.currentURI.mutate().setPathQueryRef("/").finalize();
 	}
 	function goto(url) {
-		if(url != gBrowser.selectedBrowser.currentURI)
+		if(url.spec != gBrowser.selectedBrowser.currentURI.spec)
 			openUrl(url.spec);
 	}
 	topKeys["A"] = () => goto(incrementURL(1)); // ^A is reserved, use A instead
@@ -258,10 +270,19 @@ Services.obs.addObserver({
 
 // {{{1 Devtools
 {
-	topKeys["^I"] = () => Cu.import("resource://devtools/client/framework/gDevTools.jsm", {}).gDevToolsBrowser.toggleToolboxCommand(gBrowser);
-	topKeys["^!I"] = () => Cu.import("resource://devtools/client/framework/ToolboxProcess.jsm", {}).BrowserToolboxProcess.init();
-	topKeys["^J"] = () => Cu.import("resource://devtools/shared/Loader.jsm", {}).require("devtools/client/webconsole/hudservice").HUDService.openBrowserConsoleOrFocus();
-	topKeys["F12"] = topKeys["^I"];
+	topKeys["^I"] = topKeys["F12"] = () =>
+		TargetFactory.forTab(gBrowser.selectedTab).then(t => {
+			if(gDevTools.getToolbox(t))
+				gDevTools.closeToolbox(t);
+			else
+				gDevTools.showToolbox(t, null, null, null, Cu.now());
+		})
+	topKeys["^!I"] = () => {
+		if(ToolboxProcess.processes.size)
+			ToolboxProcess.processes.values().next().value.close();
+		else
+			ToolboxProcess.BrowserToolboxProcess.init();
+	}
 	gKeys["f"] = () => BrowserViewSource(gBrowser.selectedBrowser);
 }
 // {{{1 Clipboard
@@ -299,11 +320,17 @@ Services.obs.addObserver({
 // {{{1 Key handler
 {
 	let evt = null;
-	window.addEventListener("keypress", e => evt = e);
+	window.addEventListener("keypress", e => evt = e, {capture: true, mozSystemGroup: true});
+
+	for(let k of document.getElementsByTagName("key")) {
+		k.removeAttribute("key");
+		k.removeAttribute("keycode");
+		k.removeAttribute("charcode");
+	}
 
 	for(let k in KeyEvent) {
 		if(!k.startsWith("DOM_VK_")) continue;
-		let key = document.createElement("key");
+		let key = document.createElementNS(XUL_NS, "key");
 		key.setAttribute("keycode", k.substring(4));
 		key.setAttribute("modifiers", "shift,alt,meta,os,control,any");
 		key.addEventListener("command", () => keypress(evt));
@@ -319,3 +346,4 @@ Services.obs.addObserver({
 	}
 }
 // }}}1
+}

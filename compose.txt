@@ -20,6 +20,8 @@
 ∷	type ::
 ⊥	bottom
 ⊤	top
+·	cdot
+•	bull
 °	deg
 ∝	proportional
 ᵀ	transpose
@@ -93,30 +95,29 @@
 ™	tm
 ␣	blank
 ‾	oline
-♀	female
 ♂	male
+♀	female
+
 ♠	spades
 ♣	clubs
 ♥	hearts
 ♦	diams
-♪	note
-♭	flat
-♮	natural
-♯	sharp
+
 ✓	check
 ✗	cross
+
 ¿	iquest ??
 ¡	iexcl  !!
 ‽	interrobang !? ?!
-µ	micro
-·	cdot
+
+⊕	xor oplus
+⊙	xnor odot
 †	dagger
 ‡	ddagger
-•	bull
+µ	micro
 ‰	permille
 ‱	permyriad
 
-# {{{ Spaces, bars, quotes/brackets
  	nbsp
  	ensp
  	emsp
@@ -149,7 +150,6 @@
 ›	quo-rsa
 «	quo-lda
 »	quo-rda
-# }}}
 
 █	blk
 ▀	blku
@@ -662,6 +662,11 @@
 ⌉	rceil
 ⌊	lfloor
 ⌋	rfloor
+
+♪	note
+♭	flat
+♮	natural
+♯	sharp
 
 Ⅰ	romanI
 Ⅱ	romanII
