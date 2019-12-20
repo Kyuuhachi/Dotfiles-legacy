@@ -188,21 +188,13 @@ async def init_i3():
 		if scratch:
 			await i3ipc.command(i3ipc.COMMAND, f"[con_id={scratch[-1]['id']}] focus")
 
-	def split(d):
-		async def split():
-			tree = await i3ipc.command(i3ipc.GET_TREE)
-			# Find parent of current window
-			# If 
-			await i3("layout toggle splitv tabbed")
-			# "w-t": i3("split h; layout tabbed"),
-
 	bind({
 		"w-x": i3("kill"), "w-s-x": i3("focus parent;" * 10 + "kill"),
 
 		"w-f": i3("fullscreen"), "w-s-f": i3("border toggle"),
 		"w-a": i3("focus parent"), "w-s-a": i3("focus child"),
 		"w-space": i3("focus mode_toggle"), "w-s-space": i3("floating toggle"),
-		"w-c-space": i3("move position center"),
+		"w-c-space": i3("floating enable; resize set 1500 600; move position center"),
 
 		"w-1": i3("workspace 1"),  "w-s-1": i3("move container to workspace 1; workspace 1"),
 		"w-2": i3("workspace 2"),  "w-s-2": i3("move container to workspace 2; workspace 2"),
@@ -221,9 +213,6 @@ async def init_i3():
 		"w-k": i3("focus up"),    "w-s-k": i3("move up"),
 		"w-l": i3("focus right"), "w-s-l": i3("move right"),
 
-		"w-s": split("splith"),
-		"w-s-s": split("splitv"),
-
 		"w-c-h": i3("resize shrink width  10 px"), "w-c-s-h": i3("resize shrink width  1 px"),
 		"w-c-j": i3("resize grow   height 10 px"), "w-c-s-j": i3("resize grow   height 1 px"),
 		"w-c-k": i3("resize shrink height 10 px"), "w-c-s-k": i3("resize shrink height 1 px"),
@@ -237,26 +226,3 @@ asyncio.ensure_future(init_launch())
 asyncio.ensure_future(init_pause())
 asyncio.ensure_future(init_screenshot())
 start()
-
-
-"""
-from sys import stdin
-import json
-from os import system
-
-j = json.load(stdin)
-
-def focus_chain(tree):
-	while not tree["focused"]:
-		[tree] = (k for k in tree["nodes"] + tree["floating_nodes"] if k["id"] == tree["focus"][0])
-		yield tree
-c = list(focus_chain(j))[-2]
-s = []
-s.append((c["nodes"][0], "layout splitv"))
-for k in c["nodes"]:
-	s.append((k, "split h"))
-	s.append((k, "layout tabbed"))
-for k,cmd in s:
-	print(k['id'], cmd)
-system("i3-msg '" + '; '.join(f"[con_id={k['id']}] {cmd}" for k,cmd in s) + "'")
-"""

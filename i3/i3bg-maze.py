@@ -11,8 +11,8 @@ def gen_bg(pixmap, hue, name):
 	geom = pixmap.get_geometry()
 	w, h = geom.width, geom.height
 
-	sugoi = os.path.join(os.path.dirname(__file__), "sugoi")
-	data = subprocess.check_output([sugoi, str(w), str(h), str(i3bg.mkseed(name)), str(hue)])
+	sugoi = os.path.join(os.path.dirname(__file__), "./sugoi")
+	data = subprocess.check_output([sugoi, str(w), str(h), str(i3bg.mkseed(name) & 0xFFFFFFFF), str(hue)])
 	w, h = struct.unpack_from("=II", data, 0)
 	pixels = data[8:]
 
@@ -29,6 +29,5 @@ def gen_bg(pixmap, hue, name):
 	for segy in range(0, h, segh):
 		cursegh = min(segh, h - segy)
 		pixmap.put_image(gc, 0, segy, w, cursegh, X.ZPixmap, 24, 0, pixels[segy*w*4:(segy+cursegh)*w*4])
-
 
 i3bg.register(gen_bg)

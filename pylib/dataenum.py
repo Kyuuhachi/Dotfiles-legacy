@@ -1,5 +1,4 @@
-import dataclasses
-from dataclasses import dataclass, field, fields
+from dataclasses import dataclass, field
 from functools import partial, wraps
 
 ### Data enums
@@ -45,7 +44,7 @@ def dataenum(cls=None, /, **kwargs):
 		_name:  str  = field(repr=False)
 		_value: None = field(repr=False)
 		def __repr__(self): return self._name
-		def __eq__(a, b): (type(a), a._index) == (type(b), b._index)
+		def __eq__(a, b): type(a) == type(b) and a._index == b._index
 		def __hash__(self): return hash((type(self), self._index))
 
 	dataclass(**kwargs)(cls)
@@ -68,7 +67,9 @@ def dataenum(cls=None, /, **kwargs):
 ### Data flags
 
 class BaseDataFlag:
-	def __eq__(a, b): return (a._cls, a._value) == (b._cls, b._value)
+	def __eq__(a, b):
+		try: return a._cls == b._cls and a._value == b._value
+		except Exception: return False
 	def __hash__(a): return hash((a._cls, a._value))
 
 	def __or__ (a, b): return BaseDataFlag._merge(a, b, lambda a, b: a|b)

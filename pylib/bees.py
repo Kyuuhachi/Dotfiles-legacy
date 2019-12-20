@@ -1,6 +1,7 @@
 import numpy as np
 from contextlib import contextmanager
 import mmap
+import sys
 
 chars = str.maketrans("".join(map(chr, range(32))) + "\x7F", "·␁␂␃␄␅␆␇␈␉␊␋␌␍␎␏␐␑␒␓␔␕␖␗␘␙␚␛␜␝␞␟␡")
 
@@ -79,9 +80,9 @@ class R:
 		for _ in range(n):
 			s = self[min(m, self.remaining)]
 			if not s and n != 1: break
-			print(s, text*s.decode(encoding or self.encoding, errors="replace").translate(chars))
+			print(s, text*s.decode(encoding or self.encoding, errors="replace").translate(chars), file=sys.stderr)
 		if n > 1:
-			print()
+			print(file=sys.stderr)
 		self.i = i
 
 	def seek(self, i, x=None):
