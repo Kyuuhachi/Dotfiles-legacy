@@ -1,28 +1,22 @@
 import numpy as np
+import dataclasses
+from dataclasses import dataclass, field
 from contextlib import contextmanager
 import mmap
 import sys
 
 chars = str.maketrans("".join(map(chr, range(32))) + "\x7F", "·␁␂␃␄␅␆␇␈␉␊␋␌␍␎␏␐␑␒␓␔␕␖␗␘␙␚␛␜␝␞␟␡")
 
-bstr = [f"{x:02X}" for x in range(256)]
-def out():
-	bstr[0] = f"\x1B[2m{bstr[0]}\x1B[m"
-	for x in range(0x20, 0x7F):
-		bstr[x] = f"\x1B[38;5;10m{bstr[x]}\x1B[m"
-	bstr[255] = f"\x1B[38;5;9m{bstr[255]}\x1B[m"
-	np.set_printoptions(suppress=True, linewidth=200, edgeitems=100)
-
 class B(bytes):
 	def __repr__(self):
-		return " ".join(bstr[x] for x in self)
+		return " ".join("%02X" % x for x in self)
 	__str__ = __repr__
 
+@dataclass
 class R:
-	def __init__(self, dt, encoding="ascii"):
-		self.dt = dt
-		self.i = 0
-		self.encoding = encoding
+	dt: bytes = field(repr=False)
+	encoding: str = "ascii"
+	i: int = 0
 
 	def __setitem__(self, n, v):
 		if isinstance(v, int):
@@ -75,34 +69,73 @@ class R:
 			self.i = i+len(delim)
 		return B(v)
 
-	def dump(self, n=32, m=48, text=True, encoding=None):
-		i = self.i
-		for _ in range(n):
-			s = self[min(m, self.remaining)]
-			if not s and n != 1: break
-			print(s, text*s.decode(encoding or self.encoding, errors="replace").translate(chars), file=sys.stderr)
-		if n > 1:
-			print(file=sys.stderr)
-		self.i = i
+	def dump(self, *,
+			start=None, lines=None, length=None, end=None,
+			width=None, encoding="auto", mark=frozenset(), file=sys.stderr):
+		if start is None:
+			start = self.i
 
-	def seek(self, i, x=None):
-		(i, self.i) = (self.i, i)
-		@contextmanager
-		def cm():
-			yield x
-			self.i = i
-		return cm()
+		mark = frozenset(mark)
 
-	def peek(self, t=None):
-		if t is None:
-			return self._peek()
+		if encoding == "auto":
+			encoding = self.encoding
+		if width is None:
+			width = 72 if encoding is None else 48
+
+		assert (lines is not None) + (length is not None) + (end is not None) <= 1
+		if length is not None:
+			length = start + length
+		elif end is not None:
+			length = end - start
+		elif lines is not None:
+			length = lines * width
 		else:
-			with self._peek():
-				return t()
-	@contextmanager
-	def _peek(self):
-		with self.seek(self.i):
-			yield
+			length = width
+		del lines
+		del end
+
+		fmt = ""
+		def format(f):
+			nonlocal fmt
+			if f != fmt:
+				hl.append("\x1B[m")
+				hl.append(fmt := f)
+
+		hl = []
+		for i in range(start, start+length, width):
+			chunk = self.dt[i:min(i+width, start+length)]
+			if not chunk: break
+
+			for j, b in enumerate(chunk, i):
+				if   0x00 == b       : newfmt = "\x1B[2m"
+				elif 0x20 <= b < 0x7F: newfmt = "\x1B[38;5;10m"
+				elif 0xFF == b       : newfmt = "\x1B[38;5;9m"
+				else:                   newfmt = ""
+
+				format(newfmt)
+				hl.append("%02X" % b)
+
+				if j+1 == self.i:
+					format("\x1B[7m")
+				elif j+1 in mark:
+					format("")
+
+				hl.append("•" if j+1 in mark else " ")
+
+			if encoding is not None:
+				format("")
+				hl.append(chunk.decode(encoding, errors="replace").translate(chars))
+			else:
+				hl.pop() # Trailing space
+			hl.append("\n")
+
+		if 0 < length <= width:
+			hl.pop()
+		format("")
+		print("".join(hl), file=file)
+
+	def at(self, i=None):
+		return dataclasses.replace(self, i=i if i is not None else self.i)
 
 	@classmethod
 	@contextmanager
@@ -122,5 +155,9 @@ class R:
 	_f4 = np.dtype("f4")
 	def zstr(self, size=None, encoding=None, errors="strict"):
 		return self.until(b"\0", size).decode(encoding or self.encoding, errors=errors)
+
+	def __iter__(self):
+		while self.remaining:
+			yield self.byte()
 
 def _sign(x, y): return x - 2*(x & y)

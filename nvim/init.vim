@@ -16,7 +16,7 @@ Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 Plug 'wellle/targets.vim'
 " Plug 'vim-scripts/sudo.vim'
-Plug 'w0rp/ale'
+Plug 'dense-analysis/ale'
 Plug 'junegunn/vim-easy-align'
 Plug 'vim-scripts/JavaScript-Indent', {'for':['javascript', 'jsx']}
 Plug 'mbbill/undotree'
@@ -202,9 +202,10 @@ au FileType c syn clear cCustomFunc
 call add(g:polyglot_disabled, 'lua')
 
 call add(g:polyglot_disabled, 'python')
-" let g:semshi#error_sign = v:false
+let g:semshi#error_sign = v:false
 let g:ale_python_python_exec = 'python3'
 let g:ale_python_flake8_options = '--select=E112,E113,E251,E303,E304,E401,E502,E703,E711,E712,E713,E714,E901,E902,E999,W391,W6,F'
+let g:ale_python_flake8_change_directory = 0
 function! s:InitSemshi()
 	nmap <buffer> <silent> ,r :Semshi rename<CR>
 

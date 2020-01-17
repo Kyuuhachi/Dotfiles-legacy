@@ -3,20 +3,32 @@ from functools import partial, wraps
 
 ### Data enums
 
+@dataclass(frozen=True)
+class ClassAttribute:
+	val: None
+	def __get__(self, instance, owner):
+		if instance is None: return self.val
+		raise AttributeError()
+
 class DataEnumMeta(type):
 	def __call__(cls, *a, **kw):
 		if hasattr(cls, "_enum"): raise TypeError("Cannot instantiate data enum")
 		return super().__call__(*a, **kw)
 
-	def __iter__(cls):       return iter(cls._enum)
+	def __iter__(cls):       return iter(cls._enum.values())
 	def __len__(cls):        return len(cls._enum)
 	def __reversed__(cls):   return reversed(cls._enum or []) # Workaround for #38525
 
 	def __repr__(cls):
-		return f"<enum {cls.__name__}%s>" % "".join(f" {k!r}:{cls._enum[k]}" for k in cls)
+		return f"<enum {cls.__name__}%s>" % "".join(f" {k!r}:{k}" for k in cls)
 
 class DataEnum(metaclass=DataEnumMeta):
-	def __class_getitem__(cls, k): return cls._enum[k]
+	def __class_getitem__(cls, k):
+		if isinstance(k, slice):
+			def convert(x):
+				return x._index if isinstance(x, cls) else x
+			return cls._byidx[convert(k.start):convert(k.stop):convert(k.step)]
+		return cls._enum[k]
 
 def dataenum(cls=None, /, **kwargs):
 	if not cls: return lambda cls: dataenum(cls, **kwargs)
@@ -44,7 +56,7 @@ def dataenum(cls=None, /, **kwargs):
 		_name:  str  = field(repr=False)
 		_value: None = field(repr=False)
 		def __repr__(self): return self._name
-		def __eq__(a, b): type(a) == type(b) and a._index == b._index
+		def __eq__(a, b): return type(a) == type(b) and a._index == b._index
 		def __hash__(self): return hash((type(self), self._index))
 
 	dataclass(**kwargs)(cls)
@@ -55,12 +67,15 @@ def dataenum(cls=None, /, **kwargs):
 		def __init_subclass__(cls, *a, **kw): raise TypeError("Cannot extend data enum class")
 
 	_enum = {}
+	_byidx = []
 	for i, (name, v, args) in enumerate(items):
 		if v in _enum: raise KeyError(f"Duplicate _enum value {v}")
-		setattr(enum, name, enum(i, name, v, *args))
-		_enum[v] = getattr(enum, name)
+		_enum[v] = enum(i, name, v, *args)
+		_byidx.append(_enum[v])
+		setattr(enum, name, ClassAttribute(_enum[v]))
 		enum.__annotations__[name] = enum
 	enum._enum = _enum
+	enum._byidx = _byidx
 
 	return enum
 
@@ -72,14 +87,13 @@ class BaseDataFlag:
 		except Exception: return False
 	def __hash__(a): return hash((a._cls, a._value))
 
-	def __or__ (a, b): return BaseDataFlag._merge(a, b, lambda a, b: a|b)
-	def __and__(a, b): return BaseDataFlag._merge(a, b, lambda a, b: a&b)
-	def __xor__(a, b): return BaseDataFlag._merge(a, b, lambda a, b: a^b)
-
 	@staticmethod
 	def _merge(a, b, f):
 		if a._cls != b._cls: raise TypeError((a._cls, b._cls))
 		return DataFlagSet(a._cls, f(a._value, b._value))
+	def __or__ (a, b): return BaseDataFlag._merge(a, b, lambda a, b: a|b)
+	def __and__(a, b): return BaseDataFlag._merge(a, b, lambda a, b: a&b)
+	def __xor__(a, b): return BaseDataFlag._merge(a, b, lambda a, b: a^b)
 
 	def __invert__(a):
 		all = a._value
@@ -87,18 +101,28 @@ class BaseDataFlag:
 			all = all | a._cls._enum[b]._value
 		return DataFlagSet(a._cls, all ^ a._value)
 
-	def __iter__(self):
+	def __iter__(self, *, _safe=False):
 		val = self._value
-		for v in self._cls:
+		for en in self._cls:
+			v = en._value
 			if val & v == v:
-				yield self._cls._enum[v]
+				yield en
 				try:
 					val = val & ~v
 				except TypeError:
 					val -= v
-		if val: raise KeyError(val)
+		if val:
+			if _safe:
+				raise KeyError(val)
+			else:
+				raise KeyError(self._cls, val)
 
 	def __len__(self):  return sum(1 for _ in self)
+
+	def __getattr__(self, k):
+		if hasattr(self._cls, k): return bool(getattr(self._cls, k) & self)
+		else: return getattr(super(), k)
+
 
 class DataFlagSet(BaseDataFlag):
 	def __init__(self, cls, value): self._cls, self._value = cls, value
@@ -107,11 +131,13 @@ class DataFlagSet(BaseDataFlag):
 		if hasattr(self._cls, "__reprs__"): return self._cls.__reprs__(self)
 		s = []
 		try:
-			for a in self:
+			for a in self.__iter__(_safe=True):
 				s.append(repr(a))
 		except KeyError as e:
 			s.append(f"<{e}>")
 		return '|'.join(s) or f"<empty>"
+
+	def __bool__(self): return bool(self._value)
 
 
 class DataFlagMeta(DataEnumMeta):
@@ -129,9 +155,13 @@ dataflag = partial(dataenum, mixin=DataFlag)
 ### Test
 
 if __name__ == "__main__":
+	@dataenum
+	class StatGuardE:
+		_1 : 1 << 0
+		_2 : 1 << 1
+
 	@dataflag
 	class StatGuard:
-		# a:int=1
 		POISON : 1 << 0
 		FREEZE : 1 << 1
 		PETRIFY: 1 << 2
@@ -144,19 +174,21 @@ if __name__ == "__main__":
 		DEATH  : 1 << 9
 		RAGE   : 1 << 11
 
-		# def __repr__(self): return "b"
+	print(list(StatGuard))
+	print(StatGuardE._1 == StatGuardE._1)
+	print(StatGuardE._1 == StatGuardE._2)
 
-	print(StatGuard[0xFFF])
-	print(StatGuard[0])
-	print(StatGuard[1] | StatGuard.FREEZE)
-	print(list(StatGuard.POISON))
-	print(len(StatGuard.POISON))
-	print(~StatGuard.POISON)
-	print(bool(StatGuard.POISON))
-	print(bool(StatGuard[1]))
-	print(isinstance(StatGuard.POISON, StatGuard))
-	print(isinstance(StatGuard[0], StatGuard))
-	print(isinstance(StatGuard[0xFFFF], StatGuard))
+	# print(StatGuard[0xFFF])
+	# print(StatGuard[0])
+	# print(StatGuard[1] | StatGuard.FREEZE)
+	# print(list(StatGuard.POISON))
+	# print(len(StatGuard.POISON))
+	# print(~StatGuard.POISON)
+	# print(bool(StatGuard.POISON))
+	# print(bool(StatGuard[1]))
+	# print(isinstance(StatGuard.POISON, StatGuard))
+	# print(isinstance(StatGuard[0], StatGuard))
+	# print(isinstance(StatGuard[0xFFFF], StatGuard))
 
-	print(StatGuard[1] == StatGuard.POISON)
-	print({StatGuard[1], StatGuard[1], StatGuard.POISON, StatGuard.POISON})
+	# print(StatGuard[1] == StatGuard.POISON)
+	# print({StatGuard[1], StatGuard[1], StatGuard.POISON, StatGuard.POISON})

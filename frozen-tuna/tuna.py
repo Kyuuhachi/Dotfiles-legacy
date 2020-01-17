@@ -77,6 +77,9 @@ def __main__():
 	argp.add_argument("-s", "--sync",    action="store_true", help="Don't fork, so you can wait for the process to close") # TODO make detection also async
 	argp.add_argument("file")
 	args = argp.parse_args()
+	while args.file.startswith("http:") and not args.file.startswith("http://"):
+		# Workaround for https://github.com/mate-desktop/mate-terminal/blob/1.22/src/terminal-util.c#L195
+		args.file = "http:/" + args.file[5:]
 
 	try:
 		scheme = urllib.parse.urlparse(args.file).scheme

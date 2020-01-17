@@ -116,7 +116,7 @@ async def init_alsa(card="hw:0", name=("Master", "Speaker")):
 	for fd in alsa.fds():
 		asyncio.get_event_loop().add_reader(fd.fd, update)
 
-	async def toggleSwitch(): mute.switch.all = not mute.switch.all
+	async def toggleSwitch(): print("mute"); mute.switch.all = not mute.switch.all
 	async def setSwitch(v): mute.elem.switch.all = v
 	async def changeVolume(n): volume.mB.all += n
 	bind({

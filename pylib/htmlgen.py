@@ -1,106 +1,167 @@
-from contextlib import contextmanager
+import typing as T
+from dataclasses import dataclass, field
+from functools import partial
 
-def mangleAttr(k):
+from markupsafe import Markup
+M = Markup
+
+__all__ = [
+	"Node", "Markup", "M"
+]
+
+T_Child = T.Union["Node", T.Text]
+T_TNode = T.TypeVar("T_TNode", bound="Node")
+T_Attr = T.Any
+
+@T.runtime_checkable
+class Html(T.Protocol):
+	def __html__(self) -> str: ...
+
+@T.runtime_checkable
+class HtmlStream(T.Protocol):
+	def __html_stream__(self) -> T.Iterable[str]: ...
+
+def mangleAttr(k: str) -> str:
 	if k == "cl": return "class"
 	if k.startswith("d_"): return "data-" + k[2:]
 	if k.startswith("_"): return k[1:]
 	return k
 
-class Tag:
-	def __init__(self, tag, *children, _open=False, **kwargs):
-		self._tag = tag
-		self._attrs = {}
-		for k, v in kwargs.items():
-			self[k] = v
-		self._children = list(children)
-		self._open = _open
+def mangleAttrs(attrs: T.Dict[str, T_Attr]) -> T.Dict[str, T_Attr]:
+	return { mangleAttr(k): v for k, v in attrs.items() }
 
-	def name(self, tag):
-		self._tag = tag
+@dataclass
+class TagData:
+	name:     T.Optional[str]
+	attrs:    T.Dict[str, T_Attr]         = field(default_factory=dict)
+	children: T.Optional[T.List[T_Child]] = field(default_factory=list) # type: ignore # Mypy thinks List[_T] isn't an Optional[List[T_Child]]
 
-	def add(self, *s):
-		self._children.extend(s)
-	def raw(self, s):
-		self.add(RawString(str(s)))
-	text = add
+def attrprop(name: str, f: T.Callable[[T.Any], T.Any] = lambda self: self) -> T.Any:
+	return property(
+		lambda self:    getattr(f(self), name),
+		lambda self, v: setattr(f(self), name, v),
+		lambda self:    delattr(f(self), name),
+	)
 
-	def pop(self, n=-1):
-		del self._children[n]
+class Node:
+	@T.overload
+	def __init__(self, data: TagData, /): ...
+	@T.overload
+	def __init__(self, name: T.Optional[str] = None, /, *children: T_Child, **attrs: T_Attr): ...
 
-	def open(self, *args, **kwargs):
-		return self.tag(*args, **kwargs, _open=True)
-
-	def __setitem__(self, k, v):
-		self._attrs[mangleAttr(k)] = v
-	def __getitem__(self, k):
-		return self._attrs[mangleAttr(k)]
-	def __hasitem__(self, k):
-		return mangleAttr(k) in self._attrs
-
-	def tag(self, tag, *args, **kwargs):
-		tag = Tag(tag, *args, **kwargs)
-		self.add(tag)
-		return tag
-
-	def __repr__(self):
-		return f"{self._tag}{self._attrs}{self._children}{'!'*self._open}"
-
-	def tohtml(self):
-		s = []
-		self._append_html(s)
-		return "".join(s)
-
-	def _append_html(self, s):
-		s.append("<")
-		s.append(self._tag)
-		for k, v in self._attrs.items():
-			s.append(" ")
-			s.append(k)
-			if v is not None:
-				s.append("=\"")
-				s.append(str(v).replace("&", "&amp;").replace("\"", "&quot;"))
-				s.append("\"")
-		s.append(">")
-		if self._open:
-			assert not self._children
+	def __init__(self, fst: T.Union[TagData, T.Optional[str]] = None, /, *args: T.Any, **kwargs: T.Any):
+		if isinstance(fst, TagData):
+			def _init_1(data: TagData) -> None:
+				self._stack = [data]
+			_init_1(*args, **kwargs)
 		else:
-			for ch in self._children:
-				if hasattr(ch, "_append_html"):
-					ch._append_html(s)
+			(T, str) # Workaround for bpo-39215
+			def _init_2(name: T.Optional[str] = None, /, *children: T_Child, **attrs: T_Attr) -> None:
+				self._stack = [TagData(name, mangleAttrs(attrs), list(children))]
+			_init_2(fst, *args, **kwargs)
+
+	stackprop = partial(attrprop, f=lambda self: self._stack[-1])
+	name:     T.Optional[str]             = stackprop("name")
+	attrs:    T.Dict[str, T_Attr]         = stackprop("attrs")
+	children: T.Optional[T.List[T_Child]] = stackprop("children")
+	del stackprop
+
+	def append(self, *children: T_Child) -> None:
+		if self.children is None: raise TypeError("Node is leaf")
+		for child in children:
+			if child is None: raise ValueError(child) # Won't happen in well-typed programs, but all programs aren't well-typed
+			self.children.append(child)
+	def extend(self, children: T.Iterable[T_Child]) -> None:
+		self.append(*children)
+
+	def text(self, *s: T.Text) -> None: self.append(*s)
+	def raw(self, *s: T.Text) -> None: self.extend(s if isinstance(s, Html) else M(s) for s in s)
+
+	def pop(self, n: int = -1) -> T_Child:
+		if self.children is None: raise TypeError("Node is leaf")
+		return self.children.pop(n)
+
+	def __setitem__(self, k: str, v: T_Attr) -> None:
+		self.attrs[k] = v
+	def __getitem__(self, k: str) -> T_Attr:
+		return self.attrs[k]
+	def __hasitem__(self, k: str) -> bool:
+		return k in self.attrs
+	def __delitem__(self, k: str) -> None:
+		del self.attrs[k]
+	def attr(self, **attrs: T_Attr) -> None:
+		self.attrs.update(mangleAttrs(attrs))
+	def update(self, attrs: T.Dict[str, T_Attr]) -> None:
+		self.attrs.update(attrs)
+
+	def root(self) -> "Node":
+		return Node(self._stack[0])
+	def this(self) -> "Node":
+		return Node(self._stack[-1])
+	def here(self) -> "Node":
+		return self.node(None)
+
+	def node(self: T_TNode, name: T.Optional[str], /, *children: T_Child, **attrs: T_Attr) -> T_TNode:
+		node = type(self)(name, *children, **attrs)
+		node._parent = self
+		self.append(node)
+		return node
+
+	def leaf(self: T_TNode, name: str, /, **attrs: T_Attr) -> T_TNode:
+		node = self.node(name, **attrs)
+		node.children = None
+		return node
+
+	_parent: T.Optional["Node"] = None
+	def __enter__(self: T_TNode) -> T_TNode:
+		if self._parent is None or not self._parent.children or self._parent.children[-1] is not self:
+			raise RuntimeError("Not last child of parent, can't enter")
+		self._parent._stack.append(self._stack[-1])
+		return self
+
+	def __exit__(self: T_TNode, *e: T.Any) -> None:
+		if self._parent is None or self._parent._stack[-1] is not self._stack[-1]:
+			raise RuntimeError("Not last child of parent, can't exit")
+		assert self._parent._stack.pop() is self._stack[-1]
+
+	def __str__(self) -> M:
+		return self.__html__()
+	def __repr__(self) -> str:
+		return str(self._stack)
+
+	def __html__(self) -> M:
+		return T.cast(M, M("").join(self.__html_stream__())) # Why is M.join untyped? Must be a bug.
+
+	def __html_stream__(self) -> T.Iterable[M]:
+		root = self._stack[0]
+		if root.name is not None:
+			yield M("<")
+			yield M.escape(root.name)
+			for k, v in root.attrs.items():
+				yield M(" ")
+				yield M.escape(k)
+				if v is not None:
+					yield M("=\"")
+					if isinstance(v, (list, tuple)):
+						if any(not isinstance(v, str) or " " in v for v in v):
+							raise ValueError(v)
+						yield M.escape(" ".join(v))
+					else:
+						yield M.escape(v)
+					yield M("\"")
+			if root.children is None:
+				yield M(" /")
+			yield M(">")
+		else:
+			assert not root.attrs, repr(self)
+
+		if root.children is not None:
+			for ch in root.children:
+				if isinstance(ch, HtmlStream):
+					yield from ch.__html_stream__()
 				else:
-					s.append(str(ch).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;"))
-			s.append("</")
-			s.append(self._tag)
-			s.append(">")
-
-class RawString(str):
-	def _append_html(self, s):
-		s.append(self)
-
-class HtmlStack:
-	def __init__(self, *args, doctype="<!DOCTYPE html>", **kwargs):
-		self._root = Tag(*args, **kwargs)
-		self._stack = [self._root]
-		self.doctype = doctype
-
-	def tag(self, *args, **kwargs):
-		tag = self._stack[-1].tag(*args, **kwargs)
-		@contextmanager
-		def f():
-			self._stack.append(tag)
-			yield tag
-			self._stack.pop()
-		return f()
-	__call__ = tag
-
-	def __getattr__(self, k):
-		return getattr(self._stack[-1], k)
-
-	def __repr__(self):
-		return "HtmlStack" + str([f"{x._tag}{x._attrs}{'!'*x._open}" for x in self._stack])
-
-	def _append_html(self, s):
-		self._root._append_html(s)
-
-	def tohtml(self):
-		return self.doctype + "\n" + self._root.tohtml() + "\n"
+					yield M.escape((ch))
+			if root.name is not None:
+				yield M("</")
+				yield M.escape(root.name)
+				yield M(">")
