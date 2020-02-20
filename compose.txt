@@ -28,6 +28,7 @@
 ∇	nabla
 ∂	partial
 ※	kome
+�	repl
 
 Þ	THORN
 þ	thorn

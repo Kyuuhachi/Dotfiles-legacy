@@ -28,6 +28,7 @@
 	top: .15em;
 }
 
+[class*="channel-"][href="/store"],
 textarea + [class*="buttons-"] > *:not(:last-child),
 [class*="textArea-"] + [class*="buttons-"] > *:not(:last-child),
 [class*="unreadMentionsIndicatorTop"] + [class*="scrollerWrap-"] > [class*="scroller-"] > [class*="listItem-"]:last-child,
@@ -43,6 +44,10 @@ textarea + [class*="buttons-"] > *:not(:last-child),
 [class*="uploadModalIn-"] [class*="uploadDropModal-"] [class*="instructions-"],
 [class*="uploadModalIn-"] [class*="uploadDropModal-"] [class*="title-"] {
 	opacity: 1
+}
+
+[class*="scroller-"]::after {
+	height: 0;
 }
 
 * {

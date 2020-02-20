@@ -135,7 +135,7 @@ class DataFlagSet(BaseDataFlag):
 				s.append(repr(a))
 		except KeyError as e:
 			s.append(f"<{e}>")
-		return '|'.join(s) or f"<empty>"
+		return '|'.join(s) or "<empty>"
 
 	def __bool__(self): return bool(self._value)
 

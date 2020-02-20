@@ -24,10 +24,12 @@ hi SpellCap              ctermfg=NONE ctermbg=004  cterm=NONE
 hi SpellLocal            ctermfg=NONE ctermbg=014  cterm=NONE
 hi SpellRare             ctermfg=NONE ctermbg=005  cterm=NONE
 
-hi DiffAdd               ctermfg=NONE ctermbg=004  cterm=NONE
+hi DiffAdd               ctermfg=NONE ctermbg=022  cterm=NONE
 hi DiffChange            ctermfg=NONE ctermbg=005  cterm=NONE
-hi DiffDelete            ctermfg=NONE ctermbg=009  cterm=BOLD
-hi DiffText              ctermfg=NONE ctermbg=010  cterm=BOLD
+hi DiffDelete            ctermfg=NONE ctermbg=052  cterm=NONE
+hi DiffText              ctermfg=NONE ctermbg=NONE cterm=NONE
+hi link diffRemoved DiffDelete
+hi link diffAdded   DiffAdd
 
 " Borders / separators / menus {{{1
 hi FoldColumn            ctermfg=007  ctermbg=000  cterm=NONE

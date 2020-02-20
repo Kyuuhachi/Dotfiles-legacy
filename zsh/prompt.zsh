@@ -31,7 +31,6 @@ prompt_status() {
 	fi
 	[[ $(jobs -s | wc -l) -gt 0 ]] && icons=($icons "%{%F{cyan}%}") # Suspended jobs
 	[[ $(jobs -r | wc -l) -gt 0 ]] && icons=($icons "%{%F{green}%}") # Running jobs
-	# Possibly %{%F{yellow}%} for root
 	[[ $#icons -gt 0 ]] && echo -n " ${(j. .)icons}"
 	echo -n " "
 }
@@ -82,10 +81,19 @@ prompt_time() {
 	fi
 }
 
+VIRTUAL_ENV_DISABLE_PROMPT=1
+prompt_venv() {
+	if (( ${+VIRTUAL_ENV} )); then
+		prompt_segment 24 yellow
+		echo -n "  $(realpath --relative-base=. $VIRTUAL_ENV) "
+	fi
+}
+
 build_prompt() {
 	RETVAL=$?
 	RIGHT=0
 	prompt_status
+	prompt_venv
 	prompt_context
 	prompt_dir
 	prompt_git

@@ -2,7 +2,7 @@ scriptencoding utf-8
 filetype off
 
 call plug#begin('~/.cache/nvim')
-" Plug 'kana/vim-textobj-user'
+Plug 'kana/vim-textobj-user'
 Plug 'lervag/vimtex'
 Plug 'PotatoesMaster/i3-vim-syntax'
 Plug 'sheerun/vim-polyglot'
@@ -255,6 +255,7 @@ fun! s:fixVimscript()
 	endfor
 endf
 autocmd FileType vim call s:fixVimscript()
+autocmd ColorScheme * call s:fixVimscript()
 
 au FileType *        setlocal et< ts<  sts<  sw<
 au FileType haskell  setlocal et  ts=2 sts=2 sw=2

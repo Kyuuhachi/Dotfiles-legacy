@@ -47,7 +47,12 @@ topKeys = {
 	// accessibility.typeaheadfind.manual → false for find to work (though I reimplement it to mean the same, so...)
 
 	"+": () => FullZoom.enlarge(),
+	"=": () => FullZoom.enlarge(),
 	"-": () => FullZoom.reduce(),
+	"0": () => FullZoom.reset(),
+	"^+": () => FullZoom.enlarge(),
+	"^=": () => FullZoom.enlarge(),
+	"^-": () => FullZoom.reduce(),
 	"^0": () => FullZoom.reset(),
 };
 
@@ -69,13 +74,7 @@ keys = topKeys;
 Services.obs.addObserver({
 	observe: (s,t,d) => {
 		let http = s.QueryInterface(Ci.nsIHttpChannel);
-		if(http && http.loadFlags & Components.interfaces.nsIChannel.LOAD_DOCUMENT_URI) {
-			try {
-				let disp = null;
-				http.visitResponseHeaders({visitHeader: (h, v) => (h === "content-disposition") && (disp = v)});
-				if(disp !== null) http.setResponseHeader("content-disposition", disp.replace(/^\s*attachment\b/i, "inline"), false);
-			} catch(e) {}
-		}
+		http.setResponseHeader("content-disposition", "", false);
 	}
 }, "http-on-examine-response");
 // {{{1 f
