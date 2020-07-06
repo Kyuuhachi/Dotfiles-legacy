@@ -5,7 +5,10 @@ call plug#begin('~/.cache/nvim')
 Plug 'kana/vim-textobj-user'
 Plug 'lervag/vimtex'
 Plug 'PotatoesMaster/i3-vim-syntax'
+
 Plug 'sheerun/vim-polyglot'
+" Plug 'itchyny/vim-haskell-indent', {'for':['haskell']}
+Plug 'neovimhaskell/haskell-vim'
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-afterimage'
@@ -30,17 +33,17 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/deoplete-zsh', {'for':['zsh']}
 Plug 'Shougo/neco-vim', {'for':['vim']}
 Plug 'Shougo/neco-syntax'
-Plug 'Vimjas/vim-python-pep8-indent', {'for':['python']}
 Plug 'zchee/deoplete-jedi', {'for':['python']}
 Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 
-Plug 'itchyny/vim-haskell-indent', {'for':['haskell']}
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
+Plug 'andy-morris/alex.vim'
+Plug 'andy-morris/happy.vim'
 
 call plug#end()
 
-for path in glob(expand('<sfile>:p:h') . '/c98*.vim', 1, 1)
+for path in glob(expand('<sfile>:p:h') . '/c98*', 1, 1)
 	let &rtp =  path . ',' . &rtp
 endfor
 
@@ -72,7 +75,7 @@ set formatoptions=crqlmM1j
 set scrolloff=7 sidescrolloff=30
 set nowrap linebreak
 set foldmethod=marker "foldcolumn=1
-set directory=~/.vim-swap//
+set directory=/tmp/.vim-swap//
 set backupdir=~/.vim-backup//
 set undofile undodir=~/.vim-undo//
 set updatetime=500
@@ -87,6 +90,10 @@ set fileencodings=utf8,cp932,latin1
 
 set shell=zsh
 
+set paragraphs= sections=
+
+set gdefault
+
 set tabstop=4 softtabstop=0 shiftwidth=4 noexpandtab
 autocmd FileType * setlocal formatoptions-=cro
 
@@ -98,19 +105,23 @@ let g:airline#extensions#whitespace#checks = []
 hi LongLine ctermbg=darkgray
 augroup LongLine
 	au!
-	au BufWinEnter * call matchadd('LongLine', '\%121v.', -1)
+	au BufWinEnter * call matchadd('LongLine', '\%81v.', -1)
 augroup END
 augroup CursorLineOnlyInActiveWindow
 	au!
 	au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
 	au WinLeave * setlocal nocursorline
 augroup END
-set textwidth=120
+set textwidth=80
 
 let g:polyglot_disabled = ['lilypond']
 " if !exists('g:deoplete#omni#input_patterns') | let g:deoplete#omni#input_patterns = {} | endif
 
 command! W :write
+
+let g:vimade = {}
+let g:vimade.fadelevel = 0.7
+let g:vimade.enablesigns = 1
 
 " let g:airline_powerline_fonts = 1
 " let g:airline_inactive_collapse = 1
@@ -132,10 +143,8 @@ inoremap <expr> <Down> (pumvisible() ? '<C-e><Down>' : '<Down>')
 inoremap <expr> <PageUp> (pumvisible() ? '<C-e><PageUp>' : '<PageUp>')
 inoremap <expr> <PageDown> (pumvisible() ? '<C-e><PageDown>' : '<PageDown>')
 
-map H ^
-map L $
-map j gj
-map k gk
+map <expr> H ['^', 'g^'][&wrap]
+map <expr> L ['$', 'g$'][&wrap]
 map K kJ
 " This above mapping does not work with counts
 map gK kgJ
@@ -151,6 +160,7 @@ nnoremap ,cb :call setreg(v:register, getreg(), 'b')<CR>
 nnoremap ,b :Buffers<CR>
 nnoremap ,f :Files<CR>
 nnoremap ,g :GFiles<CR>
+
 nnoremap ,, <C-^>
 
 nnoremap gs :call <SID>SynStack()<CR>
@@ -202,6 +212,8 @@ au FileType c syn clear cCustomFunc
 call add(g:polyglot_disabled, 'lua')
 
 call add(g:polyglot_disabled, 'python')
+call add(g:polyglot_disabled, 'python-indent')
+let g:python_highlight_space_errors = 0
 let g:semshi#error_sign = v:false
 let g:ale_python_python_exec = 'python3'
 let g:ale_python_flake8_options = '--select=E112,E113,E251,E303,E304,E401,E502,E703,E711,E712,E713,E714,E901,E902,E999,W391,W6,F'
@@ -227,11 +239,9 @@ let g:haskell_enable_static_pointers=1
 let g:haskell_enable_typeroles=1
 au FileType haskell syn match haskellFloat "\v<[0-9]+(\.[0-9]\+)?([eE][-+]?[0-9]+)?>"
 
-call add(g:polyglot_disabled, 'sql')
-call add(g:polyglot_disabled, 'pgsql')
-
 fun! s:fixVimscript()
 	syn clear vimCommentString
+	syn clear vimCommentTitle
 	syn match vimHighlight "\<hi\%[ghlight]\(\s\+def\%[ault]\>\)\?" skipwhite nextgroup=@vimHighlightCluster
 
 	let l:colors = [
@@ -258,6 +268,6 @@ autocmd FileType vim call s:fixVimscript()
 autocmd ColorScheme * call s:fixVimscript()
 
 au FileType *        setlocal et< ts<  sts<  sw<
-au FileType haskell  setlocal et  ts=2 sts=2 sw=2
-au FileType lilypond setlocal et  ts=2 sts=2 sw=2
-au FileType yaml     setlocal et  ts=2 sts=2 sw=2
+au FileType haskell  setlocal et  ts=2 sw=2
+au FileType lilypond setlocal et  ts=2 sw=2
+au FileType yaml     setlocal et  ts=2 sw=2

@@ -1,0 +1,11 @@
+@-moz-document url("chrome://browser/content/browser.xhtml") {
+	.tabbrowser-tab[data-taboo] {
+		background-color: green;
+	}
+	.tabbrowser-tab[data-taboo="child"] {
+		background-color: red;
+	}
+	.tabbrowser-tab[data-taboo="parent"] {
+		background-color: blue;
+	}
+}

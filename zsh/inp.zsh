@@ -118,3 +118,20 @@ function zle-line-finish {
 zle -N zle-line-init
 zle -N zle-keymap-select zle-line-init
 zle -N zle-line-finish
+
+__fsel() {
+	unset REPORTTIME
+	setopt localoptions pipefail no_aliases 2> /dev/null
+	find * -type f,l | cf | \
+		fzf --no-mouse --ansi --multi --height=$((LINES-1)) --preview='view {}' | \
+		while read f; do printf "%q " $f; done
+}
+
+fzf-file-widget() {
+	LBUFFER="${LBUFFER}$(__fsel)"
+	local ret=$?
+	zle reset-prompt
+	return $ret
+}
+zle -N fzf-file-widget
+bindkey '^F' fzf-file-widget

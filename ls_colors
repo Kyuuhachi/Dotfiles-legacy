@@ -1,0 +1,43 @@
+TERM *
+
+def 0 NORMAL FILE
+def 38;5;10;3 EXEC
+def 38;5;14;3 LINK
+def 38;5;117  DIR
+def 38;5;220  BLK
+def 38;5;216  CHR
+def 38;5;126  FIFO
+def 38;5;197  SOCK
+def 4 MULTIHARDLINK SETGID SETUID STICKY STICKY_OTHER_WRITABLE OTHER_WRITABLE CAPABILITY
+def 48;5;196;1 ORPHAN MISSING .DS_Store
+def 48;5;126;1 DOOR
+
+def 38;5;184 .md .rst .htm .html .xhtml .tex
+def 38;5;178 .json .xml .yaml .yml
+def 38;5;167 .properties .ini .config
+def 38;5;141 .pdf
+def 38;5;78  .csv .tsv
+def 38;5;246 .git .gitignore .gitattributes .gitmodules
+def 38;5;50  .sh .zsh
+def 38;5;41  .vim .py .rb .pl .lua .js .jsm .jsx
+def 38;5;79  .c .C .h .H .c++ .h++ .cpp .hpp
+def 38;5;79  .hs .lhs .java .kt .cs
+def 38;5;168 .css .less .sass .scss
+def 38;5;242 .o .class .dex .hi .pyc .pyo
+def 38;5;242 .log .aux .ltjruby .bbl .bcf .blg .lof .lot .out .run .xml .toc
+def 38;5;106 Makefile .cmake stack.yaml package.yaml .cabal
+def 38;5;197 .diff .patch
+def 38;5;140 .bmp .gif .jpeg .jpg .png .ico .webp
+def 38;5;105 .svg
+def 38;5;114 .avi .mkv .mov .mp4 .mpeg .mpg .ogm .wmv .webm .flv .ogv
+def 38;5;112 .ass .srt .ssa .sub
+def 38;5;136 .aac .mp3 .m4a .mp4a .oga .ogg .opus .flac .pcm .wav
+def 38;5;139 .mid .midi
+def 38;5;66  .ttf .otf .woff .woff2 .sfd
+def 38;5;39  .7z .bz2 .gz .lz .lzma .rar .tar .tgz .xz .z .zip .jar
+def 38;5;60  .db .sqlite
+def 38;5;241 *~ .bak .swp
+def 38;5;248 .pid .state lockfile .lock
+def 38;5;192 .as .bfe .enc .gpg .signature .sig .p12 .pem .pgp .p7s id_rsa id_dsa id_edcsa id_ed25519 .pub
+
+# vim: ft=dircolors:

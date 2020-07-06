@@ -1,0 +1,48 @@
+@-moz-document url("chrome://browser/content/browser.xhtml") {
+	findbar {
+		transition: none !important;
+	}
+
+	.enko-link-overlay {
+		filter: url('data:image/svg+xml, \
+			<svg xmlns="http://www.w3.org/2000/svg"> \
+				<filter id="filter"> \
+					<feColorMatrix type="matrix" values=" \
+						0 0 0 255 0 \
+						0 0 0 255 0 \
+						0 0 0 255 0 \
+						0 0 0 0 .5" /> \
+					<feMerge> \
+						<feMergeNode /> \
+						<feMergeNode in="SourceGraphic" /> \
+					</feMerge> \
+				</filter> \
+			</svg> \
+		#filter');
+		-moz-user-focus: normal;
+		z-index: 999;
+	}
+	.enko-link {
+		-moz-stack-sizing: ignore;
+		position: absolute;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	.enko-link.enko-link-match {
+		background: rgba(255, 255, 255, 0.01);
+		box-shadow: rgba(255, 255, 255, 0.01) 0 0 2px;
+	}
+
+	.enko-link-label {
+		text-shadow: #000 0 0 1px,#000 0 0 1px,#000 0 0 1px,#000 0 0 1px,#000 0 0 1px,#000 0 0 1px,#000 0 0 1px,#000 0 0 1px,
+					 #000 0 0 1px,#000 0 0 1px,#000 0 0 1px,#000 0 0 1px,#000 0 0 1px,#000 0 0 1px,#000 0 0 1px,#000 0 0 1px;
+		font-family: monospace;
+		color: #FFFFFF;
+		font-weight: bold;
+		display: block;
+	}
+	.enko-link-label::first-letter {
+		color: #FFFF00;
+	}
+}

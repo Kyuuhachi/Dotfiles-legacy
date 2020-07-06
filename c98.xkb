@@ -196,7 +196,7 @@ xkb_keymap {
 		key <AD01> {[q,Q]};
 		key <AD02> {[w,W]};
 		key <AD03> {[e,E,adiaeresis,Adiaeresis]};
-		key <AD04> {[r,R]};
+		key <AD04> {[r,R,0x100211D,0x100211D]};
 		key <AD05> {[t,T,downtack,downtack]};
 		key <AD06> {[y,Y]};
 		key <AD07> {[u,U,union,intersection]};
@@ -219,9 +219,9 @@ xkb_keymap {
 		key <AC11> {[apostrophe,quotedbl]};
 		key <AC12> {[backslash,bar,Greek_lambda,Greek_LAMBDA]};
 
-		key <AB01> {[z,Z]};
+		key <AB01> {[z,Z,0x1002124,0x1002124]};
 		key <AB02> {[x,X,multiply,periodcentered]};
-		key <AB03> {[c,C]};
+		key <AB03> {[c,C,0x1002102,0x1002102]};
 		key <AB04> {[v,V,logicalor,logicaland]};
 		key <AB05> {[b,B]};
 		key <AB06> {[n,N,ntilde,Ntilde]};

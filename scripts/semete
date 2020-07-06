@@ -1,0 +1,74 @@
+#!/usr/bin/env python3
+import os
+import termios
+import Xlib.display
+import Xlib.XK
+import re
+from contextlib import contextmanager
+from Xlib import X
+
+@contextmanager
+def opentty():
+	tty = os.open("/dev/tty", os.O_NOCTTY | os.O_RDWR)
+	attrs_save = termios.tcgetattr(tty)
+	attrs = list(attrs_save)
+	attrs[3] &= ~termios.ECHO & ~termios.ICANON
+	termios.tcsetattr(tty, termios.TCSANOW, attrs)
+
+	try:
+		yield tty
+	finally:
+		termios.tcsetattr(tty, termios.TCSAFLUSH, attrs_save)
+		os.close(tty)
+
+n = os.get_terminal_size().lines - 1
+
+# Ensure sufficient scrollback
+with opentty() as tty:
+	if tty is not None:
+		os.write(tty, b"\x1B[6n")
+		line = int(os.read(tty, 256)[2:-1].split(b";")[0])-1
+		if line < 10:
+			numExtra = max(10-line, 0)
+			os.write(tty, b"\x1B[r" + b"\x1BM"*numExtra + b"\x1B[11;1f")
+
+re_bold = re.compile("(?:(.)\x08\\1)+")
+re_ulin = re.compile("(?:_\x08.)+")
+
+winid = int(os.environ["WINDOWID"])
+display = Xlib.display.Display()
+
+def stdin():
+	try:
+		while True:
+			yield input()
+	except EOFError:
+		return
+
+for i, l in enumerate(stdin(), 1):
+	if 1:
+		# l = l.decode(errors="surrogateescape")
+		l = re_bold.sub(lambda a: "\x1B[1m"+a.group()[2::3]+"\x1B[22m", l)
+		l = re_ulin.sub(lambda a: "\x1B[3m"+a.group()[2::3]+"\x1B[23m", l) # 3/23 is italics; 4/24 for underline
+		# l = l.encode(errors="surrogateescape")
+	if i == n:
+		with opentty() as tty:
+			if tty is not None:
+				os.write(tty, b"\x1B[6n")
+				os.read(tty, 256)
+
+				display.xtest_fake_input(X.ButtonPress, 4, root=winid)
+				display.xtest_fake_input(X.ButtonRelease, 4, root=winid)
+				display.sync()
+
+			print(l)
+
+			if tty is not None:
+				os.write(tty, b"\x1B[6n")
+				os.read(tty, 256)
+
+				display.xtest_fake_input(X.ButtonPress, 5, root=winid)
+				display.xtest_fake_input(X.ButtonRelease, 5, root=winid)
+				display.sync()
+	else:
+		print(l)

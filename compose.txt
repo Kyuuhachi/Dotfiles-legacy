@@ -30,6 +30,11 @@
 ※	kome
 �	repl
 
+‎	ltr
+‏	rtl
+‪	ltre
+‫	rtle
+
 Þ	THORN
 þ	thorn
 Ð	ETH
@@ -94,7 +99,7 @@
 ©	copy
 ®	reg
 ™	tm
-␣	blank
+␣	space
 ‾	oline
 ♂	male
 ♀	female
@@ -183,6 +188,24 @@
 ⅑	frac19
 ⅒	frac110
 
+# I should make a better interface for box drawings.
+╴	L
+╵	  U
+╶	R
+╷	D
+─	L   R
+│	  U   D
+┘	L U
+└	  U R
+┐	L     D
+┌	    R D
+┴	L U R
+┤	L U   D
+┬	L   R D
+├	  U R D
+┼	L U R D
+
+
 # {{{ Greek
 Α	Alpha
 α	alpha
@@ -247,48 +270,6 @@
 ϵ	epsi
 ϶	bepsi
 # }}}
-
-# I should make a better interface for box drawings.
-╗	box-DL
-╖	box-Dl
-╕	box-dL
-┐	box-dl
-╔	box-DR
-╓	box-Dr
-╒	box-dR
-┌	box-dr
-═	box-LR
-─	box-lr
-╦	box-LRD
-╤	box-LRd
-╥	box-lrD
-┬	box-lrd
-╩	box-LRU
-╧	box-LRu
-╨	box-lrU
-┴	box-lru
-┼	box-lrud
-║	box-UD
-│	box-ud
-╣	box-UDL
-╢	box-UDl
-╡	box-udL
-┤	box-udl
-╬	box-UDLR
-╫	box-UDlr
-╪	box-udLR
-╠	box-UDR
-╟	box-UDr
-╞	box-udR
-├	box-udr
-╝	box-UL
-╜	box-Ul
-╛	box-uL
-┘	box-ul
-╚	box-UR
-╙	box-Ur
-╘	box-uR
-└	box-ur
 
 # {{{ Sup/sub
 ⁰	^0

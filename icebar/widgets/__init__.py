@@ -22,3 +22,5 @@ try: from .ibus import *
 except ImportError as e: print("ibus:", e)
 try: from .mpd import *
 except ImportError as e: print("mpd:", e)
+try: from .disk import *
+except ImportError as e: print("disk:", e)

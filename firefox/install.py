@@ -1,59 +1,22 @@
 #!/usr/bin/env python3
-import tempfile
 import optimizejars
-import subprocess
 from pathlib import Path
+import shutil
 
-inject = []
-p = Path(__file__).parent.absolute()
-def chrome(path):
-	inject.append("Services.scriptloader.loadSubScriptWithOptions(%r, {target: window, ignoreCache: true});" % str(p/path))
-def content(path):
-	inject.append("window.messageManager.loadFrameScript(%r, true);" % str(p/path))
+with open("/usr/lib/firefox/browser/omni.ja", "rb") as f:
+	files = optimizejars.read(f)
+out = Path("_data")
+if out.is_dir(): shutil.rmtree(out)
+for k, v in files.items():
+	outp = out / k
+	outp.parent.mkdir(parents=True, exist_ok=True)
+	outp.write_bytes(v["data"])
 
-# chrome("userChrome.js")
-# content("userContent.js")
-inject = []
-inject.append('console.log("a")')
-inject.append('console.log("aa")')
-inject.append('console.log("aaa")')
-inject.append('console.log("a")')
-inject.append('console.log("aa")')
-inject.append('console.log("aaa")')
-inject.append('console.log("a")')
-inject.append('console.log("aa")')
-inject.append('console.log("aaa")')
-inject.append('console.log("a")')
-inject.append('console.log("aa")')
-inject.append('console.log("aaa")')
-inject.append('console.log("a")')
-inject.append('console.log("aa")')
-inject.append('console.log("aaa")')
-inject.append('console.log("a")')
-inject.append('console.log("aa")')
-inject.append('console.log("aaa")')
-inject.append('console.log("a")')
-inject.append('console.log("aa")')
-inject.append('console.log("aaa")')
-inject.append('console.log("a")')
-inject.append('console.log("aa")')
-inject.append('console.log("aaa")')
-inject.append('console.log("a")')
-inject.append('console.log("aa")')
-inject.append('console.log("aaa")')
-inject.append('console.log("a")')
-inject.append('console.log("aa")')
-inject.append('console.log("aaa")')
-
-sep = b"\n//Haxx\n"
-
-def modify(name, buf):
-	if name == b"chrome/browser/content/browser/browser.js":
-		print("patching")
-		return buf.replace(b"""XPCOMUtils.defineLazyGetter(this, "gCustomizeMode", () => {""", b"""XPCOMUtils.defineLazyGetter(this, "gCustomizeMode", () => { console.log('asdf'); """)
-	return buf
-
-with tempfile.TemporaryDirectory() as dir:
-	dir = Path("/tmp/omni")
-	optimizejars.optimizejar("omni.ja", dir/"omni.ja", modify)
-	subprocess.check_call(["sudo", "cp", "-v", dir/"omni.ja", "/usr/lib/firefox/browser/omni.ja"])
+with open("/usr/lib/firefox/omni.ja", "rb") as f:
+	files2 = optimizejars.read(f)
+out = Path("_data2")
+if out.is_dir(): shutil.rmtree(out)
+for k, v in files2.items():
+	outp = out / k
+	outp.parent.mkdir(parents=True, exist_ok=True)
+	outp.write_bytes(v["data"])

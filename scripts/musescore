@@ -1,3 +1,0 @@
-#!/usr/bin/zsh
-rm /tmp/qtsingleapp-mscore-7531-3e8
-exec /usr/bin/musescore $@

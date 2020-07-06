@@ -1,0 +1,121 @@
+#!/usr/bin/env python3
+import sys
+import os
+import os.path
+import stat as s
+
+import signal
+signal.signal(signal.SIGINT, signal.SIG_DFL)
+signal.signal(signal.SIGPIPE, signal.SIG_DFL)
+
+suffixes = {}
+
+colors = { # Copied from coreutils ls.c
+	b"lc": b"\033[",  # lc: Left of color sequence
+	b"rc": b"m",      # rc: Right of color sequence
+	b"ec": None,      # ec: End color (replaces lc+rs+rc)
+	b"rs": b"0",      # rs: Reset to ordinary colors
+	b"no": None,      # no: Normal
+	b"fi": None,      # fi: File: default
+	b"di": b"01;34",  # di: Directory: bright blue
+	b"ln": b"01;36",  # ln: Symlink: bright cyan
+	b"pi": b"33",     # pi: Pipe: yellow/brown
+	b"so": b"01;35",  # so: Socket: bright magenta
+	b"bd": b"01;33",  # bd: Block device: bright yellow
+	b"cd": b"01;33",  # cd: Char device: bright yellow
+	b"mi": None,      # mi: Missing file: undefined
+	b"or": None,      # or: Orphaned symlink: undefined
+	b"ex": b"01;32",  # ex: Executable: bright green
+	b"do": b"01;35",  # do: Door: bright magenta
+	b"su": b"37;41",  # su: setuid: white on red
+	b"sg": b"30;43",  # sg: setgid: black on yellow
+	b"st": b"37;44",  # st: sticky: black on blue
+	b"ow": b"34;42",  # ow: other-writable: blue on green
+	b"tw": b"30;42",  # tw: ow w/ sticky: black on green
+	b"ca": b"30;41",  # ca: black on red
+	b"mh": None,      # mh: disabled by default
+	b"cl": b"\033[K", # cl: clear to end of line
+}
+
+for line in os.environb.get(b"LS_COLORS", b"").rstrip(b":").split(b":"):
+	if b"=" not in line:
+		print("Invalid LS_COLOR statement: %r" % line, file=sys.stderr)
+		continue
+
+	k, v = line.split(b"=", 1)
+
+	if k.startswith(b"*"):
+		suffixes[k[1:]] = v
+	elif k in colors:
+		if v in {b"0", b"00"}: v = None
+		colors[k] = v
+	else:
+		print("Invalid LS_COLOR statement: %r" % line, file=sys.stderr)
+
+colored = colors[b"lc"] + b"%s" + colors[b"rc"] + b"%s" + (colors[b"ec"] or colors[b"lc"] + colors[b"rs"] + colors[b"rc"])
+
+def do_color(path):
+	paths = [path]
+	if os.environb.get(b"GIT_PREFIX"):
+		paths.insert(0, os.path.join(os.environb[b"GIT_PREFIX"], path))
+
+	type = None
+	for p in paths:
+		try:
+			stat = os.lstat(p)
+			break
+		except OSError:
+			pass
+	else:
+		type = b"mi"
+		stat = None
+
+	if type is None:
+		mode = stat.st_mode
+
+		if s.S_ISREG(mode):
+			type = b"fi"
+			if   mode & s.S_ISUID  and colors[b"su"]: type = b"su"
+			elif mode & s.S_ISGID  and colors[b"sg"]: type = b"sg"
+			# elif has_capability    and colors[b"ca"]: type = b"ca"
+			elif mode & 0o111      and colors[b"ex"]: type = b"ex"
+			elif stat.st_nlink > 1 and colors[b"mh"]: type = b"mh"
+
+		elif s.S_ISDIR(mode):
+			type = b"di"
+			if   mode & s.S_ISVTX \
+			and  mode & s.S_IWOTH and colors[b"tw"]: type = b"tw"
+			elif mode & s.S_IWOTH and colors[b"ow"]: type = b"ow"
+			elif mode & s.S_ISVTX and colors[b"st"]: type = b"st"
+
+		elif s.S_ISLNK(mode):  type = b"ln"
+		elif s.S_ISFIFO(mode): type = b"pi"
+		elif s.S_ISSOCK(mode): type = b"so"
+		elif s.S_ISBLK(mode):  type = b"bd"
+		elif s.S_ISCHR(mode):  type = b"cd"
+		elif s.S_ISDOOR(mode): type = b"do"
+		else: type = b"or"
+
+	dir, name = (path[:pos], path[pos:]) if (pos := path.find(b"/") + 1) else (b"", path)
+
+	color = None
+
+	if type == b"fi":
+		for k, v in suffixes.items():
+			if name.endswith(k):
+				color = v
+				break
+
+	if color is None:
+		color = colors[type] or colors[b"no"] or b""
+
+	return colored % (color+b";2", dir) + colored % (color, name)
+
+carry = b""
+while True:
+	b = os.read(0, 1<<12)
+	if not b: break
+	*lines, carry = (carry+b).split(b"\n")
+	for line in lines:
+		os.write(1, do_color(line) + b"\n")
+assert not carry

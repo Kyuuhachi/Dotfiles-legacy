@@ -1,6 +1,7 @@
 from gi.repository import Gtk, GLib
 import cairo
 import util
+import psutil
 
 from collections import namedtuple
 Sample = namedtuple("Sample", "user system iowait")
@@ -20,7 +21,6 @@ class CPUGraph(Gtk.DrawingArea):
 		self.show()
 
 	def update(self):
-		import psutil
 		cpu = psutil.cpu_times()
 		self.cores = psutil.cpu_count()
 		if self.last_cpu:

@@ -3,6 +3,7 @@ import argparse
 import Xlib.display
 import Xlib.keysymdef
 import Xlib.XK
+import main
 from Xlib import X
 
 def xtype(keysyms):
@@ -28,22 +29,21 @@ def get_char(char):
 		return 0xFF00 | char
 	return char | 0x01000000
 
-if __name__ == "__main__":
-	parser = argparse.ArgumentParser(description="Types a string using Xtest")
-	parser.add_argument("string", nargs="+", help="The string to type")
-	parser.add_argument("-s", "--keysym", action="store_true", help="Specify keysym(s) by name instead of chars")
-	args = parser.parse_args()
-
-	if args.keysym:
+argp = argparse.ArgumentParser(description="Types a string using Xtest")
+argp.add_argument("string", nargs="+", help="The string to type")
+argp.add_argument("-s", "--keysym", action="store_true", help="Specify keysym(s) by name instead of chars")
+@main(argp=argp)
+def __main__(string, keysym):
+	if keysym:
 		for group in Xlib.keysymdef.__all__:
 			Xlib.XK.load_keysym_group(group)
 		syms = []
-		for key in args.string:
+		for key in string:
 			try:
 				syms.append(Xlib.XK.string_to_keysym(key) or int(key, base=16))
 			except:
 				print(f"Invalid keysym: {key}")
 	else:
-		syms = [get_char(ch) for ch in " ".join(args.string)]
+		syms = [get_char(ch) for ch in " ".join(string)]
 	if syms:
 		xtype(syms)

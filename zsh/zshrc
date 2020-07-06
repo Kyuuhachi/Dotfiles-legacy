@@ -6,14 +6,19 @@ zsh_path=$zsh_path:A:h
 
 fpath=($zsh_path/comp $fpath)
 
-#{{{1 History
+# History
 setopt histignorealldups
 HISTSIZE=1000000
 SAVEHIST=1000000
 HISTFILE=~/.zsh_history
-#{{{1 Utils
-autoload -Uz colors && colors
-autoload -U zmv && alias zmv="noglob zmv"
+
+# Utils
+autoload -Uz colors
+colors
+autoload -U zmv
+alias zmv="noglob zmv -v"
+alias zcp="noglob zmv -vC"
+alias zln="noglob zmv -vLs"
 
 setopt extendedglob interactivecomments autocd
 setopt auto_continue noflowcontrol
@@ -22,11 +27,7 @@ setopt rmstarsilent
 WORDCHARS='*?_-.[]~=&;!#$%^(){}<>' # exclude '/' for backward-kill-word
 REPORTTIME=3 # report elapsed time (> 3 sec.)
 
-nowrap() {
-	echoti rmam
-	cat
-	echoti smam
-}
+nowrap() { echoti rmam; $@; a=$?; echoti smam; return $a }
 
 mkcd() {
 	mkdir -p $1
@@ -36,8 +37,15 @@ mkcd() {
 alias locate="locate --basename"
 alias sudo="sudo env HOME=$HOME "
 alias su="sudo $SHELL"
-alias pdflatex="pdflatex -halt-on-error"
-alias lualatex="lualatex -halt-on-error"
+alias pdflatex="true|pdflatex"
+alias lualatex="true|lualatex"
+alias diff="git diff --no-index"
+alias ls="ls --color=auto -F"
+alias grep="grep --color=auto"
+alias chafa="chafa --symbols=vhalf"
+
+eval $(python ~/dot/ls_colors.py | dircolors -b -)
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
 alias o=xdg-open
 alias \$= # Allows copying scripts with $ prompts
@@ -60,19 +68,7 @@ reentry_hook() {
 }
 add-zsh-hook preexec reentry_hook
 
-#{{{1 Color and formatting
-export LESS_TERMCAP_mb=$(printf "$fg[red]")
-export LESS_TERMCAP_md=$(printf "$fg[blue]")
-export LESS_TERMCAP_us=$(printf "$fg[green]")
-export LESS_TERMCAP_so=$(printf "")
-export LESS_TERMCAP_me=$(printf "$reset_color")
-export LESS_TERMCAP_se=$(printf "$reset_color")
-export LESS_TERMCAP_ue=$(printf "$reset_color")
-
-eval "$(dircolors -b)"
-alias ls="ls --color=auto -F"
-alias grep="grep --color=auto"
-#{{{1 Completion
+# Completion
 autoload -Uz compinit && compinit
 setopt complete_in_word
 setopt always_to_end
@@ -112,11 +108,11 @@ zstyle ':completion:*:*:*:users' ignored-patterns \
 autoload -U regexp-replace
 setopt re_match_pcre
 
-#{{{1 Large custom scripts
+# Large custom scripts
 source $zsh_path/prompt.zsh
 source $zsh_path/inp.zsh
-#{{{1 Plugins
 
+# Plugins
 function plug() {
 	source $zsh_path/plug/$1/*.plugin.zsh
 }
@@ -128,7 +124,6 @@ zstyle ":history-search-multi-word" highlight-color "standout"
 plug fast-syntax-highlighting
 
 HIGHLIGHT=(
-	"alias"    "fg=magenta,bold"
 	"path"     "fg=cyan"
 	"variable" "fg=green,bold"
 )
@@ -136,3 +131,6 @@ typeset -gA HSMW_HIGHLIGHT_STYLES
 typeset -gA FAST_HIGHLIGHT_STYLES
 HSMW_HIGHLIGHT_STYLES+=(${(kv)HIGHLIGHT})
 FAST_HIGHLIGHT_STYLES+=(${(kv)HIGHLIGHT})
+FAST_HIGHLIGHT[chroma-man]=
+
+eval $(thefuck --alias f)

@@ -1,5 +1,4 @@
 __pycache__
-nvim/.netrwhist
-nvim/bundle/*
-zsh/plug/*
-.uuid
+/nvim/.netrwhist
+/nvim/bundle/*
+/zsh/plug/*

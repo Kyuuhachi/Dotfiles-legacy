@@ -16,6 +16,12 @@ class DataEnumMeta(type):
 		return super().__call__(*a, **kw)
 
 	def __iter__(cls):       return iter(cls._enum.values())
+	def __contains__(cls, k):
+		try:
+			cls[k]
+			return True
+		except KeyError:
+			return False
 	def __len__(cls):        return len(cls._enum)
 	def __reversed__(cls):   return reversed(cls._enum or []) # Workaround for #38525
 
@@ -24,11 +30,9 @@ class DataEnumMeta(type):
 
 class DataEnum(metaclass=DataEnumMeta):
 	def __class_getitem__(cls, k):
-		if isinstance(k, slice):
-			def convert(x):
-				return x._index if isinstance(x, cls) else x
-			return cls._byidx[convert(k.start):convert(k.stop):convert(k.step)]
-		return cls._enum[k]
+		if k in cls._enum:
+			return cls._enum[k]
+		raise KeyError(f"{k} is not in {cls.__name__}")
 
 def dataenum(cls=None, /, **kwargs):
 	if not cls: return lambda cls: dataenum(cls, **kwargs)
@@ -74,6 +78,7 @@ def dataenum(cls=None, /, **kwargs):
 		_byidx.append(_enum[v])
 		setattr(enum, name, ClassAttribute(_enum[v]))
 		enum.__annotations__[name] = enum
+	enum._type = t
 	enum._enum = _enum
 	enum._byidx = _byidx
 
@@ -111,21 +116,17 @@ class BaseDataFlag:
 					val = val & ~v
 				except TypeError:
 					val -= v
-		if val:
-			if _safe:
-				raise KeyError(val)
-			else:
-				raise KeyError(self._cls, val)
+		assert not val
 
-	def __len__(self):  return sum(1 for _ in self)
+	def __len__(self): return sum(1 for _ in self)
 
 	def __getattr__(self, k):
 		if hasattr(self._cls, k): return bool(getattr(self._cls, k) & self)
 		else: return getattr(super(), k)
 
-
 class DataFlagSet(BaseDataFlag):
-	def __init__(self, cls, value): self._cls, self._value = cls, value
+	def __init__(self, cls, value):
+		self._cls, self._value = cls, value
 
 	def __repr__(self):
 		if hasattr(self._cls, "__reprs__"): return self._cls.__reprs__(self)
@@ -145,8 +146,30 @@ class DataFlagMeta(DataEnumMeta):
 		if isinstance(val, DataFlagSet): return issubclass(val._cls, cls)
 		return super().__instancecheck__(val)
 
+	@property
+	def _NONE(cls):
+		return cls._type()
+
+	@property
+	def _ALL(cls):
+		val = cls._NONE
+		for v in cls:
+			val |= v._value
+		return DataFlagSet(cls, val)
+
 class DataFlag(BaseDataFlag, metaclass=DataFlagMeta):
-	def __class_getitem__(cls, val): return DataFlagSet(cls, val)
+	def __class_getitem__(cls, val):
+		val2 = val
+		for en in cls:
+			v = en._value
+			if val2 & v == v:
+				try:
+					val2 = val2 & ~v
+				except TypeError:
+					val2 -= v
+		if val2:
+			raise KeyError(f"{val2} is not in {cls.__name__} (from {val})")
+		return DataFlagSet(cls, val)
 	@property
 	def _cls(self): return self.__class__
 
@@ -160,35 +183,12 @@ if __name__ == "__main__":
 		_1 : 1 << 0
 		_2 : 1 << 1
 
-	@dataflag
-	class StatGuard:
-		POISON : 1 << 0
-		FREEZE : 1 << 1
-		PETRIFY: 1 << 2
-		SLEEP  : 1 << 3
-		MUTE   : 1 << 4
-		BLIND  : 1 << 5
-		SEAL   : 1 << 6
-		CONFUSE: 1 << 7
-		FAINT  : 1 << 8
-		DEATH  : 1 << 9
-		RAGE   : 1 << 11
+	@dataenum
+	class StatGuardX:
+		_3 : 1 << 2
+	StatGuardX._byidx = {*StatGuardE._byidx, *StatGuardX._byidx}
+	StatGuardX._enum = {**StatGuardE._enum, **StatGuardX._enum}
 
-	print(list(StatGuard))
-	print(StatGuardE._1 == StatGuardE._1)
-	print(StatGuardE._1 == StatGuardE._2)
-
-	# print(StatGuard[0xFFF])
-	# print(StatGuard[0])
-	# print(StatGuard[1] | StatGuard.FREEZE)
-	# print(list(StatGuard.POISON))
-	# print(len(StatGuard.POISON))
-	# print(~StatGuard.POISON)
-	# print(bool(StatGuard.POISON))
-	# print(bool(StatGuard[1]))
-	# print(isinstance(StatGuard.POISON, StatGuard))
-	# print(isinstance(StatGuard[0], StatGuard))
-	# print(isinstance(StatGuard[0xFFFF], StatGuard))
-
-	# print(StatGuard[1] == StatGuard.POISON)
-	# print({StatGuard[1], StatGuard[1], StatGuard.POISON, StatGuard.POISON})
+	print(StatGuardX._enum)
+	print(StatGuardX._byidx)
+	print(StatGuardX[2])

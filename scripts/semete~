@@ -1,0 +1,6 @@
+#!/usr/bin/env -S sed -Ef
+# a«a is bold
+# _«a is ostensibly underline, but I set it to italic instead since that looks much better.
+s/(.)\1/[1m\1[m/g
+s/_(.)/[3m\1[m/g
+# vim: ft=sed

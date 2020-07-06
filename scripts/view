@@ -1,0 +1,14 @@
+#!/usr/bin/env zsh
+
+test $# -ne 1 && exit 1
+
+MIME=$(file --dereference --mime $1)
+DESC=$(file --dereference $1)
+
+if [[ $MIME =~ "image/" ]]; then
+	chafa --symbols=vhalf --colors=256 $1
+elif [[ $MIME =~ "; charset=binary" ]]; then
+	echo $DESC
+else
+	highlight -O ansi --stdout --failsafe $1 2>/dev/null || echo "$1 not found"
+fi
