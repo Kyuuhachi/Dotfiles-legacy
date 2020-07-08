@@ -30,11 +30,6 @@
 ※	kome
 �	repl
 
-‎	ltr
-‏	rtl
-‪	ltre
-‫	rtle
-
 Þ	THORN
 þ	thorn
 Ð	ETH
@@ -136,8 +131,10 @@
 ​	zwsp
 ‌	zwnj
 ‍	zwj
-‎	lrm
-‏	rlm
+‎	ltr
+‏	rtl
+‪	ltre
+‫	rtle
 
 –	ndash
 —	mdash
