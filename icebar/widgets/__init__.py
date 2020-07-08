@@ -24,3 +24,5 @@ try: from .mpd import *
 except ImportError as e: print("mpd:", e)
 try: from .disk import *
 except ImportError as e: print("disk:", e)
+try: from .pacman import *
+except ImportError as e: print("pacman:", e)
