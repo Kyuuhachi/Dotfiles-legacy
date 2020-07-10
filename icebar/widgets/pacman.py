@@ -1,4 +1,4 @@
-from gi.repository import Gtk, GLib
+from gi.repository import Gtk, GLib, Gdk
 import tempfile
 import asyncio
 import os
@@ -11,6 +11,8 @@ __all__ = ["Pacman"]
 class Pacman(Gtk.EventBox):
 	def __init__(self, timeout=3600, spacing=3):
 		super().__init__()
+
+		self.timeout = timeout
 
 		self.icon = PacmanIcon(visible=True)
 		self.text = Gtk.Label(visible=True)
@@ -29,8 +31,17 @@ class Pacman(Gtk.EventBox):
 			return True
 		self.connect("query-tooltip", tooltip)
 
-		GLib.timeout_add_seconds(timeout, self.update)
+		self.timer = GLib.timeout_add_seconds(self.timeout, self.update)
 		self.update()
+
+		self.set_events(Gdk.EventMask.BUTTON_PRESS_MASK)
+		self.connect("button-press-event", self.click)
+	
+	def click(self, _, evt):
+		if (evt.button, evt.type) == (1, Gdk.EventType.BUTTON_PRESS):
+			GLib.surce_remove(self.timer)
+			self.timer = GLib.timeout_add_seconds(self.timeout, self.update)
+			self.update()
 
 	def update(self):
 		async def subproc(cmd):
