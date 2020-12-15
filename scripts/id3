@@ -1,0 +1,133 @@
+#!/usr/bin/env python3
+import os.path
+import sys
+import argparse
+import re
+import mimetypes
+
+import mutagen
+import mutagen.id3
+import main
+
+aliases = {
+	"TPE1": ("a", "artist"),
+	"TALB": ("A", "album"),
+	"TIT2": ("t", "title", "song", "name"),
+	"COMM": ("c", "comment"),
+	"APIC": ("p", "picture"),
+	"TCON": ("g", "genre"),
+	"TDRC": ("y", "year", "date"),
+	"TRCK": ("T", "track"),
+	"TPOS": ("d", "disc"),
+}
+rev_aliases = { k: v for v, ks in aliases.items() for k in ks }
+
+frames = []
+num_frames = set()
+for key, frame in mutagen.id3.Frames.items():
+	if issubclass(frame, (mutagen.id3.TextFrame, mutagen.id3.UrlFrame, mutagen.id3.POPM)):
+		frames.append(key)
+		if issubclass(frame, (mutagen.id3.NumericTextFrame, mutagen.id3.NumericPartTextFrame)):
+			num_frames.add(key)
+
+
+class MyFormatter(argparse.HelpFormatter):
+	def _format_action_invocation(self, action):
+		if not action.option_strings:
+			default = self._get_default_metavar_for_positional(action)
+			metavar, = self._metavar_formatter(action, default)(1)
+			return metavar
+
+		else:
+			return ', '.join(action.option_strings)
+
+argp = argparse.ArgumentParser(formatter_class=MyFormatter, usage="%(prog)s [-h] [--force] [--dry-run] [...] format file...")
+
+argp.add_argument("--force", action="store_true",
+	help="apply to all given files, even if they are not audio files")
+argp.add_argument("--quiet", action="store_true",
+	help="don't print warnings for failed matches or non-audio files")
+argp.add_argument("--dry-run", action="store_true",
+	help="only print the results, don't apply")
+argp.add_argument("format", help="""
+	the format string to use. Can contain placeholders:
+	`%%t' or `%%(title)', where the frame name can be any of those listed below,
+	`%%%%' for literal percent signs, and `%%()' for ignoring matches.
+
+	An example is `%%A/%%a/%%d-%%T %%t.%%()', which matches names such as `軌跡/零の軌跡/2-06 陽の熱情.mp3'""")
+argp.add_argument("files", nargs="+", help="""
+	the files to process.
+	Filenames not matching the format are skipped, as are non-audio MIME types, unless --force is given.
+""")
+
+argp_frames = argp.add_argument_group("frames")
+for key in frames:
+	alias = ["-"+a if len(a) == 1 else "--"+a for a in aliases.get(key, ())]
+	argp_frames.add_argument("--" + key, *alias, default=argparse.SUPPRESS, #help=argparse.SUPPRESS,
+		help=mutagen.id3.Frames[key].__doc__.splitlines()[0]
+	)
+
+rx = re.compile(r"""
+ %\((?P<empty>)\)
+|%(?P<percent>%)
+|%(?P<short>\w)
+|%\((?P<long>[^)]+)\)
+""", re.VERBOSE)
+
+def parse_format(format):
+	out = ["(^|/)"]
+	pos = 0
+	for match in rx.finditer(format):
+		out.append(re.escape(format[pos:match.start()]))
+		if match.lastgroup == "empty":
+			out.append("[^/]*")
+		elif match.lastgroup == "percent":
+			out.append("%")
+		elif match.lastgroup in ["short", "long"]:
+			name = match[match.lastgroup]
+			if name in rev_aliases:
+				frame = rev_aliases[name]
+			elif name in frames:
+				frame = name
+			else:
+				raise ValueError(f"Unknown frame: {name}")
+
+			if frame in num_frames:
+				out.append(rf"(?P<{frame}>\d+)")
+			else:
+				out.append(rf"(?P<{frame}>[^/]*)")
+		pos = match.end()
+	out.append(re.escape(format[pos:]))
+	return re.compile("".join(out))
+
+@main(argp=argp)
+def __main__(force, dry_run, quiet, format, files, **kwargs):
+	format = parse_format(format)
+	for f in files:
+		if m := format.search(os.path.abspath(f)):
+			tag = {**kwargs, **m.groupdict()}
+
+			mime, _ = mimetypes.guess_type(f)
+			if mime is None or not mime.startswith("audio/"):
+				if not quiet:
+					print(f"Not an audio file: {f}", file=sys.stderr)
+				if not force:
+					continue
+
+			print(f, tag)
+			if dry_run:
+				continue
+
+			id3 = mutagen.id3.ID3()
+			for k, v in tag.items():
+				cls = mutagen.id3.Frames[k]
+				if issubclass(cls, mutagen.id3.UrlFrame):
+					id3.add(cls(encoding=3, url=v))
+				else:
+					id3.add(cls(encoding=3, text=v))
+
+			id3.save(f)
+
+		else:
+			if not quiet:
+				print(f"Failed to match: {f}", file=sys.stderr)

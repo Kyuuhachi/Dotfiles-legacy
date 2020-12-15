@@ -7,6 +7,8 @@ import ly.rhythm
 import ly.pitch.rel2abs
 import ly.pitch.abs2rel
 import ly.pitch.transpose
+import ly.reformat
+import ly.indent
 
 argp = argparse.ArgumentParser()
 sp = argp.add_subparsers(dest="command", required=True)
@@ -39,6 +41,43 @@ def transpose(c, *, fr="c", to):
 		return ly.pitch.Pitch(*ly.pitch.pitchReader("nederlands")(name), ly.pitch.octaveToNum(oct))
 	transposer = ly.pitch.transpose.Transposer(parsePitch(fr), parsePitch(to))
 	ly.pitch.transpose.transpose(c, transposer, relative_first_pitch_absolute=True)
+
+p = sp.add_parser("format")
+def format(c):
+	with c.document as d:
+		lines = set()
+		for b in d:
+			firstNonWhite, lastNonWhite = None, None
+			for t in b.tokens:
+				pos = b.position + t.pos
+				end = b.position + t.end
+
+				if isinstance(t, ly.lex.Space):
+					if pos in lines:
+						del d[pos:end]
+						lines.remove(pos)
+						lines.add(end)
+				else:
+					if firstNonWhite is None:
+						firstNonWhite = pos
+				lastNonWhite = end
+
+				if isinstance(t, ly.lex.lilypond.PipeSymbol):
+					lines.add(end)
+				if isinstance(t, ly.lex.Indent):
+					lines.add(end)
+				if isinstance(t, ly.lex.Dedent):
+					lines.add(pos)
+
+			if firstNonWhite in lines:
+				lines.remove(firstNonWhite)
+			if lastNonWhite in lines:
+				lines.remove(lastNonWhite)
+
+		for l in lines:
+			d[l:l] = "\n"
+	ly.indent.Indenter().indent(c)
+	ly.reformat.remove_trailing_whitespace(c)
 
 del sp
 del p

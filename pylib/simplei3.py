@@ -38,7 +38,12 @@ class i3ipc:
 		magic, length, msgtype = struct.unpack(self._FORMAT, await self._r.read(14))
 		assert magic == self._MAGIC
 		payload = await self._r.read(length)
-		return msgtype, json.loads(payload)
+		assert len(payload) == length
+		try:
+			return msgtype, json.loads(payload)
+		except json.JSONDecodeError as e:
+			print(e.doc)
+			raise
 
 	async def command(self, msgtype, payload=None):
 		if payload is None:

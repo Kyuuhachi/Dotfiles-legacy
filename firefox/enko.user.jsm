@@ -1,25 +1,28 @@
-/* global Cu, Cc, Ci,
-Services, messageManager _uc, gBrowser, goDoCommand, XULBrowserWindow,
-FullZoom, openUILink, openLocation, BrowserOpenTab, OpenBrowserWindow,
-BrowserReload, BrowserReloadSkipCache, closeWindow, undoCloseTab,
-undoCloseWindow, BrowserViewSource, KeyEvent
+/* global Components */
+"use strict";
+const { classes: Cc, interfaces: Ci, utils: Cu } = Components;
+const {require} = Cu.import("resource://devtools/shared/Loader.jsm");
+const {Services} = Cu.import("resource://gre/modules/Services.jsm");
 
-*/
-console.log("enko");
-"use strict"; {
-
-const XUL_NS = "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul";
-const {require} = Cu.import("resource://devtools/shared/Loader.jsm", {});
 const {TargetFactory} = require("devtools/client/framework/target");
 
+const gBrowser = window._gBrowser;
+const XUL_NS = "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul";
+
 function addFrameScript(func) {
-	messageManager.loadFrameScript("data:application/javascript;charset=UTF-8,"
-		+ encodeURIComponent("\"use strict\";("+func.toString()+")()"), true);
+	window.messageManager.loadFrameScript(
+		"data:application/javascript;charset=UTF-8,"
+			+ encodeURIComponent("\"use strict\";("+func.toString()+")()"),
+		true);
 }
 
 function addStylesheet(sheet) {
-	_uc.sss.loadAndRegisterSheet(Services.io.newURI("data:text/css;charset=UTF-8,"
-		+ encodeURIComponent(sheet)), _uc.sss.AGENT_SHEET);
+	const sss = Cc["@mozilla.org/content/style-sheet-service;1"].getService(Ci.nsIStyleSheetService);
+	
+	sss.loadAndRegisterSheet(
+		Services.io.newURI("data:text/css;charset=UTF-8,"
+			+ encodeURIComponent(sheet)),
+		sss.AGENT_SHEET);
 }
 
 addStylesheet`
@@ -121,45 +124,47 @@ let closeTab = n => {
 };
 
 let openUrl = url => {
-	// console.log(url);
-	openUILink(url, null, { ignoreButton: true, triggeringPrincipal: Services.scriptSecurityManager.getSystemPrincipal() });
+	window.openUILink(url, null, {
+		ignoreButton: true,
+		triggeringPrincipal: Services.scriptSecurityManager.getSystemPrincipal()
+	});
 };
 
 topKeys = {
-	"o": () => openLocation(),
-	"F6": () => openLocation(),
-	"t": () => BrowserOpenTab(),
-	"T": () => OpenBrowserWindow(),
+	"o": () => window.openLocation(),
+	"F6": () => window.openLocation(),
+	"t": () => window.BrowserOpenTab(),
+	"T": () => window.OpenBrowserWindow(),
 
-	"r": () => BrowserReload(),
-	"R": () => BrowserReloadSkipCache(),
+	"r": () => window.BrowserReload(),
+	"R": () => window.BrowserReloadSkipCache(),
 
 	"d": () => closeTab(1),
 	"D": () => closeTab(-1),
 
-	"^Q": () => closeWindow(true),
+	"^Q": () => window.closeWindow(true),
 
-	"u": () => undoCloseTab(),
-	"U": () => undoCloseWindow(),
+	"u": () => window.undoCloseTab(),
+	"U": () => window.undoCloseWindow(),
 
-	"h": () => goDoCommand("cmd_scrollLeft"),
-	"j": () => goDoCommand("cmd_scrollLineDown"),
-	"k": () => goDoCommand("cmd_scrollLineUp"),
-	"l": () => goDoCommand("cmd_scrollRight"),
+	"h": () => window.goDoCommand("cmd_scrollLeft"),
+	"j": () => window.goDoCommand("cmd_scrollLineDown"),
+	"k": () => window.goDoCommand("cmd_scrollLineUp"),
+	"l": () => window.goDoCommand("cmd_scrollRight"),
 	"g": () => keys = gKeys,
-	"G": () => goDoCommand("cmd_scrollBottom"),
+	"G": () => window.goDoCommand("cmd_scrollBottom"),
 
 	"H": () => gBrowser.goBack(),
 	"L": () => gBrowser.goForward(),
 
-	"+": () => FullZoom.enlarge(),
-	"=": () => FullZoom.enlarge(),
-	"-": () => FullZoom.reduce(),
-	"0": () => FullZoom.reset(),
+	"+": () => window.FullZoom.enlarge(),
+	"=": () => window.FullZoom.enlarge(),
+	"-": () => window.FullZoom.reduce(),
+	"0": () => window.FullZoom.reset(),
 };
 
 gKeys = {
-	"g": () => goDoCommand("cmd_scrollTop"),
+	"g": () => window.goDoCommand("cmd_scrollTop"),
 	"t": () => gBrowser.tabContainer.advanceSelectedTab(1, true),
 	"T": () => gBrowser.tabContainer.advanceSelectedTab(-1, true),
 	"0": () => gBrowser.selectedTab = gBrowser.tabContainer._firstTab,
@@ -353,8 +358,9 @@ gKeys["U"] = () => goto(goTop());
 		else
 			Launcher.BrowserToolboxLauncher.init();
 	};
-	gKeys["f"] = () => BrowserViewSource(gBrowser.selectedBrowser);
+	gKeys["f"] = () => window.BrowserViewSource(gBrowser.selectedBrowser);
 }
+
 // {{{1 Clipboard
 function copy(s) {
 	let tf = Cc["@mozilla.org/widget/transferable;1"].createInstance(Ci.nsITransferable);
@@ -378,12 +384,15 @@ function paste() {
 }
 function copyUrl(escape) {
 	let url = gBrowser.selectedBrowser.currentURI.spec;
-	if(!escape) url = decodeURI(url);
+	if(!escape) url = decodeURI(url).replace(" ", "%20");
 	copy(url);
-	let ol = XULBrowserWindow.overLink;
+	let ol = window.XULBrowserWindow.overLink;
 	let new_ol = "Copied " + encodeURIComponent(url);
-	XULBrowserWindow.setOverLink(new_ol, null);
-	setTimeout(() => XULBrowserWindow.overLink == new_ol && XULBrowserWindow.setOverLink(ol, null), 1000);
+	window.XULBrowserWindow.setOverLink(new_ol, null);
+	setTimeout(() => {
+		if(window.XULBrowserWindow.overLink == new_ol)
+			window.XULBrowserWindow.setOverLink(ol, null);
+	}, 1000);
 }
 topKeys["y"] = () => copyUrl(false);
 topKeys["Y"] = () => copyUrl(true);
@@ -399,7 +408,7 @@ for(let k of document.getElementsByTagName("key")) {
 	k.removeAttribute("charcode");
 }
 
-for(let k in KeyEvent) {
+for(let k in window.KeyEvent) {
 	if(!k.startsWith("DOM_VK_")) continue;
 	let key = document.createElementNS(XUL_NS, "key");
 	key.setAttribute("keycode", k.substring(4));
@@ -416,6 +425,4 @@ function keypress(e) {
 	if(keys.once) keys = topKeys;
 	// console.log(e, h);
 	if(h) h();
-}
-// }}}1
 }

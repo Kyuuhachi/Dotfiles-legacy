@@ -47,7 +47,7 @@ def dataenum(cls=None, /, **kwargs):
 
 	items = []
 	for name, v in list(cls.__annotations__.items()):
-		if type(v) is t:
+		if isinstance(v, t):
 			args = getattr(cls, name, ())
 			if type(args) != tuple: args = (args,)
 			items.append((name, v, args))
@@ -99,14 +99,10 @@ class BaseDataFlag:
 	def __or__ (a, b): return BaseDataFlag._merge(a, b, lambda a, b: a|b)
 	def __and__(a, b): return BaseDataFlag._merge(a, b, lambda a, b: a&b)
 	def __xor__(a, b): return BaseDataFlag._merge(a, b, lambda a, b: a^b)
+	def __minus__(a, b):return a & ~b
+	def __invert__(a): return a._cls._ALL ^ a
 
-	def __invert__(a):
-		all = a._value
-		for b in a._cls:
-			all = all | a._cls._enum[b]._value
-		return DataFlagSet(a._cls, all ^ a._value)
-
-	def __iter__(self, *, _safe=False):
+	def __iter__(self):
 		val = self._value
 		for en in self._cls:
 			v = en._value
@@ -129,14 +125,12 @@ class DataFlagSet(BaseDataFlag):
 		self._cls, self._value = cls, value
 
 	def __repr__(self):
-		if hasattr(self._cls, "__reprs__"): return self._cls.__reprs__(self)
+		if hasattr(self._cls, "__reprs__"):
+			return self._cls.__reprs__(self)
 		s = []
-		try:
-			for a in self.__iter__(_safe=True):
-				s.append(repr(a))
-		except KeyError as e:
-			s.append(f"<{e}>")
-		return '|'.join(s) or "<empty>"
+		for a in self:
+			s.append(repr(a))
+		return '|'.join(s) or "_NONE"
 
 	def __bool__(self): return bool(self._value)
 
@@ -170,25 +164,8 @@ class DataFlag(BaseDataFlag, metaclass=DataFlagMeta):
 		if val2:
 			raise KeyError(f"{val2} is not in {cls.__name__} (from {val})")
 		return DataFlagSet(cls, val)
+
 	@property
 	def _cls(self): return self.__class__
 
 dataflag = partial(dataenum, mixin=DataFlag)
-
-### Test
-
-if __name__ == "__main__":
-	@dataenum
-	class StatGuardE:
-		_1 : 1 << 0
-		_2 : 1 << 1
-
-	@dataenum
-	class StatGuardX:
-		_3 : 1 << 2
-	StatGuardX._byidx = {*StatGuardE._byidx, *StatGuardX._byidx}
-	StatGuardX._enum = {**StatGuardE._enum, **StatGuardX._enum}
-
-	print(StatGuardX._enum)
-	print(StatGuardX._byidx)
-	print(StatGuardX[2])

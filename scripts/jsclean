@@ -1,0 +1,170 @@
+#!/usr/bin/env node
+/* eslint-env node */
+
+const process    = require("process");
+const fs         = require("fs");
+
+const esprima    = require("esprima");
+const estraverse = require("estraverse");
+const escope     = require("escope");
+const prettier   = require("prettier");
+
+for(const file of process.argv.slice(2)) {
+	process.stderr.write(file + "\n");
+	const input = fs.readFileSync(file, "utf-8");
+
+	const ast = esprima.parse(input);
+
+	const variables = {};
+	escope.analyze(ast).scopes.forEach(scope => {
+		if(scope.isStatic()) {
+			for(let variable of scope.variables) {
+				if(variable.tainted) continue;
+				if(!variable.identifiers.length) continue;
+
+				let name = variable.name;
+				let n = variables[name] === undefined ? 0 : variables[name] + 1;
+				if(n != 0)
+					name += n;
+				variables[variable.name] = n;
+
+				for(let def of variable.identifiers) def.name = name;
+				for(let ref of variable.references) ref.identifier.name = name;
+			}
+		}
+	});
+
+	doClean(ast);
+
+	const output = prettier.format("-", {
+		parser: () => ast,
+		printWidth: 160,
+		useTabs: true,
+		quoteProps: "consistent",
+	});
+	fs.writeFileSync(file, output);
+}
+
+function doClean(ast) { // {{{
+	return estraverse.replace(ast, {
+		enter(node) {
+			switch(node.type) {
+				case "ForStatement":
+					if(node.init != null && node.init.type == "VariableDeclaration")
+						node.init._is_for = true;
+					break;
+				case "ForInStatement":
+				case "ForOfStatement":
+					if(node.left.type == "VariableDeclaration")
+						node.left._is_for = true;
+					break;
+			}
+
+			switch(node.type) {
+				case "ExpressionStatement": return doReplace(node, "expression", 2);
+				case "ReturnStatement":     return doReplace(node, "argument", 1);
+				case "IfStatement":         return doReplace(node, "test", 0);
+				case "SwitchStatement":     return doReplace(node, "discriminant", 0);
+				case "ForStatement":        return doReplace(node, "init", 0);
+				case "ForInStatement":      return doReplace(node, "right", 0);
+			}
+
+		},
+		leave(node) {
+			if(test(node, {
+				type: "UnaryExpression", operator: "!",
+				argument: { type: "Literal", value: 0 },
+			})) return { type: "Literal", value: true, raw: "true" };
+
+			if(test(node, {
+				type: "UnaryExpression", operator: "!",
+				argument: { type: "Literal", value: 1 },
+			})) return { type: "Literal", value: false, raw: "true" };
+
+			if(node.type == "VariableDeclaration" && !node._is_for) {
+				return {
+					type: "BlockStatement",
+					_fake_block: true,
+					body: node.declarations.map(d => Object.assign({}, node, {declarations: [d]})),
+				};
+			}
+
+			if(node.type == "BlockStatement")
+				node.body = node.body.flatMap(n => n._fake_block ? n.body : [n]);
+
+			if(node.type == "SwitchCase")
+				node.consequent = node.consequent.length == 0 ? [] : [{
+					type: "BlockStatement",
+					body: node.consequent.flatMap(n => n._fake_block ? n.body : [n]),
+				}];
+		}
+	});
+}
+
+function doReplace(stmt, child, level) {
+	if(stmt[child] === null) return;
+	if(level >= 0 && stmt[child].type == "SequenceExpression") {
+		const newStmt = {
+			type: "BlockStatement",
+			body: [],
+			_fake_block: true,
+		};
+		while(stmt[child].expressions.length > 1) {
+			newStmt.body.push({
+				type: "ExpressionStatement",
+				expression: stmt[child].expressions.shift(),
+			});
+		}
+		stmt[child] = stmt[child].expressions[0];
+		newStmt.body.push(stmt);
+		return newStmt;
+	}
+
+	if(level >= 1 && stmt[child].type == "ConditionalExpression") {
+		const {test, consequent, alternate} = stmt[child];
+		return {
+			type: "IfStatement",
+			test: test,
+			consequent: Object.assign({}, stmt, {[child]: consequent}),
+			alternate:  Object.assign({}, stmt, {[child]: alternate}),
+		};
+	}
+
+	if(level >= 2 && stmt[child].type == "LogicalExpression") {
+		const {operator, left, right} = stmt[child];
+		return {
+			type: "IfStatement",
+			test: operator == "||" ? {
+				type: "UnaryExpression",
+				operator: "!",
+				argument: left,
+			} : left,
+			consequent: Object.assign({}, stmt, {[child]: right}),
+			alternate:  null,
+		};
+	}
+}
+//}}}
+
+function test(a, b) {
+	if(typeof a != typeof b) return false;
+	if(b == null) return a == null;
+	if(a == null) return false;
+
+	if(Array.isArray(b)) {
+		if(!Array.isArray(a)) return false;
+		if(b.length != a.length) return false;
+		for(let i = 0; i < b.length; i++)
+			if(!test(a[i], b[i])) return false;
+		return true;
+	}
+	
+	if(typeof a == "object") {
+		for(const key of Object.getOwnPropertyNames(b))
+			if(!test(a[key], b[key]))
+				return false;
+		return true;
+	}
+
+	return a === b;
+}

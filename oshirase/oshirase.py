@@ -32,15 +32,15 @@ class Oshirase(dbus.service.Object):
 		self.timeout_id = {}
 		self.id = 0
 
-	@dbus.service.method("org.freedesktop.Notifications", in_signature="", out_signature="ssss")
+	@dbus.service.method("org.freedesktop.Notifications", in_signature="", out_signature="ssss", byte_arrays=True)
 	def GetServerInformation(self): # -> (name, vendor, version, spec_version)
 		return "Oshirase", "Kyuuhachi", "0.1", "1.1"
 
-	@dbus.service.method("org.freedesktop.Notifications", in_signature="", out_signature="as")
+	@dbus.service.method("org.freedesktop.Notifications", in_signature="", out_signature="as", byte_arrays=True)
 	def GetCapabilities(self): # -> (caps)
-		return ["actions", "action-icons", "body", "body-hyperlinks", "body-markup", "icon-static"]
+		return config.capabilities
 
-	@dbus.service.method("org.freedesktop.Notifications", in_signature="u", out_signature="")
+	@dbus.service.method("org.freedesktop.Notifications", in_signature="u", out_signature="", byte_arrays=True)
 	def CloseNotification(self, id): # -> ()
 		self.NotificationClosed(id, 3)
 
@@ -52,13 +52,23 @@ class Oshirase(dbus.service.Object):
 				self.reflow()
 			if id in self.timeout:
 				del self.timeout[id]
+				del self.timeout_id[id]
 		except Exception:
 			import traceback
 			traceback.print_exc()
 			raise
 
-	@dbus.service.method("org.freedesktop.Notifications", in_signature="susssasa{sv}i", out_signature="u")
+	@dbus.service.method("org.freedesktop.Notifications", in_signature="susssasa{sv}i", out_signature="u", byte_arrays=True)
 	def Notify(self, app_name, id, icon, summary, body, actions, hints, timeout): # -> (id)
+		app_name = undbus(app_name)
+		id = undbus(id)
+		icon = undbus(icon)
+		summary = undbus(summary)
+		body = undbus(body)
+		actions = undbus(actions)
+		hints = undbus(hints)
+		timeout = undbus(timeout)
+
 		try:
 			if id == 0:
 				self.id += 1
@@ -68,7 +78,7 @@ class Oshirase(dbus.service.Object):
 				timeout = [3500, 5000, 0][hints.get("urgency", 0)]
 			if timeout != 0:
 				self.timeout[id] = timeout
-				self.startTimeout(id)
+				self.start_timeout(id)
 
 			data = {}
 			if app_name: data["app_name"] = str(app_name)
@@ -89,26 +99,16 @@ class Oshirase(dbus.service.Object):
 				if key in hints:
 					del hints[key]
 
-			for k, v in hints.items():
-				k = str(k)
-				if   isinstance(v, dbus.Boolean): v = bool(v)
-				elif isinstance(v, dbus.Int64):   v = int(v)
-				elif isinstance(v, dbus.Int32):   v = int(v)
-				elif isinstance(v, dbus.Int16):   v = int(v)
-				elif isinstance(v, dbus.Byte):    v = int(v)
-				elif isinstance(v, dbus.String):  v = str(v)
-				else: raise ValueError(k, v)
-				data[k] = v
+			data.update(hints)
 
-			print(data)
 			if id not in self.notif:
 				win = Gtk.Window(type_hint=Gdk.WindowTypeHint.NOTIFICATION, decorated=False, app_paintable=True)
 				win.set_visual(Gdk.Screen.get_default().get_rgba_visual())
 				win.realize()
 				win.get_window().set_override_redirect(True)
 
-				win.connect("enter-notify-event", lambda *a: self.stopTimeout(id))
-				win.connect("leave-notify-event", lambda *a: self.startTimeout(id))
+				win.connect("enter-notify-event", lambda *a: self.stop_timeout(id))
+				win.connect("leave-notify-event", lambda *a: self.start_timeout(id))
 				self.notif[id] = win
 
 			win = self.notif[id]
@@ -138,12 +138,12 @@ class Oshirase(dbus.service.Object):
 
 			ys[mon] = y + size.height
 
-	def stopTimeout(self, id):
+	def stop_timeout(self, id):
 		if id in self.timeout_id:
 			GLib.source_remove(self.timeout_id.pop(id))
 
-	def startTimeout(self, id):
-		self.stopTimeout(id)
+	def start_timeout(self, id):
+		self.stop_timeout(id)
 		if id in self.timeout:
 			self.timeout_id[id] = GLib.timeout_add(self.timeout[id], lambda *a: self.NotificationClosed(id, 2))
 
@@ -168,6 +168,17 @@ def get_image(hints):
 				return from_pixbuf(Pixbuf.new_from_file(icon))
 			elif icon:
 				return Gtk.Image.new_from_icon_name(icon, Gtk.IconSize.DIALOG)
+
+def undbus(v):
+	if isinstance(v, dbus.Boolean): return bool(v)
+	if isinstance(v, int): return int(v)
+	if isinstance(v, str): return str(v)
+	if isinstance(v, bytes): return bytes(v)
+	if isinstance(v, dict): return dict((undbus(k), undbus(v)) for k, v in v.items())
+	if isinstance(v, list): return list(undbus(v) for v in v)
+	if isinstance(v, tuple): return tuple(undbus(v) for v in v)
+	print(type(v))
+	return v
 
 session_bus = dbus.SessionBus()
 busname = dbus.service.BusName("org.freedesktop.Notifications", session_bus)

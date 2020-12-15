@@ -1,7 +1,5 @@
-/* global gBrowser */
-gBrowser.tabContainer.addEventListener("TabFindInitialized", e => {
-	console.log(e.target);
-	console.log(e.target._findBar);
+"use strict";
+window._gBrowser.tabContainer.addEventListener("TabFindInitialized", e => {
 	let findbar = e.target._findBar;
 	findbar._finishFAYT = function(e) {
 		this.browser.finder.focusContent();

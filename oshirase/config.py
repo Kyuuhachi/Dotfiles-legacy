@@ -43,6 +43,8 @@ button:not(:hover) {
 }
 """
 
+capabilities = ["actions", "body", "icon-static"]
+
 def box(vert, *children, **kwargs):
 	box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL if vert else Gtk.Orientation.HORIZONTAL, visible=True, **kwargs)
 	for i, ch in children:

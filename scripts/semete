@@ -37,6 +37,17 @@ re_ulin = re.compile("(?:_\x08.)+")
 
 winid = int(os.environ["WINDOWID"])
 display = Xlib.display.Display()
+win = display.create_resource_object("window", winid)
+
+params = dict(
+	window=winid,
+	time=Xlib.X.CurrentTime,
+	root=display.screen().root,
+	child=Xlib.X.NONE,
+	root_x=0, root_y=0,
+	event_x=0, event_y=0,
+	state=0,
+)
 
 def stdin():
 	try:
@@ -56,9 +67,11 @@ for i, l in enumerate(stdin(), 1):
 			if tty is not None:
 				os.write(tty, b"\x1B[6n")
 				os.read(tty, 256)
-
-				display.xtest_fake_input(X.ButtonPress, 4, root=winid)
-				display.xtest_fake_input(X.ButtonRelease, 4, root=winid)
+				
+				# This might have side effects?
+				win.send_event(Xlib.protocol.event.EnterNotify(detail=4, **params, flags=0, mode=Xlib.X.NotifyGrab))
+				win.send_event(Xlib.protocol.event.ButtonPress(detail=4, **params, same_screen=True))
+				win.send_event(Xlib.protocol.event.ButtonRelease(detail=4, **params, same_screen=True))
 				display.sync()
 
 			print(l)
@@ -67,8 +80,11 @@ for i, l in enumerate(stdin(), 1):
 				os.write(tty, b"\x1B[6n")
 				os.read(tty, 256)
 
-				display.xtest_fake_input(X.ButtonPress, 5, root=winid)
-				display.xtest_fake_input(X.ButtonRelease, 5, root=winid)
+				win.send_event(Xlib.protocol.event.EnterNotify(detail=4, **params, flags=0, mode=Xlib.X.NotifyGrab))
+				win.send_event(Xlib.protocol.event.ButtonPress(detail=5, **params, same_screen=True))
+				win.send_event(Xlib.protocol.event.ButtonRelease(detail=5, **params, same_screen=True))
 				display.sync()
 	else:
 		print(l)
+
+display.close()

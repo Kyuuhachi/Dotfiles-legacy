@@ -1,6 +1,9 @@
 scriptencoding utf-8
 filetype off
 
+let g:python_host_prog='/usr/bin/false'
+let g:python3_host_prog='/usr/bin/python'
+
 call plug#begin('~/.cache/nvim')
 Plug 'kana/vim-textobj-user'
 Plug 'lervag/vimtex'
@@ -38,8 +41,8 @@ Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
-Plug 'andy-morris/alex.vim'
-Plug 'andy-morris/happy.vim'
+
+" Plug 'nvim-treesitter/nvim-treesitter'
 
 call plug#end()
 
@@ -56,14 +59,14 @@ set mouse=
 syntax on
 filetype indent plugin on
 set cursorline
-set autoindent
+set autoindent cinoptions+=L0
 set showcmd noshowmode
 set incsearch hlsearch inccommand=nosplit
 set wildmode=longest:list
-set suffixes+=.midi,.pdf,.mp3 "Lilypond
-set suffixes+=.class "Java
-set suffixes+=.o,.hi "Haskell (also c/++)
-set suffixes+=.png,.jpg,.gif
+set wildignore+=*.midi,*.pdf,*.mp3 "Lilypond
+set wildignore+=*.class "Java
+set wildignore+=*.o,*.hi "Haskell (also c/++)
+set wildignore+=*.png,*.jpg,*.gif
 set cmdheight=2
 
 set ignorecase smartcase
@@ -135,7 +138,7 @@ map <NUL> <C-Space>
 map! <NUL> <C-Space>
 inoremap <c-c> <ESC>
 " inoremap <expr> <C-Space> deoplete#mappings#manual_complete()
-let g:deoplete#auto_complete_start_length = 1
+" let g:deoplete#auto_complete_start_length = 1
 let g:deoplete#on_insert_enter = v:false
 inoremap <expr> <CR> (pumvisible() && v:completed_item == {} ? '<C-e><CR>' : '<CR>')
 inoremap <expr> <Up> (pumvisible() ? '<C-e><Up>' : '<Up>')
@@ -172,6 +175,10 @@ nnoremap <silent>  * :let @/='\C\<' . expand('<cword>') . '\>'<CR>:let v:searchf
 nnoremap <silent>  # :let @/='\C\<' . expand('<cword>') . '\>'<CR>:let v:searchforward=0<CR>n
 nnoremap <silent> g* :let @/='\C'   . expand('<cword>')       <CR>:let v:searchforward=1<CR>n
 nnoremap <silent> g# :let @/='\C'   . expand('<cword>')       <CR>:let v:searchforward=0<CR>n
+
+noremap ] :call search('\n\zs\n\n\|\%$', 'Ws')<CR>
+noremap [ :call search('\n\n\zs\n\|\%^', 'bWs')<CR>
+
 
 autocmd User targets#mappings#user call targets#mappings#extend(
 \	{ 'a': {'argument':
@@ -216,7 +223,7 @@ call add(g:polyglot_disabled, 'python-indent')
 let g:python_highlight_space_errors = 0
 let g:semshi#error_sign = v:false
 let g:ale_python_python_exec = 'python3'
-let g:ale_python_flake8_options = '--select=E112,E113,E251,E303,E304,E401,E502,E703,E711,E712,E713,E714,E901,E902,E999,W391,W6,F'
+let g:ale_python_flake8_options = '--select=E112,E113,E251,E303,E304,E401,E502,E703,E711,E712,E713,E714,E901,E902,E999,W391,W6,F --extend-ignore=F402'
 let g:ale_python_flake8_change_directory = 0
 function! s:InitSemshi()
 	nmap <buffer> <silent> ,r :Semshi rename<CR>
@@ -267,7 +274,15 @@ endf
 autocmd FileType vim call s:fixVimscript()
 autocmd ColorScheme * call s:fixVimscript()
 
+fun! s:HighlightSpace()
+	syn match Whitespace /　/ containedin=ALL conceal cchar=・
+endf
+au FileType *    call s:HighlightSpace()
+au ColorScheme * call s:HighlightSpace()
+
 au FileType *        setlocal et< ts<  sts<  sw<
 au FileType haskell  setlocal et  ts=2 sw=2
 au FileType lilypond setlocal et  ts=2 sw=2
 au FileType yaml     setlocal et  ts=2 sw=2
+
+au FileType js       setlocal ft=javascript

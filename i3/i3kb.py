@@ -132,9 +132,9 @@ async def init_screenshot():
 	async def maim(flags):
 		await reap(asyncio.create_subprocess_shell(f"maim {flags} | xclip -selection clipboard -t image/png"))
 	bind({
-		"Print":   lambda: maim("-knsu"),
-		"s-Print": lambda: maim("-k"),
-		"a-Print": lambda: maim("-kni $(xdotool getactivewindow)"),
+		"Print":   lambda: maim("--nokeyboard --nodecorations --select --hidecursor"),
+		"s-Print": lambda: maim("--nokeyboard"),
+		"a-Print": lambda: maim("--nokeyboard --nodecorations --window=$(xdotool getactivewindow)"),
 	})
 
 async def init_launch():

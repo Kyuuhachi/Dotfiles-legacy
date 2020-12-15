@@ -191,25 +191,25 @@ xkb_keymap {
 		key <AE09> {[9,parenleft,ninesuperior,ninesubscript]};
 		key <AE10> {[0,parenright,zerosuperior,zerosubscript]};
 		key <AE11> {[minus,underscore,endash,emdash]};
-		key <AE12> {[equal,plus,notequal,plusminus]};
+		key <AE12> {[equal,plus,notequal,0x1002261]};
 
-		key <AD01> {[q,Q]};
+		key <AD01> {[q,Q,0x1002200,0x1002203]};
 		key <AD02> {[w,W]};
 		key <AD03> {[e,E,adiaeresis,Adiaeresis]};
 		key <AD04> {[r,R,0x100211D,0x100211D]};
-		key <AD05> {[t,T,downtack,downtack]};
+		key <AD05> {[t,T,downtack,uptack]};
 		key <AD06> {[y,Y]};
 		key <AD07> {[u,U,union,intersection]};
 		key <AD08> {[i,I,0x10021A3,0x10021A3]};
 		key <AD09> {[o,O,odiaeresis,Odiaeresis]};
 		key <AD10> {[p,P,Greek_pi,Greek_PI]};
-		key <AD11> {[bracketleft,braceleft]};
-		key <AD12> {[bracketright,braceright]};
+		key <AD11> {[bracketleft,braceleft,0x10027E6,braceleft]};
+		key <AD12> {[bracketright,braceright,0x10027E7,braceright]};
 
 		key <AC01> {[a,A,aring,Aring]};
 		key <AC02> {[s,S]};
 		key <AC03> {[d,D,Greek_delta,Greek_DELTA]};
-		key <AC04> {[f,F,uptack,uptack]};
+		key <AC04> {[f,F,0x1000192,0x1000191]};
 		key <AC05> {[g,G]};
 		key <AC06> {[h,H,leftarrow,0x10021D0]};
 		key <AC07> {[j,J,downarrow,0x10021D3]};
@@ -224,7 +224,7 @@ xkb_keymap {
 		key <AB03> {[c,C,0x1002102,0x1002102]};
 		key <AB04> {[v,V,logicalor,logicaland]};
 		key <AB05> {[b,B]};
-		key <AB06> {[n,N,ntilde,Ntilde]};
+		key <AB06> {[n,N,0x1002115,0x1002115]};
 		key <AB07> {[m,M]};
 		key <AB08> {[comma,less,comma,guillemotleft]};
 		key <AB09> {[period,greater,ellipsis,guillemotright]};

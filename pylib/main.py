@@ -1,4 +1,3 @@
-import inspect
 import sys
 
 assert __name__ != "__main__", "This file can not be run directly"
@@ -17,9 +16,7 @@ def isMain():
 		if frame.f_code and frame.f_code.co_filename == __file__:
 			frame = frame.f_back
 			continue
-		mod = inspect.getmodule(frame)
-		return mod and mod.__name__ == "__main__"
-
+		return frame.f_globals.get("__name__") == "__main__"
 
 runners = {}
 runners[None] = lambda f, kwargs: f(**kwargs)
@@ -48,6 +45,9 @@ def runMain(f, *, argp=None, aio=None):
 		args = argp.parse_args().__dict__
 	if aio not in runners:
 		raise Exception(f"invalid runner: {aio!r}")
-	v = runners[aio](f, args)
-	if v is not None:
-		sys.exit(v)
+	try:
+		v = runners[aio](f, args)
+		if v is not None:
+			sys.exit(v)
+	except KeyboardInterrupt:
+		sys.exit(131)

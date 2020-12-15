@@ -29,6 +29,9 @@
 ∂	partial
 ※	kome
 �	repl
+⊢	entails
+⊨	Entails
+ℓ	ell
 
 Þ	THORN
 þ	thorn
@@ -118,6 +121,12 @@
 µ	micro
 ‰	permille
 ‱	permyriad
+
+⌞	dlcorn
+⌜	ulcorn
+⌝	urcorn
+⌟	drcorn
+
 
  	nbsp
  	ensp

@@ -11,10 +11,10 @@ p.add_argument("-a", "--all-encodings", action="store_true", help="check all enc
 p.add_argument("hex", nargs="+")
 args = p.parse_args()
 
+encs = ["ascii", "latin1", "utf-8", "cp932", "sjis", "gbk"]
 
 if args.all_encodings:
-	encs = []
-	for e in pathlib.Path(encodings.__file__).parent.iterdir():
+	for e in sorted(pathlib.Path(encodings.__file__).parent.iterdir()):
 		try: mod = __import__("encodings." + e.stem, fromlist=["*"])
 		except ImportError: continue
 
@@ -25,12 +25,10 @@ if args.all_encodings:
 		if info.name == "undefined": continue
 
 		encs.append(info.name)
-	encs.sort(key=lambda k: (k.startswith("iso") or k.startswith("cp"), k))
-else:
-	encs = ["ascii", "latin1", "utf-8", "sjis", "cp932", "gbk"]
 
 a = bytearray()
 for arg in args.hex:
+	if arg.startswith("0x"): arg = arg[2:]
 	try:
 		a.extend(binascii.a2b_hex(arg))
 	except Exception as e:

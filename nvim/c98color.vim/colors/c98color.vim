@@ -76,7 +76,7 @@ hi WarningMsg            ctermfg=011  ctermbg=NONE cterm=BOLD
 " Syntax highlighting groups {{{1
 hi Comment               ctermfg=130  ctermbg=NONE cterm=NONE
 hi Constant              ctermfg=009  ctermbg=NONE cterm=NONE
- hi String               ctermfg=012  ctermbg=NONE cterm=NONE
+ hi String               ctermfg=002  ctermbg=NONE cterm=NONE
 hi Function              ctermfg=011  ctermbg=NONE cterm=BOLD
  hi Identifier           ctermfg=011  ctermbg=NONE cterm=NONE
 hi Statement             ctermfg=010  ctermbg=NONE cterm=BOLD

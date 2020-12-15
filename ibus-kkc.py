@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-っ = "bcdfghjklmpqrstvwy"
-ん = {
+ltsu = "bcdfghjklmpqrstvwy"
+n = {
 	"n":  ["", "ん\u20E6", "ン\u20E6", "ん", "ン"],
 	"nn": ["n", "ん"],
 	"n'": ["", "ん"],
@@ -77,6 +77,7 @@ basic = {
 	"la":  "ぁ", "li":  "ぃ", "lu":  "ぅ", "le":  "ぇ", "lo":  "ぉ",
 	"lya": "ゃ", "lyu": "ゅ", "lyo": "ょ", "ltsu": "っ",
 	"lwa": "ゎ", "lka": "ゕ", "lke": "ゖ",
+	"'": "っ",
 
 	"zD": "゛", "zd": "\u3099",
 	"zH": "゜", "zh": "\u309A",
@@ -114,11 +115,11 @@ def addKatakana(romkana):
 			romkana[k2] = [toKatakana(text).upper() for text in v]
 
 romkana = {}
-for t in っ:
+for t in ltsu:
 	romkana[t+t] = [t, "っ"]
 	romkana[t+"'"] = ["", "っ"]
 	romkana[t+'"'] = ["", "っ"]
-for k, v in ん.items():
+for k, v in n.items():
 	romkana[k] = v
 for k, v in punctuation.items():
 	romkana[k] = ["", v, v, v, v]

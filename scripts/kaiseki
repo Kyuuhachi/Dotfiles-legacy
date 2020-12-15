@@ -1,0 +1,43 @@
+#!/usr/bin/env python
+import kaiseki
+import main
+import argparse
+
+int_ = lambda a: int(a, 0)
+int_.__name__ = "int"
+
+color_ = lambda a: {"auto": None, "always": True, "never": False}[a]
+color_.__name__ = "color"
+
+encoding_ = lambda a: None if a == "none" else a
+encoding_.__name__ = "encoding"
+
+argp = argparse.ArgumentParser()
+argp.add_argument("-s", "--start",  type=int_)
+argp.add_argument("-e", "--end",    type=int_)
+argp.add_argument("-l", "--lines",  type=int_)
+argp.add_argument("-L", "--length", type=int_)
+argp.add_argument("-w", "--width",  type=int_)
+
+argp.add_argument("-m", "--mark",   type=int_, action="append", default=[])
+argp.add_argument("-c", "--color",  type=color_, default=None)
+argp.add_argument("-E", "--encoding", type=encoding_, default="ascii")
+argp.add_argument("-n", "--num",    type=int, default=1)
+
+argp.add_argument("-q", "--quiet", action="store_true")
+argp.add_argument("-b", "--blank",    action="store_const", const=True)
+argp.add_argument("-B", "--no-blank", dest="blank", action="store_const", const=False)
+argp.add_argument("-g", "--gray",    action="store_const", const=True)
+argp.add_argument("-G", "--no-gray", dest="gray", action="store_const", const=False)
+argp.add_argument("files", nargs="+")
+
+@main(argp=argp)
+def __main__(files, quiet, **kwargs):
+	for file in files:
+		try:
+			if not quiet:
+				print(file)
+			with kaiseki.Reader.open(file) as f:
+				f.dump(**kwargs)
+		except Exception as e:
+			print(e)
