@@ -1,6 +1,7 @@
 from gi.repository import Gtk, GLib
-import simplealsa
 from math import pi
+
+from icebar import simplealsa
 
 __all__ = ["AlsaVolume"]
 

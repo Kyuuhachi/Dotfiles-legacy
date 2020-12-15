@@ -5,7 +5,7 @@ import math
 
 __all__ = ["Temperature"]
 
-input_re = re.compile(r"^  (\w+)(\d+)_(\w+): (\d+\.\d+)$")
+input_re = re.compile(r"^  (\w+)(\d+)_(\w+): (-?\d+\.\d+)$")
 
 def get_temps():
 	out = subprocess.check_output(["sensors", "-u"]).decode()
@@ -28,7 +28,7 @@ def get_temps():
 
 				sensors[-1]["type"] = type
 				sensors[-1][key] = float(val)
-		yield chip, adapter, sensors
+		yield chip, adapter, [s for s in sensors if s.keys() != {"name"}]
 
 class Temperature(Gtk.EventBox):
 	def __init__(self, chip, which, idle, crit=None, spacing=3):

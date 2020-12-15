@@ -1,7 +1,7 @@
 from gi.repository import Gtk, GLib
 import os.path
 import time
-import simplebat
+from icebar import simplebat
 
 __all__ = ["Battery"]
 

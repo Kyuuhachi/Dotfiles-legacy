@@ -1,5 +1,5 @@
 from gi.repository import Gtk, GLib
-from simplewifi import wifi_status
+from icebar import simplewifi
 from math import pi
 
 __all__ = ["Wifi"]
@@ -42,7 +42,7 @@ class Wifi(Gtk.EventBox):
 		self.show()
 
 	def update(self):
-		for (name, up, essid, quality, ipv4, ipv6, mac) in wifi_status():
+		for (name, up, essid, quality, ipv4, ipv6, mac) in simplewifi.wifi_status():
 			if essid is not None:
 				break
 		else:

@@ -1,5 +1,5 @@
 from gi.repository import Gtk, Gdk, GLib
-import util
+import icebar.util
 import time
 
 __all__ = ["Clock"]

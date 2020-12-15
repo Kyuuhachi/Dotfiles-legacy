@@ -1,6 +1,6 @@
 from gi.repository import Gtk
 import cairo
-import util
+import icebar.util
 
 __all__ = ["Separator"]
 
@@ -20,7 +20,7 @@ class Separator(Gtk.DrawingArea):
 		color = style.get_color(style.get_state())
 		color.alpha /= 4
 
-		font_height = util.get_height(self)
+		font_height = icebar.util.get_height(self)
 		height = self.get_allocated_height()
 		ctx.translate(0, (height - font_height) / 2)
 

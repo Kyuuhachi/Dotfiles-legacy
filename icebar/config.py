@@ -1,5 +1,5 @@
-import widgets
-import widgets.ws
+from icebar import widgets
+import icebar.widgets.ws
 
 HEIGHT = 21
 

@@ -4,6 +4,7 @@ import asyncio
 import os
 import os.path
 import re
+from collections import defaultdict
 rx = re.compile(r"#(.+) #(.+)# -> #(.+)#(?: (.+))?".replace("#", r"\x1B\[[0-9;]*m"))
 
 __all__ = ["Pacman"]
@@ -26,7 +27,10 @@ class Pacman(Gtk.EventBox):
 		self.set_has_tooltip(True)
 
 		def tooltip(self, x, y, keyboard, tooltip):
-			self.tooltip.set_text(", ".join(f"({name})" if ign else name for (name, _, _, ign) in self.updates))
+			groups = defaultdict(list)
+			for (name, _, _, ign) in self.updates:
+				groups[name[0]].append(f"({name})" if ign else name)
+			self.tooltip.set_text("\n".join(", ".join(group) for group in groups.values()))
 			tooltip.set_custom(self.tooltip)
 			return True
 		self.connect("query-tooltip", tooltip)
@@ -39,7 +43,7 @@ class Pacman(Gtk.EventBox):
 	
 	def click(self, _, evt):
 		if (evt.button, evt.type) == (1, Gdk.EventType.BUTTON_PRESS):
-			GLib.surce_remove(self.timer)
+			GLib.source_remove(self.timer)
 			self.timer = GLib.timeout_add_seconds(self.timeout, self.update)
 			self.update()
 

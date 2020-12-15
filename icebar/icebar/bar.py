@@ -10,30 +10,28 @@ sys.stderr = os.fdopen(sys.stderr.fileno(), "w", 1)
 
 import signal
 import asyncio
-
-import aioglib
+from icebar import aioglib
 asyncio.get_event_loop_policy().set_event_loop(aioglib.GLibEventLoop())
 asyncio.get_event_loop_policy().set_child_watcher(aioglib.GLibChildWatcher())
+
+import importlib.util
+import appdirs
+from pathlib import Path
+from icebar.widgets import Separator
 
 # asyncio.get_event_loop_policy().get_event_loop().set_debug(True)
 # import logging
 # logging.basicConfig(level=logging.DEBUG)
 
 def get_config():
-	import importlib.util
-	import appdirs
-	import os.path
-	for p in [appdirs.user_config_dir("icebar.py"), os.path.expanduser("~/icebar.py")]:
-		try:
-			spec = importlib.util.spec_from_file_location("config", p)
-			config = importlib.util.module_from_spec(spec)
-			spec.loader.exec_module(config)
-			return config
-		except (FileNotFoundError, ImportError):
-			pass
+	p = Path(appdirs.user_config_dir("icebar.py"))
+	if p.exists():
+		spec = importlib.util.spec_from_file_location("config", p)
+		config = importlib.util.module_from_spec(spec)
+		spec.loader.exec_module(config)
 	else:
 		import config
-		return config
+	return config
 
 config = get_config()
 
@@ -105,7 +103,7 @@ def draw_bg(self, cr, alpha):
 	cr.pop_group_to_source()
 	cr.paint_with_alpha(alpha)
 
-def __main__():
+def main():
 	bg, fg = create_window()
 	box = Gtk.Box()
 	fg.connect("draw", draw_bg, 1/2)
@@ -118,8 +116,6 @@ def __main__():
 		for w, sep in right:
 			sep.set_visible(lastVisible)
 			lastVisible = w.is_visible()
-
-	from widgets import Separator
 
 	for w in config.left():
 		box.pack_start(w, False, False, 1)
@@ -144,5 +140,3 @@ def __main__():
 
 	signal.signal(signal.SIGINT, lambda s, f: asyncio.get_event_loop().stop())
 	asyncio.get_event_loop().run_forever()
-
-if __name__ == "__main__": __main__()

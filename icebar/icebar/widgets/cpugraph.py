@@ -1,7 +1,8 @@
 from gi.repository import Gtk, GLib
 import cairo
-import util
 import psutil
+
+import icebar.util
 
 from collections import namedtuple
 Sample = namedtuple("Sample", "user system iowait")
@@ -44,7 +45,7 @@ class CPUGraph(Gtk.DrawingArea):
 		style = self.get_style_context()
 		r, g, b, a = style.get_color(style.get_state())
 
-		font_height = util.get_height(self)
+		font_height = icebar.util.get_height(self)
 		height = self.get_allocated_height()
 		ctx.translate(0, (height - font_height) // 2 + 1)
 
