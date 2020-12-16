@@ -1,21 +1,10 @@
-{ pkgs ? import <nixpkgs> {}
-, pythonPackages ? pkgs.python3Packages
+{ buildPythonApplication, mkPatch
 , gobject-introspection, wrapGAppsHook, gtk3, ibus
+, alsaLib, lm_sensors, i3
 , pygobject3, xlib, appdirs, psutil
 }:
-with pkgs;
-let ps = pythonPackages; in
 
-let mkPatch = file: lineno: text: from: to: writeTextFile {
-	name = "${file}.patch";
-	text = let
-		linestr = toString lineno;
-		line1 = builtins.replaceStrings ["«»"] [from] text;
-		line2 = builtins.replaceStrings ["«»"] [to] text;
-	in "--- a/${file}\n+++ b/${file}\n@@ -${linestr},1 +${linestr},1 @@\n-${line1}\n+${line2}\n";
-}; in
-
-ps.buildPythonApplication rec {
+buildPythonApplication rec {
 	name = "icebar";
 	version = "1.0";
 	src = ./.;
@@ -29,10 +18,10 @@ ps.buildPythonApplication rec {
 	];
 
 	propagatedBuildInputs = [
-		ps.pygobject3
-		ps.xlib
-		ps.appdirs
-		ps.psutil
+		pygobject3
+		xlib
+		appdirs
+		psutil
 	];
 
 	patches = [
