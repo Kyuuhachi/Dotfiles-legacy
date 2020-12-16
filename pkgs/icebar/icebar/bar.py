@@ -25,12 +25,9 @@ from icebar.widgets import Separator
 
 def get_config():
 	p = Path(appdirs.user_config_dir("icebar.py"))
-	if p.exists():
-		spec = importlib.util.spec_from_file_location("config", p)
-		config = importlib.util.module_from_spec(spec)
-		spec.loader.exec_module(config)
-	else:
-		import config
+	spec = importlib.util.spec_from_file_location("config", p)
+	config = importlib.util.module_from_spec(spec)
+	spec.loader.exec_module(config)
 	return config
 
 config = get_config()

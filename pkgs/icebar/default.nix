@@ -1,5 +1,7 @@
 { pkgs ? import <nixpkgs> {}
 , pythonPackages ? pkgs.python3Packages
+, gobject-introspection, wrapGAppsHook, gtk3, ibus
+, pygobject3, xlib, appdirs, psutil
 }:
 with pkgs;
 let ps = pythonPackages; in

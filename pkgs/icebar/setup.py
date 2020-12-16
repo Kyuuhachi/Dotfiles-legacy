@@ -13,5 +13,5 @@ setuptools.setup(
 
 	platforms="any",
 	python_requires=">=3.8",
-	install_requires=["pygobject"]
+	install_requires=["pygobject", "appdirs"],
 )
