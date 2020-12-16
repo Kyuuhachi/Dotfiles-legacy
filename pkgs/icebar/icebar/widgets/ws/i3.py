@@ -1,7 +1,7 @@
 from gi.repository import Gdk
 import asyncio
 from .workspaces import WSProvider, WSState
-from icebar.simplei3 import i3ipc
+from simplei3 import i3ipc
 
 __all__ = ["i3"]
 

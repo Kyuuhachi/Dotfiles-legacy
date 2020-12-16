@@ -1,7 +1,8 @@
 { buildPythonApplication, mkPatch
 , gobject-introspection, wrapGAppsHook, gtk3, ibus
-, alsaLib, lm_sensors, i3
+, alsaLib, lm_sensors
 , pygobject3, xlib, appdirs, psutil
+, simplei3
 }:
 
 buildPythonApplication rec {
@@ -22,6 +23,8 @@ buildPythonApplication rec {
 		xlib
 		appdirs
 		psutil
+
+		simplei3
 	];
 
 	patches = [
@@ -31,8 +34,5 @@ buildPythonApplication rec {
 		(mkPatch "icebar/widgets/temperature.py" 11
 			''	out = subprocess.check_output(["«»", "-u"]).decode()''
 			"sensors" "${lm_sensors}/bin/sensors")
-		(mkPatch "icebar/simplei3.py" 21
-			''		proc = await asyncio.create_subprocess_exec("«»", "--get-socketpath", stdout=asyncio.subprocess.PIPE)''
-			"i3" "${i3}/bin/i3")
 	];
 }
