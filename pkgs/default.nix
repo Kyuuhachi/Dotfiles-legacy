@@ -27,4 +27,5 @@ EOF
 
 	icebar = super.python3Packages.callPackage ./icebar { };
 	simplei3 = super.python3Packages.callPackage ./simplei3.nix { };
+	simplealsa = super.python3Packages.callPackage ./simplealsa.nix { };
 }
