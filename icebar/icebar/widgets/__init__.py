@@ -16,12 +16,8 @@ try: from .volume_pulse import *
 except ImportError as e: print("volume_pulse:", e)
 try: from .volume_alsa import *
 except ImportError as e: print("volume_alsa:", e)
-try: from .feed import *
-except ImportError as e: print("feed:", e)
 try: from .ibus import *
 except ImportError as e: print("ibus:", e)
-try: from .mpd import *
-except ImportError as e: print("mpd:", e)
 try: from .disk import *
 except ImportError as e: print("disk:", e)
 try: from .pacman import *
