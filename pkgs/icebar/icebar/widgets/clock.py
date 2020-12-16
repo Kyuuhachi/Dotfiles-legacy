@@ -32,5 +32,5 @@ class Clock(Gtk.EventBox):
 		if (evt.button, evt.type) == (1, Gdk.EventType.BUTTON_PRESS):
 			cal = Gtk.Calendar()
 			cal.set_display_options(Gtk.CalendarDisplayOptions.SHOW_WEEK_NUMBERS | Gtk.CalendarDisplayOptions.SHOW_DAY_NAMES | Gtk.CalendarDisplayOptions.SHOW_HEADING)
-			self.popup = util.make_popup(cal, self)
+			self.popup = icebar.util.make_popup(cal, self)
 			self.popup.show_all()
