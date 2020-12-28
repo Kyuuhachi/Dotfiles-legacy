@@ -1,0 +1,110 @@
+{
+  "nodes": {
+    "PotatoesMaster/i3-vim-syntax": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1530648903,
+        "narHash": "sha256-ofGdr5AAUxwLc+RxJZt5rcoTch32QtA4JiZb7KJXHIY=",
+        "owner": "PotatoesMaster",
+        "repo": "i3-vim-syntax",
+        "rev": "affe37e89911c47831cb5b87697ac70e48bb3e0f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "PotatoesMaster",
+        "repo": "i3-vim-syntax",
+        "type": "github"
+      }
+    },
+    "neovimhaskell/haskell-vim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1527012250,
+        "narHash": "sha256-eQFe9DroIIzs+bjIMwggpbrD+UiA7Me5d25qtEUeEu8=",
+        "owner": "neovimhaskell",
+        "repo": "haskell-vim",
+        "rev": "b1ac46807835423c4a4dd063df6d5b613d89c731",
+        "type": "github"
+      },
+      "original": {
+        "owner": "neovimhaskell",
+        "repo": "haskell-vim",
+        "type": "github"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1609171716,
+        "narHash": "sha256-sr1Ksq/feJ1ukCJ7YX9/R8PQlEpnooRk1G5BuJOfhPc=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "0b8b53eec0d719f26db42874bfbfa4f33cb5bdb7",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "type": "indirect"
+      }
+    },
+    "root": {
+      "inputs": {
+        "PotatoesMaster/i3-vim-syntax": "PotatoesMaster/i3-vim-syntax",
+        "neovimhaskell/haskell-vim": "neovimhaskell/haskell-vim",
+        "nixpkgs": "nixpkgs",
+        "tpope/vim-abolish": "tpope/vim-abolish",
+        "tpope/vim-characterize": "tpope/vim-characterize",
+        "vim-scripts/JavaScript-Indent": "vim-scripts/JavaScript-Indent"
+      }
+    },
+    "tpope/vim-abolish": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1604092394,
+        "narHash": "sha256-6Ie/04+BqQpmoDqO5xDoQpEzrqiT4Poi1ajmCy1y6rE=",
+        "owner": "tpope",
+        "repo": "vim-abolish",
+        "rev": "68bc80c88617672fd41da7a6ace87d29cd3fe1e3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "tpope",
+        "repo": "vim-abolish",
+        "type": "github"
+      }
+    },
+    "tpope/vim-characterize": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1573606367,
+        "narHash": "sha256-vNARitO0Zh4QTKV3x0jkX53yj4qes/B1idqqWEmCubo=",
+        "owner": "tpope",
+        "repo": "vim-characterize",
+        "rev": "af156501e8a8855832f15c2cc3d6cefb2d7f7f52",
+        "type": "github"
+      },
+      "original": {
+        "owner": "tpope",
+        "repo": "vim-characterize",
+        "type": "github"
+      }
+    },
+    "vim-scripts/JavaScript-Indent": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1307111327,
+        "narHash": "sha256-IRQWaP4APj23kIW2lnibvxjt7o9HMwsZvSKvC/3AK6c=",
+        "owner": "vim-scripts",
+        "repo": "JavaScript-Indent",
+        "rev": "8e9aa08189d420d9384f38a11ea89a0bff846e6d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "vim-scripts",
+        "repo": "JavaScript-Indent",
+        "type": "github"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}
