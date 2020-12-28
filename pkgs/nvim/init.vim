@@ -234,5 +234,6 @@ au FileType *        setlocal et< ts<  sts<  sw<
 au FileType haskell  setlocal et  ts=2 sw=2
 au FileType lilypond setlocal et  ts=2 sw=2
 au FileType yaml     setlocal et  ts=2 sw=2
+au FileType nix      setlocal et  ts=2 sw=2
 
 au FileType js       setlocal ft=javascript
