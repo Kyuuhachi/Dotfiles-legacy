@@ -13,17 +13,15 @@
 		sys = "x86_64-linux";
 		pkgs = import nixpkgs {
 			system = sys;
-			config.allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [
-				"tabnine"
-			];
+			config.allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [ "tabnine" ];
 		};
-		vimlib = import ./lib.nix {inherit pkgs inputs;};
+		mkNvim = pkgs.callPackage ./lib.nix {};
 
 		plugins = with pkgs.vimPlugins; [
 			# General
 			vim-textobj-user
-			"tpope/vim-abolish"
-			"tpope/vim-characterize"
+			inputs."tpope/vim-abolish".outPath
+			inputs."tpope/vim-characterize".outPath
 			commentary
 			repeat
 			surround
@@ -39,9 +37,7 @@
 			neco-syntax
 			polyglot
 			(deoplete-tabnine.overrideAttrs (old: {
-				patches = [(pkgs.writeTextFile {
-					name = "tabnine.patch";
-					text = ''
+				patches = [(pkgs.writeText "tabnine.patch" ''
 --- a/rplugin/python3/deoplete/sources/tabnine.py
 +++ b/rplugin/python3/deoplete/sources/tabnine.py
 @@ -178,2 +178,1 @@
@@ -51,15 +47,14 @@
 @@ -187,1 +186,1 @@
 -                '--log-file-path', os.path.join(self._install_dir, 'tabnine.log'),
 +                '--log-file-path', '/tmp/tabnine.log',
-					'';
-				})];
+				'')];
 			}))
 
 			# Specific languages
 			[vimtex {for = ["tex" "sty"];}]
-			"PotatoesMaster/i3-vim-syntax"
-			["neovimhaskell/haskell-vim" {for = "haskell";}]
-			["vim-scripts/JavaScript-Indent" {for = ["javascript" "jsx"];}]
+			inputs."PotatoesMaster/i3-vim-syntax".outPath
+			[inputs."neovimhaskell/haskell-vim".outPath {for = "haskell";}]
+			[inputs."vim-scripts/JavaScript-Indent".outPath {for = ["javascript" "jsx"];}]
 			[deoplete-zsh {for = "zsh";}]
 			[neco-vim {for = "vim";}]
 			[deoplete-jedi {for = "python";}]
@@ -75,12 +70,10 @@
 			./98tabbar
 		];
 	in {
-		packages.${sys}.nvim = vimlib.mkNvim pkgs.neovim-unwrapped {
+		packages.${sys}.nvim = mkNvim pkgs.neovim-unwrapped {
 			inherit plugins;
-			extraPython3Packages = ps: [ps.jedi];
-			# configure.plug.plugins = with pkgs.vimPlugins; [ deoplete-nvim ];
+			extraPython3Packages = ps: [ps.jedi ps.python-ly];
 			rc = "source ${./init.vim}";
-			withRuby = false;
 		};
 		defaultPackage.${sys} = self.packages.${sys}.nvim;
 	};
