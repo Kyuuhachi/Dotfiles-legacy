@@ -1,11 +1,3 @@
-#!/bin/zsh
-[[ -f ~/.profile ]] && source ~/.profile
-autoload -Uz add-zsh-hook
-zsh_path="$(print -P %N)"
-zsh_path=$zsh_path:A:h
-
-fpath=($zsh_path/comp $fpath)
-
 # History
 setopt histignorealldups
 HISTSIZE=1000000
@@ -13,8 +5,7 @@ SAVEHIST=1000000
 HISTFILE=~/.zsh_history
 
 # Utils
-autoload -Uz colors
-colors
+autoload -Uz colors && colors
 autoload -U zmv
 alias zmv="noglob zmv -v"
 alias zcp="noglob zmv -vC"
@@ -54,8 +45,6 @@ for c in cp rm mv chmod chown rename; do
 	alias $c="$c -v"
 done
 
-s=car0b1nius@cubic.muncher.se
-
 reentry_hook() {
 	if [[ $(stat -c "%h" .) -eq 0 ]]; then
 		if [[ -d $PWD ]]; then
@@ -66,10 +55,10 @@ reentry_hook() {
 		fi
 	fi
 }
-add-zsh-hook preexec reentry_hook
+autoload -Uz add-zsh-hook && add-zsh-hook preexec reentry_hook
 
 # Completion
-autoload -Uz compinit && compinit
+autoload -Uz compinit && compinit -u
 setopt complete_in_word
 setopt always_to_end
 zmodload -i zsh/complist
@@ -108,21 +97,11 @@ zstyle ':completion:*:*:*:users' ignored-patterns \
 autoload -U regexp-replace
 setopt re_match_pcre
 
-# Large custom scripts
-source $zsh_path/../pkgs/zsh/prompt.zsh
-source $zsh_path/../pkgs/zsh/inp.zsh
-
-# Plugins
-function plug() {
-	source $zsh_path/plug/$1/*.plugin.zsh
-}
-
-plug history-search-multi-word
+# history-search-multi-word
 zstyle ":history-search-multi-word" page-size 25
 zstyle ":history-search-multi-word" highlight-color "standout"
 
-plug fast-syntax-highlighting
-
+# fast-syntax-highlighting
 HIGHLIGHT=(
 	"path"     "fg=cyan"
 	"variable" "fg=green,bold"
@@ -130,7 +109,3 @@ HIGHLIGHT=(
 typeset -gA FAST_HIGHLIGHT_STYLES
 FAST_HIGHLIGHT_STYLES+=(${(kv)HIGHLIGHT})
 FAST_HIGHLIGHT[chroma-man]=
-
-eval $(thefuck --alias f)
-
-if [ -e /home/yuki/.nix-profile/etc/profile.d/nix.sh ]; then . /home/yuki/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
