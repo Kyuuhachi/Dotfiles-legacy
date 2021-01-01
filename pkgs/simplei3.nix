@@ -1,9 +1,8 @@
-{ addSetupPy, buildPythonPackage, mkPatch, i3 }:
+{ addSetupPy, buildPythonPackage, i3 }:
 buildPythonPackage (addSetupPy {
-	src = ./simplei3.py;
-	patches = [
-		(mkPatch "simplei3.py" 21
-			''		proc = await asyncio.create_subprocess_exec("«»", "--get-socketpath", stdout=asyncio.subprocess.PIPE)''
-			"i3" "${i3}/bin/i3")
-	];
+  src = ./simplei3.py;
+  postPatch = ''
+    substituteInPlace simplei3.py \
+      --replace '"i3"' '"${i3}/bin/i3"'
+  '';
 })

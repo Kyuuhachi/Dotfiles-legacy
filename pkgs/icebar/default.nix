@@ -1,4 +1,4 @@
-{ buildPythonApplication, mkPatch
+{ buildPythonApplication
 , gobject-introspection, wrapGAppsHook, gtk3, ibus
 , lm_sensors
 , pygobject3, xlib, appdirs, psutil
@@ -6,31 +6,30 @@
 }:
 
 buildPythonApplication rec {
-	name = "icebar";
-	version = "1.0";
-	src = ./.;
-	doCheck = false;
+  name = "icebar";
+  version = "1.0";
+  src = ./.;
+  doCheck = false;
 
-	buildInputs = [
-		gobject-introspection
-		wrapGAppsHook
-		gtk3
-		ibus
-	];
+  buildInputs = [
+    gobject-introspection
+    wrapGAppsHook
+    gtk3
+    ibus
+  ];
 
-	propagatedBuildInputs = [
-		pygobject3
-		xlib
-		appdirs
-		psutil
+  propagatedBuildInputs = [
+    pygobject3
+    xlib
+    appdirs
+    psutil
 
-		simplei3
-		simplealsa
-	];
+    simplei3
+    simplealsa
+  ];
 
-	patches = [
-		(mkPatch "icebar/widgets/temperature.py" 11
-			''	out = subprocess.check_output(["«»", "-u"]).decode()''
-			"sensors" "${lm_sensors}/bin/sensors")
-	];
+  postPatch = ''
+    substituteInPlace icebar/widgets/temperature.py \
+      --replace '"sensors"' '"${lm_sensors}/bin/sensors"'
+  '';
 }

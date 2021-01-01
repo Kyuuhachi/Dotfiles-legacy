@@ -1,10 +1,9 @@
-{ addSetupPy, buildPythonPackage, mkPatch, alsaLib }:
+{ addSetupPy, buildPythonPackage, alsaLib }:
 buildPythonPackage (addSetupPy {
-	src = ./simplealsa.py;
-	patches = [
-		(mkPatch "simplealsa.py" 17
-			''	asound = c.CDLL("«»")''
-			"libasound.so" "${alsaLib}/lib/libasound.so")
-	];
+  src = ./simplealsa.py;
+  postPatch = ''
+    substituteInPlace simplealsa.py \
+      --replace '"libasound.so"' '"${alsaLib}/lib/libasound.so"'
+  '';
 })
 
