@@ -75,7 +75,7 @@ in unwrapped: {
   ];
 in
   symlinkJoin {
-    name = "neovim-${lib.getVersion unwrapped}";
+    name = "nvim-${lib.getVersion unwrapped}";
     paths = [];
     postBuild = ''
       makeWrapper ${unwrapped}/bin/nvim ./nvim-wrapper \
