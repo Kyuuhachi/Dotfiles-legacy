@@ -1,7 +1,7 @@
-if exists('b:did_indent')
-	finish
-endif
-let b:did_indent = 1
+" if exists('b:did_indent')
+" 	finish
+" endif
+" let b:did_indent = 1
 
 setlocal indentexpr=GetPythonPEPIndent(v:lnum)
 setlocal indentkeys=!^F,o,O,<:>,0),0],0},=elif,=except
