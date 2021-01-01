@@ -21,7 +21,7 @@
 
     myPkgs = {
       vimPlugins = let
-        plug = name: pkgs.vimUtils.buildVimPlugin {name = baseNameOf name; src = inputs.${name}.outPath; };
+        plug = name: pkgs.vimUtils.buildVimPlugin { name = baseNameOf name; src = inputs.${name}.outPath; };
       in {
         i3-vim-syntax = plug "PotatoesMaster/i3-vim-syntax";
         haskell-vim = plug "neovimhaskell/haskell-vim";
@@ -30,7 +30,9 @@
         JavaScript-Indent = plug "vim-scripts/JavaScript-Indent";
       };
 
-      nvim = call pkgs ./nvim {vimPlugins = pkgs.vimPlugins // myPkgs.vimPlugins; };
+      nvim = call pkgs ./nvim {
+        vimPlugins = pkgs.vimPlugins // myPkgs.vimPlugins;
+      };
 
       zsh = call pkgs ./zsh {
         zsh-history-search-multi-word = inputs."zdharma/history-search-multi-word".outPath;
