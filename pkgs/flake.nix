@@ -6,6 +6,9 @@
     "tpope/vim-abolish"             = { url = "github:tpope/vim-abolish"; flake = false; };
     "tpope/vim-characterize"        = { url = "github:tpope/vim-characterize"; flake = false; };
     "vim-scripts/JavaScript-Indent" = { url = "github:vim-scripts/JavaScript-Indent"; flake = false; };
+
+    # Zsh
+    "zdharma/history-search-multi-word" = { url = "github:zdharma/history-search-multi-word"; flake = false; };
   };
 
   outputs = inputs@{ self, nixpkgs, ... }: let
@@ -28,6 +31,10 @@
       };
 
       nvim = call pkgs ./nvim {vimPlugins = pkgs.vimPlugins // myPkgs.vimPlugins; };
+
+      zsh = call pkgs ./zsh {
+        zsh-history-search-multi-word = inputs."zdharma/history-search-multi-word".outPath;
+      };
 
       python3Packages = let
         callWithPy = call (pkgs // pkgs.python3Packages // myPkgs // myPkgs.python3Packages);

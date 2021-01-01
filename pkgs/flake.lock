@@ -53,7 +53,8 @@
         "nixpkgs": "nixpkgs",
         "tpope/vim-abolish": "tpope/vim-abolish",
         "tpope/vim-characterize": "tpope/vim-characterize",
-        "vim-scripts/JavaScript-Indent": "vim-scripts/JavaScript-Indent"
+        "vim-scripts/JavaScript-Indent": "vim-scripts/JavaScript-Indent",
+        "zdharma/history-search-multi-word": "zdharma/history-search-multi-word"
       }
     },
     "tpope/vim-abolish": {
@@ -101,6 +102,22 @@
       "original": {
         "owner": "vim-scripts",
         "repo": "JavaScript-Indent",
+        "type": "github"
+      }
+    },
+    "zdharma/history-search-multi-word": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1594754186,
+        "narHash": "sha256-/c6unIAoe5W0rnfskwBFHi5qD5IiKqx/9824xdOOEmw=",
+        "owner": "zdharma",
+        "repo": "history-search-multi-word",
+        "rev": "f4efe71dbfae5f027c08f8ff8e8dca9bc946601c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "zdharma",
+        "repo": "history-search-multi-word",
         "type": "github"
       }
     }
