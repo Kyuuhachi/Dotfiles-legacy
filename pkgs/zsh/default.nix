@@ -1,7 +1,7 @@
 { writeText, makeWrapper, symlinkJoin
 , zsh-fast-syntax-highlighting
 , zsh-history-search-multi-word
-, zsh,
+, zsh
 }: let
   zshrc = writeText "zshrc" ''
     source ${./prompt.zsh}
