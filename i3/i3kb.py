@@ -53,10 +53,11 @@ def this_should_be_a_module():
 			root.grab_key(key[0], key[1], 1, X.GrabModeAsync, X.GrabModeAsync)
 		display.sync()
 
-	def bind(keys):
+	async def bind(keys):
 		keys = {parse_key(k): f for k, f in keys.items()}
 		grab_keys(keys)
 		all_keys.update(keys)
+		while True: await asyncio.sleep(1e100)
 
 	def start():
 		def on_event():
@@ -100,7 +101,7 @@ async def init_backlight():
 		if 0 <= idx < len(states):
 			await reap(asyncio.create_subprocess_exec("brightnessctl", "-q", "s", str(states[idx])))
 
-	bind({
+	await bind({
 		"XF86_MonBrightnessUp":   lambda: brightness(+1),
 		"XF86_MonBrightnessDown": lambda: brightness(-1)
 	})
@@ -119,7 +120,7 @@ async def init_alsa(card="hw:0", name=("Master", "Speaker")):
 	async def toggleSwitch(): print("mute"); mute.switch.all = not mute.switch.all
 	async def setSwitch(v): mute.elem.switch.all = v
 	async def changeVolume(n): volume.mB.all += n
-	bind({
+	await bind({
 		"XF86_AudioMute": lambda: toggleSwitch(),
 		"XF86_AudioRaiseVolume": lambda: changeVolume(+250),
 		"XF86_AudioLowerVolume": lambda: changeVolume(-250),
@@ -131,7 +132,7 @@ async def init_alsa(card="hw:0", name=("Master", "Speaker")):
 async def init_screenshot():
 	async def maim(flags):
 		await reap(asyncio.create_subprocess_shell(f"maim {flags} | xclip -selection clipboard -t image/png"))
-	bind({
+	await bind({
 		"Print":   lambda: maim("--nokeyboard --nodecorations --select --hidecursor"),
 		"s-Print": lambda: maim("--nokeyboard"),
 		"a-Print": lambda: maim("--nokeyboard --nodecorations --window=$(xdotool getactivewindow)"),
@@ -154,7 +155,7 @@ async def init_launch():
 				os._exit(1)
 		else:
 			os.waitpid(pid, 0)
-	bind({
+	await bind({
 		"w-Return":  lambda: launch("x-terminal-emulator"),
 		"w-d":       lambda: launch("dmenu_run"),
 		"Caps_Lock": lambda: launch("compose"),
@@ -168,56 +169,55 @@ async def init_pause():
 			state=$(ps --no-headers -o state $pid) || exit
 			kill -$([[ $state == T ]] && echo CONT || echo STOP) $pid
 		"""))
-	bind({"w-p": run})
+	await bind({"w-p": run})
 
 async def init_i3():
 	import simplei3
-	i3ipc = await simplei3.i3ipc()
+	async with simplei3.i3ipc() as i3ipc:
+		i3 = lambda cmd: lambda: i3ipc.command(i3ipc.COMMAND, cmd)
 
-	i3 = lambda cmd: lambda: i3ipc.command(i3ipc.COMMAND, cmd)
+		async def fromScratch():
+			tree = await i3ipc.command(i3ipc.GET_TREE)
+			scratch = [
+				node["nodes"][0]
+				for node in tree["nodes"] if node["name"] == "__i3"
+				for node in node["nodes"] if node["name"] == "content"
+				for node in node["nodes"] if node["name"] == "__i3_scratch"
+				for node in node["floating_nodes"]
+			]
+			if scratch:
+				await i3ipc.command(i3ipc.COMMAND, f"[con_id={scratch[-1]['id']}] focus")
 
-	async def fromScratch():
-		tree = await i3ipc.command(i3ipc.GET_TREE)
-		scratch = [
-			node["nodes"][0]
-			for node in tree["nodes"] if node["name"] == "__i3"
-			for node in node["nodes"] if node["name"] == "content"
-			for node in node["nodes"] if node["name"] == "__i3_scratch"
-			for node in node["floating_nodes"]
-		]
-		if scratch:
-			await i3ipc.command(i3ipc.COMMAND, f"[con_id={scratch[-1]['id']}] focus")
+		await bind({
+			"w-x": i3("kill"), "w-s-x": i3("focus parent;" * 10 + "kill"),
 
-	bind({
-		"w-x": i3("kill"), "w-s-x": i3("focus parent;" * 10 + "kill"),
+			"w-f": i3("fullscreen"), "w-s-f": i3("border toggle"),
+			"w-a": i3("focus parent"), "w-s-a": i3("focus child"),
+			"w-space": i3("focus mode_toggle"), "w-s-space": i3("floating toggle"),
+			"w-c-space": i3("floating enable; resize set 1500 600; move position center"),
 
-		"w-f": i3("fullscreen"), "w-s-f": i3("border toggle"),
-		"w-a": i3("focus parent"), "w-s-a": i3("focus child"),
-		"w-space": i3("focus mode_toggle"), "w-s-space": i3("floating toggle"),
-		"w-c-space": i3("floating enable; resize set 1500 600; move position center"),
+			"w-1": i3("workspace 1"),  "w-s-1": i3("move container to workspace 1; workspace 1"),
+			"w-2": i3("workspace 2"),  "w-s-2": i3("move container to workspace 2; workspace 2"),
+			"w-3": i3("workspace 3"),  "w-s-3": i3("move container to workspace 3; workspace 3"),
+			"w-4": i3("workspace 4"),  "w-s-4": i3("move container to workspace 4; workspace 4"),
+			"w-5": i3("workspace 5"),  "w-s-5": i3("move container to workspace 5; workspace 5"),
+			"w-6": i3("workspace 6"),  "w-s-6": i3("move container to workspace 6; workspace 6"),
+			"w-7": i3("workspace 7"),  "w-s-7": i3("move container to workspace 7; workspace 7"),
+			"w-8": i3("workspace 8"),  "w-s-8": i3("move container to workspace 8; workspace 8"),
+			"w-9": i3("workspace 9"),  "w-s-9": i3("move container to workspace 9; workspace 9"),
+			"w-0": i3("workspace 10"), "w-s-0": i3("move container to workspace 10; workspace 10"),
+			"w-minus": fromScratch,    "w-s-minus": i3("move scratchpad"),
 
-		"w-1": i3("workspace 1"),  "w-s-1": i3("move container to workspace 1; workspace 1"),
-		"w-2": i3("workspace 2"),  "w-s-2": i3("move container to workspace 2; workspace 2"),
-		"w-3": i3("workspace 3"),  "w-s-3": i3("move container to workspace 3; workspace 3"),
-		"w-4": i3("workspace 4"),  "w-s-4": i3("move container to workspace 4; workspace 4"),
-		"w-5": i3("workspace 5"),  "w-s-5": i3("move container to workspace 5; workspace 5"),
-		"w-6": i3("workspace 6"),  "w-s-6": i3("move container to workspace 6; workspace 6"),
-		"w-7": i3("workspace 7"),  "w-s-7": i3("move container to workspace 7; workspace 7"),
-		"w-8": i3("workspace 8"),  "w-s-8": i3("move container to workspace 8; workspace 8"),
-		"w-9": i3("workspace 9"),  "w-s-9": i3("move container to workspace 9; workspace 9"),
-		"w-0": i3("workspace 10"), "w-s-0": i3("move container to workspace 10; workspace 10"),
-		"w-minus": fromScratch,    "w-s-minus": i3("move scratchpad"),
+			"w-h": i3("focus left"),  "w-s-h": i3("move left"),
+			"w-j": i3("focus down"),  "w-s-j": i3("move down"),
+			"w-k": i3("focus up"),    "w-s-k": i3("move up"),
+			"w-l": i3("focus right"), "w-s-l": i3("move right"),
 
-		"w-h": i3("focus left"),  "w-s-h": i3("move left"),
-		"w-j": i3("focus down"),  "w-s-j": i3("move down"),
-		"w-k": i3("focus up"),    "w-s-k": i3("move up"),
-		"w-l": i3("focus right"), "w-s-l": i3("move right"),
-
-		"w-c-h": i3("resize shrink width  10 px"), "w-c-s-h": i3("resize shrink width  1 px"),
-		"w-c-j": i3("resize grow   height 10 px"), "w-c-s-j": i3("resize grow   height 1 px"),
-		"w-c-k": i3("resize shrink height 10 px"), "w-c-s-k": i3("resize shrink height 1 px"),
-		"w-c-l": i3("resize grow   width  10 px"), "w-c-s-l": i3("resize grow   width  1 px"),
-	})
+			"w-c-h": i3("resize shrink width  10 px"), "w-c-s-h": i3("resize shrink width  1 px"),
+			"w-c-j": i3("resize grow   height 10 px"), "w-c-s-j": i3("resize grow   height 1 px"),
+			"w-c-k": i3("resize shrink height 10 px"), "w-c-s-k": i3("resize shrink height 1 px"),
+			"w-c-l": i3("resize grow   width  10 px"), "w-c-s-l": i3("resize grow   width  1 px"),
+		})
 
 asyncio.ensure_future(init_i3())
 asyncio.ensure_future(init_backlight())

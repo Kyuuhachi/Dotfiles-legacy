@@ -81,16 +81,16 @@ def register(gen_bg):
 	import asyncio
 	async def run():
 		import simplei3
-		i3 = await simplei3.i3ipc()
+		async with simplei3.i3ipc() as i3:
+			for output in await i3.command(i3.GET_OUTPUTS):
+				if output["current_workspace"]:
+					await change_workspace(i3, gen_bg, output["current_workspace"])
 
-		for output in await i3.command(i3.GET_OUTPUTS):
-			if output["current_workspace"]:
-				await change_workspace(i3, gen_bg, output["current_workspace"])
-
-		@i3.on_event
-		async def workspace_event(type, payload):
-			if type == i3.E_WORKSPACE and payload["change"] == "focus":
-				await change_workspace(i3, gen_bg, payload["current"]["name"])
-		await i3.command(i3.SUBSCRIBE, ["workspace"])
+			@i3.on_event
+			async def workspace_event(type, payload):
+				if type == i3.E_WORKSPACE and payload["change"] == "focus":
+					await change_workspace(i3, gen_bg, payload["current"]["name"])
+			await i3.command(i3.SUBSCRIBE, ["workspace"])
+			while True: await asyncio.sleep(1e100)
 	asyncio.ensure_future(run())
 	asyncio.get_event_loop().run_forever()
