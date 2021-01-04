@@ -16,8 +16,24 @@
     pkgs = import nixpkgs {
       system = sys;
       config.allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [ "tabnine" ];
+
+      overlays = [myOverlay];
     };
     call = pkgs.lib.callPackageWith;
+    callWithPy = call (pkgs // pkgs.python3Packages // myPkgs // myPkgs.python3Packages);
+
+    myOverlay = final: prev: {
+      dmenu = prev.dmenu.override {
+        patches = [(pkgs.writeText "flush.patch" ''
+          --- a/dmenu.c
+          +++ b/dmenu.c
+          @@ -467,2 +467,3 @@ insert:
+           		puts((sel && !(ev->state & ShiftMask)) ? sel->text : text);
+          +		fflush(stdout);
+           		if (!(ev->state & ControlMask)) {
+        '')];
+      };
+    };
 
     myPkgs = {
       vimPlugins = let
@@ -30,17 +46,15 @@
         JavaScript-Indent = plug "vim-scripts/JavaScript-Indent";
       };
 
-      nvim = call pkgs ./nvim {
+      nvim- = call pkgs ./nvim {
         vimPlugins = pkgs.vimPlugins // myPkgs.vimPlugins;
       };
 
-      zsh = call pkgs ./zsh {
+      zsh- = call pkgs ./zsh {
         zsh-history-search-multi-word = inputs."zdharma/history-search-multi-word".outPath;
       };
 
-      python3Packages = let
-        callWithPy = call (pkgs // pkgs.python3Packages // myPkgs // myPkgs.python3Packages);
-      in {
+      python3Packages = {
         addSetupPy =
           { src
           , _basename ? pkgs.lib.removeSuffix ".py" (baseNameOf src)
@@ -64,9 +78,10 @@
         icebar = callWithPy ./icebar {};
       };
 
-      inherit (myPkgs.python3Packages) icebar;
+      i3- = callWithPy ./i3 {};
     };
   in {
     packages.${sys} = myPkgs;
+    overlay = myOverlay;
   };
 }
