@@ -1,64 +1,102 @@
 import json
-import asyncio
 import struct
+import contextlib
+import anyio
 
 class i3ipc:
-	COMMAND, GET_WORKSPACES, SUBSCRIBE, GET_OUTPUTS, GET_TREE, GET_MARKS, GET_BAR_CONFIG, GET_VERSION, GET_BINDING_MODES = range(9)
-	E_WORKSPACE, E_OUTPUT, E_MODE, E_WINDOW, E_BARCONFIG_UPDATE, E_BINDING = range(6)
+	[ COMMAND
+	, GET_WORKSPACES
+	, SUBSCRIBE
+	, GET_OUTPUTS
+	, GET_TREE
+	, GET_MARKS
+	, GET_BAR_CONFIG
+	, GET_VERSION
+	, GET_BINDING_MODES
+	, GET_CONFIG
+	, SEND_TICK
+	, SYNC
+	, GET_BINDING_STATE
+	] = range(13)
+
+	[ E_WORKSPACE
+	, E_OUTPUT
+	, E_MODE
+	, E_WINDOW
+	, E_BARCONFIG_UPDATE
+	, E_BINDING
+	, E_SHUTDOWN
+	, E_TICK
+	] = range(8)
 
 	_MAGIC = b"i3-ipc"
 	_FORMAT = "=6sII"
 
-	async def __new__(cls, *args):
+	def __init__(self):
+		self._handlers = None
+		self._command_lock = None
+		self._pending = None
+		self._group = None
+		self._sock = None
+		self.__cmgr = None
+
+	@contextlib.asynccontextmanager
+	async def __new__(cls):
 		self = super().__new__(cls)
-		await self._start()
-		self._queue = asyncio.Queue()
-		self._eventhandlers = []
-		asyncio.ensure_future(self._read())
-		return self
+		self._handlers = []
+		self._command_lock = anyio.create_lock()
+		import sys
+		self._keepalive = sys._getframe()
+		async with anyio.create_task_group() as self._group:
+			proc = await anyio.run_process(["i3", "--get-socketpath"])
+			path = proc.stdout.decode().strip()
+			async with await anyio.connect_unix(path) as self._sock:
+				await self._group.spawn(self._loop)
+				yield self
+				await self._group.cancel_scope.cancel()
 
-	async def _start(self):
-		proc = await asyncio.create_subprocess_exec("i3", "--get-socketpath", stdout=asyncio.subprocess.PIPE)
-		await proc.wait()
-		stdout, _ = await proc.communicate()
-		self._r, self._w = await asyncio.open_unix_connection(stdout.decode().strip())
-
-	async def _read(self):
+	async def _loop(self):
 		while True:
-			msgtype, payload = await self.recvmsg()
+			msgtype, payload = await self._recvmsg()
 			if msgtype & 0x80000000:
 				msgtype &= 0x7FFFFFFF
-				asyncio.gather(*(f(msgtype, payload) for f in self._eventhandlers))
+				for f in self._handlers:
+					await self._group.spawn(f, msgtype, payload)
 			else:
-				msgtype2, fut = await self._queue.get()
-				assert msgtype2 == msgtype
-				fut.set_result(payload)
+				assert msgtype == self._pending["msgtype"]
+				self._pending["response"] = payload
+				await self._pending["event"].set()
 
-	async def recvmsg(self):
-		magic, length, msgtype = struct.unpack(self._FORMAT, await self._r.read(14))
+	async def _recvmsg(self):
+		magic, length, msgtype = struct.unpack(self._FORMAT, await self._sock.receive(14))
 		assert magic == self._MAGIC
-		payload = await self._r.read(length)
+		payload = await self._sock.receive(length)
 		assert len(payload) == length
-		try:
-			return msgtype, json.loads(payload)
-		except json.JSONDecodeError as e:
-			print(e.doc)
-			raise
+		return msgtype, json.loads(payload)
 
-	async def command(self, msgtype, payload=None):
-		if payload is None:
-			payload = b""
-		elif isinstance(payload, (list, dict)):
+	async def command(self, msgtype, payload=b""):
+		if isinstance(payload, (list, dict)):
 			payload = json.dumps(payload).encode()
 		elif isinstance(payload, str):
-			payload = payload.encode()
+			payload = payload.encode("utf-8")
+		elif isinstance(payload, bytes):
+			pass
 		else:
 			raise ValueError(type(payload))
-		fut = asyncio.Future()
-		await self._queue.put((msgtype, fut))
-		self._w.write(struct.pack(self._FORMAT, self._MAGIC, len(payload), msgtype))
-		self._w.write(payload)
-		return await fut
+
+		async with self._command_lock:
+			try:
+				self._pending = {
+					"event": anyio.create_event(),
+					"msgtype": msgtype,
+					"response": None,
+				}
+				await self._sock.send(struct.pack(self._FORMAT, self._MAGIC, len(payload), msgtype))
+				await self._sock.send(payload)
+				await self._pending["event"].wait()
+				return self._pending["response"]
+			finally:
+				self._pending = None
 
 	def on_event(self, f):
-		self._eventhandlers.append(f)
+		self._handlers.append(f)

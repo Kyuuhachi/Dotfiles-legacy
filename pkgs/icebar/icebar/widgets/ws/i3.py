@@ -11,7 +11,8 @@ class i3(WSProvider):
 		asyncio.ensure_future(self.start())
 
 	async def start(self):
-		self.i3 = await i3ipc()
+		self.__i3_keepalive = i3ipc()
+		self.i3 = await self.__i3_keepalive.__aenter__()
 
 		await self.i3.command(i3ipc.SUBSCRIBE, ["workspace", "barconfig_update"])
 		self.i3.on_event(self.on_event)
