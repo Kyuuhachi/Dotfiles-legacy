@@ -9,9 +9,14 @@
 
     # Zsh
     "zdharma/history-search-multi-word" = { url = "github:zdharma/history-search-multi-word"; flake = false; };
+
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = inputs@{ self, nixpkgs, ... }: let
+  outputs = inputs@{ self, nixpkgs, home-manager, ... }: let
     sys = "x86_64-linux";
     pkgs = import nixpkgs {
       system = sys;
@@ -79,6 +84,27 @@
       };
 
       i3- = callWithPy ./i3 {};
+
+      home-Sapphirl = (home-manager.lib.homeManagerConfiguration {
+        username = "98";
+        homeDirectory = "/home";
+        system = sys;
+
+        configuration = {
+          home.packages = [
+            myPkgs.nvim-
+            myPkgs.zsh-
+            myPkgs.i3-
+          ];
+
+          xsession = {
+            enable = true;
+            windowManager.command = "${myPkgs.i3-}/bin/i3";
+          };
+
+          home.stateVersion = "21.03";
+        };
+      }).activationPackage;
     };
   in {
     packages.${sys} = myPkgs;
