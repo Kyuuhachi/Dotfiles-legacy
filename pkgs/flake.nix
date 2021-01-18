@@ -99,7 +99,7 @@
       };
 
 
-      inherit (final.python3Packages) icebar;
+      inherit (final.python3.pkgs) icebar;
     };
   };
 }
