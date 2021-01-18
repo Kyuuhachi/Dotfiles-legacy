@@ -12,12 +12,12 @@ let
     vim-textobj-user
     vim-abolish
     vim-characterize
-    commentary
-    repeat
-    surround
+    vim-commentary
+    vim-repeat
+    vim-surround
     targets-vim
-    airline
-    easy-align
+    vim-airline
+    vim-easy-align
     undotree
     fzf-vim
 
@@ -25,7 +25,7 @@ let
     ale
     deoplete-nvim
     neco-syntax
-    polyglot
+    vim-polyglot
     (deoplete-tabnine.overrideAttrs (old: {
       patches = [(writeText "tabnine.patch" ''
         --- a/rplugin/python3/deoplete/sources/tabnine.py

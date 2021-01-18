@@ -1,6 +1,6 @@
 { lib, writeText, runCommand, makeWrapper
-, i3, maim, xclip, xdotool, python3, libnotify, dmenu
-, icebar, simplei3
+, i3, maim, xclip, xdotool, python3, libnotify, dmenu, brightnessctl
+, icebar,
 }: let
   parseKey = lib.replaceStrings ["c-" "s-" "w-" "a-"] ["Ctrl+" "Shift+" "Mod4+" "Mod1+"];
   keybindings = binds:
@@ -27,14 +27,14 @@
     w-2 = "workspace 2";  w-s-2 = "move container to workspace 2; workspace 2";
     w-3 = "workspace 3";  w-s-3 = "move container to workspace 3; workspace 3";
     w-4 = "workspace 4";  w-s-4 = "move container to workspace 4; workspace 4";
-    w-5 = "workspace 5";  w-s-5 = "move container to workspace 5; workspace 5";
+    # w-5 = "workspace 5";  w-s-5 = "move container to workspace 5; workspace 5";
     w-6 = "workspace 6";  w-s-6 = "move container to workspace 6; workspace 6";
     w-7 = "workspace 7";  w-s-7 = "move container to workspace 7; workspace 7";
     w-8 = "workspace 8";  w-s-8 = "move container to workspace 8; workspace 8";
     w-9 = "workspace 9";  w-s-9 = "move container to workspace 9; workspace 9";
     w-0 = "workspace 10"; w-s-0 = "move container to workspace 10; workspace 10";
 
-    w-minus = "exec ${python3.withPackages(p:[p.anyio simplei3])} ${./from_scratch.py}";
+    w-minus = "exec ${python3.withPackages(p:[p.anyio p.simplei3])} ${./from_scratch.py}";
     w-s-minus = "move scratchpad";
 
     w-h = "focus left";  w-s-h = "move left";
@@ -54,7 +54,10 @@
     Print   = Maim "--nokeyboard --nodecorations --select --hidecursor";
     s-Print = Maim "--nokeyboard";
     a-Print = Maim "--nokeyboard --nodecorations --window=$(${xdotool}/bin/xdotool getactivewindow)";
-  }); # volume, brightness
+  }) // {
+    XF86_MonBrightnessUp = "${brightnessctl}/bin/brightnessctl -e s +10%";
+    XF86_MonBrightnessDown = "${brightnessctl}/bin/brightnessctl -e s -10%";
+  }; # volume
 
   i3-config = ''
     font pango:monospace 9.5
