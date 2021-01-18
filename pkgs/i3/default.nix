@@ -1,7 +1,7 @@
-{ lib, writeText, runCommand, makeWrapper
-, i3, maim, xclip, xdotool, python3, libnotify, dmenu, brightnessctl
-, icebar,
-}: let
+{pkgs, ...}:
+let
+  inherit (pkgs) lib writeText runCommand;
+
   parseKey = lib.replaceStrings ["c-" "s-" "w-" "a-"] ["Ctrl+" "Shift+" "Mod4+" "Mod1+"];
   keybindings = binds:
     lib.concatStringsSep "\n"
@@ -9,8 +9,8 @@
 
   compose-py = runCommand "compose.py" {} ''
     substitute ${./compose.py} $out \
-      --replace '"dmenu"' '"${dmenu}/bin/dmenu"' \
-      --replace '"notify-send"' '"${libnotify}/bin/notify-send"' \
+      --replace '"dmenu"' '"${pkgs.dmenu}/bin/dmenu"' \
+      --replace '"notify-send"' '"${pkgs.libnotify}/bin/notify-send"' \
   '';
 
   binds = {
@@ -34,7 +34,7 @@
     w-9 = "workspace 9";  w-s-9 = "move container to workspace 9; workspace 9";
     w-0 = "workspace 10"; w-s-0 = "move container to workspace 10; workspace 10";
 
-    w-minus = "exec ${python3.withPackages(p:[p.anyio p.simplei3])} ${./from_scratch.py}";
+    w-minus = "exec ${pkgs.python3.withPackages(p:[p.anyio p.simplei3])} ${./from_scratch.py}";
     w-s-minus = "move scratchpad";
 
     w-h = "focus left";  w-s-h = "move left";
@@ -47,16 +47,16 @@
     w-c-k = "resize shrink height 10 px"; w-c-s-k = "resize shrink height 1 px";
     w-c-l = "resize grow   width  10 px"; w-c-s-l = "resize grow   width  1 px";
 
-    w-Return = "exec ${i3}/bin/i3-sensible-terminal";
-    w-d = "exec ${dmenu}/bin/dmenu_run";
-    Caps_Lock = "exec ${python3.withPackages(p:[p.xlib])}/bin/python ${compose-py} ~/dot/compose.txt";
-  } // (let Maim = flags: "exec ${maim}/bin/main ${flags} | ${xclip}/bin/xclip -selection clipboard -t image/png"; in {
+    w-Return = "exec ${pkgs.i3}/bin/i3-sensible-terminal";
+    w-d = "exec ${pkgs.dmenu}/bin/dmenu_run";
+    Caps_Lock = "exec ${pkgs.python3.withPackages(p:[p.xlib])}/bin/python ${compose-py} ~/dot/compose.txt";
+  } // (let Maim = flags: "exec ${pkgs.maim}/bin/main ${flags} | ${pkgs.xclip}/bin/xclip -selection clipboard -t image/png"; in {
     Print   = Maim "--nokeyboard --nodecorations --select --hidecursor";
     s-Print = Maim "--nokeyboard";
-    a-Print = Maim "--nokeyboard --nodecorations --window=$(${xdotool}/bin/xdotool getactivewindow)";
+    a-Print = Maim "--nokeyboard --nodecorations --window=$(${pkgs.xdotool}/bin/xdotool getactivewindow)";
   }) // {
-    XF86_MonBrightnessUp = "${brightnessctl}/bin/brightnessctl -e s +10%";
-    XF86_MonBrightnessDown = "${brightnessctl}/bin/brightnessctl -e s -10%";
+    XF86_MonBrightnessUp = "${pkgs.brightnessctl}/bin/brightnessctl -e s +10%";
+    XF86_MonBrightnessDown = "${pkgs.brightnessctl}/bin/brightnessctl -e s -10%";
   }; # volume
 
   i3-config = ''
@@ -89,7 +89,7 @@
     client.unfocused        $u1 $u2 #888888 $u3 $u2
 
     bar {
-      i3bar_command ${icebar}/bin/icebar
+      i3bar_command ${pkgs.icebar}/bin/icebar
       id icebar
       colors {
         background $b1
@@ -104,8 +104,8 @@
     ${keybindings binds}
   '';
 in
-  runCommand "i3" { buildInputs = [makeWrapper]; } ''
+  runCommand "i3" { buildInputs = [pkgs.makeWrapper]; } ''
     mkdir -p $out/bin
-    makeWrapper ${i3}/bin/i3 $out/bin/i3 \
+    makeWrapper ${pkgs.i3}/bin/i3 $out/bin/i3 \
       --add-flags "-c ${writeText "config.conf" i3-config}"
   ''
