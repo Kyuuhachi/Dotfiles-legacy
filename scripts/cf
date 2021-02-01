@@ -96,7 +96,7 @@ def do_color(path):
 		elif s.S_ISDOOR(mode): type = b"do"
 		else: type = b"or"
 
-	dir, name = (path[:pos], path[pos:]) if (pos := path.find(b"/") + 1) else (b"", path)
+	dir, name = (path[:pos], path[pos:]) if (pos := path.rfind(b"/") + 1) else (b"", path)
 
 	color = None
 
