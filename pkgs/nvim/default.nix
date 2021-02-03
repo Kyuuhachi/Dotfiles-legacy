@@ -1,5 +1,4 @@
 { neovim-unwrapped
-, tabnine
 , writeText
 , vimPlugins
 , pkgs}:
@@ -26,19 +25,6 @@ let
     deoplete-nvim
     neco-syntax
     vim-polyglot
-    (deoplete-tabnine.overrideAttrs (old: {
-      patches = [(writeText "tabnine.patch" ''
-        --- a/rplugin/python3/deoplete/sources/tabnine.py
-        +++ b/rplugin/python3/deoplete/sources/tabnine.py
-        @@ -178,2 +178,1 @@
-        -        binary_dir = os.path.join(self._install_dir, 'binaries')
-        -        path = get_tabnine_path(binary_dir)
-        +        path = '${tabnine}/bin/TabNine'
-        @@ -187,1 +186,1 @@
-        -                '--log-file-path', os.path.join(self._install_dir, 'tabnine.log'),
-        +                '--log-file-path', '/tmp/tabnine.log',
-      '')];
-    }))
 
     # Specific languages
     [vimtex {for = ["tex" "sty"];}]

@@ -53,7 +53,11 @@
             pkgs.tree
             pkgs.ripgrep
 
-            (pkgs.runCommand "x-terminal-emulator" {} ''mkdir -p $out/bin; ln -s ${pkgs.mate.mate-terminal}/bin/mate-terminal $out/bin/x-terminal-emulator'')
+            (pkgs.runCommand "aliases" {} ''
+              mkdir -p $out/bin
+              ln -s ${pkgs.mate.mate-terminal}/bin/mate-terminal $out/bin/x-terminal-emulator
+              ln -s ${myPkgs.zsh-}/bin/zsh $out/bin/.shell
+              '')
           ];
 
           sessionVariables.EDITOR = "${myPkgs.nvim-}/bin/nvim";
