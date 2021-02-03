@@ -1,13 +1,13 @@
 {pkgs, ...}:
 let
-  inherit (pkgs) lib writeText runCommand;
+  inherit (pkgs) lib;
 
   parseKey = lib.replaceStrings ["c-" "s-" "w-" "a-"] ["Ctrl+" "Shift+" "Mod4+" "Mod1+"];
   keybindings = binds:
     lib.concatStringsSep "\n"
       (lib.mapAttrsToList (k: v: "bindsym ${parseKey k} \"${v}\"") binds);
 
-  compose-py = runCommand "compose.py" {} ''
+  compose-py = pkgs.runCommand "compose.py" {} ''
     substitute ${./compose.py} $out \
       --replace '"dmenu"' '"${pkgs.dmenu}/bin/dmenu"' \
       --replace '"notify-send"' '"${pkgs.libnotify}/bin/notify-send"' \
@@ -103,9 +103,9 @@ let
 
     ${keybindings binds}
   '';
-in
-  runCommand "i3" { buildInputs = [pkgs.makeWrapper]; } ''
-    mkdir -p $out/bin
-    makeWrapper ${pkgs.i3}/bin/i3 $out/bin/i3 \
-      --add-flags "-c ${writeText "config.conf" i3-config}"
-  ''
+
+in { config = {
+  xsession.enable = true;
+  xsession.windowManager.command = "${pkgs.i3}/bin/i3";
+  xdg.configFile."i3/config".text = i3-config;
+}; }

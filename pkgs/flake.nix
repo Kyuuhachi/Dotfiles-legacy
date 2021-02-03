@@ -33,10 +33,7 @@
         zsh-history-search-multi-word = inputs."zdharma/history-search-multi-word".outPath;
       };
 
-
       inherit (pkgs) icebar;
-
-      i3- = pkgs.callPackage ./i3 {};
 
       home-Sapphirl = (home-manager.lib.homeManagerConfiguration {
         username = "98";
@@ -44,25 +41,28 @@
         system = sys;
 
         configuration = {
+          nixpkgs.overlays = [self.overlay];
+
+          imports = [
+            ./i3
+          ];
+
           home.packages = [
             myPkgs.nvim-
             myPkgs.zsh-
-            myPkgs.i3-
             pkgs.tree
             pkgs.ripgrep
 
             (pkgs.runCommand "x-terminal-emulator" {} ''mkdir -p $out/bin; ln -s ${pkgs.mate.mate-terminal}/bin/mate-terminal $out/bin/x-terminal-emulator'')
           ];
 
-          xsession = {
-            enable = true;
-            windowManager.command = "${myPkgs.i3-}/bin/i3";
-          };
+          sessionVariables.EDITOR = "${myPkgs.nvim-}/bin/nvim";
 
           home.stateVersion = "21.03";
         };
       }).activationPackage;
     };
+
   in {
     packages.${sys} = myPkgs;
     overlay = final: prev: {
@@ -98,8 +98,8 @@
         JavaScript-Indent = plug "vim-scripts/JavaScript-Indent";
       };
 
-
       inherit (final.python3.pkgs) icebar;
+
     };
   };
 }
