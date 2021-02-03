@@ -1,12 +1,8 @@
-{ neovim-unwrapped
-, writeText
-, vimPlugins
-, pkgs}:
-
+{ config, pkgs, ...}:
 let
   mkNvim = pkgs.callPackage ./lib.nix {};
 
-  plugins = with vimPlugins; [
+  plugins = with pkgs.vimPlugins; [
     # General
     vim-textobj-user
     vim-abolish
@@ -45,9 +41,14 @@ let
     [./98python {for = "python";}]
     ./98tabbar
   ];
-in
-  mkNvim neovim-unwrapped {
+
+  nvim = mkNvim pkgs.neovim-unwrapped {
     inherit plugins;
     extraPython3Packages = ps: [ps.jedi ps.python-ly];
     rc = "source ${./init.vim}";
-  }
+  };
+
+in { config = {
+  home.packages = [ nvim pkgs.fzf ]; # XXX remove fzf as soon as I figure out how
+  home.sessionVariables.EDITOR = "nvim"; # Can't give an absolute path or I'll have to relog to have the config update
+}; }

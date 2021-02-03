@@ -27,7 +27,7 @@ let
     w-2 = "workspace 2";  w-s-2 = "move container to workspace 2; workspace 2";
     w-3 = "workspace 3";  w-s-3 = "move container to workspace 3; workspace 3";
     w-4 = "workspace 4";  w-s-4 = "move container to workspace 4; workspace 4";
-    # w-5 = "workspace 5";  w-s-5 = "move container to workspace 5; workspace 5";
+    w-5 = "workspace 5";  w-s-5 = "move container to workspace 5; workspace 5";
     w-6 = "workspace 6";  w-s-6 = "move container to workspace 6; workspace 6";
     w-7 = "workspace 7";  w-s-7 = "move container to workspace 7; workspace 7";
     w-8 = "workspace 8";  w-s-8 = "move container to workspace 8; workspace 8";
@@ -49,7 +49,7 @@ let
 
     w-Return = "exec ${pkgs.i3}/bin/i3-sensible-terminal";
     w-d = "exec ${pkgs.dmenu}/bin/dmenu_run";
-    Caps_Lock = "exec ${pkgs.python3.withPackages(p:[p.xlib])}/bin/python ${compose-py} ~/dot/compose.txt";
+    Caps_Lock = "exec ${pkgs.python3.withPackages(p:[p.xlib])}/bin/python ${compose-py} ${../../compose.txt}";
   } // (let Maim = flags: "exec ${pkgs.maim}/bin/main ${flags} | ${pkgs.xclip}/bin/xclip -selection clipboard -t image/png"; in {
     Print   = Maim "--nokeyboard --nodecorations --select --hidecursor";
     s-Print = Maim "--nokeyboard";
@@ -70,6 +70,8 @@ let
     hide_edge_borders both
     workspace_layout tabbed
     focus_on_window_activation urgent
+
+    for_window [class=".*"] title_format %title <span size="x-small" style="italic" weight="heavy">%class | %instance</span>
 
     set_from_resource $f1 i3.focused.bdr   #4c7899
     set_from_resource $f2 i3.focused.bg    #285577
@@ -105,6 +107,10 @@ let
   '';
 
 in { config = {
+  home.packages = [
+    pkgs.i3
+    pkgs.icebar
+  ];
   xsession.enable = true;
   xsession.windowManager.command = "${pkgs.i3}/bin/i3";
   xdg.configFile."i3/config".text = i3-config;

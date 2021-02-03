@@ -16,25 +16,12 @@
     };
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, ... }: let
+  outputs = inputs@{ self, nixpkgs, home-manager, ... }:
+  let
     sys = "x86_64-linux";
-    pkgs = import nixpkgs {
-      system = sys;
-      config.allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [ "tabnine" ];
-      config.allowAliases = false;
 
-      overlays = [self.overlay];
-    };
-
-    myPkgs = {
-      nvim- = pkgs.callPackage ./nvim {};
-
-      zsh- = pkgs.callPackage ./zsh {
-        zsh-history-search-multi-word = inputs."zdharma/history-search-multi-word".outPath;
-      };
-
-      inherit (pkgs) icebar;
-
+  in {
+    packages.${sys} = {
       home-Sapphirl = (home-manager.lib.homeManagerConfiguration {
         username = "98";
         homeDirectory = "/home";
@@ -42,38 +29,18 @@
 
         configuration = {
           nixpkgs.overlays = [self.overlay];
+          # TODO find some way to make this work with nix-shell -p
 
-          imports = [
-            ./i3
-          ];
-
-          home.packages = [
-            myPkgs.nvim-
-            myPkgs.zsh-
-            pkgs.tree
-            pkgs.ripgrep
-
-            (pkgs.runCommand "aliases" {} ''
-              mkdir -p $out/bin
-              ln -s ${pkgs.mate.mate-terminal}/bin/mate-terminal $out/bin/x-terminal-emulator
-              ln -s ${myPkgs.zsh-}/bin/zsh $out/bin/.shell
-              '')
-          ];
-
-          sessionVariables.EDITOR = "${myPkgs.nvim-}/bin/nvim";
-
-          home.stateVersion = "21.03";
+          imports = [ ./home.nix ];
         };
       }).activationPackage;
     };
 
-  in {
-    packages.${sys} = myPkgs;
     overlay = final: prev: {
 
       # Make dmenu flush properly
       dmenu = prev.dmenu.override {
-        patches = [(pkgs.writeText "flush.patch" ''
+        patches = [(final.writeText "flush.patch" ''
           --- a/dmenu.c
           +++ b/dmenu.c
           @@ -467,2 +467,3 @@ insert:
@@ -82,6 +49,8 @@
            		if (!(ev->state & ControlMask)) {
         '')];
       };
+
+      zsh-history-search-multi-word = inputs."zdharma/history-search-multi-word".outPath; # TODO make a proper derivation
 
       python3 = prev.python3.override {
         packageOverrides = pfinal: pprev: {
@@ -93,7 +62,7 @@
       };
 
       vimPlugins = let
-        plug = name: pkgs.vimUtils.buildVimPlugin { name = baseNameOf name; src = inputs.${name}.outPath; };
+        plug = name: final.vimUtils.buildVimPlugin { name = baseNameOf name; src = inputs.${name}.outPath; };
       in prev.vimPlugins // {
         i3-vim-syntax = plug "PotatoesMaster/i3-vim-syntax";
         haskell-vim = plug "neovimhaskell/haskell-vim";
