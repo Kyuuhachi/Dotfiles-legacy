@@ -1,7 +1,7 @@
 { config, pkgs, ...}:
-{ config = {
-  home.packages = [ pkgs.zsh ];
-  home.file.".zshrc".text = ''
+{ config.programs.zsh = {
+  enable = true;
+  initExtra = ''
     source ${./prompt.zsh}
     source ${./inp.zsh}
     source ${pkgs.zsh-fast-syntax-highlighting}/share/zsh/site-functions/fast-syntax-highlighting.plugin.zsh

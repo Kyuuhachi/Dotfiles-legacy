@@ -55,8 +55,8 @@ let
     s-Print = Maim "--nokeyboard";
     a-Print = Maim "--nokeyboard --nodecorations --window=$(${pkgs.xdotool}/bin/xdotool getactivewindow)";
   }) // {
-    XF86_MonBrightnessUp = "${pkgs.brightnessctl}/bin/brightnessctl -e s +10%";
-    XF86_MonBrightnessDown = "${pkgs.brightnessctl}/bin/brightnessctl -e s -10%";
+    XF86_MonBrightnessUp = "${pkgs.brightnessctl}/bin/brightnessctl -e s 10%+";
+    XF86_MonBrightnessDown = "${pkgs.brightnessctl}/bin/brightnessctl -e s 10%-";
   }; # volume
 
   i3-config = ''
@@ -114,4 +114,6 @@ in { config = {
   xsession.enable = true;
   xsession.windowManager.command = "${pkgs.i3}/bin/i3";
   xdg.configFile."i3/config".text = i3-config;
+
+  xdg.configFile."icebar.py".source = ../icebar/config.py;
 }; }

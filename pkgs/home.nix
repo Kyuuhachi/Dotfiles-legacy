@@ -10,10 +10,9 @@
     pkgs.tree
     pkgs.ripgrep
     pkgs.file
+    pkgs.htop
 
     (pkgs.python3.withPackages (p: [p.numpy]))
-
-    pkgs.fzf # XXX remove
 
     (pkgs.runCommand "aliases" {} ''
       mkdir -p $out/bin

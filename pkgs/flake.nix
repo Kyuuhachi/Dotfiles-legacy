@@ -1,5 +1,8 @@
 {
   inputs = {
+    home-manager = { url = "github:nix-community/home-manager"; inputs.nixpkgs.follows = "nixpkgs"; };
+    flake-compat = { url = "github:edolstra/flake-compat"; flake = false; };
+
     # Vim
     "PotatoesMaster/i3-vim-syntax"  = { url = "github:PotatoesMaster/i3-vim-syntax"; flake = false; };
     "neovimhaskell/haskell-vim"     = { url = "github:neovimhaskell/haskell-vim"; flake = false; };
@@ -9,11 +12,6 @@
 
     # Zsh
     "zdharma/history-search-multi-word" = { url = "github:zdharma/history-search-multi-word"; flake = false; };
-
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs = inputs@{ self, nixpkgs, home-manager, ... }:
@@ -29,7 +27,12 @@
 
         configuration = {
           nixpkgs.overlays = [self.overlay];
-          # TODO find some way to make this work with nix-shell -p
+
+          xdg.configFile."nixpkgs/overlays/home.nix".text = ''
+            (import ${inputs.flake-compat} { src = ${./.}; }).defaultNix.overlay
+          '';
+          home.sessionVariables.NIX_PATH = "nixpkgs=${inputs.nixpkgs}";
+          programs.zsh.sessionVariables.NIX_PATH = "nixpkgs=${inputs.nixpkgs}";
 
           imports = [ ./home.nix ];
         };
@@ -72,7 +75,6 @@
       };
 
       inherit (final.python3.pkgs) icebar;
-
     };
   };
 }
