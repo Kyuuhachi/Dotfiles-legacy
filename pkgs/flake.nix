@@ -32,7 +32,6 @@
             (import ${inputs.flake-compat} { src = ${./.}; }).defaultNix.overlay
           '';
           home.sessionVariables.NIX_PATH = "nixpkgs=${inputs.nixpkgs}";
-          programs.zsh.sessionVariables.NIX_PATH = "nixpkgs=${inputs.nixpkgs}";
 
           imports = [ ./home.nix ];
         };
