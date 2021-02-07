@@ -4,6 +4,7 @@
     ./i3
     ./zsh
     ./nvim
+    ./dircolors
   ];
 
   home.packages = [
