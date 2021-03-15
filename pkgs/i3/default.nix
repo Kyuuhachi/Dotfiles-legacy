@@ -55,8 +55,8 @@ let
     s-Print = Maim "--nokeyboard";
     a-Print = Maim "--nokeyboard --nodecorations --window=$(${pkgs.xdotool}/bin/xdotool getactivewindow)";
   }) // {
-    XF86_MonBrightnessUp = "${pkgs.brightnessctl}/bin/brightnessctl -e s 10%+";
-    XF86_MonBrightnessDown = "${pkgs.brightnessctl}/bin/brightnessctl -e s 10%-";
+    XF86_MonBrightnessUp = "exec ${pkgs.brightnessctl}/bin/brightnessctl -e s 10%+";
+    XF86_MonBrightnessDown = "exec ${pkgs.brightnessctl}/bin/brightnessctl -e s 10%-";
   }; # volume
 
   i3-config = ''
