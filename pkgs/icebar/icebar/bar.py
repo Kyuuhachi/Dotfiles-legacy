@@ -10,7 +10,7 @@ sys.stderr = os.fdopen(sys.stderr.fileno(), "w", 1)
 
 import signal
 import asyncio
-from icebar import aioglib
+from icebar.lib import aioglib
 asyncio.get_event_loop_policy().set_event_loop(aioglib.GLibEventLoop())
 asyncio.get_event_loop_policy().set_child_watcher(aioglib.GLibChildWatcher())
 

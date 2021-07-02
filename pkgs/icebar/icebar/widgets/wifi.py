@@ -1,6 +1,7 @@
 from gi.repository import Gtk, GLib
-from icebar import simplewifi
+from icebar.lib import simplewifi
 from math import pi
+import psutil
 
 __all__ = ["Wifi"]
 class Wifi(Gtk.EventBox):
@@ -8,10 +9,14 @@ class Wifi(Gtk.EventBox):
 		super().__init__()
 
 		self.icon = WifiIcon(visible=True)
-		self.text = Gtk.Label(visible=True)
+		self.text_up = Gtk.Label(visible=True)
+		self.text_dn = Gtk.Label(visible=True)
 		box = Gtk.Box(spacing=spacing, visible=True)
 		box.pack_start(self.icon, False, False, 0)
-		box.pack_start(self.text, False, False, 0)
+		box2 = Gtk.Box(visible=True, orientation=Gtk.Orientation.VERTICAL)
+		box2.pack_start(self.text_up, False, False, 0)
+		box2.pack_start(self.text_dn, False, False, 0)
+		box.pack_start(box2, False, False, 0)
 		self.add(box)
 
 		self.tooltip = Gtk.Grid()
@@ -24,7 +29,7 @@ class Wifi(Gtk.EventBox):
 			self.tooltip.attach(right, 1, n, 1, 1)
 			n += 1
 			return right
-		self.tt_name = row("Name")
+		self.tt_name = row("Interface")
 		self.tt_ssid = row("SSID")
 		self.tt_quality = row("Quality")
 		self.tt_ipv4 = row("IPv4")
@@ -37,6 +42,7 @@ class Wifi(Gtk.EventBox):
 		self.connect("query-tooltip", tooltip)
 
 		GLib.timeout_add_seconds(1, self.update)
+		self.io_prev = {}
 		self.update()
 
 		self.show()
@@ -58,11 +64,30 @@ class Wifi(Gtk.EventBox):
 			self.tt_ipv6.set_text(ipv6 or "-")
 			self.tt_mac.set_text(mac or "-")
 			self.icon.set_value(1/4 + (quality or 0)/100*3/4)
+
+			def fmt(k, name):
+				prev = self.io_prev.get(name)
+				val = getattr(stat, name)
+				if prev is not None:
+					a = float(val - prev)
+					for u in "KMGTP":
+						a /= 1024
+						if a < 512: break
+					t = f"{a:.1f}{u}"
+				else:
+					t = "-"
+				self.io_prev[name] = val
+				return f"<small><small>{k}{t}</small></small>"
+
+			stat = psutil.net_io_counters()
+			self.text_up.set_markup(fmt("↑", "bytes_sent"))
+			self.text_dn.set_markup(fmt("↓", "bytes_recv"))
 		else:
 			self.set_opacity(0.5)
 			self.set_has_tooltip(False)
 			self.icon.set_value(0)
-		self.text.set_text({None: "ERROR", False: "OFF", True: essid or "DOWN"}[up])
+			self.io_prev.clear()
+			self.text.set_text("OFF" if up is False else "ERROR")
 
 		return True
 
