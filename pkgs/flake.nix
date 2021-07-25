@@ -1,5 +1,8 @@
 {
   inputs = {
+    home-manager = { url = "github:nix-community/home-manager"; inputs.nixpkgs.follows = "nixpkgs"; };
+    flake-compat = { url = "github:edolstra/flake-compat"; flake = false; };
+
     # Vim
     "PotatoesMaster/i3-vim-syntax"  = { url = "github:PotatoesMaster/i3-vim-syntax"; flake = false; };
     "neovimhaskell/haskell-vim"     = { url = "github:neovimhaskell/haskell-vim"; flake = false; };
@@ -9,27 +12,37 @@
 
     # Zsh
     "zdharma/history-search-multi-word" = { url = "github:zdharma/history-search-multi-word"; flake = false; };
-
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, ... }: let
+  outputs = inputs@{ self, nixpkgs, home-manager, ... }:
+  let
     sys = "x86_64-linux";
-    pkgs = import nixpkgs {
-      system = sys;
-      config.allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [ "tabnine" ];
 
-      overlays = [myOverlay];
+  in {
+    packages.${sys} = {
+      home-Sapphirl = (home-manager.lib.homeManagerConfiguration {
+        username = "98";
+        homeDirectory = "/home";
+        system = sys;
+
+        configuration = {
+          nixpkgs.overlays = [self.overlay];
+
+          xdg.configFile."nixpkgs/overlays/home.nix".text = ''
+            (import ${inputs.flake-compat} { src = ${./.}; }).defaultNix.overlay
+          '';
+          home.sessionVariables.NIX_PATH = "nixpkgs=${inputs.nixpkgs}";
+
+          imports = [ ./home.nix ];
+        };
+      }).activationPackage;
     };
-    call = pkgs.lib.callPackageWith;
-    callWithPy = call (pkgs // pkgs.python3Packages // myPkgs // myPkgs.python3Packages);
 
-    myOverlay = final: prev: {
+    overlay = final: prev: {
+
+      # Make dmenu flush properly
       dmenu = prev.dmenu.override {
-        patches = [(pkgs.writeText "flush.patch" ''
+        patches = [(final.writeText "flush.patch" ''
           --- a/dmenu.c
           +++ b/dmenu.c
           @@ -467,2 +467,3 @@ insert:
@@ -38,12 +51,21 @@
            		if (!(ev->state & ControlMask)) {
         '')];
       };
-    };
 
-    myPkgs = {
+      zsh-history-search-multi-word = inputs."zdharma/history-search-multi-word".outPath; # TODO make a proper derivation
+
+      python3 = prev.python3.override {
+        packageOverrides = pfinal: pprev: {
+          addSetupPy = final.callPackage ./addSetupPy.nix {};
+          simplei3 = pfinal.callPackage ./simplei3.nix {};
+          simplealsa = pfinal.callPackage ./simplealsa.nix {};
+          icebar = pfinal.callPackage ./icebar {};
+        };
+      };
+
       vimPlugins = let
-        plug = name: pkgs.vimUtils.buildVimPlugin { name = baseNameOf name; src = inputs.${name}.outPath; };
-      in {
+        plug = name: final.vimUtils.buildVimPlugin { name = baseNameOf name; src = inputs.${name}.outPath; };
+      in prev.vimPlugins // {
         i3-vim-syntax = plug "PotatoesMaster/i3-vim-syntax";
         haskell-vim = plug "neovimhaskell/haskell-vim";
         vim-abolish = plug "tpope/vim-abolish";
@@ -51,63 +73,7 @@
         JavaScript-Indent = plug "vim-scripts/JavaScript-Indent";
       };
 
-      nvim- = call pkgs ./nvim {
-        vimPlugins = pkgs.vimPlugins // myPkgs.vimPlugins;
-      };
-
-      zsh- = call pkgs ./zsh {
-        zsh-history-search-multi-word = inputs."zdharma/history-search-multi-word".outPath;
-      };
-
-      python3Packages = {
-        addSetupPy =
-          { src
-          , _basename ? pkgs.lib.removeSuffix ".py" (baseNameOf src)
-          , name ? _basename
-          , version ? "0.0"
-          , preConfigure ? ""
-          , ...}@attrs: attrs // {
-            inherit name version src;
-            doCheck = false;
-            unpackPhase = "cp ${src} $(stripHash ${src})";
-            preConfigure = preConfigure + ''
-              echo >setup.py '
-              import setuptools
-              setuptools.setup(name="${name}", version="${version}", py_modules=["${_basename}"])
-              '
-            '';
-          };
-
-        simplei3 = callWithPy ./simplei3.nix {};
-        simplealsa = callWithPy ./simplealsa.nix {};
-        icebar = callWithPy ./icebar {};
-      };
-
-      i3- = callWithPy ./i3 {};
-
-      home-Sapphirl = (home-manager.lib.homeManagerConfiguration {
-        username = "98";
-        homeDirectory = "/home";
-        system = sys;
-
-        configuration = {
-          home.packages = [
-            myPkgs.nvim-
-            myPkgs.zsh-
-            myPkgs.i3-
-          ];
-
-          xsession = {
-            enable = true;
-            windowManager.command = "${myPkgs.i3-}/bin/i3";
-          };
-
-          home.stateVersion = "21.03";
-        };
-      }).activationPackage;
+      inherit (final.python3.pkgs) icebar;
     };
-  in {
-    packages.${sys} = myPkgs;
-    overlay = myOverlay;
   };
 }

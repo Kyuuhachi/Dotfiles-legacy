@@ -1,23 +1,18 @@
-{ neovim-unwrapped
-, tabnine
-, writeText
-, vimPlugins
-, pkgs}:
-
+{ config, pkgs, ...}:
 let
   mkNvim = pkgs.callPackage ./lib.nix {};
 
-  plugins = with vimPlugins; [
+  plugins = with pkgs.vimPlugins; [
     # General
     vim-textobj-user
     vim-abolish
     vim-characterize
-    commentary
-    repeat
-    surround
+    vim-commentary
+    vim-repeat
+    vim-surround
     targets-vim
-    airline
-    easy-align
+    vim-airline
+    vim-easy-align
     undotree
     fzf-vim
 
@@ -25,20 +20,7 @@ let
     ale
     deoplete-nvim
     neco-syntax
-    polyglot
-    (deoplete-tabnine.overrideAttrs (old: {
-      patches = [(writeText "tabnine.patch" ''
-        --- a/rplugin/python3/deoplete/sources/tabnine.py
-        +++ b/rplugin/python3/deoplete/sources/tabnine.py
-        @@ -178,2 +178,1 @@
-        -        binary_dir = os.path.join(self._install_dir, 'binaries')
-        -        path = get_tabnine_path(binary_dir)
-        +        path = '${tabnine}/bin/TabNine'
-        @@ -187,1 +186,1 @@
-        -                '--log-file-path', os.path.join(self._install_dir, 'tabnine.log'),
-        +                '--log-file-path', '/tmp/tabnine.log',
-      '')];
-    }))
+    vim-polyglot
 
     # Specific languages
     [vimtex {for = ["tex" "sty"];}]
@@ -59,9 +41,14 @@ let
     [./98python {for = "python";}]
     ./98tabbar
   ];
-in
-  mkNvim neovim-unwrapped {
+
+  nvim = mkNvim pkgs.neovim-unwrapped {
     inherit plugins;
     extraPython3Packages = ps: [ps.jedi ps.python-ly];
     rc = "source ${./init.vim}";
-  }
+  };
+
+in { config = {
+  home.packages = [ nvim pkgs.fzf ]; # XXX remove fzf as soon as I figure out how
+  home.sessionVariables.EDITOR = "nvim"; # Can't give an absolute path or I'll have to relog to have the config update
+}; }

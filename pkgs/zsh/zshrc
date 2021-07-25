@@ -1,8 +1,11 @@
+# vim: set ft=zsh
+
 # History
 setopt histignorealldups
 HISTSIZE=1000000
 SAVEHIST=1000000
-HISTFILE=~/.zsh_history
+HISTFILE="$HOME/.cache/zsh/zsh_history"
+mkdir -p "$(dirname "$HISTFILE")"
 
 # Utils
 autoload -Uz colors && colors
@@ -35,7 +38,6 @@ alias ls="ls --color=auto -F"
 alias grep="grep --color=auto"
 alias chafa="chafa --symbols=vhalf"
 
-eval $(python ~/dot/ls_colors.py | dircolors -b -)
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
 alias o=xdg-open
