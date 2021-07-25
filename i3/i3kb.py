@@ -159,6 +159,7 @@ async def init_launch():
 		"w-Return":  lambda: launch("x-terminal-emulator"),
 		"w-d":       lambda: launch("dmenu_run"),
 		"Caps_Lock": lambda: launch("compose"),
+		"w-c":       lambda: launch("python", __file__.replace("/i3/i3kb.py", "/pkgs/i3/copypath.py")),
 	})
 
 async def init_pause():

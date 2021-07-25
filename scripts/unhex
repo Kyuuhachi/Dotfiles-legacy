@@ -26,14 +26,20 @@ if args.all_encodings:
 
 		encs.append(info.name)
 
-a = bytearray()
-for arg in args.hex:
-	if arg.startswith("0x"): arg = arg[2:]
-	try:
+def parse_hex():
+	a = bytearray()
+	for arg in args.hex:
+		if arg.startswith("0x"): arg = arg[2:]
 		a.extend(binascii.a2b_hex(arg))
-	except Exception as e:
-		print(e, file=sys.stderr)
-		sys.exit(1)
+	return bytes(a)
+
+def parse_dec():
+	return bytes(map(int, ",".join(args.hex).replace(",,",",").strip(",").split(",")))
+
+try:
+	a = parse_hex()
+except ValueError:
+	a = parse_dec()
 
 if not a:
 	print("Input is empty", file=sys.stderr)

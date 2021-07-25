@@ -21,4 +21,8 @@ ibus-daemon &
 compton --config ~/dot/compton.conf &
 unclutter --timeout 2.5 &
 
+firefox &
+discord &
+python dot/oshirase/oshirase.py &
+
 exec ${1:-i3}

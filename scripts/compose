@@ -10,10 +10,15 @@ def parse(path):
 		line = line.split("#", 1)[0].rstrip()
 		if not line:
 			continue
-		assert len(line) > 2
-		assert line[1] == "\t"
-		char = line[0]
-		key = " ".join(line[2:].split())
+		if "\t" in line:
+			char, key = line.split("\t", 2)
+			key = " ".join(key.split())
+		else:
+			char, key = line, ""
+		# assert len(line) > 2
+		# assert line[1] == "\t"
+		# char = line[0]
+		# key = " ".join(line[2:].split())
 		chars[char + " " + key] = char
 	return chars
 
@@ -23,7 +28,7 @@ code = dmenu.show(chars)
 if code is not None:
 	char = None
 	if code.startswith("#"):
-		char = [chr(int(code[1:], 16))]
+		char = chr(int(code[1:], 16))
 	elif code.startswith("="):
 		try:
 			char = str(eval(code[1:]))
@@ -31,7 +36,7 @@ if code is not None:
 			subprocess.Popen(["notify-send", str(e)])
 			char = ""
 	elif code in chars:
-		char = [chars[code]]
+		char = chars[code]
 
 	if char:
 		xtype.xtype([xtype.get_char(ch) for ch in char])

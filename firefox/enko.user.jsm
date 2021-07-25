@@ -4,15 +4,12 @@ const { classes: Cc, interfaces: Ci, utils: Cu } = Components;
 const {require} = Cu.import("resource://devtools/shared/Loader.jsm");
 const {Services} = Cu.import("resource://gre/modules/Services.jsm");
 
-const {TargetFactory} = require("devtools/client/framework/target");
-
 const gBrowser = window._gBrowser;
 const XUL_NS = "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul";
 
 function addFrameScript(func) {
 	window.messageManager.loadFrameScript(
-		"data:application/javascript;charset=UTF-8,"
-			+ encodeURIComponent("\"use strict\";("+func.toString()+")()"),
+		"data:application/javascript;charset=UTF-8," + encodeURIComponent("\"use strict\";("+func.toString()+")()"),
 		true);
 }
 
@@ -20,8 +17,7 @@ function addStylesheet(sheet) {
 	const sss = Cc["@mozilla.org/content/style-sheet-service;1"].getService(Ci.nsIStyleSheetService);
 	
 	sss.loadAndRegisterSheet(
-		Services.io.newURI("data:text/css;charset=UTF-8,"
-			+ encodeURIComponent(sheet)),
+		Services.io.newURI("data:text/css;charset=UTF-8," + encodeURIComponent(sheet)),
 		sss.AGENT_SHEET);
 }
 
@@ -82,37 +78,44 @@ addFrameScript(function() {
 		content.document.activeElement.blur();
 	});
 
-	{
-		let links = null;
-		let linkselector = `input:not([type=hidden]), a[href], area, textarea, button, select, summary,
+	let links = null;
+	let linkselector = `input:not([type=hidden]), a[href], area, textarea, button, select, summary,
 		[onclick], [onmouseover], [onmousedown], [onmouseup], [oncommand], [role='link'], [role='button'], [role='checkbox'],
 		[role='combobox'], [role='listbox'], [role='listitem'], [role='menuitem'], [role='menuitemcheckbox'],
 		[role='menuitemradio'], [role='option'], [role='radio'], [role='scrollbar'], [role='slider'], [role='spinbutton'],
 		[role='tab'], [role='textbox'], [role='treeitem'], [tabindex]`;
 
-		addMessageListener("enko@link_start", () => {
-			let els = [];
-			let boxes = [];
-			for(let el of content.document.querySelectorAll(linkselector)) {
-				if(el.disabled) continue;
-				for(let {left, top, right, bottom} of el.getClientRects()) {
-					if(right < 0 || left > content.innerWidth) continue;
-					if(bottom < 0 || top > content.innerHeight) continue;
-					els.push(el);
-					boxes.push([boxes.length, left, top, right, bottom]);
-				}
+	addMessageListener("enko@link_start", () => {
+		let els = [];
+		let boxes = [];
+		for(let el of content.document.querySelectorAll(linkselector)) {
+			if(el.disabled) continue;
+			for(let {left, top, right, bottom} of el.getClientRects()) {
+				if(right < 0 || left > content.innerWidth) continue;
+				if(bottom < 0 || top > content.innerHeight) continue;
+				els.push(el);
+				boxes.push([boxes.length, left, top, right, bottom]);
 			}
-			links = els;
-			sendAsyncMessage("enko@link_show", boxes);
-		});
+		}
+		links = els;
+		sendAsyncMessage("enko@link_show", boxes);
+	});
 
-		addMessageListener("enko@link_click", ({data: id}) => {
-			let link = links[id];
-			if(!link) return; // Shouldn't happen, but no promises
-			link.focus();
-			link.click();
-		});
-	}
+	addMessageListener("enko@link_click", ({data: id}) => {
+		let link = links[id];
+		if(!link) return; // Shouldn't happen, but no promises
+		link.focus();
+		link.click();
+	});
+
+	addMessageListener("enko@go_rel", ({data: rel}) => {
+		let els = content.document.querySelectorAll(`[rel*=${rel}]`);
+		if(els.length > 0) {
+			let el = els[els.length-1];
+			if(el.name == "link") content.document.location = el.href;
+			else el.click();
+		}
+	});
 });
 
 let keys, gKeys, topKeys;
@@ -161,6 +164,13 @@ topKeys = {
 	"=": () => window.FullZoom.enlarge(),
 	"-": () => window.FullZoom.reduce(),
 	"0": () => window.FullZoom.reset(),
+
+	"[": () => goRel("prev"),
+	"]": () => goRel("next"),
+
+	"^Escape": () => keys = {
+		"^Escape": () => keys = topKeys
+	},
 };
 
 gKeys = {
@@ -171,14 +181,21 @@ gKeys = {
 	"$": () => gBrowser.selectedTab = gBrowser.tabContainer._lastTab,
 	"p": () => gBrowser.selectedTab.pinned ? gBrowser.unpinTab(gBrowser.selectedTab) : gBrowser.pinTab(gBrowser.selectedTab),
 	"d": () => gBrowser.selectedTab = gBrowser.duplicateTab(gBrowser.selectedTab),
+	"r": () => document.getElementById("reader-mode-button")?.click(),
 	once: true,
 };
+
+function goRel(rel) {
+	gBrowser.selectedBrowser.messageManager.sendAsyncMessage("enko@go_rel", rel);
+}
+
+
 
 keys = topKeys;
 
 
 // {{{1 f
-(() => {
+{
 	let stack = null, boxes = null, string = null;
 	topKeys["f"] = () => {
 		gBrowser.selectedBrowser.messageManager.sendAsyncMessage("enko@link_start");
@@ -258,7 +275,7 @@ keys = topKeys;
 		}
 		return matches;
 	}
-})();
+}
 // {{{1 Focus
 {
 	topKeys["Escape"] = () => {
@@ -292,65 +309,57 @@ keys = topKeys;
 // 	topKeys["^T"] = () => nextTab = "tabshifted";
 // }
 // {{{1 Url manipulation
-function incrementURL(count) {
-	let url = gBrowser.selectedBrowser.currentURI;
-	let path = url.pathQueryRef;
+{
+	function modUrl(f) {
+		const ioService = Cc["@mozilla.org/network/io-service;1"].getService(Ci.nsIIOService);
+		let url = gBrowser.selectedBrowser.currentURI;
 
-	let start = -1, end = -1;
-	for(var i = 1; i < path.length; i++)
-		if(path[i] == "%")
-			i += 2;
-		else if(path[i].match(/\d/)) {
-			start = i;
-			while(i < path.length && path[i].match(/\d/)) i++;
-			end = i;
-		}
-	if(start >= 0) {
-		let pre = path.substring(0, start);
-		let num = path.substring(start, end);
-		let post = path.substring(end);
-		let newNum = String(Math.max(parseInt(num, 10) + count, 0));
-		if(num.match(/^0/))
-			newNum = newNum.padStart(num.length, "0");
-		url = url.mutate().setPathQueryRef(pre + newNum + post).finalize();
+		if(url.spec.startsWith("about:reader?url=")) {
+			let theUrl = decodeURIComponent(url.query.split("=")[1]);
+			theUrl = f(ioService.newURI(theUrl)).spec;
+			url = url.mutate().setQuery("?url=" + encodeURIComponent(theUrl)).finalize();
+		} else url = f(url);
+
+		if(url.spec != gBrowser.selectedBrowser.currentURI.spec)
+			openUrl(url.spec);
 	}
-	return url;
-}
-function goUp() {
-	let eTLD = Cc["@mozilla.org/network/effective-tld-service;1"].getService(Ci.nsIEffectiveTLDService);
-	let url = gBrowser.selectedBrowser.currentURI;
+	
+	function incrementUrl(url, count) {
+		return url.mutate().setSpec(url.spec.replace(/(?<!%.?)\d+(?!.*(?<!%.?)\d+)/, s => {
+			let s2 = String(Math.max(parseInt(s, 10) + count, 0));
+			return s.startsWith(0) ? s2.padStart(s.length, "0") : s2;
+		})).finalize();
+	}
+	
+	function goUp(url) {
+		let eTLD = Cc["@mozilla.org/network/effective-tld-service;1"].getService(Ci.nsIEffectiveTLDService);
 
-	let mut = url.mutate();
-	if(url.ref) mut.setRef(null);
-	else if(url.query) mut.setQuery(url.query.replace(/(^|&)[^&]*$/, ""));
-	else if(url.pathQueryRef != "/") mut.setPathQueryRef(url.pathQueryRef.replace(/[/][^/]+[/]*$/, ""));
-	else if(url.host != eTLD.getBaseDomain(url)) mut.setHost(url.host.replace(/^[^.]*[.]/, ""));
-	url = mut.finalize();
+		let mut = url.mutate();
+		if(url.spec.startsWith("view-source:")) mut.setSpec(url.spec.substring(12));
+		else if(url.ref) mut.setRef(null);
+		else if(url.query) mut.setQuery(url.query.replace(/(^|&)[^&]*$/, ""));
+		else if(url.pathQueryRef != "/") mut.setPathQueryRef(url.pathQueryRef.replace(/[/][^/]+[/]*$/, ""));
+		else if(url.host != eTLD.getBaseDomain(url)) mut.setHost(url.host.replace(/^[^.]*[.]/, ""));
+		return mut.finalize();
+	}
+	
+	function goTop(url) {
+		while(!url.equals(url = goUp(url)));
+		return url;
+	}
 
-	return url;
+	topKeys["A"] = () => modUrl(url => incrementUrl(url, 1));
+	topKeys["X"] = () => modUrl(url => incrementUrl(url, -1));
+	gKeys["u"] = () => modUrl(goUp);
+	gKeys["U"] = () => modUrl(goTop);
 }
-function goTop() {
-	return gBrowser.selectedBrowser.currentURI.mutate().setPathQueryRef("/").finalize();
-}
-function goto(url) {
-	if(url.spec != gBrowser.selectedBrowser.currentURI.spec)
-		openUrl(url.spec);
-}
-topKeys["A"] = () => goto(incrementURL(1));
-topKeys["X"] = () => goto(incrementURL(-1));
-gKeys["u"] = () => goto(goUp());
-gKeys["U"] = () => goto(goTop());
 
 // {{{1 Devtools
 {
-	const {gDevTools} = require("devtools/client/framework/devtools");
+	const {gDevToolsBrowser} = require("devtools/client/framework/devtools-browser");
+
 	topKeys["^I"] = topKeys["F12"] = () =>
-		TargetFactory.forTab(gBrowser.selectedTab).then(t => {
-			if(gDevTools.getToolbox(t))
-				gDevTools.closeToolbox(t);
-			else
-				gDevTools.showToolbox(t, null, null, null, Cu.now());
-		});
+		gDevToolsBrowser.onKeyShortcut(window, "toggleToolbox", Cu.now());
 	const Launcher = Cu.import("resource://devtools/client/framework/browser-toolbox/Launcher.jsm", {});
 	topKeys["^!I"] = () => {
 		if(Launcher.processes.size)
@@ -397,6 +406,7 @@ function copyUrl(escape) {
 topKeys["y"] = () => copyUrl(false);
 topKeys["Y"] = () => copyUrl(true);
 topKeys["p"] = () => openUrl(paste());
+
 
 // {{{1 Key handler
 let evt = null;

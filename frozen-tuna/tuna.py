@@ -75,34 +75,35 @@ def __main__():
 	argp = argparse.ArgumentParser()
 	argp.add_argument("-n", "--dry-run", action="store_true", help="Don't open the file, only figure out how")
 	argp.add_argument("-s", "--sync",    action="store_true", help="Don't fork, so you can wait for the process to close") # TODO make detection also async
-	argp.add_argument("file")
+	argp.add_argument("file", nargs="+")
 	args = argp.parse_args()
-	while args.file.startswith("http:") and not args.file.startswith("http://"):
-		# Workaround for https://github.com/mate-desktop/mate-terminal/blob/1.22/src/terminal-util.c#L195
-		args.file = "http:/" + args.file[5:]
+	for file in args.file:
+		while file.startswith("http:") and not file.startswith("http://"):
+			# Workaround for https://github.com/mate-desktop/mate-terminal/blob/1.22/src/terminal-util.c#L195
+			file = "http:/" + file[5:]
 
-	try:
-		scheme = urllib.parse.urlparse(args.file).scheme
-		print(f"[Frozen Tuna] Opening {args.file}", file=sys.stderr)
-		h = handler.registry[scheme](args.file)
-		print(f"[Frozen Tuna]   Possible mime types: {h.mimes}", file=sys.stderr)
-		cmd = get_command(scheme, h)
-		print(f"[Frozen Tuna]   {cmd}", file=sys.stderr)
-		cmd = list(transform_cmd(cmd, h, os.environ))
-		print(f"[Frozen Tuna]   ({cmd})", file=sys.stderr)
+		try:
+			scheme = urllib.parse.urlparse(file).scheme
+			print(f"[Frozen Tuna] Opening {file}", file=sys.stderr)
+			h = handler.registry[scheme](file)
+			print(f"[Frozen Tuna]   Possible mime types: {h.mimes}", file=sys.stderr)
+			cmd = get_command(scheme, h)
+			print(f"[Frozen Tuna]   {cmd}", file=sys.stderr)
+			cmd = list(transform_cmd(cmd, h, os.environ))
+			print(f"[Frozen Tuna]   ({cmd})", file=sys.stderr)
 
-	except Exception:
-		import traceback
-		util.notify("Error", traceback.format_exc())
-		raise
+		except Exception:
+			import traceback
+			util.notify("Error", traceback.format_exc())
+			raise
 
-	if cmd:
-		if not args.dry_run:
-			if args.sync:
-				os.execlp(*cmd)
-			else:
-				subprocess.Popen(cmd)
-	else:
-		util.notify(f"Don't know how to handle {h.url}")
+		if cmd:
+			if not args.dry_run:
+				if args.sync:
+					os.execlp(*cmd)
+				else:
+					subprocess.Popen(cmd)
+		else:
+			util.notify(f"Don't know how to handle {h.url}")
 
 __main__()

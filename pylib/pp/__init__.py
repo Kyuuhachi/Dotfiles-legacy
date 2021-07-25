@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 import sys
 import types
+import typing as T
 
 from . import converters # noqa
 from . import convert, render, layout
@@ -9,7 +10,7 @@ from . import doc as d
 @dataclass
 class Context:
 	scope: "Scope"
-	at: [bool,str]
+	at: T.Literal[True,False,"color"]
 
 @dataclass
 class Scope:
@@ -32,7 +33,7 @@ def findscope(depth):
 
 	return Scope(module["__name__"], modules, ids)
 
-def prepr(v, width=79, *, at=False, contextdepth=0):
+def prepr(v, width=79, *, at=False, contextdepth=0, color=True):
 	ctx = Context(
 		scope=findscope(depth=contextdepth+1),
 		at=at,
@@ -42,9 +43,10 @@ def prepr(v, width=79, *, at=False, contextdepth=0):
 			convert.convert(ctx, v),
 			width=width,
 		),
+		color=color,
 	)
 
-def pprint(*v, width=79, at=False, contextdepth=0, sep=" ", **kwargs):
+def pprint(*v, width=79, at=False, contextdepth=0, sep=" ", color=True, **kwargs):
 	ctx = Context(
 		scope=findscope(depth=contextdepth+1),
 		at=at,
@@ -58,4 +60,5 @@ def pprint(*v, width=79, at=False, contextdepth=0, sep=" ", **kwargs):
 			d.Concat(out),
 			width=width,
 		),
+		color=color,
 	), **kwargs)

@@ -3,15 +3,16 @@ import argparse
 import Xlib.display
 import Xlib.keysymdef
 import Xlib.XK
-import main
 from Xlib import X
+import time
+import main
 
 def xtype(keysyms):
-	start_code = 255-8
+	N = 8
+	start_code = 255-N
 	display = Xlib.display.Display()
-	for a in range(0, len(keysyms), 8):
-		chunk = list(enumerate(keysyms[a:a+8], start_code))
-		print(chunk)
+	for a in range(0, len(keysyms), N):
+		chunk = list(enumerate(keysyms[a:a+N], start_code))
 		display.change_keyboard_mapping(start_code, [(sym,) * 8 for code, sym in chunk])
 		while 1:
 			if display.next_event().type == X.MappingNotify:
@@ -20,6 +21,7 @@ def xtype(keysyms):
 			display.xtest_fake_input(X.KeyPress, code)
 			display.xtest_fake_input(X.KeyRelease, code)
 		display.sync()
+		if a+N <= len(keysyms): time.sleep(0.05)
 
 def get_char(char):
 	char = ord(char)

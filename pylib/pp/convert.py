@@ -48,7 +48,9 @@ def convert(ctx, value):
 			v = f(ctx, value)
 			if v is NotImplemented: continue
 			return c.RESET(v)
-		except Exception:
+		except Exception as e:
+			import sys
+			print(f"{value!r}: {e!r}\n", file=sys.stderr)
 			import traceback
 			traceback.print_exc()
 	assert False, "convert_repr should catch everything"
@@ -57,13 +59,15 @@ def convert_call(ctx, func, /, *args, **kwargs):
 	return convert_call_full(ctx, func, [(None, convert(ctx, v)) for v in args] + [(k, convert(ctx, v)) for k, v in kwargs.items()])
 
 def convert_call_full(ctx, func, args):
+	if not isinstance(func, d.Doc):
+		func = identifier(ctx, func)
 	items = []
 	for i, (k, v) in enumerate(args):
 		if k is not None:
 			items.append(d.Concat([c.ARGUMENT(k), "=", v]))
 		else:
 			items.append(v)
-	return d.Concat([identifier(ctx, func), bracket(ctx, "(", items, ")")])
+	return d.Concat([func, bracket(ctx, "(", items, ")")])
 
 def bracket(ctx, start, items, end, trailing=False, prio=1):
 	if not items:

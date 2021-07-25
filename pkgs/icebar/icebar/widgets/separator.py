@@ -7,10 +7,10 @@ __all__ = ["Separator"]
 class Separator(Gtk.DrawingArea):
 	def __init__(self):
 		super().__init__()
-		self.connect("draw", self.draw)
+		self.set_css_name("separator")
 		self.set_size_request(1, 0)
 
-	def draw(self, _, ctx):
+	def do_draw(self, ctx):
 		ctx.set_antialias(cairo.ANTIALIAS_NONE)
 		ctx.set_line_width(self.get_allocated_width())
 		ctx.set_line_join(cairo.LINE_JOIN_BEVEL)

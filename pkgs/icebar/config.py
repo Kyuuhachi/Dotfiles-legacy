@@ -4,7 +4,20 @@ import icebar.widgets.ws
 HEIGHT = 21
 
 CSS = """
-#fg { font-family: monospace; font-size: 9.5pt }
+#bg {
+	background-color: alpha(@bg_color, 0.75);
+}
+#fg {
+	background-color: alpha(@bg_color, 0.5);
+	font-family: monospace;
+	font-size: 9.5pt;
+}
+
+#fg > separator {
+	margin: 1em;
+	padding: 1em;
+	color:red;
+}
 """
 
 def left():

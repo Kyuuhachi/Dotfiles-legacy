@@ -1,5 +1,9 @@
 # Much is copied (but greatly changed) from tommikaikkonen/prettyprinter
-import wcwidth
+try:
+	import wcwidth
+except ImportError:
+	class wcwidth:
+		wcswidth = len
 
 from . import util
 from . import doc as d

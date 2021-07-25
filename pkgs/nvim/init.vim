@@ -55,6 +55,7 @@ let g:airline_powerline_fonts = 1
 let g:airline_inactive_collapse = 1
 let g:airline#parts#ffenc#skip_expected_string = 'utf-8[unix]'
 let g:airline#extensions#whitespace#checks = []
+let g:airline#extensions#scrollbar#enabled = 0 " WTF is this nonsense
 
 hi LongLine ctermbg=darkgray
 augroup LongLine
@@ -173,7 +174,7 @@ call add(g:polyglot_disabled, 'python-indent')
 let g:python_highlight_space_errors = 0
 let g:semshi#error_sign = v:false
 let g:ale_python_python_exec = 'python3'
-let g:ale_python_flake8_options = '--select=E112,E113,E251,E303,E304,E401,E502,E703,E711,E712,E713,E714,E901,E902,E999,W391,W6,F --extend-ignore=F402'
+let g:ale_python_flake8_options = '--select=E112,E113,E303,E304,E401,E502,E703,E711,E712,E713,E714,E901,E902,E999,W391,W6,F --extend-ignore=F402'
 let g:ale_python_flake8_change_directory = 0
 function! s:InitSemshi()
 	nmap <buffer> <silent> ,r :Semshi rename<CR>

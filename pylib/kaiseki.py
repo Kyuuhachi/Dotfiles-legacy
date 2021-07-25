@@ -1,5 +1,4 @@
 import numpy as np
-import dataclasses
 from dataclasses import dataclass, field
 from contextlib import contextmanager
 from os import isatty
@@ -30,6 +29,8 @@ class Reader:
 	errors: str = "strict"
 	i: int = 0
 
+	from dataclasses import replace
+
 	def __setitem__(self, n, v):
 		if isinstance(n, tuple):
 			assert len(v) == len(n)
@@ -49,6 +50,7 @@ class Reader:
 			elif n == 2: v2 = self.u2() if v >= 0 else self.i2()
 			elif n == 4: v2 = self.u4() if v >= 0 else self.i4()
 			elif n == 8: v2 = self.u8() if v >= 0 else self.i8()
+			elif v == 0: v2 = self[n]; v = bytes(n)
 			else: raise ValueError(n, int)
 
 		elif isinstance(v, float):
@@ -135,12 +137,12 @@ class Reader:
 		return B(v)
 
 	def at(self, i=None):
-		return dataclasses.replace(self, i=i if i is not None else self.i)
+		return self.replace(i=i if i is not None else self.i)
 
 	def sub(self, n):
 		dt = memoryview(self.dt)[self.i:self.i+n]
 		self.i += n
-		return dataclasses.replace(self, i=0, dt=dt)
+		return self.replace(i=0, dt=dt)
 
 	def u1(self): return self.byte()
 	def u2(self): return self.u1() | self.u1() <<  8
@@ -288,7 +290,7 @@ class Reader:
 			if encoding is not None:
 				format()
 				hl.append(escape.sub("\x1B[2m·\x1B[m", chunk.decode(encoding, errors="replace")))
-			elif j+1 not in mark:
+			elif j+1 not in mark and not gray:
 				hl.pop() # Trailing space
 			format()
 			print("".join(hl), file=file)
@@ -381,7 +383,7 @@ class CoverageReader(Reader):
 		return list((a, b) for a, b in uns if b - a >= minsize)
 
 	def unlink(self):
-		return dataclasses.replace(self, _ranges=[], _current=None, _offset=0)
+		return self.replace(_ranges=[], _current=None, _offset=0)
 
 	def sub(self, *a, **kw):
-		return dataclasses.replace(super().sub(*a, **kw), _offset=self._offset+self.i)
+		return super().sub(*a, **kw).replace(_offset=self._offset+self.i)

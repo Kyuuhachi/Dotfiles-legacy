@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "icebar"
 version = "1.0.0"
-description = "An i3bar lookalike, not bound to the limits of text"
+description = "An i3bar lookalike, unburdened by the limitations of text"
 authors = ["Kyuuhachi <caagr98@gmail.com>"]
 
 [tool.poetry.dependencies]
@@ -18,4 +18,3 @@ icebar = "icebar.bar:main"
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
-

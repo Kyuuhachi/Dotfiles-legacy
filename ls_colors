@@ -20,7 +20,7 @@ def 38;5;78  .csv .tsv
 def 38;5;246 .git .gitignore .gitattributes .gitmodules
 def 38;5;50  .sh .zsh
 def 38;5;41  .vim .py .rb .pl .lua .js .jsm .jsx
-def 38;5;79  .c .C .h .H .c++ .h++ .cpp .hpp
+def 38;5;79  .c .C .h .H .c++ .h++ .cpp .hpp .rs
 def 38;5;79  .hs .lhs .java .kt .cs
 def 38;5;168 .css .less .sass .scss
 def 38;5;242 .o .class .dex .hi .pyc .pyo

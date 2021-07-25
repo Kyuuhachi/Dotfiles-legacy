@@ -6,31 +6,22 @@ from .. import color as c
 def convert_str(ctx, value):
 	if value == "":
 		return c.STRING('""')
-	return _string(value, "")
+	return _string(value)
 
 printable_bytes = frozenset(range(32, 127)) | frozenset(b"\r\n\t")
+def printable(s):
+	return isinstance(s, str) or isinstance(s, bytes) and all(x in printable_bytes for x in s)
+
 @convert.register(bytes.__repr__)
 def convert_bytes(ctx, value):
-	def show(string):
-		o = []
-		delim = "'" if '"' in string and "'" not in string else '"'
-		for s in string:
-			esc = repr(s)[1:-1]
-			if s == "\u3000":
-				esc = s
-			if s == delim:
-				esc = "\\" + s
-			o.append(c.FAINT(esc) if esc != s else esc)
-		return c.STRING(d.Concat([delim] + o + [delim]))
-
 	if value == b"":
 		return c.STRING('b""')
 
 	if value == bytes(len(value)):
 		return convert.convert_call(ctx, bytes, len(value))
 
-	if all(x in printable_bytes for x in value):
-		return _string(value.decode("ascii"), "b")
+	if printable(value):
+		return _string(value)
 
 	def byte(b):
 		if b == 0:
@@ -40,10 +31,18 @@ def convert_bytes(ctx, value):
 		return f"{b:02X}"
 
 	bs = [byte(b) for b in value]
+	bs = ['"', *bs, '"']
 
-	return convert.convert_call_full(ctx, bytes.fromhex, [(None, d.Concat(bs))])
+	return convert.convert_call_full(ctx, bytes.fromhex, [(None, c.STRING(d.Concat(bs)))])
 
-def _string(value, prefix):
+def _string(value, *, raw=False):
+	assert printable(value)
+	if isinstance(value, bytes):
+		prefix = "b"
+		value = value.decode("ascii")
+	else:
+		prefix = ""
+
 	def show(string):
 		o = []
 		delim = "'" if '"' in string and "'" not in string else '"'
@@ -54,7 +53,7 @@ def _string(value, prefix):
 			if s == delim:
 				esc = "\\" + s
 			o.append(c.FAINT(esc) if esc != s else esc)
-		return c.STRING(d.Concat([prefix, delim] + o + [delim]))
+		return c.STRING(d.Concat([prefix, delim, *o, delim]))
 
 	inline = show(value)
 	block = []

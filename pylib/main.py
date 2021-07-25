@@ -34,8 +34,6 @@ try:
 except ImportError: pass
 else:
 	def run_trio(f, kwargs):
-		if "asks" in sys.modules:
-			sys.modules["asks"].init("trio")
 		return trio.run(f, **kwargs)
 	runners[trio] = run_trio
 

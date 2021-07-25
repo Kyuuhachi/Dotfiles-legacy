@@ -18,7 +18,7 @@ basic = {
 	"wa": "わ",                                       "wo": "を",
 	"ga": "が", "gi":  "ぎ", "gu":  "ぐ", "ge": "げ", "go": "ご",
 	"za": "ざ", "ji":  "じ", "zu":  "ず", "ze": "ぜ", "zo": "ぞ",
-	"da": "だ", "dji": "ぢ", "du":  "づ", "de": "で", "do": "ど",
+	"da": "だ", "dji": "ぢ", "dzu": "づ", "de": "で", "do": "ど",
 	"ba": "ば", "bi":  "び", "bu":  "ぶ", "be": "べ", "bo": "ぼ",
 	"pa": "ぱ", "pi":  "ぴ", "pu":  "ぷ", "pe": "ぺ", "po": "ぽ",
 
@@ -66,7 +66,7 @@ basic = {
 	"fe":  "ふぇ",
 	"fo":  "ふぉ",
 
-	"hu": "ふ", "tu": "つ", "si": "し",
+	"hu": "ふ", "tu": "つ", "si": "し", "du": "づ",
 	"ca": "ちゃ", "ci": "ち", "cu": "ちゅ", "ce": "ちぇ", "co": "ちょ",
 	"wi": "うぃ", "we": "うぇ",
 	"zwi": "ゐ", "zwe": "ゑ",
@@ -93,7 +93,9 @@ punctuation = {
 	"{{": "【", "}}": "】",
 
 	" ": "　", "-": "ー", ".": "。", ",": "、", "!": "！", "?": "？",
-	"%": "％", "~": "〜", "/": "／", "(": "（", ")": "）", "\"": "＂",
+	"%": "％", "~": "〜", "/": "／", "(": "（", ")": "）",
+	"=": "＝",
+
 	"<": "﹅", ">": "・", "_": "ー",
 	"..": "。", "...": "⋯",
 }
@@ -108,11 +110,11 @@ def toKatakana(text):
 
 def addKatakana(romkana):
 	for k, v in dict(romkana).items():
-		k2 = "".join(a.lower() if a.isupper() else a.upper() for a in k)
+		k2 = "".join(a.lower().replace('"', "'") if a.isupper() or a == '"' else a.upper().replace("'", '"') for a in k)
 		if k2 != k and k2 in romkana:
 			print(k2)
 		if k2 not in romkana:
-			romkana[k2] = [toKatakana(text).upper() for text in v]
+			romkana[k2] = [toKatakana(text).upper().replace("'", '"') for text in v]
 
 romkana = {}
 for t in ltsu:

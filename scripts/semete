@@ -35,7 +35,11 @@ with opentty() as tty:
 re_bold = re.compile("(?:(.)\x08\\1)+")
 re_ulin = re.compile("(?:_\x08.)+")
 
-winid = int(os.environ["WINDOWID"])
+try:
+	winid = int(os.environ["WINDOWID"])
+except Exception:
+	os.execvp("less", ["less"])
+	exit()
 display = Xlib.display.Display()
 win = display.create_resource_object("window", winid)
 

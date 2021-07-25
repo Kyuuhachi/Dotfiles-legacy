@@ -1,4 +1,12 @@
 #!/bin/zsh
+
+prompt_update_xprop() {
+	if (( ${+commands[xprop]} && ${+WINDOWID} && ${+DISPLAY} )); then
+		xprop -id "$WINDOWID" -f TERM_PID 32c -set TERM_PID "$$"
+		xprop -id "$WINDOWID" -f TERM_PWD 8u -set TERM_PWD "$PWD"
+	fi
+}
+
 CURRENT_BG="default"
 prompt_segment() { # bg color, fg color
 	local bg=$1 fg=$2
@@ -92,6 +100,7 @@ prompt_venv() {
 build_prompt() {
 	RETVAL=$?
 	RIGHT=0
+	prompt_update_xprop
 	prompt_status
 	prompt_venv
 	prompt_context

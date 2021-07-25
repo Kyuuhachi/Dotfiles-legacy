@@ -33,10 +33,15 @@
 ⊨	Entails
 ℓ	ell
 
+⊔	lub max
+⊓	glb min
+
 Þ	THORN
 þ	thorn
 Ð	ETH
 ð	eth
+Ƿ	WYNN
+ƿ	wynn
 ŋ	ng
 Ŋ	NG
 ı	inodot
@@ -267,9 +272,8 @@
 ϒ	upsih
 ϕ	straightphi
 ϖ	varpi
-Ϝ	Gammad
-ϝ	gammad
-ϝ	digamma
+Ϝ	Gammad Digamma
+ϝ	digamma digamma
 ϰ	varkappa
 ϱ	rhov
 ϱ	varrho

@@ -28,9 +28,9 @@ endfun
 function! FuzzyFiles()
 	call Run({
 	\	'source': 'zsh -c ' . shellescape(
-	\		 'if git rev-parse --is-inside-work-tree >/dev/null; then '
+	\		 'if git rev-parse --is-inside-work-tree >/dev/null && ! git check-ignore . >/dev/null ; then '
 	\		.'git ls-files --cached --others --exclude-standard; '
-	\		.'else find \( \! -name "." -name ".*" -prune \) -o -type f,l -print | tail -n+2 | cut -c3-; fi '
+	\		.'else find \( \! -name "." -name ".*" -prune \) -o -type f,l -print | cut -c3-; fi '
 	\		.'| cf'),
 	\	'options': [
 	\		'--tiebreak', 'length',

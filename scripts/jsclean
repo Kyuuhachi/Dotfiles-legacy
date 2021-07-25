@@ -24,8 +24,7 @@ for(const file of process.argv.slice(2)) {
 
 				let name = variable.name;
 				let n = variables[name] === undefined ? 0 : variables[name] + 1;
-				if(n != 0)
-					name += n;
+				name += n;
 				variables[variable.name] = n;
 
 				for(let def of variable.identifiers) def.name = name;
@@ -50,6 +49,7 @@ function doClean(ast) { // {{{
 		enter(node) {
 			switch(node.type) {
 				case "ForStatement":
+					// TODO do something about multiple declarations in for headers
 					if(node.init != null && node.init.type == "VariableDeclaration")
 						node.init._is_for = true;
 					break;
@@ -59,6 +59,19 @@ function doClean(ast) { // {{{
 						node.left._is_for = true;
 					break;
 			}
+
+			if(test(node, {
+				type: "ReturnStatement",
+				argument: { type: "UnaryExpression", operator: "void" },
+			})) return {
+					type: "BlockStatement",
+					_fake_block: true,
+					body: [
+						{type: "ExpressionStatement", expression: node.argument.argument},
+						{type: "ReturnStatement", argument: null},
+					]
+				};
+
 
 			switch(node.type) {
 				case "ExpressionStatement": return doReplace(node, "expression", 2);
@@ -81,15 +94,14 @@ function doClean(ast) { // {{{
 				argument: { type: "Literal", value: 1 },
 			})) return { type: "Literal", value: false, raw: "true" };
 
-			if(node.type == "VariableDeclaration" && !node._is_for) {
+			if(node.type == "VariableDeclaration" && !node._is_for)
 				return {
 					type: "BlockStatement",
 					_fake_block: true,
 					body: node.declarations.map(d => Object.assign({}, node, {declarations: [d]})),
 				};
-			}
 
-			if(node.type == "BlockStatement")
+			if(node.type == "BlockStatement" || node.type == "Program")
 				node.body = node.body.flatMap(n => n._fake_block ? n.body : [n]);
 
 			if(node.type == "SwitchCase")
@@ -103,6 +115,7 @@ function doClean(ast) { // {{{
 
 function doReplace(stmt, child, level) {
 	if(stmt[child] === null) return;
+
 	if(level >= 0 && stmt[child].type == "SequenceExpression") {
 		const newStmt = {
 			type: "BlockStatement",

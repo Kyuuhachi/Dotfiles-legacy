@@ -130,7 +130,3 @@ HIGHLIGHT=(
 typeset -gA FAST_HIGHLIGHT_STYLES
 FAST_HIGHLIGHT_STYLES+=(${(kv)HIGHLIGHT})
 FAST_HIGHLIGHT[chroma-man]=
-
-eval $(thefuck --alias f)
-
-if [ -e /home/yuki/.nix-profile/etc/profile.d/nix.sh ]; then . /home/yuki/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer

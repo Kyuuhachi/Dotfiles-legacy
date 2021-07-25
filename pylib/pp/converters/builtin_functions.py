@@ -83,6 +83,18 @@ def convert_method_wrapper(ctx, value):
 		" of ", convert.convert(ctx, value.__self__),
 	)
 
+# _sitebuiltins
+@convert.register(type(help).__repr__) # _sitebuiltins._Helper
+def convert_sitebuiltins_helper(ctx, value):
+	return convert.tagged(ctx, "function ", c.IDENTIFIER("help"), _signature(ctx, value))
+
+@convert.register(type(quit).__repr__) # _sitebuiltins._Quitter
+def convert_sitebuiltins_quitter(ctx, value):
+	return convert.tagged(ctx, "function ", c.IDENTIFIER(value.name), _signature(ctx, value))
+
+@convert.register(type(license).__repr__) # _sitebuiltins._Printer
+def convert_sitebuiltins_printer(ctx, value):
+	return convert.tagged(ctx, "function ", c.IDENTIFIER(value._Printer__name), _signature(ctx, value))
 
 def _signature(ctx, value):
 	try:

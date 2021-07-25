@@ -9,7 +9,7 @@ augroup C98Color
 augroup END
 
 " Text {{{1
-hi Normal                ctermfg=NONE  ctermbg=NONE cterm=NONE
+hi Normal                ctermfg=NONE ctermbg=NONE cterm=NONE
 
 hi Folded                ctermfg=003  ctermbg=000  cterm=NONE
 hi Conceal               ctermfg=NONE ctermbg=000  cterm=NONE
@@ -25,9 +25,9 @@ hi SpellLocal            ctermfg=NONE ctermbg=014  cterm=NONE
 hi SpellRare             ctermfg=NONE ctermbg=005  cterm=NONE
 
 hi DiffAdd               ctermfg=NONE ctermbg=022  cterm=NONE
-hi DiffChange            ctermfg=NONE ctermbg=005  cterm=NONE
+hi DiffText              ctermfg=NONE ctermbg=005  cterm=NONE
 hi DiffDelete            ctermfg=NONE ctermbg=052  cterm=NONE
-hi DiffText              ctermfg=NONE ctermbg=NONE cterm=NONE
+hi DiffChange            ctermfg=NONE ctermbg=NONE cterm=NONE
 hi link diffRemoved DiffDelete
 hi link diffAdded   DiffAdd
 
@@ -91,16 +91,16 @@ hi Error                 ctermfg=015  ctermbg=009  cterm=NONE
 hi Todo                  ctermfg=000  ctermbg=NONE cterm=BOLD
 
 " ALE {{{1
-hi ALEError              ctermfg=009               cterm=BOLD,ITALIC
-hi ALEErrorSign          ctermfg=009  ctermbg=000  cterm=BOLD
-hi ALEStyleError         ctermfg=009               cterm=ITALIC
-hi ALEStyleErrorSign     ctermfg=009  ctermbg=000  cterm=NONE
-hi ALEWarning            ctermfg=011               cterm=BOLD,ITALIC
-hi ALEWarningSign        ctermfg=011  ctermbg=000  cterm=BOLD
-hi ALEStyleWarning       ctermfg=011               cterm=ITALIC
-hi ALEStyleWarningSign   ctermfg=011  ctermbg=000  cterm=NONE
-hi ALEInfo               ctermfg=NONE              cterm=NONE
-hi ALEInfoSign           ctermfg=NONE ctermbg=000  cterm=NONE
+hi ALEError              guisp=#FF0000 cterm=undercurl
+hi ALEErrorSign          ctermfg=196   cterm=BOLD
+hi ALEStyleError         guisp=#AF0000 cterm=undercurl
+hi ALEStyleErrorSign     ctermfg=124   cterm=NONE
+hi ALEWarning            guisp=#FFFF00 cterm=undercurl
+hi ALEWarningSign        ctermfg=226   cterm=BOLD
+hi ALEStyleWarning       guisp=#AFAF00 cterm=undercurl
+hi ALEStyleWarningSign   ctermfg=142   cterm=NONE
+hi ALEInfo               guisp=#FFFFFF cterm=undercurl
+hi ALEInfoSign           ctermfg=NONE  cterm=NONE
 
 " Semshi {{{1
 hi semshiLocal           ctermfg=251

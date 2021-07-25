@@ -1,5 +1,8 @@
 from pathlib import Path
 
+# The reason there is a "def" prefix is so that vim's syntax highlighting will
+# work
+
 p = Path(__file__).parent / "ls_colors"
 for line in p.read_text().splitlines():
 	words = line.split("#")[0].split()
