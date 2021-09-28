@@ -1,0 +1,61 @@
+The valid directives are:
+
+Lines that start with `#` are comments
+
+manager:
+	manifest [file] :: ischrome
+		ischrome: true
+		includes another manifest file
+
+	component [id] [file]
+		id must be globally unique
+
+	contract [contract] [id]
+		id must be a registered component
+
+	category [category] [key] [value]
+
+registry:
+	content [package] [uri] :: ischrome, contentflags
+
+	locale [package] [provider] [uri] :: ischrome
+
+	skin [package] [provider] [uri] :: ischrome
+
+	override [chrome] [resolved] :: ischrome
+		On skin manifests (whatever that is), both URLs must be `chrome://*/skin/**`
+
+	resource [package] [uri] :: contentflags
+		Makes `resource://[package]/` point to [uri]
+		The packages `app`, `gre`, and `android` are illegal, but this protection only exists in debug builds
+		Multiple declarations overwrite each other without merging.
+		If pointing to another resource:// url, that url is resolved first. If that URL is remapped, this one is not updated.
+
+Each command can be followed by zero or more flags:
+	Filtering:
+		All defined types of filters must be defined.
+		If there are multiple of one kind of flag, they appear to be OR-ed together.
+		String (==, !=):
+			- application
+				Value is a UUID, inside {}
+			- os
+				Can also have the value `likeunix`, which matches unix, darwin, and android
+			- abi
+				Values are unknown
+			- process
+				`main` or `content`
+		Version (=, <=, <, >=, >):
+			These are never used in the base browser, so I don't know how they work in much detail.
+			- osversion
+			- appversion
+			- platformversion
+				Calld kGeckoVersion internally
+		Bool (empty, =[1ty] → true; =, =[0fn] → false): # = is undocumented
+			tablet (android only)
+
+	Flags:
+		Only applicable on `content` and `resource`
+		Folow the same syntax as bool filters, but false values are ignored
+		- contentaccessible
+		- remoteenabled
+		- remoterequired

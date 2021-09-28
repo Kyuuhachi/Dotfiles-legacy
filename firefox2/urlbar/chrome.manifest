@@ -1,0 +1,7 @@
+# Makes the urlbar not expand when focused
+# Makes the escape key unfocus the urlbar
+# Makes clicking the urlbar not select its contents (F6 still does)
+
+resource 98urlbar ./
+category author-style-sheets 98urlbar-unexpand resource://98urlbar/unexpand.css
+category user-modules        98urlbar-tweaks   resource://98urlbar/tweaks.jsm

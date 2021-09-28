@@ -1,0 +1,1 @@
+/home/yuki/uc.css.js/script/verticalTabsPane.uc.js

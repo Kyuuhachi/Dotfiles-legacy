@@ -1,0 +1,2 @@
+resource 98enko ./
+category user-modules 98enko resource://98enko/enko.user.jsm

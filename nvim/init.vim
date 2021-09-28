@@ -4,6 +4,7 @@ filetype off
 let g:python3_host_prog = '/usr/bin/python3'
 
 let s:dir = expand('<sfile>:p:h:h') . '/pkgs/nvim'
+echo s:dir
 
 function DoPlug()
 	call plug#begin('~/.cache/nvim')

@@ -24,11 +24,10 @@ for(const file of process.argv.slice(2)) {
 
 				let name = variable.name;
 				let n = variables[name] === undefined ? 0 : variables[name] + 1;
-				name += n;
-				variables[variable.name] = n;
+				variables[name] = n;
 
-				for(let def of variable.identifiers) def.name = name;
-				for(let ref of variable.references) ref.identifier.name = name;
+				for(let def of variable.identifiers) def.name = name + n;
+				for(let ref of variable.references) ref.identifier.name = name + n;
 			}
 		}
 	});

@@ -1,0 +1,30 @@
+#urlbar[breakout][breakout-extend] {
+	top: calc((var(--urlbar-toolbar-height) - var(--urlbar-height)) / 2);
+	left: 0;
+	width: 100%;
+}
+#urlbar[breakout][breakout-extend] > #urlbar-background {
+	animation-name: none;
+	box-shadow: none;
+}
+#urlbar[breakout][breakout-extend] > #urlbar-input-container {
+	height: var(--urlbar-height);
+	width: 100%;
+	padding-block: 0;
+	padding-inline: 0;
+	transition: none;
+}
+#urlbar[open] > .urlbarView {
+	margin-inline: 0;
+	width: 100%;
+	margin-block-start: 0;
+}
+#urlbar[open] > .urlbarView > .urlbarView-body-outer > .urlbarView-body-inner {
+	border: none;
+}
+.urlbarView-row, :root[uidensity=compact] .urlbarView-row {
+	padding-block: 0;
+}
+.urlbarView-row-inner {
+	border-radius: 0;
+}

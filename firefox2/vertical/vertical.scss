@@ -1,0 +1,131 @@
+#vertical-tabs-widget {
+	list-style-image: url("chrome://devtools/skin/images/command-frames.svg");
+	fill-opacity: 0.0;
+	&[positionstart="true"] .toolbarbutton-icon {
+		transform: scaleX(-1);
+	}
+}
+
+#vertical-tabs-new-tab-button {
+    list-style-image: url("chrome://global/skin/icons/add.svg");
+}
+
+#vertical-tabs-button-row {
+	padding: 2px;
+}
+
+#vertical-tabs-pane toolbarseparator {
+	appearance: none;
+	min-height: 0;
+	border-top: 1px solid var(--panel-separator-color);
+	border-bottom: none;
+	padding: 0;
+}
+
+#vertical-tabs-pane toolbartabstop {
+	-moz-user-focus: normal;
+}
+
+#vertical-tabs-pane[brighttext] {
+	@media (prefers-reduced-motion: no-preference) {
+		.tab-throbber:not([selected=true]) {
+			&[busy]::before {
+				fill: #717171;
+				opacity: 1;
+			}
+			&[progress]::before {
+				fill: #84c1ff;
+			}
+		}
+	}
+
+	.tabbrowser-tab:hover > .tab-stack > .tab-background {
+		&:not([selected=true], [multiselected]) {
+			background-color: rgba(255,255,255,.1);
+		}
+		> .tab-line:not([selected=true], [multiselected]) {
+			background-color: rgba(255,255,255,.2);
+		}
+	}
+}
+
+
+#vertical-tabs-scrollbox {
+	min-width: calc(2 * (2px + var(--toolbarbutton-outer-padding) + var(--toolbarbutton-inner-padding)) + 16px);
+
+	--tabs-border-color: rgba(0,0,0,.3);
+	--tab-line-color: -moz-accent-color;
+
+	.tabbrowser-tab {
+		-moz-box-flex: 0;
+		min-height: var(--tab-min-height);
+		max-width: unset;
+
+		// By default this only applies to non-pinned tabs
+		.tab-icon-stack > * {
+			margin-inline-end: 6px;
+		}
+		// Show fallback favicon even if there is none
+		.tab-icon-image {
+			display: -moz-box;
+		}
+	}
+
+	// Scroll buttons
+	&::part(scrollbutton-up),
+	&::part(scrollbutton-down) {
+		appearance: none;
+		padding: var(--toolbarbutton-inner-padding) 0 !important;
+		margin: 0 0 var(--tabs-navbar-shadow-size) !important;
+	}
+
+	&:not([scrolledtostart=true])::part(scrollbutton-up):hover,
+	&:not([scrolledtoend=true])::part(scrollbutton-down):hover {
+		background-color: var(--toolbarbutton-hover-background);
+		color: inherit;
+	}
+
+	&:not([scrolledtostart])::part(overflow-start-indicator),
+	&:not([scrolledtoend])::part(overflow-end-indicator) {
+		background-repeat: no-repeat;
+		background-position: -3px;
+		pointer-events: none;
+		position: relative;
+		z-index: 3; /* the selected tab's z-index + 1 */
+
+		height: 18px;
+		background-image: url(chrome://browser/skin/tabbrowser/tab-overflow-indicator.png);
+		background-size: 100% 17px;
+		border-bottom: 1px solid;
+		border-image: linear-gradient(
+			to right,
+			rgba(255,255,255,.2),
+			rgba(255,255,255,.2) calc(100% - 1px - var(--tabs-navbar-shadow-size)),
+			transparent          calc(100% - 1px - var(--tabs-navbar-shadow-size))
+		);
+		border-image-slice: 1;
+	}
+
+	&:-moz-locale-dir(ltr)::part(overflow-start-indicator),
+	&:-moz-locale-dir(rtl)::part(overflow-end-indicator) {
+		transform: scaleY(-1);
+	}
+
+	&:not([scrolledtostart])::part(overflow-start-indicator) {
+		margin-block: -1px -17px;
+	}
+
+	&:not([scrolledtoend])::part(overflow-end-indicator) {
+		margin-block: -17px -1px;
+	}
+
+	&[scrolledtostart]::part(overflow-start-indicator),
+	&[scrolledtoend]::part(overflow-end-indicator) {
+		opacity: 0;
+	}
+
+	&::part(overflow-start-indicator),
+	&::part(overflow-end-indicator) {
+		transition: opacity 150ms ease;
+	}
+}

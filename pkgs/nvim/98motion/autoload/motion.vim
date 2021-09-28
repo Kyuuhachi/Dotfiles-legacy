@@ -69,8 +69,8 @@ func motion#find_indent(start, end)
 	endif
 
 	return ['V',
-\		[bufnr(), sline, 0],
-\		[bufnr(), eline, s:EMPTY]
+\		[bufnr(), eline, s:EMPTY],
+\		[bufnr(), sline, 0]
 \	]
 endfun
 

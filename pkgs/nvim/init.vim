@@ -176,6 +176,7 @@ let g:semshi#error_sign = v:false
 let g:ale_python_python_exec = 'python3'
 let g:ale_python_flake8_options = '--select=E112,E113,E303,E304,E401,E502,E703,E711,E712,E713,E714,E901,E902,E999,W391,W6,F --extend-ignore=F402'
 let g:ale_python_flake8_change_directory = 0
+let g:ale_python_auto_poetry = 1
 function! s:InitSemshi()
 	nmap <buffer> <silent> ,r :Semshi rename<CR>
 

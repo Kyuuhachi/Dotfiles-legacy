@@ -1,0 +1,13 @@
+manifest urlbar/chrome.manifest
+# manifest vertical/chrome.manifest
+
+manifest enko/chrome.manifest
+
+resource user ./
+
+category user-modules 98first-window resource://user/first-window.jsm
+category user-scripts 98findbar resource://user/findbar.js
+
+category user-scripts browser-development-helpers resource://user/browser-development-helpers.js
+
+category user-scripts 98view-image resource://user/view-image.js

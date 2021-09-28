@@ -38,11 +38,7 @@ def convert_builtin_function(ctx, value):
 def convert_method_descriptor(ctx, value):
 	return convert.tagged(ctx,
 		"method descriptor ",
-		c.IDENTIFIER(
-			convert.moduleprefix(ctx, value.__objclass__)
-			+ value.__objclass__.__qualname__
-			+ "." + value.__name__
-		),
+		_name(ctx, value),
 		_signature(ctx, value),
 	)
 
@@ -50,11 +46,7 @@ def convert_method_descriptor(ctx, value):
 def convert_classmethod_descriptor(ctx, value):
 	return convert.tagged(ctx,
 		"class method descriptor ",
-		c.IDENTIFIER(
-			convert.moduleprefix(ctx, value.__objclass__)
-			+ value.__objclass__.__qualname__
-			+ "." + value.__name__
-		),
+		_name(ctx, value),
 		_signature(ctx, value),
 	)
 
@@ -62,23 +54,22 @@ def convert_classmethod_descriptor(ctx, value):
 def convert_wrapper_descriptor(ctx, value):
 	return convert.tagged(ctx,
 		"wrapper descriptor ",
-		c.IDENTIFIER(
-			convert.moduleprefix(ctx, value.__objclass__)
-			+ value.__objclass__.__qualname__
-			+ "." + value.__name__
-		),
+		_name(ctx, value),
 		_signature(ctx, value),
+	)
+
+@convert.register(types.GetSetDescriptorType.__repr__)
+def convert_getset_descriptor(ctx, value):
+	return convert.tagged(ctx,
+		"attribute ",
+		_name(ctx, value),
 	)
 
 @convert.register(types.MethodWrapperType.__repr__)
 def convert_method_wrapper(ctx, value):
 	return convert.tagged(ctx,
 		"method wrapper ",
-		c.IDENTIFIER(
-			convert.moduleprefix(ctx, value.__objclass__)
-			+ value.__objclass__.__qualname__
-			+ "." + value.__name__
-		),
+		_name(ctx, value),
 		_signature(ctx, value),
 		" of ", convert.convert(ctx, value.__self__),
 	)
@@ -95,6 +86,14 @@ def convert_sitebuiltins_quitter(ctx, value):
 @convert.register(type(license).__repr__) # _sitebuiltins._Printer
 def convert_sitebuiltins_printer(ctx, value):
 	return convert.tagged(ctx, "function ", c.IDENTIFIER(value._Printer__name), _signature(ctx, value))
+
+def _name(ctx, value):
+	return c.IDENTIFIER(
+		convert.moduleprefix(ctx, value.__objclass__)
+		+ value.__objclass__.__qualname__
+		+ "." + value.__name__
+	)
+...
 
 def _signature(ctx, value):
 	try:

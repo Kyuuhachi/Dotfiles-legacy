@@ -1,0 +1,5 @@
+resource 98vertical ./
+category author-style-sheets 98vertical resource://98vertical/vertical.css
+category user-scripts        98vertical resource://98vertical/vertical.js
+category user-scripts        98vertical-vtab resource://98vertical/vtab.js
+locale 98vertical en-US en-US/

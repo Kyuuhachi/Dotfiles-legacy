@@ -1,6 +1,5 @@
 import functools
-from . import doc as d
-from . import color as c
+from . import doc as d, color as c
 
 converters = []
 def register(what, prio=0):
@@ -59,7 +58,7 @@ def convert_call(ctx, func, /, *args, **kwargs):
 	return convert_call_full(ctx, func, [(None, convert(ctx, v)) for v in args] + [(k, convert(ctx, v)) for k, v in kwargs.items()])
 
 def convert_call_full(ctx, func, args):
-	if not isinstance(func, d.Doc):
+	if not isinstance(func, (d.Doc, str)):
 		func = identifier(ctx, func)
 	items = []
 	for i, (k, v) in enumerate(args):
@@ -89,7 +88,7 @@ def bracket(ctx, start, items, end, trailing=False, prio=1):
 	)
 
 def identifier(ctx, what):
-	if id(what) in ctx.scope.ids:
+	if ctx.scope.ids.get(id(what)) not in [None, "cls"]:
 		name = ctx.scope.ids[id(what)]
 	else:
 		name = what.__qualname__
